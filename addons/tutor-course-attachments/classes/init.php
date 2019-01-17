@@ -14,6 +14,9 @@ class init{
 	public $course_attachments;
 
 	function __construct() {
+		if ( ! function_exists('tutor')){
+			return;
+		}
 		$this->path = plugin_dir_path(TUTOR_CA_FILE);
 		$this->url = plugin_dir_url(TUTOR_CA_FILE);
 		$this->basename = plugin_basename(TUTOR_CA_FILE);

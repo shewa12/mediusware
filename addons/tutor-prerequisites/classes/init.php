@@ -14,6 +14,9 @@ class init{
 	public $prerequisites;
 
 	function __construct() {
+		if ( ! function_exists('tutor')){
+			return;
+		}
 		$this->path = plugin_dir_path(TUTOR_PREREQUISITES_FILE);
 		$this->url = plugin_dir_url(TUTOR_PREREQUISITES_FILE);
 		$this->basename = plugin_basename(TUTOR_PREREQUISITES_FILE);

@@ -14,6 +14,9 @@ class init{
 	public $multi_instructors;
 
 	function __construct() {
+		if ( ! function_exists('tutor')){
+			return;
+		}
 		$this->path = plugin_dir_path(TUTOR_MT_FILE);
 		$this->url = plugin_dir_url(TUTOR_MT_FILE);
 		$this->basename = plugin_basename(TUTOR_MT_FILE);
