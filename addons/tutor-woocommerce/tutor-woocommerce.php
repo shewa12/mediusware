@@ -21,6 +21,20 @@ if ( ! defined( 'ABSPATH' ) )
 define('TUTOR_WC_VERSION', '1.0.0');
 define('TUTOR_WC_FILE', __FILE__);
 
+/**
+ * Showing config for addons central lists
+ */
+add_filter('tutor_addons_lists_config', 'tutor_woocommerce_config');
+function tutor_woocommerce_config($config){
+	$newConfig = array(
+		'name'          => __('Tutor WooCommerce', 'tutor-woocommerce'),
+		'version'       => TUTOR_WC_VERSION,
+		'description'   => 'Tutor WooCommerce help to you to sell the course in smart way',
+	);
+	$config[plugin_basename( TUTOR_WC_FILE )] = $newConfig;
+	return $config;
+}
+
 if ( ! function_exists('tutor_wc')) {
 	function tutor_wc() {
 		$info = array(

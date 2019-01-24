@@ -20,6 +20,21 @@ if ( ! defined( 'ABSPATH' ) )
 define('TUTOR_CERT_VERSION', '1.0.0');
 define('TUTOR_CERT_FILE', __FILE__);
 
+/**
+ * Showing config for addons central lists
+ */
+add_filter('tutor_addons_lists_config', 'tutor_certificate_config');
+function tutor_certificate_config($config){
+	$newConfig = array(
+		'name'          => __('Tutor Certificate', 'tutor-certificate'),
+		'version'       => TUTOR_CERT_VERSION,
+		'description'   => 'Student will able to download certificate of completed course',
+	);
+
+	$config[plugin_basename( TUTOR_CERT_FILE )] = $newConfig;
+	return $config;
+}
+
 if ( ! function_exists('TUTOR_CERT')) {
 	function TUTOR_CERT() {
 		$info = array(
@@ -30,7 +45,6 @@ if ( ! function_exists('TUTOR_CERT')) {
 			'nonce_action'      => 'tutor_nonce_action',
 			'nonce'             => '_wpnonce',
 		);
-
 		return (object) $info;
 	}
 }

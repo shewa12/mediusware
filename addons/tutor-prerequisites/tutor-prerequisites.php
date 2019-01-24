@@ -20,6 +20,20 @@ if ( ! defined( 'ABSPATH' ) )
 define('TUTOR_PREREQUISITES_VERSION', '1.0.0');
 define('TUTOR_PREREQUISITES_FILE', __FILE__);
 
+/**
+ * Showing config for addons central lists
+ */
+add_filter('tutor_addons_lists_config', 'tutor_prerequisites_config');
+function tutor_prerequisites_config($config){
+	$newConfig = array(
+		'name'          => __('Tutor Prerequisites', 'tutor-prerequisites'),
+		'version'       => TUTOR_PREREQUISITES_VERSION,
+		'description'   => 'Specific course you must complete before you can enroll new course by Tutor Prerequisites',
+	);
+	$config[plugin_basename( TUTOR_PREREQUISITES_FILE )] = $newConfig;
+	return $config;
+}
+
 if ( ! function_exists('TUTOR_PREREQUISITES')) {
 	function TUTOR_PREREQUISITES() {
 		$info = array(

@@ -20,6 +20,21 @@ if ( ! defined( 'ABSPATH' ) )
 define('TUTOR_CA_VERSION', '1.0.0');
 define('TUTOR_CA_FILE', __FILE__);
 
+/**
+ * Showing config for addons central lists
+ */
+add_filter('tutor_addons_lists_config', 'tutor_course_attachments_config');
+function tutor_course_attachments_config($config){
+	$newConfig = array(
+		'name'          => __('Tutor Course Attachments', 'tutor-course-attachments'),
+		'version'       => TUTOR_CA_VERSION,
+		'description'   => 'Add unlimited attachments/ private files to any Tutor course',
+	);
+
+	$config[plugin_basename( TUTOR_CA_FILE )] = $newConfig;
+	return $config;
+}
+
 if ( ! function_exists('TUTOR_CA')) {
 	function TUTOR_CA() {
 		$info = array(

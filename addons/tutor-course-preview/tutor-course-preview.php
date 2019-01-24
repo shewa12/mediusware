@@ -2,7 +2,7 @@
 /*
 Plugin Name: Tutor Course Preview
 Plugin URI: https://www.themeum.com/product/tutor-course-preview
-Description: Add unlimited preview/ private files to any Tutor course
+Description: Open some lesson to check course overview for guest
 Author: Themeum
 Version: 1.0.0
 Author URI: http://themeum.com
@@ -19,6 +19,21 @@ if ( ! defined( 'ABSPATH' ) )
  */
 define('TUTOR_CP_VERSION', '1.0.0');
 define('TUTOR_CP_FILE', __FILE__);
+
+/**
+ * Showing config for addons central lists
+ */
+add_filter('tutor_addons_lists_config', 'tutor_course_preview_config');
+function tutor_course_preview_config($config){
+	$newConfig = array(
+		'name'          => __('Tutor Course Preview', 'tutor-course-preview'),
+		'version'       => TUTOR_CP_VERSION,
+		'description'   => 'Open some lesson to check course overview for guest',
+	);
+
+	$config[plugin_basename( TUTOR_CP_FILE )] = $newConfig;
+	return $config;
+}
 
 if ( ! function_exists('TUTOR_CP')) {
 	function TUTOR_CP() {

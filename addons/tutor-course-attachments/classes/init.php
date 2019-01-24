@@ -17,6 +17,12 @@ class init{
 		if ( ! function_exists('tutor')){
 			return;
 		}
+		$addonConfig = tutor_utils()->get_addon_config(TUTOR_CA()->basename);
+		$isEnable = (bool) tutor_utils()->avalue_dot('is_enable', $addonConfig);
+		if ( ! $isEnable){
+			return;
+		}
+
 		$this->path = plugin_dir_path(TUTOR_CA_FILE);
 		$this->url = plugin_dir_url(TUTOR_CA_FILE);
 		$this->basename = plugin_basename(TUTOR_CA_FILE);

@@ -20,6 +20,21 @@ if ( ! defined( 'ABSPATH' ) )
 define('TUTOR_EMAIL_VERSION', '1.0.0');
 define('TUTOR_EMAIL_FILE', __FILE__);
 
+/**
+ * Showing config for addons central lists
+ */
+add_filter('tutor_addons_lists_config', 'tutor_email_config');
+function tutor_email_config($config){
+	$newConfig = array(
+		'name'          => __('Tutor E-Mail', 'tutor-email'),
+		'version'       => TUTOR_EMAIL_VERSION,
+		'description'   => 'Send email on various tutor events',
+	);
+
+	$config[plugin_basename( TUTOR_EMAIL_FILE )] = $newConfig;
+	return $config;
+}
+
 if ( ! function_exists('TUTOR_EMAIL')) {
 	function TUTOR_EMAIL() {
 		$info = array(

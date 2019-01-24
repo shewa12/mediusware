@@ -20,6 +20,20 @@ if ( ! defined( 'ABSPATH' ) )
 define('TUTOR_MT_VERSION', '1.0.0');
 define('TUTOR_MT_FILE', __FILE__);
 
+/**
+ * Showing config for addons central lists
+ */
+add_filter('tutor_addons_lists_config', 'tutor_multi_instructors_config');
+function tutor_multi_instructors_config($config){
+	$newConfig = array(
+		'name'          => __('Tutor Multi Instructors', 'tutor-multi-instructors'),
+		'version'       => TUTOR_MT_VERSION,
+		'description'   => 'Start a course with multiple instructors by Tutor Multi Instructors',
+	);
+	$config[plugin_basename( TUTOR_MT_FILE )] = $newConfig;
+	return $config;
+}
+
 if ( ! function_exists('TUTOR_MT')) {
 	function TUTOR_MT() {
 		$info = array(

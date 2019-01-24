@@ -14,6 +14,15 @@ class init{
 	public $certificate;
 
 	function __construct() {
+		if ( ! function_exists('tutor')){
+			return;
+		}
+		$addonConfig = tutor_utils()->get_addon_config(TUTOR_CERT()->basename);
+		$isEnable = (bool) tutor_utils()->avalue_dot('is_enable', $addonConfig);
+		if ( ! $isEnable){
+			return;
+		}
+
 		$this->path = plugin_dir_path(TUTOR_CERT_FILE);
 		$this->url = plugin_dir_url(TUTOR_CERT_FILE);
 		$this->basename = plugin_basename(TUTOR_CERT_FILE);

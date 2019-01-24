@@ -20,6 +20,20 @@ if ( ! defined( 'ABSPATH' ) )
 define('TUTOR_REPORT_VERSION', '1.0.0');
 define('TUTOR_REPORT_FILE', __FILE__);
 
+/**
+ * Showing config for addons central lists
+ */
+add_filter('tutor_addons_lists_config', 'tutor_report_config');
+function tutor_report_config($config){
+	$newConfig = array(
+		'name'          => __('Tutor Report', 'tutor-report'),
+		'version'       => TUTOR_REPORT_VERSION,
+		'description'   => 'Check your tutor assets performance through tutor report',
+	);
+	$config[plugin_basename( TUTOR_REPORT_FILE )] = $newConfig;
+	return $config;
+}
+
 if ( ! function_exists('TUTOR_REPORT')) {
 	function TUTOR_REPORT() {
 		$info = array(

@@ -30,7 +30,7 @@ class Report extends Tutor_Base {
 		/**
 		 * Scripts
 		 */
-		if ($page === 'tutor_page_tutor_report') {
+		if ($page === 'tutor-lms_page_tutor_report') {
 			wp_enqueue_script( 'tutor-cahrt-js', TUTOR_REPORT()->url . 'assets/js/Chart.bundle.min.js', array(), TUTOR_REPORT()->version );
 			wp_enqueue_script('jquery-ui-datepicker');
 			wp_enqueue_script( 'tutor-report', TUTOR_REPORT()->url . 'assets/js/report.js', array( 'tutor-admin' ), TUTOR_REPORT()->version, true );

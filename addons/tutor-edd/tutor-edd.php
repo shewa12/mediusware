@@ -20,6 +20,21 @@ if ( ! defined( 'ABSPATH' ) )
 define('TUTOR_EDD_VERSION', '1.0.0');
 define('TUTOR_EDD_FILE', __FILE__);
 
+/**
+ * Showing config for addons central lists
+ */
+add_filter('tutor_addons_lists_config', 'tutor_edd_config');
+function tutor_edd_config($config){
+	$newConfig = array(
+		'name'          => __('Tutor EDD', 'tutor-edd'),
+		'version'       => TUTOR_EDD_VERSION,
+		'description'   => 'Sell your course by EDD',
+	);
+
+	$config[plugin_basename( TUTOR_EDD_FILE )] = $newConfig;
+	return $config;
+}
+
 if ( ! function_exists('TUTOR_EDD')) {
 	function TUTOR_EDD() {
 		$info = array(
