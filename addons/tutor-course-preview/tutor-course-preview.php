@@ -27,9 +27,10 @@ add_filter('tutor_addons_lists_config', 'tutor_course_preview_config');
 function tutor_course_preview_config($config){
 	$newConfig = array(
 		'name'          => __('Tutor Course Preview', 'tutor-course-preview'),
-		'version'       => TUTOR_CP_VERSION,
 		'description'   => 'Open some lesson to check course overview for guest',
 	);
+	$basicConfig = (array) TUTOR_CP();
+	$newConfig = array_merge($newConfig, $basicConfig);
 
 	$config[plugin_basename( TUTOR_CP_FILE )] = $newConfig;
 	return $config;

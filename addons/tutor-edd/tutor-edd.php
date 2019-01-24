@@ -27,9 +27,10 @@ add_filter('tutor_addons_lists_config', 'tutor_edd_config');
 function tutor_edd_config($config){
 	$newConfig = array(
 		'name'          => __('Tutor EDD', 'tutor-edd'),
-		'version'       => TUTOR_EDD_VERSION,
 		'description'   => 'Sell your course by EDD',
 	);
+	$basicConfig = (array) TUTOR_EDD();
+	$newConfig = array_merge($newConfig, $basicConfig);
 
 	$config[plugin_basename( TUTOR_EDD_FILE )] = $newConfig;
 	return $config;

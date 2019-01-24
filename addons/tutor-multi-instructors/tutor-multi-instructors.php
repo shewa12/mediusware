@@ -27,9 +27,11 @@ add_filter('tutor_addons_lists_config', 'tutor_multi_instructors_config');
 function tutor_multi_instructors_config($config){
 	$newConfig = array(
 		'name'          => __('Tutor Multi Instructors', 'tutor-multi-instructors'),
-		'version'       => TUTOR_MT_VERSION,
 		'description'   => 'Start a course with multiple instructors by Tutor Multi Instructors',
 	);
+	$basicConfig = (array) TUTOR_MT();
+	$newConfig = array_merge($newConfig, $basicConfig);
+
 	$config[plugin_basename( TUTOR_MT_FILE )] = $newConfig;
 	return $config;
 }
