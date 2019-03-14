@@ -38,7 +38,7 @@ class init{
 		spl_autoload_register(array($this, 'loader'));
 		$this->course_attachments = new CourseAttachments();
 
-		add_filter('tutor/options/attr', array($this, 'add_options'));
+		//add_filter('tutor/options/attr', array($this, 'add_options'));
 	}
 
 	/**

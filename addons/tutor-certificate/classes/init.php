@@ -89,11 +89,13 @@ class init{
 					'label' => __('General', 'tutor-certificate'),
 					'desc' => __('Tutor Certificate', 'tutor-certificate'),
 					'fields' => array(
+						/*
 						'enable_course_certificate' => array(
 							'type'      => 'checkbox',
 							'label'     => __('Enable Tutor Certificate', 'tutor-certificate'),
 							'desc'      => __('By integrating Tutor Certificate, student will be able to download the certificate',	'tutor-certificate'),
 						),
+						*/
 						'tutor_cert_authorised_name' => array(
 							'type'      => 'text',
 							'label'     => __('Authorised Name', 'tutor-certificate'),

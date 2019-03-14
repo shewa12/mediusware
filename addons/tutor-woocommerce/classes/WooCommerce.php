@@ -45,10 +45,11 @@ class WooCommerce extends Tutor_Base {
 		if ( ! tutor_utils()->has_wc()){
 			return false;
 		}
+		/*
 		$course_sell = tutor_utils()->get_option('enable_course_sell_by_woocommerce');
 		if ( ! $course_sell){
 			return false;
-		}
+		}*/
 
 		$course_id = tutor_utils()->get_post_id($course_id);
 		$has_product_id = get_post_meta($course_id, '_tutor_course_product_id', true);

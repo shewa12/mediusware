@@ -38,7 +38,7 @@ class init{
 		spl_autoload_register(array($this, 'loader'));
 		$this->report = new Report();
 
-		add_filter('tutor/options/attr', array($this, 'add_options'));
+		//add_filter('tutor/options/attr', array($this, 'add_options'));
 	}
 
 	/**

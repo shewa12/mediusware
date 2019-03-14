@@ -13,10 +13,7 @@ class Certificate{
 		if ( ! function_exists('tutor_utils')){
 			return;
 		}
-		$isEnable = tutor_utils()->get_option('enable_course_certificate');
-		if ( ! $isEnable){
-			return;
-		}
+
 		add_action('tutor_enrolled_box_after', array($this, 'lesson_page_action_menu_after'));
 		$this->create_certificate();
 	}

@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Tutor Pro
+Plugin Name: Tutor LMS Pro
 Plugin URI: https://themeum.com/tutor-pro
 Description: Power up Tutor LMS plugins by Tutor Pro
 Author: Themeum
