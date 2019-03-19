@@ -1,0 +1,17 @@
+.certificate-templates-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+.certificate-template {
+    max-width: 150px;
+    padding: 5px;
+    margin: 3px;
+}
+.certificate-template.selected-template, .certificate-template:hover {
+    background: #3057D6;
+}
+.certificate-template img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+}

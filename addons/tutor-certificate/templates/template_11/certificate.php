@@ -8,10 +8,6 @@
 <body>
 
 <div class="certificate-wrap">
-    <div class="certificate-topheading">
-        <h1>VERIFIED</h1>
-        <h4>Certificate of Achievement</h4>
-    </div>
 
     <div class="certificate-content">
 		<?php

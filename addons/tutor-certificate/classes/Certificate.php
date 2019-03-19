@@ -9,12 +9,14 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 
 class Certificate{
+	private $template;
 	public function __construct() {
 		if ( ! function_exists('tutor_utils')){
 			return;
 		}
+		add_action('tutor_options_before_tutor_certificate', array($this, 'generate_options'));
 
-		add_action('tutor_enrolled_box_after', array($this, 'lesson_page_action_menu_after'));
+		add_action('tutor_enrolled_box_after', array($this, 'certificate_download_btn'));
 		$this->create_certificate();
 	}
 
@@ -23,6 +25,14 @@ class Certificate{
 		if ($download_action !== 'download_course_certificate' || ! is_user_logged_in()){
 			return;
 		}
+
+		//Get the selected template
+		$templates = $this->templates();
+		$template = tutor_utils()->get_option('certificate_template');
+		if ( ! $template){
+			$template = 'default';
+		}
+		$this->template = tutor_utils()->avalue_dot($template, $templates);
 
 		$course_id = (int) sanitize_text_field(tutor_utils()->avalue_dot('course_id', $_GET));
 		$is_enrolled = tutor_utils()->is_enrolled($course_id);
@@ -39,14 +49,14 @@ class Certificate{
 	}
 
 	public function generat_certificate($course_id, $debug = false){
-		$duration        = get_post_meta( $course_id, '_course_duration', true );
-		$durationHours   = (int) tutor_utils()->avalue_dot( 'hours', $duration );
-		$durationMinutes = (int) tutor_utils()->avalue_dot( 'minutes', $duration );
-		$course = get_post($course_id);
-		$completed = tutor_utils()->is_completed_course($course_id);
+		$duration           = get_post_meta( $course_id, '_course_duration', true );
+		$durationHours      = (int) tutor_utils()->avalue_dot( 'hours', $duration );
+		$durationMinutes    = (int) tutor_utils()->avalue_dot( 'minutes', $duration );
+		$course             = get_post($course_id);
+		$completed          = tutor_utils()->is_completed_course($course_id);
 
 		ob_start();
-		include TUTOR_CERT()->path.'views/certificate.php';
+		include $this->template['path'].'certificate.php';
 		$content = ob_get_clean();
 
 		if ($debug){
@@ -75,13 +85,14 @@ class Certificate{
 		$dompdf->loadHtml($certificate_content);
 
 		//Setting Paper
-		$dompdf->setPaper('A4', 'landscape');
+		$dompdf->setPaper('A4', $this->template['orientation']);
 		$dompdf->render();
 		$dompdf->stream('certificate'.time().'.pdf');
 	}
 
 	public function pdf_style() {
-		$css = TUTOR_CERT()->path.'assets/css/pdf.css';
+		//$css = TUTOR_CERT()->path.'assets/css/pdf.css';
+		$css = $this->template['path'].'pdf.css';
 
 		ob_start();
 		if (file_exists($css)) {
@@ -93,11 +104,56 @@ class Certificate{
 		echo $css;
 	}
 
-	public function lesson_page_action_menu_after(){
+	public function certificate_download_btn(){
+		$course_id = get_the_ID();
+		$is_completed = tutor_utils()->is_completed_course($course_id);
+		if ( ! $is_completed){
+			return;
+		}
+
+
 		ob_start();
 		include TUTOR_CERT()->path.'views/lesson-menu-after.php';
 		$content = ob_get_clean();
 
 		echo $content;
 	}
+
+	public function generate_options(){
+		$templates = $this->templates();
+
+		ob_start();
+		include TUTOR_CERT()->path.'views/template_options.php';
+		$content = ob_get_clean();
+
+		echo $content;
+
+	}
+
+
+	public function templates(){
+		$templates = array(
+			'default'       => array('name' => 'Default', 'orientation' => 'landscape'),
+			'template_1'    => array('name' => 'Abstract Landscape', 'orientation' => 'landscape'),
+			'template_2'    => array('name' => 'Abstract Portrait', 'orientation' => 'portrait'),
+			'template_3'    => array('name' => 'Decorative Landscape', 'orientation' => 'landscape'),
+			'template_4'    => array('name' => 'Decorative Portrait', 'orientation' => 'portrait'),
+			'template_5'    => array('name' => 'Geometric Landscape', 'orientation' => 'landscape'),
+			'template_6'    => array('name' => 'Geometric Portrait', 'orientation' => 'portrait'),
+			'template_7'    => array('name' => 'Minimal Landscape', 'orientation' => 'landscape'),
+			'template_8'    => array('name' => 'Minimal Portrait', 'orientation' => 'portrait'),
+			'template_9'    => array('name' => 'Floating Landscape', 'orientation' => 'landscape'),
+			'template_10'   => array('name' => 'Floating Portrait', 'orientation' => 'portrait'),
+			'template_11'   => array('name' => 'Stripe Landscape', 'orientation' => 'landscape'),
+			'template_12'   => array('name' => 'Stripe Portrait', 'orientation' => 'portrait'),
+		);
+		foreach ($templates as $key => $template){
+			$templates[$key]['path'] = trailingslashit(TUTOR_CERT()->path.'templates/'.$key);
+			$templates[$key]['url'] = trailingslashit(TUTOR_CERT()->url.'templates/'.$key);
+		}
+
+		return apply_filters('tutor_certificate_templates', $templates);
+	}
+
+
 }

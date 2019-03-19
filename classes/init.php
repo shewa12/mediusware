@@ -10,6 +10,8 @@ class init{
 	public $url;
 	public $basename;
 
+	private $assets;
+
 	//Components
 
 	function __construct() {
@@ -17,7 +19,7 @@ class init{
 		$this->path = plugin_dir_path(TUTOR_PRO_FILE);
 		$this->url = plugin_dir_url(TUTOR_PRO_FILE);
 		$this->basename = plugin_basename(TUTOR_PRO_FILE);
-		
+
 		/**
 		 * Loading Autoloader
 		 */
@@ -26,6 +28,8 @@ class init{
 
 		do_action('tutor_pro_before_load');
 		//Load Component from Class
+		$this->assets = new Assets();
+
 		do_action('tutor_pro_loaded');
 	}
 	/**
@@ -41,7 +45,7 @@ class init{
 				$className
 			);
 
-			$className = str_replace('TUTOR/', 'classes/', $className);
+			$className = str_replace('TUTOR_PRO/', 'classes/', $className);
 			$file_name = $this->path.$className.'.php';
 
 			if (file_exists($file_name) && is_readable( $file_name ) ) {

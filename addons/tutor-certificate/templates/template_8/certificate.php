@@ -8,10 +8,6 @@
 <body>
 
 <div class="certificate-wrap">
-    <div class="certificate-topheading">
-        <h1>VERIFIED</h1>
-        <h4>Certificate of Achievement</h4>
-    </div>
 
     <div class="certificate-content">
 		<?php
@@ -35,7 +31,7 @@
 		}
 		$duration_text= $hour_text.' '.$min_text;
 		?>
-        <p>  This is to certify that</p>
+        <p><strong>This is to certify that</strong> </p>
         <h1> <?php echo $user->display_name; ?></h1>
         <p>  has successfully completed <?php echo $duration_text; ?>  online course of </p>
         <h2> <?php echo $course->post_title; ?> </h2>
@@ -43,7 +39,6 @@
     </div>
 
     <div class="certificate-footer">
-
         <table>
             <tr>
                 <td class="first-col"> </td>
