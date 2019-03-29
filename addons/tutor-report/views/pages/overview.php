@@ -337,7 +337,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 
             <table class="widefat tutor-report-table ">
                 <tr>
-                    <th><?php _e('User', 'tutor-report'); ?> </th>
+                    <th width="100"><?php _e('User', 'tutor-report'); ?> </th>
                     <th><?php _e('Course', 'tutor-report'); ?> </th>
                     <th><?php _e('Rating', 'tutor-report'); ?> </th>
                     <th><?php _e('Reviews', 'tutor-report'); ?> </th>

@@ -46,7 +46,7 @@ $reviews = $wpdb->get_results("select {$wpdb->comments}.comment_ID,
 
     <table class="widefat tutor-report-table">
         <tr>
-            <th><?php _e('User', 'tutor-report'); ?> </th>
+            <th width="150"><?php _e('User', 'tutor-report'); ?> </th>
             <th><?php _e('Course', 'tutor-report'); ?> </th>
             <th><?php _e('Rating', 'tutor-report'); ?> </th>
             <th><?php _e('Reviews', 'tutor-report'); ?> </th>

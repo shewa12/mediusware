@@ -18,14 +18,12 @@ class CourseAttachments extends Tutor_Base {
 
 	public function register_meta_box(){
 		$coursePostType = tutor()->course_post_type;
-		$allow_private_files = tutor_utils()->get_option('course_allow_upload_private_files');
 
 		/**
 		 * Check is allow private file upload
 		 */
-		if ($allow_private_files){
-			add_meta_box( 'tutor-course-attachments', __( 'Attachments, private files', 'tutor' ), array($this, 'course_attachments_metabox'), $coursePostType, 'advanced', 'high' );
-		}
+		add_meta_box( 'tutor-course-attachments', __( 'Attachments, private files', 'tutor' ), array($this, 'course_attachments_metabox'), $coursePostType, 'advanced', 'high' );
+
 	}
 
 	public function course_attachments_metabox(){

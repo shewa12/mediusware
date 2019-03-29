@@ -4,8 +4,6 @@ $subPages = array(
 	'overview' => __('Overview', 'tutor-report'),
 	'courses' => __('Courses', 'tutor-report'),
 	'reviews' => __('Reviews', 'tutor-report'),
-	'quiz' => __('Quiz Attempts', 'tutor-report'),
-	//'sales' => __('Sales', 'tutor-report'),
 );
 
 if ( ! empty($_GET['sub_page'])){
