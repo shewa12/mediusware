@@ -11,6 +11,7 @@ class init{
 	public $basename;
 
 	private $assets;
+	private $updater;
 
 	//Components
 
@@ -29,6 +30,9 @@ class init{
 		do_action('tutor_pro_before_load');
 		//Load Component from Class
 		$this->assets = new Assets();
+		$this->updater = new Updater();
+
+		add_action('plugins_loaded', array($this, 'load_addons'));
 
 		do_action('tutor_pro_loaded');
 	}
@@ -71,6 +75,24 @@ class init{
 		//Save Option
 		if ( ! $version){
 			update_option('tutor_pro_version', TUTOR_PRO_VERSION);
+		}
+
+	}
+
+	public function load_addons(){
+		if ( ! $this->updater->is_valid){
+			return;
+		}
+		$addonsDir = array_filter(glob(tutor_pro()->path.'addons/*'), 'is_dir');
+
+		if (count($addonsDir) > 0) {
+			foreach ($addonsDir as $key => $value) {
+				$addon_dir_name = str_replace(dirname($value).DIRECTORY_SEPARATOR, '', $value);
+				$file_name = tutor_pro()->path . 'addons'.DIRECTORY_SEPARATOR.$addon_dir_name.DIRECTORY_SEPARATOR.$addon_dir_name.'.php';
+				if ( file_exists($file_name) ){
+					include_once $file_name;
+				}
+			}
 		}
 
 	}

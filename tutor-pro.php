@@ -4,10 +4,10 @@ Plugin Name: Tutor LMS Pro
 Plugin URI: https://themeum.com/tutor-pro
 Description: Power up Tutor LMS plugins by Tutor Pro
 Author: Themeum
-Version: 1.0.0
+Version: 1.2.1
 Author URI: http://themeum.com
 Requires at least: 4.5
-Tested up to: 4.9
+Tested up to: 5.1
 Text Domain: tutor-pro
 Domain Path: /languages/
 */
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) )
 /**
  * Defined the tutor main file
  */
-define('TUTOR_PRO_VERSION', '1.0.0');
+define('TUTOR_PRO_VERSION', '1.2.1');
 define('TUTOR_PRO_FILE', __FILE__);
 
 if ( ! function_exists('tutor')) {
@@ -40,23 +40,3 @@ include 'classes/init.php';
 
 $tutorPro = new \TUTOR_PRO\init();
 $tutorPro->run(); //Boom
-
-/**
- * Addons supports
- */
-add_action('plugins_loaded', 'tutor_pro_load_addons');
-if ( ! function_exists('tutor_pro_load_addons')){
-	function tutor_pro_load_addons(){
-		$addonsDir = array_filter(glob(tutor_pro()->path.'addons/*'), 'is_dir');
-
-		if (count($addonsDir) > 0) {
-			foreach ($addonsDir as $key => $value) {
-				$addon_dir_name = str_replace(dirname($value).DIRECTORY_SEPARATOR, '', $value);
-				$file_name = tutor_pro()->path . 'addons'.DIRECTORY_SEPARATOR.$addon_dir_name.DIRECTORY_SEPARATOR.$addon_dir_name.'.php';
-				if ( file_exists($file_name) ){
-					include_once $file_name;
-				}
-			}
-		}
-	}
-}
