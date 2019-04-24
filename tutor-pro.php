@@ -23,8 +23,6 @@ define('TUTOR_PRO_FILE', __FILE__);
 if ( ! function_exists('tutor')) {
 	function tutor_pro() {
 		$path = plugin_dir_path( TUTOR_PRO_FILE );
-		$isPro = (bool) file_exists($path.'addons/');
-
 		$info = array(
 			'path'              => $path,
 			'url'               => plugin_dir_url( TUTOR_PRO_FILE ),
@@ -53,8 +51,8 @@ if ( ! function_exists('tutor_pro_load_addons')){
 
 		if (count($addonsDir) > 0) {
 			foreach ($addonsDir as $key => $value) {
-				$addon_dir_name = str_replace(dirname($value).'/', '', $value);
-				$file_name = tutor_pro()->path . 'addons/'.$addon_dir_name.'/'.$addon_dir_name.'.php';
+				$addon_dir_name = str_replace(dirname($value).DIRECTORY_SEPARATOR, '', $value);
+				$file_name = tutor_pro()->path . 'addons'.DIRECTORY_SEPARATOR.$addon_dir_name.DIRECTORY_SEPARATOR.$addon_dir_name.'.php';
 				if ( file_exists($file_name) ){
 					include_once $file_name;
 				}
