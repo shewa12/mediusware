@@ -41,10 +41,20 @@ class Admin{
 
 	public function free_plugin_installed_but_inactive_notice(){
 		?>
-		<div class="notice notice-error">
-			<p>
-				You must have <a href="https://wordpress.org/plugins/tutor/" target="_blank">Tutor LMS </a> Free version installed and activated on this website in order to use Tutor LMS Pro. You <a href="<?php echo add_query_arg(array('action' => 'activate_tutor_free'), admin_url()); ?>">can activate Tutor LMS</a> .
-			</p>
+		<div class="notice notice-error tutor-install-notice">
+            <div class="tutor-install-notice-inner">
+                <div class="tutor-install-notice-icon">
+                    <img src="<?php echo tutor_pro()->url.'assets/images/tutor-logo.jpg'; ?>" alt="">
+                </div>
+                <div class="tutor-install-notice-content">
+                    <h2>Thanks for using Tutor LMS</h2>
+                    <p>You must have <a href="https://wordpress.org/plugins/tutor/" target="_blank">Tutor LMS </a> Free version installed and activated on this website in order to use Tutor LMS Pro.</p>
+                    <a href="https://www.themeum.com/docs/tutor-introduction/" target="_blank">Learn more about Tutor LMS</a>
+                </div>
+                <div class="tutor-install-notice-button">
+                    <a  class="button button-primary" href="<?php echo add_query_arg(array('action' => 'activate_tutor_free'), admin_url()); ?>">Activate Tutor LMS</a>
+                </div>
+            </div>
 		</div>
 		<?php
     }
@@ -53,11 +63,20 @@ class Admin{
 		include( ABSPATH . 'wp-admin/includes/plugin-install.php' );
 
 		?>
-        <div class="notice notice-error">
-            <p>
-                You must have <a href="https://wordpress.org/plugins/tutor/" target="_blank">Tutor LMS </a> Free version installed and activated on this website in order to use Tutor LMS Pro. You can <a class="install-tutor-button button button-primary" data-slug="tutor" href="<?php echo add_query_arg(array('action' => 'install_tutor_free'), admin_url()); ?>">Install Tutor LMS Now</a>
-            </p>
-
+        <div class="notice notice-error tutor-install-notice">
+            <div class="tutor-install-notice-inner">
+                <div class="tutor-install-notice-icon">
+                    <img src="<?php echo tutor_pro()->url.'assets/images/tutor-logo.jpg'; ?>" alt="">
+                </div>
+                <div class="tutor-install-notice-content">
+                    <h2>Thanks for using Tutor LMS Pro</h2>
+                    <p>You must have <a href="https://wordpress.org/plugins/tutor/" target="_blank">Tutor LMS </a> Free version installed and activated on this website in order to use Tutor LMS Pro.</p>
+                    <a href="https://www.themeum.com/docs/tutor-introduction/" target="_blank">Learn more about Tutor LMS</a>
+                </div>
+                <div class="tutor-install-notice-button">
+                    <a class="install-tutor-button button button-primary" data-slug="tutor" href="<?php echo add_query_arg(array('action' => 'install_tutor_free'), admin_url()); ?>">Install Tutor LMS</a>
+                </div>
+            </div>
             <div id="tutor_install_msg"></div>
         </div>
 		<?php
