@@ -10,6 +10,7 @@ class init{
 	public $url;
 	public $basename;
 
+	private $admin;
 	private $assets;
 	private $updater;
 
@@ -29,6 +30,7 @@ class init{
 
 		do_action('tutor_pro_before_load');
 		//Load Component from Class
+		$this->admin = new Admin();
 		$this->assets = new Assets();
 		$this->updater = new Updater();
 
