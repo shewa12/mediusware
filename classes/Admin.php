@@ -7,6 +7,8 @@ if ( ! defined( 'ABSPATH' ) )
 class Admin{
 
 	public function __construct() {
+		add_action('admin_menu', array($this, 'register_menu'));
+
 		add_action('admin_action_activate_tutor_free', array($this, 'activate_tutor_free'));
 
 		add_action('admin_init', array($this, 'check_tutor_free_installed'));
@@ -14,6 +16,17 @@ class Admin{
 		add_action('wp_ajax_install_tutor_plugin', array($this, 'install_tutor_plugin'));
 		//add_action('admin_action_install_tutor_free', array($this, 'install_tutor_plugin'));
 	}
+
+	public function register_menu(){
+	    if ( ! defined('TUTOR_VERSION')){
+		    add_menu_page(__('Tutor LMS', 'tutor'), __('Tutor LMS', 'tutor'), 'manage_tutor_instructor', 'tutor-install', array($this, 'install_activate_tutor_free'),
+                'dashicons-welcome-learn-more', 2);
+	    }
+    }
+
+    public function install_activate_tutor_free(){
+	    include tutor_pro()->path.'views/install-tutor.php';
+    }
 
 	public function check_tutor_free_installed(){
 		$tutor_file = WP_PLUGIN_DIR.'/tutor/tutor.php';
