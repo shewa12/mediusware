@@ -42,15 +42,10 @@ class Admin{
 		?>
         <div class="notice notice-error">
             <p>
-                You must have <a href="https://wordpress.org/plugins/tutor/" target="_blank">Tutor LMS </a> Free version installed and activated on this website in order to use Tutor LMS Pro. You  .
+                You must have <a href="https://wordpress.org/plugins/tutor/" target="_blank">Tutor LMS </a> Free version installed and activated on this website in order to use Tutor LMS Pro. You can <a class="install-tutor-button button button-primary" data-slug="tutor" href="<?php echo add_query_arg(array('action' => 'install_tutor_free'), admin_url()); ?>">Install Tutor LMS Now</a>
             </p>
 
-
-            <p>
-                <a class="install-tutor-button button" data-slug="tutor" href="<?php echo add_query_arg(array('action' => 'install_tutor_free'),
-                    admin_url()); ?>">Install Tutor LMS Now</a>
-            </p>
-
+            <div id="tutor_install_msg"></div>
         </div>
 		<?php
     }
@@ -101,6 +96,7 @@ class Admin{
 
 		$upgrader = new \Plugin_Upgrader( new \Plugin_Installer_Skin( compact('title', 'url', 'nonce', 'plugin', 'api') ) );
 		$upgrader->install($api->download_link);
+		die();
 	}
 
 }

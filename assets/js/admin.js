@@ -20,8 +20,9 @@ jQuery(document).ready(function($){
             beforeSend: function(){
                 $btn.addClass('updating-message');
             },
-            success: function () {
-
+            success: function (data) {
+                $('.install-tutor-button').remove();
+                $('#tutor_install_msg').html(data);
             },
             complete: function () {
                 $btn.removeClass('updating-message');
