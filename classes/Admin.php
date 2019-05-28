@@ -16,7 +16,7 @@ class Admin{
 
 	public function register_menu(){
 	    if ( ! defined('TUTOR_VERSION')){
-		    add_menu_page(__('Tutor LMS', 'tutor'), __('Tutor LMS', 'tutor'), 'manage_tutor_instructor', 'tutor-install', array($this, 'install_activate_tutor_free'),
+		    add_menu_page(__('Tutor LMS Pro', 'tutor'), __('Tutor LMS Pro', 'tutor'), 'manage_tutor_instructor', 'tutor-install', array($this, 'install_activate_tutor_free'),
                 'dashicons-welcome-learn-more', 2);
 	    }
     }
