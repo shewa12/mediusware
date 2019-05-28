@@ -322,7 +322,7 @@ class Updater{
     public function show_invalid_license_notice(){
         if ( !$this->is_valid()){
             $class = 'notice notice-error';
-            $message = sprintf(__( 'There is an error with your Tutor Pro License. Premium features & Automatic update has been turned off, %s Please check license %s', 'tutor-pro' ), " <a href='".admin_url('admin.php?page=tutor-pro-license')."'>", '</a>');
+            $message = sprintf(__( 'There is an error with your Tutor Pro License. Automatic update has been turned off, %s Please check license %s', 'tutor-pro' ), " <a href='".admin_url('admin.php?page=tutor-pro-license')."'>", '</a>');
 
             printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), $message );
         }

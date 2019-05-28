@@ -83,7 +83,7 @@ class init{
 
 	public function load_addons(){
 		if ( ! $this->updater->is_valid){
-			return;
+			//return;
 		}
 		$addonsDir = array_filter(glob(tutor_pro()->path.'addons/*'), 'is_dir');
 

@@ -8,11 +8,8 @@ class Admin{
 
 	public function __construct() {
 		add_action('admin_menu', array($this, 'register_menu'));
-
 		add_action('admin_action_activate_tutor_free', array($this, 'activate_tutor_free'));
-
 		add_action('admin_init', array($this, 'check_tutor_free_installed'));
-
 		add_action('wp_ajax_install_tutor_plugin', array($this, 'install_tutor_plugin'));
 		//add_action('admin_action_install_tutor_free', array($this, 'install_tutor_plugin'));
 	}
@@ -47,7 +44,7 @@ class Admin{
                     <img src="<?php echo tutor_pro()->url.'assets/images/tutor-logo.jpg'; ?>" alt="">
                 </div>
                 <div class="tutor-install-notice-content">
-                    <h2>Thanks for using Tutor LMS</h2>
+                    <h2>Thanks for using Tutor LMS Pro</h2>
                     <p>You must have <a href="https://wordpress.org/plugins/tutor/" target="_blank">Tutor LMS </a> Free version installed and activated on this website in order to use Tutor LMS Pro.</p>
                     <a href="https://www.themeum.com/docs/tutor-introduction/" target="_blank">Learn more about Tutor LMS</a>
                 </div>
