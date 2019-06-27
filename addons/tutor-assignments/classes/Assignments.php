@@ -225,7 +225,11 @@ class Assignments{
 
 	    $wpdb->update($wpdb->comments, $data, array('comment_ID' => $assignment_submit_id));
 
-	    wp_redirect(wc_get_raw_referer());
+	    if (function_exists('wc_get_raw_referer')){
+		    wp_redirect(wc_get_raw_referer());
+	    }else{
+		    wp_redirect(sanitize_text_field(tutor_utils()->avalue_dot('_wp_http_referer', $_POST)));
+	    }
 	    exit();
     }
 

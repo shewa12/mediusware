@@ -8,6 +8,7 @@ class Updater{
 
     //Live Api URL
     public $api_end_point = 'https://www.themeum.com/wp-json/themeum-license/v2/';
+
     //Connected Slug
     public $tutor_slug = 'tutor-pro';
     //Is Valid of this license
@@ -64,6 +65,10 @@ class Updater{
             if ( ! is_wp_error( $api_call ) ) {
                 $response_body = $api_call['body'];
                 $response = json_decode($response_body);
+
+                //echo '<pre>';
+                //die(print_r($response_body));
+
                 $response_msg = '';
                 if ( ! empty($response->data->msg)){
                     $response_msg = $response->data->msg;
@@ -160,8 +165,16 @@ class Updater{
 
                     <p>
                         <i class="dashicons dashicons-calendar"></i>
-                        <?php echo __('License Valid Until', 'tutor-pro') .' : '. date(get_option( 'date_format' ),
-                                strtotime($license_info->expires_at)) ?>
+                        <?php
+
+                        if ($license_info->expires_at){
+	                        _e('License Valid Until : ', 'tutor-pro');
+	                        echo date(get_option( 'date_format' ), strtotime($license_info->expires_at));
+                        }else{
+	                        _e('License Type : ', 'tutor-pro');
+	                        echo 'Lifetime Deal &infin;';
+                        }
+                        ?>
                     </p>
                     <?php
                 }else{
