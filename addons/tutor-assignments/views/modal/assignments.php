@@ -134,6 +134,6 @@ $assignment_id = $post->ID;
 
 
 	<div class="modal-footer">
-		<button type="button" class="button button-primary update_assignment_modal_btn"><?php _e('Update Assignment', 'tutor'); ?></button>
+		<button type="button" class="tutor-course-builder-button active update_assignment_modal_btn"><?php _e('Update Assignment', 'tutor'); ?></button>
 	</div>
 </form>
