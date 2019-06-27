@@ -43,7 +43,7 @@ class Assignments{
 
 	public function add_assignments_btn($topic_id){
 		?>
-		<button type="button" class="icon-bl tutor-create-assignments-btn" data-topic-id="<?php echo $topic_id; ?>"> <i class="tutor-icon-clipboard"></i> <?php _e('Create Assignments',	'tutor-pro'); ?>
+		<button type="button" class="icon-bl tutor-create-assignments-btn tutor-course-builder-button" data-topic-id="<?php echo $topic_id; ?>"> <i class="tutor-icon-document-alt"></i> <?php _e('Create Assignments',	'tutor-pro'); ?>
 		</button>
 		<?php
 	}
