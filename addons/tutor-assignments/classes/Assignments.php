@@ -25,14 +25,33 @@ class Assignments{
 		//Handle assignment submit form
 		add_action('tutor_action_tutor_assignment_submit', array($this, 'tutor_assignment_submit'));
 		add_action('tutor_action_tutor_evaluate_assignment_submission', array($this, 'tutor_evaluate_assignment_submission'));
+
+		add_filter('tutor_dashboard/nav_items', array($this, 'frontend_dashboard_nav_items'));
 	}
 
 	public function register_menu(){
 		add_submenu_page('tutor', __('Assignments', 'tutor'), __('Assignments', 'tutor'), 'manage_tutor_instructor', 'tutor-assignments', array($this, 'tutor_assignments_page') );
 	}
 
-	public function tutor_assignments_page(){
+	public function frontend_dashboard_nav_items($nav_items){
+        if (current_user_can(tutor()->instructor_role)) {
+            $logout = false;
+            if (isset($nav_items['logout'])){
+                $logout = $nav_items['logout'];
+                unset($nav_items['logout']);
+            }
+            $nav_items['assignments'] = __('Assignments', 'tutor');
 
+            if ($logout){
+                $nav_items['logout'] = $logout;
+            }
+        }
+	    return $nav_items;
+    }
+
+
+
+	public function tutor_assignments_page(){
 	    if (tutor_utils()->array_get('view_assignment', $_GET)){
 	        $assignment_submitted_id = (int) sanitize_text_field(tutor_utils()->array_get('view_assignment', $_GET));
 		    include TUTOR_ASSIGNMENTS()->path.'/views/pages/submitted_assignment.php';
