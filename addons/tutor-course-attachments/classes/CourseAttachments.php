@@ -13,6 +13,8 @@ class CourseAttachments extends Tutor_Base {
 		parent::__construct();
 
 		add_action( 'add_meta_boxes', array($this, 'register_meta_box') );
+		add_action('tutor/dashboard_course_builder_form_field_after', array($this, 'register_meta_box_in_frontend'));
+
 		add_action('save_post_'.$this->course_post_type, array($this, 'save_course_meta'));
 	}
 
@@ -23,7 +25,10 @@ class CourseAttachments extends Tutor_Base {
 		 * Check is allow private file upload
 		 */
 		add_meta_box( 'tutor-course-attachments', __( 'Attachments, private files', 'tutor' ), array($this, 'course_attachments_metabox'), $coursePostType, 'advanced', 'high' );
+	}
 
+	public function register_meta_box_in_frontend(){
+		$this->course_attachments_metabox();
 	}
 
 	public function course_attachments_metabox(){

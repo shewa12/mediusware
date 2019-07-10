@@ -16,17 +16,20 @@ class Prerequisites extends Tutor_Base {
 		parent::__construct();
 
 		add_action( 'add_meta_boxes', array($this, 'register_meta_box') );
+		add_action('tutor/dashboard_course_builder_form_field_after', array($this, 'register_meta_box_in_frontend'));
 
 		add_action('save_post_'.$this->course_post_type, array($this, 'save_course_meta'));
-
 		add_action('tutor_course/single/lead_meta/after', array($this, 'prerequisites_courses_lists'));
-
 
 		add_filter('tutor_lesson/single/content', array($this, 'tutor_lesson_content'));
 	}
 
 	public function register_meta_box(){
 		add_meta_box( 'tutor-course-prerequisites', __( 'Course Prerequisites', 'tutor-prerequisites' ), array($this, 'prerequisites_courses'), $this->course_post_type, 'advanced', 'high' );
+	}
+
+	public function register_meta_box_in_frontend(){
+		$this->prerequisites_courses();
 	}
 
 	/**
