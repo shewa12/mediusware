@@ -29,7 +29,7 @@ class Prerequisites extends Tutor_Base {
 	}
 
 	public function register_meta_box_in_frontend(){
-		echo course_builder_section_wrap($this->prerequisites_courses($echo = false), 'Course Prerequisites');
+		course_builder_section_wrap($this->prerequisites_courses($echo = false), 'Course Prerequisites');
 	}
 
 	/**

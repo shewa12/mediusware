@@ -28,7 +28,7 @@ class CourseAttachments extends Tutor_Base {
 	}
 
 	public function register_meta_box_in_frontend(){
-		echo course_builder_section_wrap($this->course_attachments_metabox($echo = false), 'Course Attachments');
+		course_builder_section_wrap($this->course_attachments_metabox($echo = false), 'Course Attachments');
 	}
 
 	public function course_attachments_metabox($echo = true){
