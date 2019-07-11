@@ -49,8 +49,6 @@ class Assignments{
 	    return $nav_items;
     }
 
-
-
 	public function tutor_assignments_page(){
 	    if (tutor_utils()->array_get('view_assignment', $_GET)){
 	        $assignment_submitted_id = (int) sanitize_text_field(tutor_utils()->array_get('view_assignment', $_GET));

@@ -28,11 +28,19 @@ class CourseAttachments extends Tutor_Base {
 	}
 
 	public function register_meta_box_in_frontend(){
-		$this->course_attachments_metabox();
+		echo course_builder_section_wrap($this->course_attachments_metabox($echo = false), 'Course Attachments');
 	}
 
-	public function course_attachments_metabox(){
+	public function course_attachments_metabox($echo = true){
+		ob_start();
 		include  TUTOR_CA()->path.'views/metabox/course-attachments-metabox.php';
+		$content = ob_get_clean();
+
+		if ($echo){
+			echo $content;
+		}else{
+			return $content;
+		}
 	}
 
 	public function save_course_meta($post_ID){

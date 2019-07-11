@@ -29,15 +29,27 @@ class Prerequisites extends Tutor_Base {
 	}
 
 	public function register_meta_box_in_frontend(){
-		$this->prerequisites_courses();
+		echo course_builder_section_wrap($this->prerequisites_courses($echo = false), 'Course Prerequisites');
 	}
 
 	/**
-	 * @param $post
+	 * @param bool $echo
+	 *
+	 * @return string
+	 *
 	 * Metabox for prerequisites lists
+	 *
 	 */
-	public function prerequisites_courses(){
+	public function prerequisites_courses($echo = true){
+		ob_start();
 		include  TUTOR_PREREQUISITES()->path.'views/metabox/course-prerequisites-lists.php';
+		$content = ob_get_clean();
+
+		if ($echo){
+			echo $content;
+		}else{
+			return $content;
+		}
 	}
 
 	public function save_course_meta($post_ID){
