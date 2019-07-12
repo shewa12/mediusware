@@ -22,6 +22,11 @@ class init{
 		$this->url = plugin_dir_url(TUTOR_PRO_FILE);
 		$this->basename = plugin_basename(TUTOR_PRO_FILE);
 
+		add_action('init', array($this, 'load_constructors_asset'));
+	}
+
+
+	public function load_constructors_asset(){
 		/**
 		 * Loading Autoloader
 		 */
@@ -34,10 +39,11 @@ class init{
 		$this->assets = new Assets();
 		$this->updater = new Updater();
 
-		add_action('plugins_loaded', array($this, 'load_addons'));
+		$this->load_addons();
 
 		do_action('tutor_pro_loaded');
 	}
+
 	/**
 	 * @param $className
 	 *
@@ -85,6 +91,7 @@ class init{
 		if ( ! $this->updater->is_valid){
 			//return;
 		}
+
 		$addonsDir = array_filter(glob(tutor_pro()->path.'addons/*'), 'is_dir');
 
 		if (count($addonsDir) > 0) {
