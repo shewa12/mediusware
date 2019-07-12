@@ -16,6 +16,10 @@ class CourseAttachments extends Tutor_Base {
 		add_action('tutor/dashboard_course_builder_form_field_after', array($this, 'register_meta_box_in_frontend'));
 
 		add_action('save_post_'.$this->course_post_type, array($this, 'save_course_meta'));
+		add_action('save_post', array($this, 'save_course_meta'));
+		add_action('save_tutor_course', array($this, 'save_course_meta'));
+
+
 	}
 
 	public function register_meta_box(){

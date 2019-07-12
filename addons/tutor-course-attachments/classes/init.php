@@ -27,7 +27,7 @@ class init{
 		$this->url = plugin_dir_url(TUTOR_CA_FILE);
 		$this->basename = plugin_basename(TUTOR_CA_FILE);
 
-		add_action('init', array($this, 'load_TUTOR_CA'));
+		$this->load_TUTOR_CA();
 	}
 
 	public function load_TUTOR_CA(){
@@ -37,6 +37,7 @@ class init{
 
 		spl_autoload_register(array($this, 'loader'));
 		$this->course_attachments = new CourseAttachments();
+
 
 		//add_filter('tutor/options/attr', array($this, 'add_options'));
 	}
