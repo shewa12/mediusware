@@ -27,7 +27,7 @@ class init{
 		$this->url = plugin_dir_url(TUTOR_MT_FILE);
 		$this->basename = plugin_basename(TUTOR_MT_FILE);
 
-		add_action('init', array($this, 'load_TUTOR_MT'));
+		$this->load_TUTOR_MT();
 	}
 
 	public function load_TUTOR_MT(){
@@ -37,8 +37,6 @@ class init{
 
 		spl_autoload_register(array($this, 'loader'));
 		$this->multi_instructors = new MultiInstructors();
-
-		//add_filter('tutor/options/attr', array($this, 'add_options'));
 	}
 
 	/**
@@ -78,28 +76,6 @@ class init{
 		if ( ! $version){
 			update_option('TUTOR_MT_version', TUTOR_MT_VERSION);
 		}
-	}
-
-
-	public function add_options($attr){
-		$attr['tutor_multi_instructors'] = array(
-			'label' => __( 'Tutor Multi Instructors', 'tutor-multi-instructors' ),
-
-			'sections'    => array(
-				'general' => array(
-					'label' => __('General', 'tutor-multi-instructors'),
-					'desc' => __('Tutor Multi Instructors Settings', 'tutor-multi-instructors'),
-					'fields' => array(
-						'enable_course_multi_instructors' => array(
-							'type'      => 'checkbox',
-							'label'     => __('Enable Tutor Multi Instructors', 'tutor-multi-instructors'),
-							'desc'      => __('By integrating Tutor Multi Instructors, you can add unlimited instructors to your course',	'tutor-multi-instructors'),
-						),
-					),
-				),
-			),
-		);
-		return $attr;
 	}
 
 }

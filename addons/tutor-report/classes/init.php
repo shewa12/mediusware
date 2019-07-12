@@ -27,7 +27,7 @@ class init{
 		$this->url = plugin_dir_url(TUTOR_REPORT_FILE);
 		$this->basename = plugin_basename(TUTOR_REPORT_FILE);
 
-		add_action('init', array($this, 'load_TUTOR_REPORT'));
+		$this->load_TUTOR_REPORT();
 	}
 
 	public function load_TUTOR_REPORT(){
@@ -37,8 +37,6 @@ class init{
 
 		spl_autoload_register(array($this, 'loader'));
 		$this->report = new Report();
-
-		//add_filter('tutor/options/attr', array($this, 'add_options'));
 	}
 
 	/**
@@ -78,27 +76,6 @@ class init{
 		if ( ! $version){
 			update_option('TUTOR_REPORT_version', TUTOR_REPORT_VERSION);
 		}
-	}
-
-	public function add_options($attr){
-		$attr['tutor_report'] = array(
-			'label' => __( 'Report', 'tutor-report' ),
-
-			'sections'    => array(
-				'general' => array(
-					'label' => __('General', 'tutor-report'),
-					'desc' => __('Check tutor performance', 'tutor-report'),
-					'fields' => array(
-						'enable_report' => array(
-							'type'          => 'checkbox',
-							'label'         => __('Enable Report', 'tutor'),
-							'desc'          => __('Check to get the report for Tutor LMS',	'tutor'),
-						),
-					),
-				),
-			),
-		);
-		return $attr;
 	}
 
 }

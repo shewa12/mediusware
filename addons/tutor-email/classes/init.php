@@ -27,7 +27,7 @@ class init{
 		$this->url = plugin_dir_url(TUTOR_EMAIL_FILE);
 		$this->basename = plugin_basename(TUTOR_EMAIL_FILE);
 
-		add_action('init', array($this, 'load_TUTOR_EMAIL'));
+		$this->load_TUTOR_EMAIL();
 	}
 
 	public function load_TUTOR_EMAIL(){

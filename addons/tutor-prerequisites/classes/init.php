@@ -27,7 +27,7 @@ class init{
 		$this->url = plugin_dir_url(TUTOR_PREREQUISITES_FILE);
 		$this->basename = plugin_basename(TUTOR_PREREQUISITES_FILE);
 
-		add_action('init', array($this, 'load_TUTOR_PREREQUISITES'));
+		$this->load_TUTOR_PREREQUISITES();
 	}
 
 	public function load_TUTOR_PREREQUISITES(){
@@ -37,8 +37,6 @@ class init{
 
 		spl_autoload_register(array($this, 'loader'));
 		$this->prerequisites = new Prerequisites();
-
-		//add_filter('tutor/options/attr', array($this, 'add_options'));
 	}
 
 	/**
@@ -79,27 +77,4 @@ class init{
 			update_option('TUTOR_PREREQUISITES_version', TUTOR_PREREQUISITES_VERSION);
 		}
 	}
-
-
-	public function add_options($attr){
-		$attr['tutor_prerequisites'] = array(
-			'label' => __( 'Tutor Prerequisites ', 'tutor-prerequisites' ),
-
-			'sections'    => array(
-				'general' => array(
-					'label' => __('General', 'tutor-prerequisites'),
-					'desc' => __('Tutor Prerequisites Settings', 'tutor-prerequisites'),
-					'fields' => array(
-						'enable_course_prerequisites' => array(
-							'type'      => 'checkbox',
-							'label'     => __('Enable Tutor Prerequisites', 'tutor-prerequisites'),
-							'desc'      => '',
-						),
-					),
-				),
-			),
-		);
-		return $attr;
-	}
-
 }
