@@ -27,7 +27,7 @@ class init{
 		$this->url = plugin_dir_url(TUTOR_CERT_FILE);
 		$this->basename = plugin_basename(TUTOR_CERT_FILE);
 
-		add_action('init', array($this, 'load_TUTOR_CERT'));
+		$this->load_TUTOR_CERT();
 	}
 
 	public function load_TUTOR_CERT(){

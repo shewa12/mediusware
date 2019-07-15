@@ -27,7 +27,6 @@ class init{
 		$this->url = plugin_dir_url(TUTOR_ASSIGNMENTS_FILE);
 		$this->basename = plugin_basename(TUTOR_ASSIGNMENTS_FILE);
 
-		//add_action('init', array($this, 'load_tutor_assignments'));
 		$this->load_tutor_assignments();
 	}
 

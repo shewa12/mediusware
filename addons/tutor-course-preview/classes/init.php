@@ -27,7 +27,7 @@ class init{
 		$this->url = plugin_dir_url(TUTOR_CP_FILE);
 		$this->basename = plugin_basename(TUTOR_CP_FILE);
 
-		add_action('init', array($this, 'load_TUTOR_CP'));
+		$this->load_TUTOR_CP();
 	}
 
 	public function load_TUTOR_CP(){
