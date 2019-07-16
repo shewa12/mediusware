@@ -7,7 +7,8 @@ $assignment_id = $post->ID;
 	<input type="hidden" name="assignment_id" value="<?php echo $post->ID; ?>">
 	<input type="hidden" name="current_topic_id" value="<?php echo $topic_id; ?>">
 
-	<div class="assignment-modal-form-wrap">
+    <div class="assignment-modal-form-wrap">
+<!--	<div class="tutor-option-field-row">-->
 
 		<?php do_action('tutor_assignment_edit_modal_form_before', $post); ?>
 
@@ -26,7 +27,7 @@ $assignment_id = $post->ID;
 		</div>
 
 		<?php do_action('tutor_assignment_edit_modal_form_after', $post); ?>
-	</div>
+<!--	</div>-->
 
 
     <div class="tutor-option-field-row">
@@ -132,8 +133,8 @@ $assignment_id = $post->ID;
         </div>
     </div>
 
-
+    </div>
 	<div class="modal-footer">
-		<button type="button" class="tutor-course-builder-button active update_assignment_modal_btn"><?php _e('Update Assignment', 'tutor'); ?></button>
+		<button type="button" class="tutor-btn update_assignment_modal_btn"><?php _e('Update Assignment', 'tutor'); ?></button>
 	</div>
 </form>
