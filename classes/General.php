@@ -8,6 +8,7 @@ class General{
 
 	public function __construct() {
 		add_action('tutor_action_tutor_add_course_builder', array($this, 'tutor_add_course_builder'));
+
 		add_filter('frontend_course_create_url', array($this, 'frontend_course_create_url'));
 		add_filter( 'template_include', array($this, 'fs_course_builder'), 99 );
 	}
@@ -95,22 +96,29 @@ class General{
 		do_action( 'save_post', $post_ID, $post, $update );
 		do_action( 'save_tutor_course', $post_ID, $postData);
 
-		/**
-		 * If update request not comes from edit page, redirect it to edit page
-		 */
-		$edit_mode = (int) sanitize_text_field(tutor_utils()->array_get('course_ID', $_GET));
-		if ( ! $edit_mode){
-			$edit_page_url = add_query_arg(array('course_ID' => $post_ID));
-			wp_redirect($edit_page_url);
+		if (wp_doing_ajax()){
+			wp_send_json_success();
+		}else{
+
+			/**
+			 * If update request not comes from edit page, redirect it to edit page
+			 */
+			$edit_mode = (int) sanitize_text_field(tutor_utils()->array_get('course_ID', $_GET));
+			if ( ! $edit_mode){
+				$edit_page_url = add_query_arg(array('course_ID' => $post_ID));
+				wp_redirect($edit_page_url);
+				die();
+			}
+
+			/**
+			 * Finally redirect it to previous page to avoid multiple post request
+			 */
+			wp_redirect(tutor_utils()->referer());
 			die();
 		}
-
-		/**
-		 * Finally redirect it to previous page to avoid multiple post request
-		 */
-		wp_redirect(tutor_utils()->referer());
 		die();
 	}
+
 
 	/**
 	 * @return string

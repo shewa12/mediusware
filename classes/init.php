@@ -23,7 +23,8 @@ class init{
 		$this->url = plugin_dir_url(TUTOR_PRO_FILE);
 		$this->basename = plugin_basename(TUTOR_PRO_FILE);
 
-		add_action('init', array($this, 'load_constructors_asset'));
+		add_action('tutor_loaded', array($this, 'load_constructors_asset'));
+		//$this->load_constructors_asset();
 	}
 
 
