@@ -26,7 +26,9 @@ class init{
 		if ( defined('TUTOR_VERSION')){
 			add_action('tutor_loaded', array($this, 'load_constructors_asset'));
 		}else{
-			add_action('init', array($this, 'load_constructors_asset'));
+			spl_autoload_register(array($this, 'loader'));
+			$this->admin = new Admin();
+			$this->assets = new Assets();
 		}
 		//$this->load_constructors_asset();
 	}
