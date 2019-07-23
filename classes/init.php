@@ -18,12 +18,15 @@ class init{
 	//Components
 
 	function __construct() {
+		if ( ! function_exists('is_plugin_active')){
+			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		}
 
 		$this->path = plugin_dir_path(TUTOR_PRO_FILE);
 		$this->url = plugin_dir_url(TUTOR_PRO_FILE);
 		$this->basename = plugin_basename(TUTOR_PRO_FILE);
 
-		if ( defined('TUTOR_VERSION')){
+		if ( is_plugin_active('tutor/tutor.php')){
 			add_action('tutor_loaded', array($this, 'load_constructors_asset'));
 		}else{
 			spl_autoload_register(array($this, 'loader'));

@@ -8,7 +8,6 @@ class General{
 
 	public function __construct() {
 		add_action('tutor_action_tutor_add_course_builder', array($this, 'tutor_add_course_builder'));
-
 		add_filter('frontend_course_create_url', array($this, 'frontend_course_create_url'));
 		add_filter( 'template_include', array($this, 'fs_course_builder'), 99 );
 	}
