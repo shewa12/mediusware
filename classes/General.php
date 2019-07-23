@@ -143,11 +143,13 @@ class General{
 		if ($wp_query->is_page) {
 			$student_dashboard_page_id = (int) tutor_utils()->get_option( 'tutor_dashboard_page_id' );
 			if ( $student_dashboard_page_id === get_the_ID() ) {
-
 				if (tutor_utils()->array_get('tutor_dashboard_page', $wp_query->query_vars) === 'create-course') {
-					$template = tutor_get_template('dashboard.create-course');
+					if (is_user_logged_in()) {
+						$template = tutor_get_template('dashboard.create-course');
+					}else{
+						$template = tutor_get_template( 'login' );
+					}
 				}
-
 			}
 		}
 
