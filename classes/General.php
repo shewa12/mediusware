@@ -91,8 +91,9 @@ class General{
 		/**
 		 * Adding support for do_action();
 		 */
-		do_action( "save_post_{$course_post_type}", $post_ID, $post, $update );
-		do_action( 'save_post', $post_ID, $post, $update );
+		//Removing below both action to avoid multiple fire
+		//do_action( "save_post_{$course_post_type}", $post_ID, $post, $update );
+		//do_action( 'save_post', $post_ID, $post, $update );
 		do_action( 'save_tutor_course', $post_ID, $postData);
 
 		if (wp_doing_ajax()){
