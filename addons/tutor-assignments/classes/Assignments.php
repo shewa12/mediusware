@@ -34,19 +34,8 @@ class Assignments{
 	}
 
 	public function frontend_dashboard_nav_items($nav_items){
-
-		$logout = false;
-		if (isset($nav_items['logout'])){
-			$logout = $nav_items['logout'];
-			unset($nav_items['logout']);
-		}
 		$nav_items['assignments'] = array('title' => __('Assignments', 'tutor'), 'auth_cap' => tutor()->instructor_role);
-
-		if ($logout){
-			$nav_items['logout'] = $logout;
-		}
-
-	    return $nav_items;
+		return $nav_items;
     }
 
 	public function tutor_assignments_page(){
