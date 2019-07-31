@@ -13,6 +13,8 @@ class init{
 	private $admin;
 	private $assets;
 	private $general;
+	private $paid_memberships_pro;
+
 	private $updater;
 
 	//Components
@@ -49,8 +51,9 @@ class init{
 		$this->admin = new Admin();
 		$this->assets = new Assets();
 		$this->general = new General();
-		$this->updater = new Updater();
+		$this->paid_memberships_pro = new PaidMembershipsPro();
 
+		$this->updater = new Updater();
 		$this->load_addons();
 
 		do_action('tutor_pro_loaded');
@@ -65,7 +68,7 @@ class init{
 		if ( ! class_exists($className)){
 			$className = preg_replace(
 				array('/([a-z])([A-Z])/', '/\\\/'),
-				array('$1-$2', DIRECTORY_SEPARATOR),
+				array('$1$2', DIRECTORY_SEPARATOR),
 				$className
 			);
 
