@@ -1,7 +1,6 @@
 <div class="tutor-lesson-attachments-metabox">
 
-	<div class="tutor-added-attachments-wrap tutor-course-builder-attachements">
-		<?php
+	<div class="tutor-added-attachments-wrap tutor-course-builder-attachements"><?php
             $attachments = tutor_utils()->get_attachments();
             if ( is_array($attachments) && count($attachments)) {
                 foreach ( $attachments as $attachment ) {
@@ -14,8 +13,7 @@
                     </div>
                 <?php }
             }
-		?>
-	</div>
+		?></div>
 
-	<button type="button" class="tutor-btn tutorUploadAttachmentBtn"><i class="tutor-icon-attach"></i><?php _e('Upload Attachment', 'tutor'); ?></button>
+	<button type="button" class="tutor-btn tutorUploadAttachmentBtn bordered-btn"><i class="tutor-icon-attach"></i><?php _e('Upload Attachment', 'tutor'); ?></button>
 </div>
