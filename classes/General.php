@@ -8,7 +8,6 @@ class General{
 
 	public function __construct() {
 		add_action('tutor_action_tutor_add_course_builder', array($this, 'tutor_add_course_builder'));
-
 		add_filter('frontend_course_create_url', array($this, 'frontend_course_create_url'));
 		add_filter( 'template_include', array($this, 'fs_course_builder'), 99 );
 	}
@@ -92,8 +91,9 @@ class General{
 		/**
 		 * Adding support for do_action();
 		 */
-		do_action( "save_post_{$course_post_type}", $post_ID, $post, $update );
-		do_action( 'save_post', $post_ID, $post, $update );
+		//Removing below both action to avoid multiple fire
+		//do_action( "save_post_{$course_post_type}", $post_ID, $post, $update );
+		//do_action( 'save_post', $post_ID, $post, $update );
 		do_action( 'save_tutor_course', $post_ID, $postData);
 
 		if (wp_doing_ajax()){
@@ -143,11 +143,13 @@ class General{
 		if ($wp_query->is_page) {
 			$student_dashboard_page_id = (int) tutor_utils()->get_option( 'tutor_dashboard_page_id' );
 			if ( $student_dashboard_page_id === get_the_ID() ) {
-
 				if (tutor_utils()->array_get('tutor_dashboard_page', $wp_query->query_vars) === 'create-course') {
-					$template = tutor_get_template('dashboard.create-course');
+					if (is_user_logged_in()) {
+						$template = tutor_get_template('dashboard.create-course');
+					}else{
+						$template = tutor_get_template( 'login' );
+					}
 				}
-
 			}
 		}
 

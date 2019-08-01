@@ -13,17 +13,28 @@ class init{
 	private $admin;
 	private $assets;
 	private $general;
+	private $paid_memberships_pro;
+
 	private $updater;
 
 	//Components
 
 	function __construct() {
+		if ( ! function_exists('is_plugin_active')){
+			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		}
 
 		$this->path = plugin_dir_path(TUTOR_PRO_FILE);
 		$this->url = plugin_dir_url(TUTOR_PRO_FILE);
 		$this->basename = plugin_basename(TUTOR_PRO_FILE);
 
-		add_action('tutor_loaded', array($this, 'load_constructors_asset'));
+		if ( is_plugin_active('tutor/tutor.php')){
+			add_action('tutor_loaded', array($this, 'load_constructors_asset'));
+		}else{
+			spl_autoload_register(array($this, 'loader'));
+			$this->admin = new Admin();
+			$this->assets = new Assets();
+		}
 		//$this->load_constructors_asset();
 	}
 
@@ -40,8 +51,9 @@ class init{
 		$this->admin = new Admin();
 		$this->assets = new Assets();
 		$this->general = new General();
-		$this->updater = new Updater();
+		$this->paid_memberships_pro = new PaidMembershipsPro();
 
+		$this->updater = new Updater();
 		$this->load_addons();
 
 		do_action('tutor_pro_loaded');
@@ -56,7 +68,7 @@ class init{
 		if ( ! class_exists($className)){
 			$className = preg_replace(
 				array('/([a-z])([A-Z])/', '/\\\/'),
-				array('$1-$2', DIRECTORY_SEPARATOR),
+				array('$1$2', DIRECTORY_SEPARATOR),
 				$className
 			);
 
