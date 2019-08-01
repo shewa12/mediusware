@@ -13,7 +13,6 @@ class init{
 	private $admin;
 	private $assets;
 	private $general;
-	private $paid_memberships_pro;
 
 	private $updater;
 
@@ -51,7 +50,6 @@ class init{
 		$this->admin = new Admin();
 		$this->assets = new Assets();
 		$this->general = new General();
-		$this->paid_memberships_pro = new PaidMembershipsPro();
 
 		$this->updater = new Updater();
 		$this->load_addons();
