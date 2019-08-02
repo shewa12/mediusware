@@ -23,6 +23,7 @@ class PaidMembershipsPro {
 		add_action('tutor_action_pmpro_settings', array($this, 'pmpro_settings'));
 
 		add_filter('tutor_course/single/add-to-cart', array($this, 'tutor_course_add_to_cart'));
+		add_filter('tutor_course_price', array($this, 'tutor_course_price'));
 	}
 
 	public function course_pre_get_posts($query){
@@ -49,14 +50,11 @@ class PaidMembershipsPro {
 		include_once TUTOR_PMPRO()->path."views/pmpro-content-settings.php";
 	}
 
-
-
-
-
+	/**
+	 * @return array
+	 */
 	public function get_hidden_categories(){
 		global $current_user, $wpdb;
-
-
 
 		//get page ids that are in my levels
 		if(!empty($current_user->ID))
@@ -86,8 +84,9 @@ class PaidMembershipsPro {
 		return $hidden_cat_ids;
 	}
 
-
-
+	/**
+	 * pmpro settings
+	 */
 	public function pmpro_settings(){
 		$tutor_pmpro_membership_model = sanitize_text_field(tutils()->array_get('tutor_pmpro_membership_model', $_POST));
 		if ($tutor_pmpro_membership_model){
@@ -95,6 +94,15 @@ class PaidMembershipsPro {
 		}
 	}
 
+	/**
+	 * @param $html
+	 *
+	 * @return mixed|void
+	 *
+	 * Enrolment main logic for Membership
+	 *
+	 * @since v.1.3.6
+	 */
 	public function tutor_course_add_to_cart($html){
 		global $current_user, $wpdb;
 
@@ -120,13 +128,59 @@ class PaidMembershipsPro {
 			}
 		}elseif ($tutor_pmpro_membership_model === 'category_wise_membership'){
 			//Check this course attached category has membership
+			$membershipCats = $this->get_hidden_categories();
 
+			$attached_categories = get_tutor_course_categories();
+			if (tutils()->count($attached_categories)){
+				$is_required_membership = false;
+				foreach ($attached_categories as $category){
+					if (in_array($category->term_id, $membershipCats)){
+						$is_required_membership = true;
+						break;
+					}
+				}
+
+				if ( ! $is_required_membership){
+					$has_membership_access = true;
+				}
+			}
 		}
 
-		var_dump($has_membership_access);
+		if (is_user_logged_in()){
+			if ($has_membership_access){
+				return $html;
+			}else{
+
+				$level_page_id = apply_filters('tutor_pmpro_level_page_id', pmpro_getOption("levels_page_id"));
+				$level_page_url = get_the_permalink($level_page_id);
+
+				$msg = '<div class="tutor-notice-warning no-memberhsip-msg-wrap">';
+				$msg.= '<p>'.sprintf(__('You must have a %s membership plan %s to enroll in this course.', 'tutor-pro'), "<a href='{$level_page_url}'>", "</a>").'</p>';
+				$msg .= '</div>';
+
+				return apply_filters('tutor_enrol_no_membership_msg', $msg);
+			}
+		}
 
 		return $html;
 	}
 
+	/**
+	 * @param $html
+	 *
+	 * @return string
+	 *
+	 * Remove the price if Membership Plan activated
+	 *
+	 * @since v.1.3.6
+	 */
+	public function tutor_course_price($html){
+		$monetize_by = get_tutor_option('monetize_by');
+		if ($monetize_by === 'pmpro'){
+			return '';
+		}
+
+		return $html;
+	}
 
 }

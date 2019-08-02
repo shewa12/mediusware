@@ -77,25 +77,25 @@ $level_categories = $level->categories;
 	<tbody>
 
 	<tr class="membership_model">
-		<th scope="row" valign="top"><label><?php _e('Membership Model', 'tutor-pro'); ?>:</label></th>
+		<th width="200"><label><?php _e('Membership Model', 'tutor-pro'); ?>:</label></th>
 		<td>
 			<?php
-			$pmpro_membership_model = get_tutor_option('tutor_pmpro_membership_model');
+			$membership_model = get_tutor_option('tutor_pmpro_membership_model');
 			?>
-
 			<select name="tutor_pmpro_membership_model" id="tutor_pmpro_membership_model_select" class="tutor_select2">
 				<option value=""><?php _e('Select a membership model', 'tutor-pro'); ?></option>
-				<option value="full_website_membership" <?php selected('full_website_membership', $pmpro_membership_model) ?> ><?php _e('Full website membership', 'tutor-pro'); ?></option>
-				<option value="category_wise_membership" <?php selected('category_wise_membership', $pmpro_membership_model) ?>><?php _e('Category wise membership', 'tutor-pro'); ?></option>
+				<option value="full_website_membership" <?php selected('full_website_membership', $membership_model) ?> ><?php _e('Full website membership', 'tutor-pro'); ?></option>
+				<option value="category_wise_membership" <?php selected('category_wise_membership', $membership_model) ?>><?php _e('Category wise membership', 'tutor-pro'); ?></option>
 			</select>
-
 		</td>
 	</tr>
 
-	<tr class="membership_categories membership_course_categories" style="display: none;">
-		<th scope="row" valign="top"><label><?php _e('Course Categories', 'tutor-pro'); ?>:</label></th>
+	<tr class="membership_categories membership_course_categories" style="display: <?php echo $membership_model === 'category_wise_membership' ? '' : 'none'; ?>;">
+		<th width="200"><label><?php _e('Course Categories', 'tutor-pro'); ?>:</label></th>
 		<td>
-			<?php generate_categories_for_pmpro(0, $level_categories); ?>
+			<?php
+            //echo generate_categories_select_for_pmpro($level_categories, array('classes' => 'tutor_select2'));
+            generate_categories_for_pmpro(0, $level_categories); ?>
 		</td>
 	</tr>
 	</tbody>
