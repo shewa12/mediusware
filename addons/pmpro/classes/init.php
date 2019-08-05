@@ -20,9 +20,9 @@ class init{
 		//Adding monetization options to core
 		add_filter('tutor_monetization_options', array($this, 'tutor_monetization_options'));
 
-		$addonConfig = tutor_utils()->get_addon_config(TUTOR_PMPRO()->basename);
+		$addonConfig = tutils()->get_addon_config(TUTOR_PMPRO()->basename);
 		$monetize_by = tutils()->get_option('monetize_by');
-		$isEnable = (bool) tutor_utils()->avalue_dot('is_enable', $addonConfig);
+		$isEnable = (bool) tutils()->array_get('is_enable', $addonConfig);
 		$has_pmpro = tutils()->has_pmpro();
 		if ( ! $isEnable || ! $has_pmpro || $monetize_by !== 'pmpro' ){
 			return;
@@ -83,7 +83,7 @@ class init{
 	public function tutor_monetization_options($arr){
 		$has_pmpro = tutils()->has_pmpro();
 		if ($has_pmpro){
-			$arr['pmpro'] = __('Subscriptions (Paid Memberships Pro)', 'tutor');
+			$arr['pmpro'] = __('Paid Memberships Pro', 'tutor');
 		}
 		return $arr;
 	}
