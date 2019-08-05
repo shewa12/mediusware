@@ -66,7 +66,6 @@ class init{
 		}
 	}
 
-
 	//Run the TUTOR right now
 	public function run(){
 		//
@@ -82,8 +81,8 @@ class init{
 	 * @since v.1.3.6
 	 */
 	public function tutor_monetization_options($arr){
-		$has_wc = tutils()->has_wc();
-		if ($has_wc){
+		$has_pmpro = tutils()->has_pmpro();
+		if ($has_pmpro){
 			$arr['pmpro'] = __('Subscriptions (Paid Memberships Pro)', 'tutor');
 		}
 		return $arr;

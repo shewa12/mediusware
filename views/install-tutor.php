@@ -15,22 +15,13 @@
 
 		<?php
 	}elseif( ! file_exists($tutor_file) ){
-
 		?>
-
 		<div class="tutor-install-notice-wrap  notice-warning notice" style="background: #ffffff; padding: 30px 20px; font-size: 20px;">
 			You must have <a href="https://wordpress.org/plugins/tutor/" target="_blank">Tutor LMS </a> Free version installed and activated on this website in order to use Tutor LMS Pro. You can <a class="install-tutor-button button button-primary" data-slug="tutor" href="<?php echo add_query_arg(array('action' => 'install_tutor_free'), admin_url()); ?>">Install Tutor LMS Now</a>
 		</div>
-
 		<div id="tutor_install_msg"></div>
-
 		<?php
-
-
 	}
-
-
-
 	?>
 
 
