@@ -3,10 +3,8 @@
 	<h1 class="wp-heading-inline">Install / Active Tutor LMS</h1>
 	<hr class="wp-header-end">
 
-
 	<?php
 	$tutor_file = WP_PLUGIN_DIR.'/tutor/tutor.php';
-
 	if (file_exists($tutor_file) && ! is_plugin_active('tutor/tutor.php')){
 		?>
 		<div class="tutor-install-notice-wrap notice-warning notice" style="background: #ffffff; padding: 30px 20px; font-size: 20px;">
@@ -23,6 +21,4 @@
 		<?php
 	}
 	?>
-
-
 </div>

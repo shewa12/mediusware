@@ -17,11 +17,8 @@ class PaidMembershipsPro {
 
 	public function __construct() {
 		add_action('pmpro_membership_level_after_other_settings', array($this, 'display_courses_categories'));
-
-		add_action('pre_get_posts', array($this, 'course_pre_get_posts'));
-
+		//add_action('pre_get_posts', array($this, 'course_pre_get_posts'));
 		add_action('tutor_action_pmpro_settings', array($this, 'pmpro_settings'));
-
 		add_filter('tutor_course/single/add-to-cart', array($this, 'tutor_course_add_to_cart'));
 		add_filter('tutor_course_price', array($this, 'tutor_course_price'));
 	}
