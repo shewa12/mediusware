@@ -28,6 +28,7 @@ function tutor_pmpro_config($config){
 	$newConfig = array(
 		'name'          => __('Paid Memberships Pro', 'tutor-pmpro'),
 		'description'   => 'Maximize revenue by selling membership access to all of your courses.',
+		'depend_plugins'   => array('paid-memberships-pro/paid-memberships-pro.php' => 'Paid Memberships Pro'),
 	);
 	$basicConfig = (array) TUTOR_PMPRO();
 	$newConfig = array_merge($newConfig, $basicConfig);
