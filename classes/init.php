@@ -97,16 +97,13 @@ class init{
 		if ( ! $version){
 			update_option('tutor_pro_version', TUTOR_PRO_VERSION);
 		}
-
 	}
 
 	public function load_addons(){
 		if ( ! $this->updater->is_valid){
 			//return;
 		}
-
-		$addonsDir = array_filter(glob(tutor_pro()->path.'addons/*'), 'is_dir');
-
+		$addonsDir = array_filter(glob(tutor_pro()->path."addons".DIRECTORY_SEPARATOR."*"), 'is_dir');
 		if (count($addonsDir) > 0) {
 			foreach ($addonsDir as $key => $value) {
 				$addon_dir_name = str_replace(dirname($value).DIRECTORY_SEPARATOR, '', $value);
@@ -116,8 +113,6 @@ class init{
 				}
 			}
 		}
-
 	}
-
 
 }

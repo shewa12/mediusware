@@ -57,7 +57,7 @@ class init{
 				$className
 			);
 
-			$className = str_replace('TUTOR_PMPRO/', 'classes/', $className);
+			$className = str_replace('TUTOR_PMPRO'.DIRECTORY_SEPARATOR, 'classes'.DIRECTORY_SEPARATOR, $className);
 			$file_name = $this->path.$className.'.php';
 
 			if (file_exists($file_name)  ) {

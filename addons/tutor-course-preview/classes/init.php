@@ -54,7 +54,7 @@ class init{
 				$className
 			);
 
-			$className = str_replace('TUTOR_CP/', 'classes/', $className);
+			$className = str_replace('TUTOR_CP'.DIRECTORY_SEPARATOR, 'classes'.DIRECTORY_SEPARATOR, $className);
 			$file_name = $this->path.$className.'.php';
 
 			if (file_exists($file_name) && is_readable( $file_name ) ) {
