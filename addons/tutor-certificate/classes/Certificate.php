@@ -17,7 +17,7 @@ class Certificate{
 		add_action('tutor_options_before_tutor_certificate', array($this, 'generate_options'));
 
 		add_action('tutor_enrolled_box_after', array($this, 'certificate_download_btn'));
-		$this->create_certificate();
+		add_action('init', array($this, 'create_certificate'));
 	}
 
 	public function create_certificate(){
