@@ -80,7 +80,7 @@ $level_categories = $level->categories;
 		<th width="200"><label><?php _e('Membership Model', 'tutor-pro'); ?>:</label></th>
 		<td>
 			<?php
-			$membership_model = get_tutor_option('tutor_pmpro_membership_model');
+			$membership_model = get_option('tutor_pmpro_membership_model');
 			?>
 			<select name="tutor_pmpro_membership_model" id="tutor_pmpro_membership_model_select" class="tutor_select2">
 				<option value=""><?php _e('Select a membership model', 'tutor-pro'); ?></option>

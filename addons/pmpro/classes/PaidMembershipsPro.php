@@ -87,7 +87,7 @@ class PaidMembershipsPro {
 	public function pmpro_settings(){
 		$tutor_pmpro_membership_model = sanitize_text_field(tutils()->array_get('tutor_pmpro_membership_model', $_POST));
 		if ($tutor_pmpro_membership_model){
-			update_tutor_option('tutor_pmpro_membership_model', $tutor_pmpro_membership_model);
+			update_option('tutor_pmpro_membership_model', $tutor_pmpro_membership_model);
 		}
 	}
 
@@ -109,7 +109,7 @@ class PaidMembershipsPro {
 		if ($monetize_by !== 'pmpro' || ! $has_pmpro){
 			return $html;
 		}
-		$tutor_pmpro_membership_model = get_tutor_option('tutor_pmpro_membership_model');
+		$tutor_pmpro_membership_model = get_option('tutor_pmpro_membership_model');
 
 		$has_membership_access = false;
 
