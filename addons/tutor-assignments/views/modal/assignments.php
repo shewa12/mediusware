@@ -93,21 +93,21 @@ $assignment_id = $post->ID;
 
     <div class="tutor-option-field-row">
         <div class="tutor-option-field-label">
-            <label for=""><?php _e('Mark', 'tutor-pro'); ?></label>
+            <label for=""><?php _e('Total Points', 'tutor-pro'); ?></label>
         </div>
         <div class="tutor-option-field">
             <input type="number" name="assignment_option[total_mark]" value="<?php echo tutor_utils()->get_assignment_option($assignment_id, 'total_mark', 10) ?>">
-            <p class="desc"><?php _e('Maximum mark for the student will have', 'tutor-pro'); ?></p>
+            <p class="desc"><?php _e('Maximum points a student can score', 'tutor-pro'); ?></p>
         </div>
     </div>
 
     <div class="tutor-option-field-row">
         <div class="tutor-option-field-label">
-            <label for=""><?php _e('Passing Mark', 'tutor-pro'); ?></label>
+            <label for=""><?php _e('Minimum Pass Points', 'tutor-pro'); ?></label>
         </div>
         <div class="tutor-option-field">
             <input type="number" name="assignment_option[pass_mark]" value="<?php echo tutor_utils()->get_assignment_option($assignment_id, 'pass_mark', 5) ?>">
-            <p class="desc"><?php _e('Min mark required for the student to pass this assignment.', 'tutor-pro'); ?></p>
+            <p class="desc"><?php _e('Minimum points required for the student to pass this assignment.', 'tutor-pro'); ?></p>
         </div>
     </div>
 
@@ -118,18 +118,18 @@ $assignment_id = $post->ID;
         <div class="tutor-option-field">
             <input type="number" name="assignment_option[upload_files_limit]" value="<?php echo tutor_utils()->get_assignment_option
             ($assignment_id, 'upload_files_limit', 1) ?>">
-            <p class="desc"><?php _e('How many files students can upload in this assignment. set 0 to disable upload file', 'tutor-pro'); ?></p>
+            <p class="desc"><?php _e('Define the number of files that a student can upload in this assignment. Input 0 to disable the option to upload.', 'tutor-pro'); ?></p>
         </div>
     </div>
 
     <div class="tutor-option-field-row">
         <div class="tutor-option-field-label">
-            <label for=""><?php _e('Upload File size limit', 'tutor-pro'); ?></label>
+            <label for=""><?php _e('Maximum file size limit', 'tutor-pro'); ?></label>
         </div>
         <div class="tutor-option-field">
             <input type="number" name="assignment_option[upload_file_size_limit]" value="<?php echo tutor_utils()->get_assignment_option
             ($assignment_id, 'upload_file_size_limit', 2) ?>">
-            <p class="desc"><?php echo sprintf(__('Set Maximum Attachment size in %s for upload.', 'tutor-pro'), '<code>MB</code>') ?></p>
+            <p class="desc"><?php echo sprintf(__('Define maximum file size attachment in %s', 'tutor-pro'), '<code>MB</code>') ?></p>
         </div>
     </div>
 

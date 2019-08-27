@@ -27,7 +27,7 @@ add_filter('tutor_addons_lists_config', 'tutor_report_config');
 function tutor_report_config($config){
 	$newConfig = array(
 		'name'          => __('Tutor Report', 'tutor-report'),
-		'description'   => 'Check your tutor assets performance through tutor report',
+		'description'   => 'Check your course performance through Tutor Report stats.',
 	);
 	$basicConfig = (array) TUTOR_REPORT();
 	$newConfig = array_merge($newConfig, $basicConfig);
