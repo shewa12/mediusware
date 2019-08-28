@@ -26,7 +26,7 @@ define('TUTOR_PREREQUISITES_FILE', __FILE__);
 add_filter('tutor_addons_lists_config', 'tutor_prerequisites_config');
 function tutor_prerequisites_config($config){
 	$newConfig = array(
-		'name'          => __('Tutor Prerequisites', 'tutor-prerequisites'),
+		'name'          => __('Prerequisites', 'tutor-prerequisites'),
 		'description'   => 'Specific course you must complete before you can enroll new course by Tutor Prerequisites',
 	);
 	$basicConfig = (array) TUTOR_PREREQUISITES();
