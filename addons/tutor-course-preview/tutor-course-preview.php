@@ -26,7 +26,7 @@ define('TUTOR_CP_FILE', __FILE__);
 add_filter('tutor_addons_lists_config', 'tutor_course_preview_config');
 function tutor_course_preview_config($config){
 	$newConfig = array(
-		'name'          => __('Tutor Course Preview', 'tutor-course-preview'),
+		'name'          => __('Course Preview', 'tutor-course-preview'),
 		'description'   => 'Open some lesson to check course overview for guest',
 	);
 	$basicConfig = (array) TUTOR_CP();

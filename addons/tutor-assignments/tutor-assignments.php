@@ -26,7 +26,7 @@ define('TUTOR_ASSIGNMENTS_FILE', __FILE__);
 add_filter('tutor_addons_lists_config', 'tutor_tutor_assignments_config');
 function tutor_tutor_assignments_config($config){
 	$newConfig = array(
-		'name'          => __('Tutor Assignments', 'tutor-assignments'),
+		'name'          => __('Assignments', 'tutor-assignments'),
 		'description'   => 'Tutor assignments is a great way to assign tasks to students.',
 	);
 	$basicConfig = (array) TUTOR_ASSIGNMENTS();
