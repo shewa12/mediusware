@@ -1,5 +1,4 @@
 <div class="tutor-lesson-attachments-metabox">
-
 	<div class="tutor-added-attachments-wrap tutor-course-builder-attachements"><?php
             $attachments = tutor_utils()->get_attachments();
             if ( is_array($attachments) && count($attachments)) {
