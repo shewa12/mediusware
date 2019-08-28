@@ -1,43 +1,43 @@
 <?php
-namespace TUTOR_ENROLMENTS;
+namespace TUTOR_ENROLLMENTS;
 
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
 class init{
-	public $version = TUTOR_ENROLMENTS_VERSION;
+	public $version = TUTOR_ENROLLMENTS_VERSION;
 	public $path;
 	public $url;
 	public $basename;
 
 	//Module
-	private $enrolments;
+	private $enrollments;
 
 	function __construct() {
 		if ( ! function_exists('tutor')){
 			return;
 		}
 
-		$addonConfig = tutils()->get_addon_config(TUTOR_ENROLMENTS()->basename);
+		$addonConfig = tutils()->get_addon_config(TUTOR_ENROLLMENTS()->basename);
 		$isEnable = (bool) tutils()->array_get('is_enable', $addonConfig);
 		if ( ! $isEnable){
 			return;
 		}
 
-		$this->path = plugin_dir_path(TUTOR_ENROLMENTS_FILE);
-		$this->url = plugin_dir_url(TUTOR_ENROLMENTS_FILE);
-		$this->basename = plugin_basename(TUTOR_ENROLMENTS_FILE);
+		$this->path = plugin_dir_path(TUTOR_ENROLLMENTS_FILE);
+		$this->url = plugin_dir_url(TUTOR_ENROLLMENTS_FILE);
+		$this->basename = plugin_basename(TUTOR_ENROLLMENTS_FILE);
 
-		$this->load_TUTOR_ENROLMENTS();
+		$this->load_TUTOR_ENROLLMENTS();
 	}
 
-	public function load_TUTOR_ENROLMENTS(){
+	public function load_TUTOR_ENROLLMENTS(){
 		/**
 		 * Loading Autoloader
 		 */
 
 		spl_autoload_register(array($this, 'loader'));
-		$this->enrolments = new Enrolments();
+		$this->enrollments = new Enrollments();
 	}
 
 	/**
@@ -53,7 +53,7 @@ class init{
 				$className
 			);
 
-			$className = str_replace('TUTOR_ENROLMENTS'.DIRECTORY_SEPARATOR, 'classes'.DIRECTORY_SEPARATOR, $className);
+			$className = str_replace('TUTOR_ENROLLMENTS'.DIRECTORY_SEPARATOR, 'classes'.DIRECTORY_SEPARATOR, $className);
 			$file_name = $this->path.$className.'.php';
 
 			if (file_exists($file_name)  ) {

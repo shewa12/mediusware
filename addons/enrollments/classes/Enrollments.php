@@ -1,6 +1,6 @@
 <?php
 /**
- * Enrolments class
+ * Enrollments class
  *
  * @author: themeum
  * @author_uri: https://themeum.com
@@ -8,12 +8,12 @@
  * @since v.1.4.0
  */
 
-namespace TUTOR_ENROLMENTS;
+namespace TUTOR_ENROLLMENTS;
 
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
-class Enrolments {
+class Enrollments {
 
 	protected $success_msgs = '';
 
@@ -25,18 +25,18 @@ class Enrolments {
 	}
 
 	public function register_menu(){
-		add_submenu_page('tutor', __('Enrolments', 'tutor'), __('Enrolments', 'tutor'), 'manage_tutor', 'enrolments', array($this, 'enrolments') );
+		add_submenu_page('tutor', __('Enrollments', 'tutor'), __('Enrollments', 'tutor'), 'manage_tutor', 'enrollments', array($this, 'enrollments') );
 	}
 
 	/**
 	 * View the page of
 	 */
-	public function enrolments(){
+	public function enrollments(){
 		$sub_page = tutils()->array_get('sub_page', $_GET);
 		if ($sub_page){
-			include TUTOR_ENROLMENTS()->path."views/{$sub_page}.php";
+			include TUTOR_ENROLLMENTS()->path."views/{$sub_page}.php";
 		}else{
-			include TUTOR_ENROLMENTS()->path."views/enrolments.php";
+			include TUTOR_ENROLLMENTS()->path."views/enrollments.php";
 		}
 	}
 
