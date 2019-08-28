@@ -8,7 +8,7 @@
             <th><?php _e('Event', 'tutor'); ?></th>
             <th><?php _e('Content type', 'tutor'); ?></th>
             <th>#</th>
-            <th><?php _e('Variable, that can be use at template', 'tutor'); ?></th>
+            <th><?php _e('Variables that can be used inside templates', 'tutor'); ?></th>
         </tr>
         </thead>
 
