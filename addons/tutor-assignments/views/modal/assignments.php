@@ -7,7 +7,7 @@ $assignment_id = $post->ID;
 	<input type="hidden" name="assignment_id" value="<?php echo $post->ID; ?>">
 	<input type="hidden" name="current_topic_id" value="<?php echo $topic_id; ?>">
 
-    <div class="assignment-modal-form-wrap">
+    <div class="assignment-modal-form-wrap lesson-modal-form-wrap">
 <!--	<div class="tutor-option-field-row">-->
 
 		<?php do_action('tutor_assignment_edit_modal_form_before', $post); ?>
@@ -62,7 +62,7 @@ $assignment_id = $post->ID;
 
             </div>
 
-            <p><a href="javascript:;" class="add-assignment-attachments"><?php _e('Add attachments', 'tutor'); ?></a></p>
+            <p><a href="javascript:;" class="add-assignment-attachments tutor-btn bordered-btn"><?php _e('Add attachments', 'tutor'); ?></a></p>
 
         </div>
     </div>
@@ -70,7 +70,7 @@ $assignment_id = $post->ID;
 
     <div class="tutor-option-field-row">
         <div class="tutor-option-field-label">
-            <label for="">Time Duration</label>
+            <label for=""><?php _e('Time Duration', 'tutor'); ?></label>
         </div>
 
         <div class="tutor-option-field">
@@ -87,7 +87,7 @@ $assignment_id = $post->ID;
                 </div>
             </div>
 
-            <p class="desc">Assignment time duration, set 0 for no limit.</p>
+            <p class="desc"><?php _e('Assignment time duration, set 0 for no limit.', 'tutor') ?></p>
         </div>
     </div>
 
