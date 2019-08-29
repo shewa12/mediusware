@@ -51,7 +51,7 @@ $reviews = $wpdb->get_results("select {$wpdb->comments}.comment_ID,
             <th><?php _e('Rating', 'tutor-report'); ?> </th>
             <th><?php _e('Reviews', 'tutor-report'); ?> </th>
             <th><?php _e('Time', 'tutor-report'); ?> </th>
-            <th>#</th>
+            <th><?php _e('Action', 'tutor-report'); ?> </th>
         </tr>
 		<?php
 		if (is_array($reviews) && count($reviews)){

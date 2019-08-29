@@ -27,7 +27,7 @@ add_filter('tutor_addons_lists_config', 'tutor_course_preview_config');
 function tutor_course_preview_config($config){
 	$newConfig = array(
 		'name'          => __('Course Preview', 'tutor-course-preview'),
-		'description'   => 'Open some lesson to check course overview for guest',
+		'description'   => 'Unlock some lessons for students before enrollment.',
 	);
 	$basicConfig = (array) TUTOR_CP();
 	$newConfig = array_merge($newConfig, $basicConfig);

@@ -27,7 +27,7 @@ add_filter('tutor_addons_lists_config', 'tutor_certificate_config');
 function tutor_certificate_config($config){
 	$newConfig = array(
 		'name'          => __('Certificate', 'tutor-certificate'),
-		'description'   => 'Student will able to download certificate of completed course',
+		'description'   => 'Students will be able to download a certificate after course completion.',
 	);
 
 	$basicConfig = (array) TUTOR_CERT();

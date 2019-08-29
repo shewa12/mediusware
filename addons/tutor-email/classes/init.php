@@ -95,7 +95,7 @@ class init{
 								'quiz_completed' => __('Quiz Completed', 'tutor'),
 								'completed_course' => __('Completed a course', 'tutor'),
 							),
-							'desc'      => __('Select when to sent notification to the students',	'tutor'),
+							'desc'      => __('Select when to send notification to the students',	'tutor'),
 						),
 						'email_to_teachers' => array(
 							'type'      => 'checkbox',
@@ -104,9 +104,9 @@ class init{
 								'a_student_enrolled_in_course'              => __('A Student enrolled in course ', 'tutor'),
 								'a_student_completed_course'            => __('A Student Completed Course', 'tutor'),
 								'a_student_completed_lesson'            => __('A Student Completed Lesson', 'tutor'),
-								'a_student_placed_question'             => __('A Student placed question to course', 'tutor'),
+								'a_student_placed_question'             => __('A Student asked a question in Q&amp;A', 'tutor'),
 							),
-							'desc'      => __('Select when to sent notification to the teachers',	'tutor'),
+							'desc'      => __('Select when to send notification to the teachers',	'tutor'),
 						),
 					),
 				),
@@ -116,13 +116,13 @@ class init{
 					'fields' => array(
 						'email_from_name' => array(
 							'type'      => 'text',
-							'label'     => __('E-Mail From Name', 'tutor'),
+							'label'     => __('Name', 'tutor'),
 							'default'   => get_option('blogname'),
 							'desc'      => __('The name under which all the emails will be sent',	'tutor'),
 						),
 						'email_from_address' => array(
 							'type'      => 'text',
-							'label'     => __('From E-Mail Address', 'tutor'),
+							'label'     => __('E-Mail Address', 'tutor'),
 							'default'   => get_option('admin_email'),
 							'desc'      => __('The E-Mail address from which all emails will be sent', 'tutor'),
 						),

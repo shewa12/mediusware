@@ -4,25 +4,25 @@
     echo '<h3>';
     switch ($sub_page){
         case 'this_year';
-	        echo sprintf(__("Showing Result for the year %s", 'tutor-report'), $currentYear);
+	        echo sprintf(__("Showing results for the year %s", 'tutor-report'), $currentYear);
 	        break;
 	    case 'last_year';
-		    echo sprintf(__("Showing Result for the year %s", 'tutor-report'), $lastYear);
+		    echo sprintf(__("Showing results for the year %s", 'tutor-report'), $lastYear);
 		    break;
 	    case 'last_month';
-		    echo sprintf(__("Showing Result for the month of %s", 'tutor-report'), date("F, Y", strtotime($start_date)));
+		    echo sprintf(__("Showing results for the month of %s", 'tutor-report'), date("F, Y", strtotime($start_date)));
 		    break;
 	    case 'this_month';
-		    echo sprintf(__("Showing Result for the month of %s", 'tutor-report'), date("F, Y"));
+		    echo sprintf(__("Showing results for the month of %s", 'tutor-report'), date("F, Y"));
 		    break;
 	    case 'last_week';
-		    echo sprintf(__("Showing Result from %s to %s", 'tutor-report'), $begin->format('d F, Y'), $end->format('d F, Y'));
+		    echo sprintf(__("Showing results from %s to %s", 'tutor-report'), $begin->format('d F, Y'), $end->format('d F, Y'));
 		    break;
 	    case 'this_week';
-		    echo sprintf(__("Showing Result from %s to %s", 'tutor-report'), $begin->format('d F, Y'), $end->format('d F, Y'));
+		    echo sprintf(__("Showing results from %s to %s", 'tutor-report'), $begin->format('d F, Y'), $end->format('d F, Y'));
 		    break;
 	    case 'date_range';
-		    echo sprintf(__("Showing Result from %s to %s", 'tutor-report'), $begin->format('d F, Y'), $end->format('d F, Y'));
+		    echo sprintf(__("Showing results from %s to %s", 'tutor-report'), $begin->format('d F, Y'), $end->format('d F, Y'));
 		    break;
     }
     echo '</h3>';
@@ -33,7 +33,7 @@
 	?>
 
     <p class="text-muted">
-        <?php _e('Total Enrolled Course'); ?> <?php echo array_sum($chartData); ?>
+        <?php _e('Total Enrolled Courses:'); ?> <?php echo array_sum($chartData); ?>
         <span class="report-download-csv-icon">
             <a href="<?php echo add_query_arg(array('tutor_report_action' => 'download_course_enrol_csv')); ?>"><i class="tutor-icon-file"></i> <?php _e('Download as CSV');
             ?></a>
@@ -92,13 +92,13 @@
 if (! $course_id){
 	?>
 	<div class="top-course-enrolled tutor-bg-white box-padding">
-		<h3><?php _e('Top enrolled courses', 'tutor-report'); ?></h3>
+		<h3><?php _e('Highest enrolled courses', 'tutor-report'); ?></h3>
 
 		<table class="widefat tutor-report-table ">
 			<tr>
 				<th><?php _e('Course', 'tutor-report'); ?></th>
 				<th><?php _e('Total Enrolled', 'tutor-report'); ?></th>
-				<th>#</th>
+				<th><?php _e('Action', 'tutor-report'); ?> </th>
 			</tr>
 
 			<?php

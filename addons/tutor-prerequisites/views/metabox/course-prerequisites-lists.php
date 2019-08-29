@@ -32,7 +32,7 @@
         </select>
 
         <p class="desc">
-			<?php _e('Selected course should be complete before enroll this course.', 'tutor-prerequisites'); ?>
+			<?php _e('List courses that must be completed before enrolling for this course.', 'tutor-prerequisites'); ?>
         </p>
     </div>
 </div>
