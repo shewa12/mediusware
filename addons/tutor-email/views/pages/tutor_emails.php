@@ -1,14 +1,14 @@
 <div class="wrap tutor-emails-lists-wrap">
-    <h2><?php _e('E-Mails', 'tutor'); ?></h2>
+    <h2><?php _e('E-Mails', 'tutor-pro'); ?></h2>
 
     <table class="wp-list-table widefat striped">
         <thead>
 
         <tr>
-            <th><?php _e('Event', 'tutor'); ?></th>
-            <th><?php _e('Content type', 'tutor'); ?></th>
+            <th><?php _e('Event', 'tutor-pro'); ?></th>
+            <th><?php _e('Content type', 'tutor-pro'); ?></th>
             <th>#</th>
-            <th><?php _e('Variables that can be used inside templates', 'tutor'); ?></th>
+            <th><?php _e('Variables that can be used inside templates', 'tutor-pro'); ?></th>
         </tr>
         </thead>
 

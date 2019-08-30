@@ -12,7 +12,7 @@
 <div class="tutor-option-field-row">
     <div class="tutor-option-field-label">
         <label for="">
-			<?php _e('Select course', 'tutor-prerequisites'); ?>
+			<?php _e('Select course', 'tutor-pro'); ?>
         </label>
     </div>
     <div class="tutor-option-field">
@@ -32,7 +32,7 @@
         </select>
 
         <p class="desc">
-			<?php _e('List courses that must be completed before enrolling for this course.', 'tutor-prerequisites'); ?>
+			<?php _e('List courses that must be completed before enrolling for this course.', 'tutor-pro'); ?>
         </p>
     </div>
 </div>

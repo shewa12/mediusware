@@ -14,5 +14,5 @@
             }
 		?></div>
 
-	<button type="button" class="tutor-btn tutorUploadAttachmentBtn bordered-btn"><i class="tutor-icon-attach"></i><?php _e('Upload Attachment', 'tutor'); ?></button>
+	<button type="button" class="tutor-btn tutorUploadAttachmentBtn bordered-btn"><i class="tutor-icon-attach"></i><?php _e('Upload Attachment', 'tutor-pro'); ?></button>
 </div>

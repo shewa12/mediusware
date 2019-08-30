@@ -13,21 +13,21 @@ $instructor_note = get_comment_meta($assignment_submitted_id, 'instructor_note',
 
 
         <p>
-            <?php _e('Course' , 'tutor'); ?> :
+            <?php _e('Course' , 'tutor-pro'); ?> :
             <a href="<?php echo get_the_permalink($submitted_assignment->comment_parent); ?>" target="_blank">
                 <?php echo get_the_title($submitted_assignment->comment_parent); ?>
             </a>
         </p>
 
         <p>
-            <?php _e('Assignment' , 'tutor'); ?> :
+            <?php _e('Assignment' , 'tutor-pro'); ?> :
             <a href="<?php echo get_the_permalink($submitted_assignment->comment_post_ID); ?>" target="_blank">
 	            <?php echo get_the_title($submitted_assignment->comment_post_ID); ?>
             </a>
         </p>
 
 
-        <h2><?php _e('Answers', 'tutor'); ?></h2>
+        <h2><?php _e('Answers', 'tutor-pro'); ?></h2>
 
 		<?php echo nl2br(stripslashes($submitted_assignment->comment_content));
 
@@ -37,7 +37,7 @@ $instructor_note = get_comment_meta($assignment_submitted_id, 'instructor_note',
 
 			if (tutor_utils()->count($attached_files)){
 				?>
-                <h2><?php _e('Uploaded file(s)', 'tutor'); ?></h2>
+                <h2><?php _e('Uploaded file(s)', 'tutor-pro'); ?></h2>
 
 				<?php
 				$upload_dir = wp_get_upload_dir();
@@ -84,7 +84,7 @@ $instructor_note = get_comment_meta($assignment_submitted_id, 'instructor_note',
                     </div>
                     <div class="tutor-option-field">
                         <textarea name="evaluate_assignment[instructor_note]"><?php echo $instructor_note; ?></textarea>
-                        <p class="desc"><?php _e('Write a note to students about this submission', 'tutor'); ?></p>
+                        <p class="desc"><?php _e('Write a note to students about this submission', 'tutor-pro'); ?></p>
                     </div>
                 </div>
 

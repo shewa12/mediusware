@@ -26,7 +26,7 @@ define('TUTOR_CA_FILE', __FILE__);
 add_filter('tutor_addons_lists_config', 'tutor_course_attachments_config');
 function tutor_course_attachments_config($config){
 	$newConfig = array(
-		'name'          => __('Course Attachments', 'tutor-course-attachments'),
+		'name'          => __('Course Attachments', 'tutor-pro'),
 		'description'   => 'Add unlimited attachments/ private files to any Tutor course',
 	);
 

@@ -26,7 +26,7 @@ define('TUTOR_EMAIL_FILE', __FILE__);
 add_filter('tutor_addons_lists_config', 'tutor_email_config');
 function tutor_email_config($config){
 	$newConfig = array(
-		'name'          => __('E-Mail', 'tutor-email'),
+		'name'          => __('E-Mail', 'tutor-pro'),
 		'description'   => 'Send email on various tutor events',
 	);
 	$basicConfig = (array) TUTOR_EMAIL();

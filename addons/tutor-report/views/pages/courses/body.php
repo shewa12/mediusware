@@ -4,31 +4,31 @@
     echo '<h3>';
     switch ($sub_page){
         case 'this_year';
-	        echo sprintf(__("Showing results for the year %s", 'tutor-report'), $currentYear);
+	        echo sprintf(__("Showing results for the year %s", 'tutor-pro'), $currentYear);
 	        break;
 	    case 'last_year';
-		    echo sprintf(__("Showing results for the year %s", 'tutor-report'), $lastYear);
+		    echo sprintf(__("Showing results for the year %s", 'tutor-pro'), $lastYear);
 		    break;
 	    case 'last_month';
-		    echo sprintf(__("Showing results for the month of %s", 'tutor-report'), date("F, Y", strtotime($start_date)));
+		    echo sprintf(__("Showing results for the month of %s", 'tutor-pro'), date("F, Y", strtotime($start_date)));
 		    break;
 	    case 'this_month';
-		    echo sprintf(__("Showing results for the month of %s", 'tutor-report'), date("F, Y"));
+		    echo sprintf(__("Showing results for the month of %s", 'tutor-pro'), date("F, Y"));
 		    break;
 	    case 'last_week';
-		    echo sprintf(__("Showing results from %s to %s", 'tutor-report'), $begin->format('d F, Y'), $end->format('d F, Y'));
+		    echo sprintf(__("Showing results from %s to %s", 'tutor-pro'), $begin->format('d F, Y'), $end->format('d F, Y'));
 		    break;
 	    case 'this_week';
-		    echo sprintf(__("Showing results from %s to %s", 'tutor-report'), $begin->format('d F, Y'), $end->format('d F, Y'));
+		    echo sprintf(__("Showing results from %s to %s", 'tutor-pro'), $begin->format('d F, Y'), $end->format('d F, Y'));
 		    break;
 	    case 'date_range';
-		    echo sprintf(__("Showing results from %s to %s", 'tutor-report'), $begin->format('d F, Y'), $end->format('d F, Y'));
+		    echo sprintf(__("Showing results from %s to %s", 'tutor-pro'), $begin->format('d F, Y'), $end->format('d F, Y'));
 		    break;
     }
     echo '</h3>';
 
     if ($course_id){
-		echo '<h4>'.__('Results for course : ', 'tutor-report').get_the_title($course_id).'</h4>';
+		echo '<h4>'.__('Results for course : ', 'tutor-pro').get_the_title($course_id).'</h4>';
 	}
 	?>
 
@@ -92,13 +92,13 @@
 if (! $course_id){
 	?>
 	<div class="top-course-enrolled tutor-bg-white box-padding">
-		<h3><?php _e('Highest enrolled courses', 'tutor-report'); ?></h3>
+		<h3><?php _e('Highest enrolled courses', 'tutor-pro'); ?></h3>
 
 		<table class="widefat tutor-report-table ">
 			<tr>
-				<th><?php _e('Course', 'tutor-report'); ?></th>
-				<th><?php _e('Total Enrolled', 'tutor-report'); ?></th>
-				<th><?php _e('Action', 'tutor-report'); ?> </th>
+				<th><?php _e('Course', 'tutor-pro'); ?></th>
+				<th><?php _e('Total Enrolled', 'tutor-pro'); ?></th>
+				<th><?php _e('Action', 'tutor-pro'); ?> </th>
 			</tr>
 
 			<?php

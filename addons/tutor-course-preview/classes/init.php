@@ -86,12 +86,12 @@ class init{
 
 			'sections'    => array(
 				'general' => array(
-					'label' => __('General', 'tutor-course-preview'),
-					'desc' => __('Tutor Course Attachments Settings', 'tutor-course-preview'),
+					'label' => __('General', 'tutor-pro'),
+					'desc' => __('Tutor Course Attachments Settings', 'tutor-pro'),
 					'fields' => array(
 						'enable_course_preview' => array(
 							'type'          => 'checkbox',
-							'label'         => __('Enable Course Preview', 'tutor'),
+							'label'         => __('Enable Course Preview', 'tutor-pro'),
 							'desc'          => __('This will allow user/guest to check some preview lesson in course before enroll',	'tutor'),
 						),
 					),

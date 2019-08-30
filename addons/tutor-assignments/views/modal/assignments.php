@@ -14,7 +14,7 @@ $assignment_id = $post->ID;
 
 		<div class="tutor-option-field-row">
 			<div class="tutor-option-field tutor-assignment-modal-title-wrap">
-				<input type="text" name="assignment_title" value="<?php echo $post->post_title; ?>" placeholder="<?php _e('Assignment title', 'tutor'); ?>">
+				<input type="text" name="assignment_title" value="<?php echo $post->post_title; ?>" placeholder="<?php _e('Assignment title', 'tutor-pro'); ?>">
 			</div>
 		</div>
 
@@ -62,7 +62,7 @@ $assignment_id = $post->ID;
 
             </div>
 
-            <p><a href="javascript:;" class="add-assignment-attachments tutor-btn bordered-btn"><?php _e('Add attachments', 'tutor'); ?></a></p>
+            <p><a href="javascript:;" class="add-assignment-attachments tutor-btn bordered-btn"><?php _e('Add attachments', 'tutor-pro'); ?></a></p>
 
         </div>
     </div>
@@ -70,7 +70,7 @@ $assignment_id = $post->ID;
 
     <div class="tutor-option-field-row">
         <div class="tutor-option-field-label">
-            <label for=""><?php _e('Time Duration', 'tutor'); ?></label>
+            <label for=""><?php _e('Time Duration', 'tutor-pro'); ?></label>
         </div>
 
         <div class="tutor-option-field">
@@ -87,7 +87,7 @@ $assignment_id = $post->ID;
                 </div>
             </div>
 
-            <p class="desc"><?php _e('Assignment time duration, set 0 for no limit.', 'tutor') ?></p>
+            <p class="desc"><?php _e('Assignment time duration, set 0 for no limit.', 'tutor-pro') ?></p>
         </div>
     </div>
 
@@ -135,6 +135,6 @@ $assignment_id = $post->ID;
 
     </div>
 	<div class="modal-footer">
-		<button type="button" class="tutor-btn update_assignment_modal_btn"><?php _e('Update Assignment', 'tutor'); ?></button>
+		<button type="button" class="tutor-btn update_assignment_modal_btn"><?php _e('Update Assignment', 'tutor-pro'); ?></button>
 	</div>
 </form>

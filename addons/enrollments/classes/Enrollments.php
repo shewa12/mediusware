@@ -25,7 +25,7 @@ class Enrollments {
 	}
 
 	public function register_menu(){
-		add_submenu_page('tutor', __('Enrollments', 'tutor'), __('Enrollments', 'tutor'), 'manage_tutor', 'enrollments', array($this, 'enrollments') );
+		add_submenu_page('tutor', __('Enrollments', 'tutor-pro'), __('Enrollments', 'tutor-pro'), 'manage_tutor', 'enrollments', array($this, 'enrollments') );
 	}
 
 	/**
@@ -77,14 +77,14 @@ class Enrollments {
 
 		$isEnrolled = tutils()->is_enrolled($course_id, $user_id);
 		if ($isEnrolled){
-			$this->success_msgs = get_tnotice(__('This user has been already enrolled on this course', 'tutor'), 'Error', 'danger');
+			$this->success_msgs = get_tnotice(__('This user has been already enrolled on this course', 'tutor-pro'), 'Error', 'danger');
 		}else{
 			/**
 			 * Enroll Now
 			 */
 
 			do_action('tutor_before_enroll', $course_id);
-			$title = __('Course Enrolled', 'tutor')." &ndash; ".date_i18n(get_option('date_format')) .' @ '.date_i18n(get_option('time_format') ) ;
+			$title = __('Course Enrolled', 'tutor-pro')." &ndash; ".date_i18n(get_option('date_format')) .' @ '.date_i18n(get_option('time_format') ) ;
 			$enroll_data = apply_filters('tutor_enroll_data',
 				array(
 					'post_type'     => 'tutor_enrolled',
@@ -103,7 +103,7 @@ class Enrollments {
 				update_user_meta( $user_id, '_is_tutor_student', time() );
 			}
 
-			$this->success_msgs = get_tnotice(__('Enrolment has been done', 'tutor'), 'Success', 'success');
+			$this->success_msgs = get_tnotice(__('Enrolment has been done', 'tutor-pro'), 'Success', 'success');
 		}
 
 		add_filter('student_enrolled_to_course_msg', array($this, 'return_message'));

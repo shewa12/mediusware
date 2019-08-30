@@ -82,55 +82,55 @@ class init{
 
 	public function add_options($attr){
 		$attr['email_notification'] = array(
-			'label'     => __('E-Mail Notification', 'tutor'),
+			'label'     => __('E-Mail Notification', 'tutor-pro'),
 			'sections'    => array(
 				'general' => array(
-					'label' => __('Enable/Disable', 'tutor'),
-					'desc' => __('Enable Disable Option to on/off notification on various event', 'tutor'),
+					'label' => __('Enable/Disable', 'tutor-pro'),
+					'desc' => __('Enable Disable Option to on/off notification on various event', 'tutor-pro'),
 					'fields' => array(
 						'email_to_students' => array(
 							'type'      => 'checkbox',
-							'label'     => __('E-Mail to Students', 'tutor'),
+							'label'     => __('E-Mail to Students', 'tutor-pro'),
 							'options'   => array(
-								'quiz_completed' => __('Quiz Completed', 'tutor'),
-								'completed_course' => __('Completed a course', 'tutor'),
+								'quiz_completed' => __('Quiz Completed', 'tutor-pro'),
+								'completed_course' => __('Completed a course', 'tutor-pro'),
 							),
 							'desc'      => __('Select when to send notification to the students',	'tutor'),
 						),
 						'email_to_teachers' => array(
 							'type'      => 'checkbox',
-							'label'     => __('E-Mail to Teachers', 'tutor'),
+							'label'     => __('E-Mail to Teachers', 'tutor-pro'),
 							'options'   => array(
-								'a_student_enrolled_in_course'              => __('A Student enrolled in course ', 'tutor'),
-								'a_student_completed_course'            => __('A Student Completed Course', 'tutor'),
-								'a_student_completed_lesson'            => __('A Student Completed Lesson', 'tutor'),
-								'a_student_placed_question'             => __('A Student asked a question in Q&amp;A', 'tutor'),
+								'a_student_enrolled_in_course'              => __('A Student enrolled in course ', 'tutor-pro'),
+								'a_student_completed_course'            => __('A Student Completed Course', 'tutor-pro'),
+								'a_student_completed_lesson'            => __('A Student Completed Lesson', 'tutor-pro'),
+								'a_student_placed_question'             => __('A Student asked a question in Q&amp;A', 'tutor-pro'),
 							),
 							'desc'      => __('Select when to send notification to the teachers',	'tutor'),
 						),
 					),
 				),
 				'email_settings' => array(
-					'label' => __('E-Mail Settings', 'tutor'),
-					'desc' => __('Check and place necessary information here.', 'tutor'),
+					'label' => __('E-Mail Settings', 'tutor-pro'),
+					'desc' => __('Check and place necessary information here.', 'tutor-pro'),
 					'fields' => array(
 						'email_from_name' => array(
 							'type'      => 'text',
-							'label'     => __('Name', 'tutor'),
+							'label'     => __('Name', 'tutor-pro'),
 							'default'   => get_option('blogname'),
 							'desc'      => __('The name under which all the emails will be sent',	'tutor'),
 						),
 						'email_from_address' => array(
 							'type'      => 'text',
-							'label'     => __('E-Mail Address', 'tutor'),
+							'label'     => __('E-Mail Address', 'tutor-pro'),
 							'default'   => get_option('admin_email'),
-							'desc'      => __('The E-Mail address from which all emails will be sent', 'tutor'),
+							'desc'      => __('The E-Mail address from which all emails will be sent', 'tutor-pro'),
 						),
 						'email_footer_text' => array(
 							'type'      => 'textarea',
-							'label'     => __('E-Mail Footer Text', 'tutor'),
+							'label'     => __('E-Mail Footer Text', 'tutor-pro'),
 							'default'   => '',
-							'desc'      => __('The text to appear in E-Mail template footer', 'tutor'),
+							'desc'      => __('The text to appear in E-Mail template footer', 'tutor-pro'),
 						),
 					),
 				),

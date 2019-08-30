@@ -38,7 +38,7 @@ class Report extends Tutor_Base {
 	}
 
 	public function register_menu(){
-		add_submenu_page('tutor', __('Report', 'tutor-report'), __('Report', 'tutor-report'), 'manage_tutor', 'tutor_report', array($this, 'tutor_report') );
+		add_submenu_page('tutor', __('Report', 'tutor-pro'), __('Report', 'tutor-pro'), 'manage_tutor', 'tutor_report', array($this, 'tutor_report') );
 	}
 
 	public function tutor_report(){

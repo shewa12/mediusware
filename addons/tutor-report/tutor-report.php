@@ -26,7 +26,7 @@ define('TUTOR_REPORT_FILE', __FILE__);
 add_filter('tutor_addons_lists_config', 'tutor_report_config');
 function tutor_report_config($config){
 	$newConfig = array(
-		'name'          => __('Report', 'tutor-report'),
+		'name'          => __('Report', 'tutor-pro'),
 		'description'   => 'Check your course performance through Tutor Report stats.',
 	);
 	$basicConfig = (array) TUTOR_REPORT();

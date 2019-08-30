@@ -82,14 +82,14 @@ class Assignments_List extends \Tutor_List_Table {
 	function get_columns(){
 		$columns = array(
 			'cb'                => '<input type="checkbox" />', //Render a checkbox instead of text
-			'title'      => __('Title', 'tutor'),
-			'student'        => __('Student', 'tutor'),
-			'course'  => __('Course', 'tutor'),
-			'mark'  => __('Total Points', 'tutor'),
-			'passing_mark'  => __('Minumum Pass Points', 'tutor'),
-			'duration'  => __('Duration', 'tutor'),
-			'date'  => __('Date', 'tutor'),
-			'action'  => __('Actions', 'tutor'),
+			'title'      => __('Title', 'tutor-pro'),
+			'student'        => __('Student', 'tutor-pro'),
+			'course'  => __('Course', 'tutor-pro'),
+			'mark'  => __('Total Points', 'tutor-pro'),
+			'passing_mark'  => __('Minumum Pass Points', 'tutor-pro'),
+			'duration'  => __('Duration', 'tutor-pro'),
+			'date'  => __('Date', 'tutor-pro'),
+			'action'  => __('Actions', 'tutor-pro'),
 		);
 		return $columns;
 	}

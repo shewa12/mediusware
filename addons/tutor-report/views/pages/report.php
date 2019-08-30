@@ -1,9 +1,9 @@
 <?php
 $currentSubPage = 'overview';
 $subPages = array(
-	'overview' => __('Overview', 'tutor-report'),
-	'courses' => __('Courses', 'tutor-report'),
-	'reviews' => __('Reviews', 'tutor-report'),
+	'overview' => __('Overview', 'tutor-pro'),
+	'courses' => __('Courses', 'tutor-pro'),
+	'reviews' => __('Reviews', 'tutor-pro'),
 );
 
 if ( ! empty($_GET['sub_page'])){
@@ -12,7 +12,7 @@ if ( ! empty($_GET['sub_page'])){
 ?>
 
 <div class="wrap">
-	<h2 class="tutor-page-heading"><?php _e('Tutor LMS Report', 'tutor-report'); ?></h2>
+	<h2 class="tutor-page-heading"><?php _e('Tutor LMS Report', 'tutor-pro'); ?></h2>
     <div class="report-main-wrap">
         <div class="tutor-report-left-menus">
             <ul>

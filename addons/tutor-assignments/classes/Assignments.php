@@ -30,11 +30,11 @@ class Assignments{
 	}
 
 	public function register_menu(){
-		add_submenu_page('tutor', __('Assignments', 'tutor'), __('Assignments', 'tutor'), 'manage_tutor_instructor', 'tutor-assignments', array($this, 'tutor_assignments_page') );
+		add_submenu_page('tutor', __('Assignments', 'tutor-pro'), __('Assignments', 'tutor-pro'), 'manage_tutor_instructor', 'tutor-assignments', array($this, 'tutor_assignments_page') );
 	}
 
 	public function frontend_dashboard_nav_items($nav_items){
-		$nav_items['assignments'] = array('title' => __('Assignments', 'tutor'), 'auth_cap' => tutor()->instructor_role);
+		$nav_items['assignments'] = array('title' => __('Assignments', 'tutor-pro'), 'auth_cap' => tutor()->instructor_role);
 		return $nav_items;
     }
 
@@ -67,7 +67,7 @@ class Assignments{
 
 			$post_arr = array(
 				'post_type'    => 'tutor_assignments',
-				'post_title'   => __('Assignments', 'tutor'),
+				'post_title'   => __('Assignments', 'tutor-pro'),
 				'post_status'  => 'publish',
 				'post_author'  => get_current_user_id(),
 				'post_parent'  => $topic_id,
@@ -180,7 +180,7 @@ class Assignments{
 	    $is_running_submit = (int) $wpdb->get_var("SELECT COUNT(comment_ID) FROM {$wpdb->comments} WHERE comment_type = 'tutor_assignment' AND user_id = {$user_id} AND comment_post_ID = {$assignment_id} ");
 
 	    if ($is_running_submit){
-	        wp_send_json_error(__('An assignment is submitting currently, please submit previous one first', 'tutor'));
+	        wp_send_json_error(__('An assignment is submitting currently, please submit previous one first', 'tutor-pro'));
         }
 
 	    $course_id = get_post_meta($assignment_id, '_tutor_course_id_for_assignments', true);
@@ -202,7 +202,7 @@ class Assignments{
 	    $comment_id = (int) $wpdb->insert_id;
 	    do_action('tutor_after_assignment_submit_start', $comment_id);
 
-	    wp_send_json_success(__('Answer has been added successfully', 'tutor'));
+	    wp_send_json_success(__('Answer has been added successfully', 'tutor-pro'));
     }
 
     public function tutor_assignment_submit(){

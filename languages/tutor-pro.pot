@@ -1,0 +1,918 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Tutor LMS Pro\n"
+"POT-Creation-Date: 2019-08-30 16:09+0600\n"
+"PO-Revision-Date: 2019-08-30 16:08+0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: tutor-pro.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: addons/enrollments/classes/Enrollments.php:28
+#: addons/enrollments/enrollments.php:29
+#: addons/enrollments/views/enrollments.php:7
+msgid "Enrollments"
+msgstr ""
+
+#: addons/enrollments/classes/Enrollments.php:57
+#, php-format
+msgid "%1$s (#%2$s - %3$s)"
+msgstr ""
+
+#: addons/enrollments/classes/Enrollments.php:80
+msgid "This user has been already enrolled on this course"
+msgstr ""
+
+#: addons/enrollments/classes/Enrollments.php:87
+#: addons/tutor-report/views/pages/overview.php:99
+msgid "Course Enrolled"
+msgstr ""
+
+#: addons/enrollments/classes/Enrollments.php:106
+msgid "Enrolment has been done"
+msgstr ""
+
+#: addons/enrollments/classes/Enrollments_List.php:62
+#, php-format
+msgid "Date : %s"
+msgstr ""
+
+#: addons/enrollments/classes/Enrollments_List.php:84
+#: addons/enrollments/views/enroll_student.php:18
+#: addons/tutor-assignments/classes/Assignments_List.php:86
+msgid "Student"
+msgstr ""
+
+#: addons/enrollments/classes/Enrollments_List.php:85
+#: addons/enrollments/views/enroll_student.php:32
+#: addons/tutor-assignments/classes/Assignments_List.php:87
+#: addons/tutor-assignments/views/pages/submitted_assignment.php:16
+#: addons/tutor-report/views/pages/courses/body.php:99
+#: addons/tutor-report/views/pages/overview.php:341
+#: addons/tutor-report/views/pages/overview.php:380
+#: addons/tutor-report/views/pages/reviews/reviews.php:50
+msgid "Course"
+msgstr ""
+
+#: addons/enrollments/classes/Enrollments_List.php:86
+msgid "Order"
+msgstr ""
+
+#: addons/enrollments/classes/Enrollments_List.php:87
+msgid "Status"
+msgstr ""
+
+#: addons/enrollments/views/enroll_student.php:3
+#: addons/enrollments/views/enroll_student.php:64
+msgid "Enroll Student"
+msgstr ""
+
+#: addons/enrollments/views/enroll_student.php:42
+msgid "Select a Product"
+msgstr ""
+
+#: addons/enrollments/views/enrollments.php:8
+msgid "Enroll a student"
+msgstr ""
+
+#: addons/enrollments/views/enrollments.php:14
+msgid "Info"
+msgstr ""
+
+#: addons/enrollments/views/enrollments.php:15
+msgid ""
+"You can search enrollments with enrol id, enrolment name, enrolment email, "
+"course title"
+msgstr ""
+
+#: addons/enrollments/views/enrollments.php:25
+#: addons/tutor-assignments/views/pages/assignments.php:13
+msgid "Search"
+msgstr ""
+
+#: addons/pmpro/classes/PaidMembershipsPro.php:155
+#, php-format
+msgid "You must have a %s membership plan %s to enroll in this course."
+msgstr ""
+
+#: addons/pmpro/classes/init.php:86 addons/pmpro/pmpro.php:29
+msgid "Paid Memberships Pro"
+msgstr ""
+
+#: addons/pmpro/views/pmpro-content-settings.php:80
+msgid "Membership Model"
+msgstr ""
+
+#: addons/pmpro/views/pmpro-content-settings.php:86
+msgid "Select a membership model"
+msgstr ""
+
+#: addons/pmpro/views/pmpro-content-settings.php:87
+msgid "Full website membership"
+msgstr ""
+
+#: addons/pmpro/views/pmpro-content-settings.php:88
+msgid "Category wise membership"
+msgstr ""
+
+#: addons/pmpro/views/pmpro-content-settings.php:94
+msgid "Course Categories"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments.php:33
+#: addons/tutor-assignments/classes/Assignments.php:37
+#: addons/tutor-assignments/classes/Assignments.php:70
+#: addons/tutor-assignments/tutor-assignments.php:29
+msgid "Assignments"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments.php:52
+msgid "Create Assignments"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments.php:183
+msgid "An assignment is submitting currently, please submit previous one first"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments.php:205
+msgid "Answer has been added successfully"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments.php:265
+#, php-format
+msgid "Maximum attachment upload size allowed is %d MB"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments_List.php:51
+msgid "Started"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments_List.php:56
+msgid "Finished"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments_List.php:62
+msgid "View"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments_List.php:85
+msgid "Title"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments_List.php:88
+#: addons/tutor-assignments/views/modal/assignments.php:96
+msgid "Total Points"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments_List.php:89
+msgid "Minumum Pass Points"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments_List.php:90
+msgid "Duration"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments_List.php:91
+msgid "Date"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments_List.php:92
+msgid "Actions"
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:17
+msgid "Assignment title"
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:35
+msgid "Attachments"
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:53
+msgid "Remove"
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:65
+msgid "Add attachments"
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:73
+msgid "Time Duration"
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:90
+msgid "Assignment time duration, set 0 for no limit."
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:100
+msgid "Maximum points a student can score"
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:106
+msgid "Minimum Pass Points"
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:110
+msgid "Minimum points required for the student to pass this assignment."
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:116
+msgid "Allow to upload files"
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:121
+msgid ""
+"Define the number of files that a student can upload in this assignment. "
+"Input 0 to disable the option to upload."
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:127
+msgid "Maximum file size limit"
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:132
+#, php-format
+msgid "Define maximum file size attachment in %s"
+msgstr ""
+
+#: addons/tutor-assignments/views/modal/assignments.php:138
+msgid "Update Assignment"
+msgstr ""
+
+#: addons/tutor-assignments/views/pages/assignments.php:8
+msgid "Submitted Assignments"
+msgstr ""
+
+#: addons/tutor-assignments/views/pages/submitted_assignment.php:10
+msgid "Submitted Assignment"
+msgstr ""
+
+#: addons/tutor-assignments/views/pages/submitted_assignment.php:23
+msgid "Assignment"
+msgstr ""
+
+#: addons/tutor-assignments/views/pages/submitted_assignment.php:30
+msgid "Answers"
+msgstr ""
+
+#: addons/tutor-assignments/views/pages/submitted_assignment.php:40
+msgid "Uploaded file(s)"
+msgstr ""
+
+#: addons/tutor-assignments/views/pages/submitted_assignment.php:58
+msgid "Evaluation"
+msgstr ""
+
+#: addons/tutor-assignments/views/pages/submitted_assignment.php:59
+msgid "Your evaluation about this submission"
+msgstr ""
+
+#: addons/tutor-assignments/views/pages/submitted_assignment.php:72
+msgid "Your Mark"
+msgstr ""
+
+#: addons/tutor-assignments/views/pages/submitted_assignment.php:76
+#, php-format
+msgid "Mark this assignment out of %s"
+msgstr ""
+
+#: addons/tutor-assignments/views/pages/submitted_assignment.php:83
+msgid "Write a note"
+msgstr ""
+
+#: addons/tutor-assignments/views/pages/submitted_assignment.php:87
+msgid "Write a note to students about this submission"
+msgstr ""
+
+#: addons/tutor-assignments/views/pages/submitted_assignment.php:95
+msgid "Evaluate this submission"
+msgstr ""
+
+#: addons/tutor-certificate/classes/init.php:85
+#: addons/tutor-certificate/classes/init.php:90
+msgid "Tutor Certificate"
+msgstr ""
+
+#: addons/tutor-certificate/classes/init.php:89
+#: addons/tutor-course-preview/classes/init.php:89
+msgid "General"
+msgstr ""
+
+#: addons/tutor-certificate/classes/init.php:101
+msgid "Authorised Name"
+msgstr ""
+
+#: addons/tutor-certificate/classes/init.php:102
+msgid "Authorised name will be printed under signature."
+msgstr ""
+
+#: addons/tutor-certificate/classes/init.php:106
+msgid "Authorised Company Name"
+msgstr ""
+
+#: addons/tutor-certificate/classes/init.php:107
+msgid "Authorised company name will be printed under authorised name."
+msgstr ""
+
+#: addons/tutor-certificate/classes/init.php:111
+msgid "Upload Signature"
+msgstr ""
+
+#: addons/tutor-certificate/classes/init.php:113
+msgid "Upload a signature that will be printed at certificate."
+msgstr ""
+
+#: addons/tutor-certificate/tutor-certificate.php:29
+msgid "Certificate"
+msgstr ""
+
+#: addons/tutor-certificate/views/lesson-menu-after.php:8
+msgid "Download Certificate"
+msgstr ""
+
+#: addons/tutor-certificate/views/template_options.php:9
+msgid "Select Certificate Template"
+msgstr ""
+
+#: addons/tutor-course-attachments/classes/CourseAttachments.php:29
+msgid "Attachments (private files)"
+msgstr ""
+
+#: addons/tutor-course-attachments/tutor-course-attachments.php:29
+msgid "Course Attachments"
+msgstr ""
+
+#: addons/tutor-course-attachments/views/metabox/course-attachments-metabox.php:17
+msgid "Upload Attachment"
+msgstr ""
+
+#: addons/tutor-course-preview/classes/CoursePreview.php:27
+msgid "Lesson Preview"
+msgstr ""
+
+#: addons/tutor-course-preview/classes/init.php:85
+#: addons/tutor-course-preview/tutor-course-preview.php:29
+msgid "Course Preview"
+msgstr ""
+
+#: addons/tutor-course-preview/classes/init.php:90
+msgid "Tutor Course Attachments Settings"
+msgstr ""
+
+#: addons/tutor-course-preview/classes/init.php:94
+#: addons/tutor-course-preview/views/metabox/course-preview-metabox.php:17
+#: addons/tutor-course-preview/views/metabox/course-preview-metabox.php:24
+msgid "Enable Course Preview"
+msgstr ""
+
+#: addons/tutor-course-preview/classes/init.php:95
+msgid ""
+"This will allow user/guest to check some preview lesson in course before "
+"enroll"
+msgstr ""
+
+#: addons/tutor-course-preview/views/metabox/course-preview-metabox.php:28
+msgid "If checked, any users/guest can view this lesson without enroll course"
+msgstr ""
+
+#: addons/tutor-email/classes/EmailNotification.php:28
+#: addons/tutor-email/views/pages/tutor_emails.php:2
+msgid "E-Mails"
+msgstr ""
+
+#: addons/tutor-email/classes/EmailNotification.php:143
+msgid "You just completed "
+msgstr ""
+
+#: addons/tutor-email/classes/EmailNotification.php:192
+msgid " just completed "
+msgstr ""
+
+#: addons/tutor-email/classes/EmailNotification.php:296
+msgid " enrolled "
+msgstr ""
+
+#: addons/tutor-email/classes/EmailNotification.php:396
+msgid " just completed lesson "
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:85
+msgid "E-Mail Notification"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:88
+msgid "Enable/Disable"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:89
+msgid "Enable Disable Option to on/off notification on various event"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:93
+msgid "E-Mail to Students"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:95
+msgid "Quiz Completed"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:96
+msgid "Completed a course"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:98
+msgid "Select when to send notification to the students"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:102
+msgid "E-Mail to Teachers"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:104
+msgid "A Student enrolled in course "
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:105
+msgid "A Student Completed Course"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:106
+msgid "A Student Completed Lesson"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:107
+msgid "A Student asked a question in Q&amp;A"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:109
+msgid "Select when to send notification to the teachers"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:114
+msgid "E-Mail Settings"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:115
+msgid "Check and place necessary information here."
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:119
+#: addons/tutor-report/views/pages/overview.php:427
+#: addons/tutor-report/views/pages/overview.php:457
+msgid "Name"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:121
+msgid "The name under which all the emails will be sent"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:125
+msgid "E-Mail Address"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:127
+msgid "The E-Mail address from which all emails will be sent"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:131
+msgid "E-Mail Footer Text"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:133
+msgid "The text to appear in E-Mail template footer"
+msgstr ""
+
+#: addons/tutor-email/tutor-email.php:29
+#: addons/tutor-report/views/pages/overview.php:428
+#: addons/tutor-report/views/pages/overview.php:458
+msgid "E-Mail"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:8
+msgid "Event"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:9
+msgid "Content type"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:11
+msgid "Variables that can be used inside templates"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:17
+msgid "Quiz Finished"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:35
+msgid "Course Completed (to students)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:54
+msgid "Course Completed (to teacher)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:72
+msgid "Course Enrolled (to teacher)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:90
+msgid "Asked Question (to teacher)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:107
+msgid "Student completed a lesson (to teacher)"
+msgstr ""
+
+#: addons/tutor-multi-instructors/tutor-multi-instructors.php:29
+msgid "Multi Instructors"
+msgstr ""
+
+#: addons/tutor-prerequisites/classes/Prerequisites.php:28
+msgid "Course Prerequisites"
+msgstr ""
+
+#: addons/tutor-prerequisites/tutor-prerequisites.php:29
+msgid "Prerequisites"
+msgstr ""
+
+#: addons/tutor-prerequisites/views/frontend/show-course-prerequisites.php:2
+msgid "Course Prerequisite(s)"
+msgstr ""
+
+#: addons/tutor-prerequisites/views/frontend/show-course-prerequisites.php:14
+msgid ""
+"Please note that this course has the follwoing prerequisites which must be "
+"completed before it can be accessed"
+msgstr ""
+
+#: addons/tutor-prerequisites/views/metabox/course-prerequisites-lists.php:15
+msgid "Select course"
+msgstr ""
+
+#: addons/tutor-prerequisites/views/metabox/course-prerequisites-lists.php:25
+msgid "Select a Course"
+msgstr ""
+
+#: addons/tutor-prerequisites/views/metabox/course-prerequisites-lists.php:35
+msgid "List courses that must be completed before enrolling for this course."
+msgstr ""
+
+#: addons/tutor-report/classes/Report.php:41
+#: addons/tutor-report/tutor-report.php:29
+msgid "Report"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/body.php:7
+#: addons/tutor-report/views/pages/courses/body.php:10
+#, php-format
+msgid "Showing results for the year %s"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/body.php:13
+#: addons/tutor-report/views/pages/courses/body.php:16
+#, php-format
+msgid "Showing results for the month of %s"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/body.php:19
+#: addons/tutor-report/views/pages/courses/body.php:22
+#: addons/tutor-report/views/pages/courses/body.php:25
+#, php-format
+msgid "Showing results from %s to %s"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/body.php:31
+msgid "Results for course : "
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/body.php:36
+msgid "Total Enrolled Courses:"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/body.php:38
+msgid "Download as CSV"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/body.php:95
+msgid "Highest enrolled courses"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/body.php:100
+msgid "Total Enrolled"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/body.php:101
+#: addons/tutor-report/views/pages/reviews/reviews.php:54
+msgid "Action"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/top_menu.php:4
+msgid "Last Year"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/top_menu.php:5
+msgid "This Year"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/top_menu.php:6
+msgid "Last Month"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/top_menu.php:7
+msgid "This Month"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/top_menu.php:8
+msgid "Last Week"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/top_menu.php:9
+msgid "This Week"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:86
+#: addons/tutor-report/views/pages/report.php:5
+msgid "Courses"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:112
+msgid "Lessons"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:125
+msgid "Quiz"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:138
+msgid "Questions"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:151
+msgid "Instructors"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:164
+msgid "Students"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:177
+#: addons/tutor-report/views/pages/overview.php:343
+#: addons/tutor-report/views/pages/report.php:6
+#: addons/tutor-report/views/pages/reviews/reviews.php:43
+#: addons/tutor-report/views/pages/reviews/reviews.php:52
+msgid "Reviews"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:186
+#, php-format
+msgid "Student enrolment graph for %s"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:230
+msgid "Total Enrolled Course"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:281
+msgid "Most popular courses"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:285
+#: addons/tutor-report/views/pages/overview.php:309
+msgid "Course Name"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:286
+#: addons/tutor-report/views/pages/overview.php:310
+msgid "Enrolled"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:305
+msgid "Last enrolled courses"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:318
+#: addons/tutor-report/views/pages/overview.php:357
+#: addons/tutor-report/views/pages/overview.php:443
+#: addons/tutor-report/views/pages/overview.php:473
+#: addons/tutor-report/views/pages/reviews/reviews.php:67
+msgid "ago"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:336
+msgid "Recent reviews"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:340
+#: addons/tutor-report/views/pages/overview.php:378
+#: addons/tutor-report/views/pages/reviews/reviews.php:49
+msgid "User"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:342
+#: addons/tutor-report/views/pages/reviews/reviews.php:51
+msgid "Rating"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:344
+#: addons/tutor-report/views/pages/reviews/reviews.php:53
+msgid "Time"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:375
+msgid "Recent questions from students"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:379
+msgid "Question"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:423
+msgid "New registered students"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:429
+#: addons/tutor-report/views/pages/overview.php:459
+msgid "Registered at"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:453
+msgid "New registered teachers"
+msgstr ""
+
+#: addons/tutor-report/views/pages/report.php:4
+msgid "Overview"
+msgstr ""
+
+#: addons/tutor-report/views/pages/report.php:15
+msgid "Tutor LMS Report"
+msgstr ""
+
+#: addons/tutor-report/views/pages/reviews/reviews.php:45
+#, php-format
+msgid "Total reviews %d"
+msgstr ""
+
+#: addons/tutor-report/views/pages/reviews/reviews.php:70
+msgid "Delete"
+msgstr ""
+
+#: addons/wc-subscriptions/wc-subscriptions.php:29
+msgid "WooCommerce Subscriptions"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#: classes/Admin.php:19
+msgid "Tutor LMS Pro"
+msgstr ""
+
+#: classes/Admin.php:122
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: classes/General.php:79
+#, php-format
+msgid "Invalid taxonomy: %s."
+msgstr ""
+
+#: classes/Updater.php:39
+msgid "Tutor Pro License"
+msgstr ""
+
+#: classes/Updater.php:139
+msgid "Home"
+msgstr ""
+
+#: classes/Updater.php:140
+msgid "Themes"
+msgstr ""
+
+#: classes/Updater.php:141
+msgid "Plugins"
+msgstr ""
+
+#: classes/Updater.php:143
+msgid "Support"
+msgstr ""
+
+#: classes/Updater.php:145
+msgid "Support Forum"
+msgstr ""
+
+#: classes/Updater.php:146
+msgid "About us"
+msgstr ""
+
+#: classes/Updater.php:147
+msgid "Documentation"
+msgstr ""
+
+#: classes/Updater.php:148
+msgid "Contact Us"
+msgstr ""
+
+#: classes/Updater.php:149
+msgid "FAQ"
+msgstr ""
+
+#: classes/Updater.php:152
+msgid "Blog"
+msgstr ""
+
+#: classes/Updater.php:163
+msgid "Your license is connected with"
+msgstr ""
+
+#: classes/Updater.php:164
+msgid "Licensed To"
+msgstr ""
+
+#: classes/Updater.php:171
+msgid "License Valid Until : "
+msgstr ""
+
+#: classes/Updater.php:174
+msgid "License Type : "
+msgstr ""
+
+#: classes/Updater.php:186
+msgid "Your license is not connected"
+msgstr ""
+
+#: classes/Updater.php:188
+msgid "Valid license required"
+msgstr ""
+
+#: classes/Updater.php:192
+msgid "A valid license is required to unlock available features"
+msgstr ""
+
+#: classes/Updater.php:203
+msgid "Power Up your Plugin"
+msgstr ""
+
+#: classes/Updater.php:205
+msgid "Get License Key"
+msgstr ""
+
+#: classes/Updater.php:208
+msgid ""
+"Please enter your license key. An active license key is needed for automatic "
+"plugin updates and"
+msgstr ""
+
+#: classes/Updater.php:209
+msgid "support"
+msgstr ""
+
+#: classes/Updater.php:213
+msgid "Enter License Key"
+msgstr ""
+
+#: classes/Updater.php:214
+msgid "Already have your key? Enter it here"
+msgstr ""
+
+#: classes/Updater.php:219
+msgid "Enter your license key here"
+msgstr ""
+
+#: classes/Updater.php:220
+msgid "Connect with License key"
+msgstr ""
+
+#: classes/Updater.php:338
+#, php-format
+msgid ""
+"There is an error with your Tutor Pro License. Automatic update has been "
+"turned off, %s Please check license %s"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.themeum.com/product/tutor-lms/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Power up Tutor LMS plugins by Tutor Pro"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Themeum"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://themeum.com"
+msgstr ""

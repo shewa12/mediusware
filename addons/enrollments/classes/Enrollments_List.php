@@ -59,7 +59,7 @@ class Enrollments_List extends \Tutor_List_Table {
 
 	function column_course($item){
 		$student = "<strong><a href='".get_permalink($item->course_id)."' target='_blank'>{$item->course_title}</a> </strong> <br />";
-		$student .= sprintf(__('Date : %s', 'tutor'), date_i18n(get_option('date_format').' '.get_option('time_format')), strtotime($item->enrol_date));
+		$student .= sprintf(__('Date : %s', 'tutor-pro'), date_i18n(get_option('date_format').' '.get_option('time_format')), strtotime($item->enrol_date));
 
 		return $student;
 	}
@@ -81,10 +81,10 @@ class Enrollments_List extends \Tutor_List_Table {
 	function get_columns(){
 		$columns = array(
 			//'cb'                => '<input type="checkbox" />', //Render a checkbox instead of text
-			'student'      => __('Student', 'tutor'),
-			'course'      => __('Course', 'tutor'),
-			'order'      => __('Order', 'tutor'),
-			'status'      => __('Status', 'tutor'),
+			'student'      => __('Student', 'tutor-pro'),
+			'course'      => __('Course', 'tutor-pro'),
+			'order'      => __('Order', 'tutor-pro'),
+			'status'      => __('Status', 'tutor-pro'),
 		);
 		return $columns;
 	}

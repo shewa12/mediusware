@@ -25,7 +25,7 @@ class EmailNotification{
 	}
 
 	public function register_menu(){
-		add_submenu_page('tutor', __('E-Mails', 'tutor'), __('E-Mails', 'tutor'), 'manage_tutor', 'tutor_emails', array($this, 'tutor_emails') );
+		add_submenu_page('tutor', __('E-Mails', 'tutor-pro'), __('E-Mails', 'tutor-pro'), 'manage_tutor', 'tutor_emails', array($this, 'tutor_emails') );
 	}
 	public function tutor_emails(){
 		include TUTOR_EMAIL()->path.'views/pages/tutor_emails.php';
@@ -140,7 +140,7 @@ class EmailNotification{
 			get_the_permalink($course_id),
 		);
 
-		$subject = __('You just completed '.$course->post_title, 'tutor');
+		$subject = __('You just completed '.$course->post_title, 'tutor-pro');
 		
 		ob_start();
 		tutor_load_template( 'email.to_student_course_completed' );
@@ -189,7 +189,7 @@ class EmailNotification{
 			get_the_permalink($course_id),
 		);
 
-		$subject = __($student->display_name.' just completed '.$course->post_title, 'tutor');
+		$subject = __($student->display_name.' just completed '.$course->post_title, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template( 'email.to_teacher_course_completed' );
@@ -293,7 +293,7 @@ class EmailNotification{
 			get_the_permalink($course_id),
 		);
 
-		$subject = __($student->display_name.' enrolled '.$course->post_title, 'tutor');
+		$subject = __($student->display_name.' enrolled '.$course->post_title, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template( 'email.to_teacher_course_enrolled' );
@@ -341,7 +341,7 @@ class EmailNotification{
 			$question,
 		);
 
-		$subject = __(sprintf('%s Asked a question to %s', $student->display_name, $course->post_title), 'tutor');
+		$subject = __(sprintf('%s Asked a question to %s', $student->display_name, $course->post_title), 'tutor-pro');
 
 		ob_start();
 		tutor_load_template( 'email.to_teacher_asked_question_by_student' );
@@ -393,7 +393,7 @@ class EmailNotification{
 			get_the_permalink($lesson_id),
 		);
 
-		$subject = __($student->display_name.' just completed lesson '.$course->post_title, 'tutor');
+		$subject = __($student->display_name.' just completed lesson '.$course->post_title, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template( 'email.to_teacher_lesson_completed' );

@@ -83,7 +83,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
                 </div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalCourse; ?></h3>
-                    <p><?php _e('Courses', 'tutor-report'); ?></p>
+                    <p><?php _e('Courses', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
@@ -96,7 +96,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
                 </div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalCourseEnrolled; ?></h3>
-                    <p><?php _e('Course Enrolled', 'tutor-report'); ?></p>
+                    <p><?php _e('Course Enrolled', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
                 </div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalLesson; ?></h3>
-                    <p><?php _e('Lessons', 'tutor-report'); ?></p>
+                    <p><?php _e('Lessons', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
@@ -122,7 +122,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
                 </div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalQuiz; ?></h3>
-                    <p><?php _e('Quiz', 'tutor-report'); ?></p>
+                    <p><?php _e('Quiz', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
@@ -135,7 +135,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
                 </div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalQuestion; ?></h3>
-                    <p><?php _e('Questions', 'tutor-report'); ?></p>
+                    <p><?php _e('Questions', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
@@ -148,7 +148,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
                 </div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalInstructor; ?></h3>
-                    <p><?php _e('Instructors', 'tutor-report'); ?></p>
+                    <p><?php _e('Instructors', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
@@ -161,7 +161,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
                 </div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalStudents; ?></h3>
-                    <p><?php _e('Students', 'tutor-report'); ?></p>
+                    <p><?php _e('Students', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
@@ -174,7 +174,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
                 </div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalReviews; ?></h3>
-                    <p><?php _e('Reviews', 'tutor-report'); ?></p>
+                    <p><?php _e('Reviews', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
@@ -183,7 +183,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
     <div class="tutor-report-overview-section tutor-bg-white box-padding">
         <div class="tutor-overview-month-graph" style="width: 100%;">
 
-            <h3><?php echo sprintf(__('Student enrolment graph for %s', 'tutor-report'), date('F')); ?></h3>
+            <h3><?php echo sprintf(__('Student enrolment graph for %s', 'tutor-pro'), date('F')); ?></h3>
 			<?php
 			/**
 			 * Getting the last week
@@ -282,8 +282,8 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 
             <table class="widefat tutor-report-table ">
                 <tr>
-                    <th><?php _e('Course Name', 'tutor-report'); ?> </th>
-                    <th><?php _e('Enrolled', 'tutor-report'); ?> </th>
+                    <th><?php _e('Course Name', 'tutor-pro'); ?> </th>
+                    <th><?php _e('Enrolled', 'tutor-pro'); ?> </th>
                 </tr>
 				<?php
 				if (is_array($mostPopularCourses) && count($mostPopularCourses)){
@@ -306,8 +306,8 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 
             <table class="widefat tutor-report-table ">
                 <tr>
-                    <td><?php _e('Course Name', 'tutor-report'); ?> </td>
-                    <td><?php _e('Enrolled', 'tutor-report'); ?> </td>
+                    <td><?php _e('Course Name', 'tutor-pro'); ?> </td>
+                    <td><?php _e('Enrolled', 'tutor-pro'); ?> </td>
                 </tr>
 				<?php
 				if (is_array($lastEnrolledCourses) && count($lastEnrolledCourses)){
@@ -315,7 +315,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 						?>
                         <tr>
                             <td><a href="<?php echo get_the_permalink($course->ID); ?>"><?php echo $course->post_title; ?></a> </td>
-                            <td><?php echo human_time_diff(strtotime($course->enrolled_time)).' '.__('ago', 'tutor-report'); ?></td>
+                            <td><?php echo human_time_diff(strtotime($course->enrolled_time)).' '.__('ago', 'tutor-pro'); ?></td>
                         </tr>
 						<?php
 					}
@@ -337,11 +337,11 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 
             <table class="widefat tutor-report-table ">
                 <tr>
-                    <th width="100"><?php _e('User', 'tutor-report'); ?> </th>
-                    <th><?php _e('Course', 'tutor-report'); ?> </th>
-                    <th><?php _e('Rating', 'tutor-report'); ?> </th>
-                    <th><?php _e('Reviews', 'tutor-report'); ?> </th>
-                    <th><?php _e('Time', 'tutor-report'); ?> </th>
+                    <th width="100"><?php _e('User', 'tutor-pro'); ?> </th>
+                    <th><?php _e('Course', 'tutor-pro'); ?> </th>
+                    <th><?php _e('Rating', 'tutor-pro'); ?> </th>
+                    <th><?php _e('Reviews', 'tutor-pro'); ?> </th>
+                    <th><?php _e('Time', 'tutor-pro'); ?> </th>
                 </tr>
 				<?php
 				if (is_array($reviews) && count($reviews)){
@@ -354,7 +354,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 									?></a> </td>
                             <td><?php tutor_utils()->star_rating_generator($review->rating, true); ?></td>
                             <td><?php echo wpautop($review->comment_content); ?></td>
-                            <td><?php echo human_time_diff(strtotime($review->comment_date)).' '.__('ago', 'tutor-report'); ?></td>
+                            <td><?php echo human_time_diff(strtotime($review->comment_date)).' '.__('ago', 'tutor-pro'); ?></td>
                         </tr>
 						<?php
 					}
@@ -375,9 +375,9 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
             <h3><?php _e('Recent questions from students'); ?></h3>
 
             <table class="widefat tutor-report-table ">
-                <th><?php _e('User', 'tutor-report'); ?> </th>
-                <th><?php _e('Question', 'tutor-report'); ?> </th>
-                <th><?php _e('Course', 'tutor-report'); ?> </th>
+                <th><?php _e('User', 'tutor-pro'); ?> </th>
+                <th><?php _e('Question', 'tutor-pro'); ?> </th>
+                <th><?php _e('Course', 'tutor-pro'); ?> </th>
 
 				<?php
 
@@ -424,9 +424,9 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 
         <table class="widefat tutor-report-table ">
             <tr>
-                <td><?php _e('Name', 'tutor-report'); ?> </td>
-                <td><?php _e('E-Mail', 'tutor-report'); ?> </td>
-                <td><?php _e('Registered at', 'tutor-report'); ?> </td>
+                <td><?php _e('Name', 'tutor-pro'); ?> </td>
+                <td><?php _e('E-Mail', 'tutor-pro'); ?> </td>
+                <td><?php _e('Registered at', 'tutor-pro'); ?> </td>
             </tr>
 			<?php
 			if (is_array($students) && count($students)){
@@ -440,7 +440,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
                             </a>
                         </td>
                         <td><?php echo $student->user_email; ?> </td>
-                        <td><?php echo human_time_diff($student->registered_timestamp).' '.__('ago', 'tutor-report'); ?></td>
+                        <td><?php echo human_time_diff($student->registered_timestamp).' '.__('ago', 'tutor-pro'); ?></td>
                     </tr>
 					<?php
 				}
@@ -454,9 +454,9 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 
         <table class="widefat tutor-report-table ">
             <tr>
-                <td><?php _e('Name', 'tutor-report'); ?> </td>
-                <td><?php _e('E-Mail', 'tutor-report'); ?> </td>
-                <td><?php _e('Registered at', 'tutor-report'); ?> </td>
+                <td><?php _e('Name', 'tutor-pro'); ?> </td>
+                <td><?php _e('E-Mail', 'tutor-pro'); ?> </td>
+                <td><?php _e('Registered at', 'tutor-pro'); ?> </td>
             </tr>
 			<?php
 			if (is_array($teachers) && count($teachers)){
@@ -470,7 +470,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
                             </a>
                         </td>
                         <td><?php echo $teacher->user_email; ?> </td>
-                        <td><?php echo human_time_diff($teacher->registered_timestamp).' '.__('ago', 'tutor-report'); ?></td>
+                        <td><?php echo human_time_diff($teacher->registered_timestamp).' '.__('ago', 'tutor-pro'); ?></td>
                     </tr>
 					<?php
 				}

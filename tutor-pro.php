@@ -20,6 +20,14 @@ if ( ! defined( 'ABSPATH' ) )
 define('TUTOR_PRO_VERSION', '1.4.0');
 define('TUTOR_PRO_FILE', __FILE__);
 
+/**
+ * Load tutor-pro text domain for translation
+ */
+add_action( 'init', 'tutor_pro_language_load' );
+function tutor_pro_language_load(){
+	load_plugin_textdomain( 'tutor-pro', false, basename( dirname( __FILE__ ) ) . '/languages' );
+}
+
 if ( ! function_exists('tutor_pro')) {
 	function tutor_pro() {
 		$path = plugin_dir_path( TUTOR_PRO_FILE );

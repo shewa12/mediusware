@@ -1,12 +1,12 @@
 <div class="tutor-date-range-filter-wrap">
 	<?php
 	$time_periods = array(
-		'last_year' => __('Last Year', 'tutor-report'),
-		'this_year' => __('This Year', 'tutor-report'),
-		'last_month' => __('Last Month', 'tutor-report'),
-		'this_month' => __('This Month', 'tutor-report'),
-		'last_week' => __('Last Week', 'tutor-report'),
-		'this_week' => __('This Week', 'tutor-report'),
+		'last_year' => __('Last Year', 'tutor-pro'),
+		'this_year' => __('This Year', 'tutor-pro'),
+		'last_month' => __('Last Month', 'tutor-pro'),
+		'this_month' => __('This Month', 'tutor-pro'),
+		'last_week' => __('Last Week', 'tutor-pro'),
+		'this_week' => __('This Week', 'tutor-pro'),
 	);
 	?>
     <div class="report-top-sub-menu">

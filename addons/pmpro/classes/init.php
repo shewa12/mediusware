@@ -83,7 +83,7 @@ class init{
 	public function tutor_monetization_options($arr){
 		$has_pmpro = tutils()->has_pmpro();
 		if ($has_pmpro){
-			$arr['pmpro'] = __('Paid Memberships Pro', 'tutor');
+			$arr['pmpro'] = __('Paid Memberships Pro', 'tutor-pro');
 		}
 		return $arr;
 	}

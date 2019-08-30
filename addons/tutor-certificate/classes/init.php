@@ -86,29 +86,29 @@ class init{
 
 			'sections'    => array(
 				'general' => array(
-					'label' => __('General', 'tutor-certificate'),
-					'desc' => __('Tutor Certificate', 'tutor-certificate'),
+					'label' => __('General', 'tutor-pro'),
+					'desc' => __('Tutor Certificate', 'tutor-pro'),
 					'fields' => array(
 						/*
 						'enable_course_certificate' => array(
 							'type'      => 'checkbox',
-							'label'     => __('Enable Tutor Certificate', 'tutor-certificate'),
+							'label'     => __('Enable Tutor Certificate', 'tutor-pro'),
 							'desc'      => __('By integrating Tutor Certificate, student will be able to download the certificate',	'tutor-certificate'),
 						),
 						*/
 						'tutor_cert_authorised_name' => array(
 							'type'      => 'text',
-							'label'     => __('Authorised Name', 'tutor-certificate'),
+							'label'     => __('Authorised Name', 'tutor-pro'),
 							'desc'      => __('Authorised name will be printed under signature.',	'tutor-certificate'),
 						),
 						'tutor_cert_authorised_company_name' => array(
 							'type'      => 'text',
-							'label'     => __('Authorised Company Name', 'tutor-certificate'),
+							'label'     => __('Authorised Company Name', 'tutor-pro'),
 							'desc'      => __('Authorised company name will be printed under authorised name.',	'tutor-certificate'),
 						),
 						'tutor_cert_signature_image_id' => array(
 							'type'          => 'media',
-							'label'         => __('Upload Signature', 'tutor-certificate'),
+							'label'         => __('Upload Signature', 'tutor-pro'),
 							'attr'          => array('media_type' => 'image'), //image,file
 							'desc'          => __('Upload a signature that will be printed at certificate.',	'tutor-certificate'),
 						),

@@ -40,18 +40,18 @@ $reviews = $wpdb->get_results("select {$wpdb->comments}.comment_ID,
 
 <div class="tutor-bg-white box-padding">
 
-    <h3><?php _e('Reviews', 'tutor-report'); ?></h3>
+    <h3><?php _e('Reviews', 'tutor-pro'); ?></h3>
 
-    <p><?php echo sprintf(__('Total reviews %d', 'tutor-report'), $reviewsCount) ?></p>
+    <p><?php echo sprintf(__('Total reviews %d', 'tutor-pro'), $reviewsCount) ?></p>
 
     <table class="widefat tutor-report-table">
         <tr>
-            <th width="150"><?php _e('User', 'tutor-report'); ?> </th>
-            <th><?php _e('Course', 'tutor-report'); ?> </th>
-            <th><?php _e('Rating', 'tutor-report'); ?> </th>
-            <th><?php _e('Reviews', 'tutor-report'); ?> </th>
-            <th><?php _e('Time', 'tutor-report'); ?> </th>
-            <th><?php _e('Action', 'tutor-report'); ?> </th>
+            <th width="150"><?php _e('User', 'tutor-pro'); ?> </th>
+            <th><?php _e('Course', 'tutor-pro'); ?> </th>
+            <th><?php _e('Rating', 'tutor-pro'); ?> </th>
+            <th><?php _e('Reviews', 'tutor-pro'); ?> </th>
+            <th><?php _e('Time', 'tutor-pro'); ?> </th>
+            <th><?php _e('Action', 'tutor-pro'); ?> </th>
         </tr>
 		<?php
 		if (is_array($reviews) && count($reviews)){
@@ -64,7 +64,7 @@ $reviews = $wpdb->get_results("select {$wpdb->comments}.comment_ID,
 							($review->comment_post_ID); ?></a> </td>
                     <td><?php tutor_utils()->star_rating_generator($review->rating, true); ?></td>
                     <td><?php echo wpautop($review->comment_content); ?></td>
-                    <td><?php echo human_time_diff(strtotime($review->comment_date)).' '.__('ago', 'tutor-report'); ?></td>
+                    <td><?php echo human_time_diff(strtotime($review->comment_date)).' '.__('ago', 'tutor-pro'); ?></td>
                     <td>
                         <button type="button" class="button tutor-delete-link tutor-rating-delete-link" data-rating-id="<?php echo $review->comment_ID; ?>">
                             <i class="tutor-icon-trash"></i> <?php _e('Delete'); ?>

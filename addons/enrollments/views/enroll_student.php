@@ -1,6 +1,6 @@
 
 <div class="wrap">
-	<h1 class="wp-heading-inline"><?php _e('Enroll Student', 'tutor'); ?></h1>
+	<h1 class="wp-heading-inline"><?php _e('Enroll Student', 'tutor-pro'); ?></h1>
     <hr class="wp-header-end">
 
     <form action="" id="new-enroll_student-form" method="post">
@@ -15,7 +15,7 @@
         <div class="tutor-option-field-row">
             <div class="tutor-option-field-label">
                 <label for="">
-					<?php _e('Student', 'tutor'); ?>
+					<?php _e('Student', 'tutor-pro'); ?>
 
                     <span class="tutor-required-fields">*</span>
                 </label>
@@ -29,7 +29,7 @@
         <div class="tutor-option-field-row">
             <div class="tutor-option-field-label">
                 <label>
-					<?php _e('Course', 'tutor'); ?>
+					<?php _e('Course', 'tutor-pro'); ?>
                     <span class="tutor-required-fields">*</span>
                 </label>
             </div>
@@ -61,7 +61,7 @@
                 <div class="tutor-form-group tutor-reg-form-btn-wrap">
                     <button type="submit" name="tutor_enroll_student_btn" value="enroll" class="tutor-button tutor-button-primary">
                         <i class="tutor-icon-plus-square-button"></i>
-						<?php _e('Enroll Student', 'tutor'); ?></button>
+						<?php _e('Enroll Student', 'tutor-pro'); ?></button>
                 </div>
             </div>
         </div>
