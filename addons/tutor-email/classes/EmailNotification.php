@@ -192,7 +192,7 @@ class EmailNotification{
 		$subject = __($student->display_name.' just completed '.$course->post_title, 'tutor-pro');
 
 		ob_start();
-		tutor_load_template( 'email.to_teacher_course_completed' );
+		tutor_load_template( 'email.to_instructor_course_completed' );
 		$email_tpl = apply_filters( 'tutor_email_tpl/course_completed', ob_get_clean() );
 		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data );
 
@@ -296,7 +296,7 @@ class EmailNotification{
 		$subject = __($student->display_name.' enrolled '.$course->post_title, 'tutor-pro');
 
 		ob_start();
-		tutor_load_template( 'email.to_teacher_course_enrolled' );
+		tutor_load_template( 'email.to_instructor_course_enrolled' );
 		$email_tpl = apply_filters( 'tutor_email_tpl/to_teacher_course_enrolled', ob_get_clean() );
 		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data );
 
@@ -344,7 +344,7 @@ class EmailNotification{
 		$subject = __(sprintf('%s Asked a question to %s', $student->display_name, $course->post_title), 'tutor-pro');
 
 		ob_start();
-		tutor_load_template( 'email.to_teacher_asked_question_by_student' );
+		tutor_load_template( 'email.to_instructor_asked_question_by_student' );
 		$email_tpl = apply_filters( 'tutor_email_tpl/to_teacher_asked_question_by_student', ob_get_clean() );
 		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data );
 
@@ -396,7 +396,7 @@ class EmailNotification{
 		$subject = __($student->display_name.' just completed lesson '.$course->post_title, 'tutor-pro');
 
 		ob_start();
-		tutor_load_template( 'email.to_teacher_lesson_completed' );
+		tutor_load_template( 'email.to_instructor_lesson_completed' );
 		$email_tpl = apply_filters( 'tutor_email_tpl/lesson_completed', ob_get_clean() );
 		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data );
 
