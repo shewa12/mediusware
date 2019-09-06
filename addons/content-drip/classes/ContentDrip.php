@@ -26,7 +26,9 @@ class ContentDrip {
 		add_action('tutor/lesson_update/after', array($this, 'lesson_updated'));
 		add_action('tutor/lesson_list/right_icon_area', array($this, 'show_content_drip_icon'));
 
-		add_filter('tutor_lesson/single/content', array($this, 'drip_lesson_content'));
+		add_filter('tutor_lesson/single/content', array($this, 'drip_content_protection'));
+		add_filter('tutor_assignment/single/content', array($this, 'drip_content_protection'));
+		add_filter('tutor_single_quiz/body', array($this, 'drip_content_protection'));
 	}
 
 	public function settings_attr($args){
@@ -90,18 +92,19 @@ class ContentDrip {
 		$lesson_id = $post->ID;
 
 		$lesson_post_type = tutor()->lesson_post_type;
-		if ($lesson_post_type === $post->post_type){
-			$course_id = tutils()->get_course_id_by_lesson($lesson_id);
-			$enable = (bool) get_tutor_course_settings($course_id, 'enable_content_drip');
-			if ( ! $enable){
-				return false;
-			}
 
-			$drip_type = get_tutor_course_settings($course_id, 'content_drip_type');
+		$course_id = tutils()->get_course_id_by_content($post);
+		$enable = (bool) get_tutor_course_settings($course_id, 'enable_content_drip');
+		if ( ! $enable){
+			return false;
+		}
+
+		$drip_type = get_tutor_course_settings($course_id, 'content_drip_type');
+
+		if ($lesson_post_type === $post->post_type){
 			if ($drip_type === 'unlock_by_date'){
 				$unlock_timestamp = strtotime(get_lesson_content_drip_settings($lesson_id, 'unlock_date'));
 				if ($unlock_timestamp){
-
 					$unlock_date = date_i18n(get_option('date_format'), $unlock_timestamp);
 					$this->unlock_message = sprintf(__("This lesson will be available from %s", 'tutor-pro'), $unlock_date);
 
@@ -116,20 +119,71 @@ class ContentDrip {
 					$enroll_date = date('Y-m-d', strtotime($enroll_date));
 					$days_in_time = 60*60*24*$days;
 
-					$unlock_timestamp = $enroll_date + $days_in_time;
+					$unlock_timestamp = strtotime($enroll_date) + $days_in_time;
 
+					$unlock_date = date_i18n(get_option('date_format'), $unlock_timestamp);
+					$this->unlock_message = sprintf(__("This lesson will be available from %s", 'tutor-pro'), $unlock_date);
 
 					return $unlock_timestamp > current_time('timestamp');
 				}
+			}
+		}
 
+		if ($drip_type === 'unlock_sequentially'){
+			$previous_id = tutor_utils()->get_course_previous_content_id($post);
+
+			if ($previous_id){
+				$previous_content = get_post($previous_id);
+
+				$obj = get_post_type_object( $previous_content->post_type );
+
+				if ($previous_content->post_type === $lesson_post_type){
+					$is_lesson_complete = tutils()->is_completed_lesson($previous_id);
+					if ( ! $is_lesson_complete){
+						$this->unlock_message = sprintf(__("Please complete previous %s first", 'tutor-pro'), $obj->labels->singular_name);
+						return true;
+					}
+				}
+				if ($previous_content->post_type === 'tutor_assignments') {
+					$is_submitted = tutils()->is_assignment_submitted($previous_id);
+					if ( ! $is_submitted){
+						$this->unlock_message = sprintf(__("Please submit previous %s first", 'tutor-pro'), $obj->labels->singular_name);
+						return true;
+					}
+				}
+				if ($previous_content->post_type === 'tutor_quiz'){
+					$attempts = tutils()->quiz_ended_attempts($previous_id);
+					if ( ! $attempts){
+						$this->unlock_message = sprintf(__("Please complete previous %s first", 'tutor-pro'), $obj->labels->singular_name);
+						return true;
+					}
+				}
+
+				/*
+				if ($post->post_type === $lesson_post_type){
+					$is_lesson_complete = tutils()->is_completed_lesson($previous_id);
+					if ( ! $is_lesson_complete){
+						$this->unlock_message = sprintf(__("Please complete previous %s first", 'tutor-pro'), $obj->labels->singular_name);
+						return true;
+					}
+				}
+				if ($post->post_type === 'tutor_quiz'){
+
+					$attempts = tutils()->quiz_attempts($previous_id);
+
+					var_dump('He');
+
+				}*/
 			}
 
 		}
 
+
+
 		return false;
 	}
 
-	public function drip_lesson_content($html){
+	public function drip_content_protection($html){
 		if ($this->is_lock_lesson(get_the_ID())){
 			$output = apply_filters('tutor/content_drip/unlock_message', "<p class='tutor-error-msg'> {$this->unlock_message}</p>");
 			return "<div class='tutor-lesson-content-drip-wrap'> {$output} </div>";
