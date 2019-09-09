@@ -116,6 +116,8 @@ class Assignments{
 		    delete_post_meta($assignment_id, '_tutor_assignment_attachments');
         }
 
+		do_action('tutor_assignment_updated', $assignment_id);
+
 		$course_id = tutor_utils()->get_course_id_by_assignment($assignment_id);
 		ob_start();
 		include  tutor()->path.'views/metabox/course-contents.php';
