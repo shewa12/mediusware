@@ -24,6 +24,9 @@ if ( ! $enable_content_drip){
 	return;
 }
 $content_drip_type = get_tutor_course_settings($course_id, 'content_drip_type');
+if ($content_drip_type === 'unlock_sequentially'){
+    return;
+}
 ?>
 
 <div class="lesson-content-drip-wrap">

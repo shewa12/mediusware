@@ -174,11 +174,7 @@ class ContentDrip {
 					}
 				}
 				if ($post->post_type === 'tutor_quiz'){
-
 					$attempts = tutils()->quiz_attempts($previous_id);
-
-					var_dump('He');
-
 				}*/
 			}
 
