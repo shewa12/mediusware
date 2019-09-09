@@ -99,7 +99,4 @@ if ($content_drip_type === 'unlock_sequentially'){
 		}
 	}
 	?>
-
-
-
 </div>

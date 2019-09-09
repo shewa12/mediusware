@@ -128,7 +128,7 @@ class ContentDrip {
 					$unlock_timestamp = strtotime($enroll_date) + $days_in_time;
 
 					$unlock_date = date_i18n(get_option('date_format'), $unlock_timestamp);
-					$this->unlock_message = sprintf(__("This lesson will be available from %s", 'tutor-pro'), $unlock_date);
+					$this->unlock_message = sprintf(__("This lesson will be available for you from %s", 'tutor-pro'), $unlock_date);
 
 					return $unlock_timestamp > current_time('timestamp');
 				}
