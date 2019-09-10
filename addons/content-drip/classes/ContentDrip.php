@@ -107,12 +107,18 @@ class ContentDrip {
 
 		$drip_type = get_tutor_course_settings($course_id, 'content_drip_type');
 
+		$courseObg = get_post_type_object( $post->post_type );
+		$singular_post_type = '';
+		if ( ! empty($courseObg->labels->singular_name)){
+			$singular_post_type = $courseObg->labels->singular_name;
+		}
+
 		//if ($lesson_post_type === $post->post_type){
 			if ($drip_type === 'unlock_by_date'){
 				$unlock_timestamp = strtotime(get_item_content_drip_settings($lesson_id, 'unlock_date'));
 				if ($unlock_timestamp){
 					$unlock_date = date_i18n(get_option('date_format'), $unlock_timestamp);
-					$this->unlock_message = sprintf(__("This lesson will be available from %s", 'tutor-pro'), $unlock_date);
+					$this->unlock_message = sprintf(__("This %s will be available from %s", 'tutor-pro'), $singular_post_type, $unlock_date);
 
 					return $unlock_timestamp > current_time('timestamp');
 				}
