@@ -13,7 +13,7 @@ class GradeBook{
 	}
 
 	public function admin_scripts($page){
-		if ($page === 'tutor_gradebook') {
+		if ($page === 'tutor-lms-pro_page_tutor_gradebook') {
 			wp_enqueue_script( 'tutor-gradebook', TUTOR_GB()->url . 'assets/js/gradebook.js', array(), TUTOR_GB()->version, true );
 		}
 	}
