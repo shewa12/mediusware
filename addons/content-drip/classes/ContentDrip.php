@@ -215,7 +215,7 @@ class ContentDrip {
 				}
 
 				if (tutils()->count($required_finish)){
-					$output = '<p>' .__("Please finish below prerequisites", 'tutor-pro') . '</p>';
+					$output = '<p>' .__("You can take this quiz after finishing the following prerequisites:", 'tutor-pro') . '</p>';
 					$output .= "<ul>";
 					foreach ($required_finish as $required_finish_item){
 						$output .= "<li>{$required_finish_item}</li>";
