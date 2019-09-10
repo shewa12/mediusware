@@ -29,7 +29,7 @@ class Report extends Tutor_Base {
 		 * Scripts
 		 */
 		if ($page === 'tutor-lms-pro_page_tutor_report') {
-			wp_enqueue_style('tutor-report', TUTOR_REPORT()->url.'assets/css/report.css', array(), TUTOR_REPORT()->version);
+			//wp_enqueue_style('tutor-report', TUTOR_REPORT()->url.'assets/css/report.css', array(), TUTOR_REPORT()->version);
 			wp_enqueue_script( 'tutor-cahrt-js', TUTOR_REPORT()->url . 'assets/js/Chart.bundle.min.js', array(), TUTOR_REPORT()->version );
 			wp_enqueue_script( 'tutor-report', TUTOR_REPORT()->url . 'assets/js/report.js', array( 'tutor-admin' ), TUTOR_REPORT()->version, true );
 		}
