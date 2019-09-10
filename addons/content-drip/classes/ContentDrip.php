@@ -107,7 +107,7 @@ class ContentDrip {
 
 		$drip_type = get_tutor_course_settings($course_id, 'content_drip_type');
 
-		if ($lesson_post_type === $post->post_type){
+		//if ($lesson_post_type === $post->post_type){
 			if ($drip_type === 'unlock_by_date'){
 				$unlock_timestamp = strtotime(get_item_content_drip_settings($lesson_id, 'unlock_date'));
 				if ($unlock_timestamp){
@@ -133,7 +133,7 @@ class ContentDrip {
 					return $unlock_timestamp > current_time('timestamp');
 				}
 			}
-		}
+		//}
 
 		if ($drip_type === 'unlock_sequentially'){
 			$previous_id = tutor_utils()->get_course_previous_content_id($post);
