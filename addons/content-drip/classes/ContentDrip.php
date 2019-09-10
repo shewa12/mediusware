@@ -17,6 +17,7 @@ class ContentDrip {
 
 	private $unlock_timestamp = false;
 	private $unlock_message = null;
+	private $drip_type = null;
 
 	public function __construct() {
 		add_filter('tutor_course_settings_tabs', array($this, 'settings_attr') );
@@ -106,6 +107,7 @@ class ContentDrip {
 		}
 
 		$drip_type = get_tutor_course_settings($course_id, 'content_drip_type');
+		$this->drip_type = $drip_type;
 
 		$courseObg = get_post_type_object( $post->post_type );
 		$singular_post_type = '';
@@ -215,7 +217,7 @@ class ContentDrip {
 				}
 
 				if (tutils()->count($required_finish)){
-					$output = '<p>' .__("You can take this quiz after finishing the following prerequisites:", 'tutor-pro') . '</p>';
+					$output = '<h4>' .sprintf(__("You can take this %s after finishing the following prerequisites:", 'tutor-pro'), $singular_post_type) . '</h4>';
 					$output .= "<ul>";
 					foreach ($required_finish as $required_finish_item){
 						$output .= "<li>{$required_finish_item}</li>";
@@ -233,8 +235,19 @@ class ContentDrip {
 
 	public function drip_content_protection($html){
 		if ($this->is_lock_lesson(get_the_ID())){
-			$output = apply_filters('tutor/content_drip/unlock_message', "<div class='content-drip-message-wrap tutor-error-msg'> {$this->unlock_message}</div>");
-			return "<div class='tutor-lesson-content-drip-wrap'> {$output} </div>";
+
+			if ($this->drip_type === 'after_finishing_prerequisites'){
+				$img_url = trailingslashit(TUTOR_CONTENT_DRIP()->url).'assets/images/traffic-light.svg';
+
+				$output = "<div class='content-drip-message-wrap content-drip-wrap-flex'> <div class='content-drip-left'><img src='{$img_url}' alt='' /> </div> <div class='content-drip-right'>{$this->unlock_message}</div> </div>";
+
+				$output = apply_filters('tutor/content_drip/unlock_message', $output);
+				return "<div class='tutor-lesson-content-drip-wrap'> {$output} </div>";
+			}else{
+				$output = apply_filters('tutor/content_drip/unlock_message', "<div class='content-drip-message-wrap tutor-alert'> {$this->unlock_message}</div>");
+				return "<div class='tutor-lesson-content-drip-wrap'> {$output} </div>";
+			}
+
 		}
 
 		return $html;
