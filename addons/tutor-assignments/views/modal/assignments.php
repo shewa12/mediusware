@@ -26,7 +26,7 @@ $assignment_id = $post->ID;
             </div>
         </div>
 
-		<?php do_action('tutor_assignment_edit_modal_form_after', $post); ?>
+		<?php do_action('tutor_assignment_edit_modal_form_before', $post); ?>
         <!--	</div>-->
 
 
