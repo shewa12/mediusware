@@ -214,8 +214,9 @@ class Assignments{
 	    $allowd_upload_files = (int) tutor_utils()->get_assignment_option($assignment_id, 'upload_files_limit');
 	    $assignment_submit_id = tutor_utils()->is_assignment_submitting($assignment_id);
 
-	    $date = date("Y-m-d H:i:s");
+	    do_action('tutor_assignment/before/submit', $assignment_submit_id);
 
+	    $date = date("Y-m-d H:i:s");
 	    $data = apply_filters('tutor_assignment_submit_updating_data', array(
 		    'comment_content'   => $assignment_answer,
 		    'comment_date'      => $date, //Submit Finished
@@ -230,6 +231,8 @@ class Assignments{
 	    }
 
 	    $wpdb->update($wpdb->comments, $data, array('comment_ID' => $assignment_submit_id));
+
+	    do_action('tutor_assignment/after/submit', $assignment_submit_id);
 
 	    if (function_exists('wc_get_raw_referer')){
 		    wp_redirect(wc_get_raw_referer());
@@ -253,9 +256,7 @@ class Assignments{
 
 	    if ( ! empty($_FILES["attached_assignment_files"])) {
 		    $files = $_FILES["attached_assignment_files"];
-
 		    $max_size_mb = (int) tutor_utils()->get_assignment_option($assignment_id, 'upload_file_size_limit', 2);
-
 
 		    foreach ( $files['name'] as $key => $value ) {
 		        $file_size = $files['size'][$key];

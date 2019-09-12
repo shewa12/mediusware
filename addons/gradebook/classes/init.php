@@ -18,7 +18,7 @@ class init{
 			return;
 		}
 		$addonConfig = tutor_utils()->get_addon_config(TUTOR_GB()->basename);
-		$isEnable = (bool) tutor_utils()->avalue_dot('is_enable', $addonConfig);
+		$isEnable = (bool) tutils()->array_get('is_enable', $addonConfig);
 		if ( ! $isEnable){
 			return;
 		}
@@ -92,6 +92,21 @@ class init{
 					'label' => __('Gradebook', 'tutor-pro'),
 					'desc' => __('Gradebook Settings', 'tutor-pro'),
 					'fields' => array(
+						'gradebook_enable_grade_point' => array(
+							'type'      => 'checkbox',
+							'label'     => __('Grade Point', 'tutor'),
+							'label_title' => __('Enable', 'tutor'),
+							'default' => '0',
+							'desc'      => __('After enabling, grade point will be show it in the gradding besides grade name', 'tutor-pro'),
+						),
+						'gradebook_show_final_grade_point' => array(
+							'type'      => 'checkbox',
+							'label'     => __('Final Grade Point', 'tutor'),
+							'label_title' => __('Show', 'tutor'),
+							'default' => '0',
+							'desc'      => sprintf(__('This option will allow you to show/view final base grade point, such as 3.8%s', 'tutor-pro'), '<code>/4.0</code>'),
+						),
+/*
 						'grade_data' => array(
 							'type'      => 'group_fields',
 							'label'     => __('Grade Settings', 'tutor-pro'),
@@ -114,7 +129,34 @@ class init{
 									'default'   => '#ccc',
 								),
 							),
+						),*/
+
+						'gradebook_label_dividing_text' => array(
+							'type'      => 'text',
+							'label'     => __('Grade label dividing text', 'tutor-pro'),
+							'default'   => '/',
+							'desc'      => sprintf(__('This will change grade label separating text, example, 3.6%s4.0 or 3.6%s4.0', 'tutor-pro'), '<code>/</code>', '<code>out of</code>'),
 						),
+
+						'gradebook_final_course_grade_point' => array(
+							'type'      => 'text',
+							'label'     => __('Course Final Grade Point', 'tutor-pro'),
+							'default'   => '4.0',
+							'desc'      => __('This is final grade point of course', 'tutor-pro'),
+						),
+						'gradebook_final_quiz_grade_point' => array(
+							'type'      => 'text',
+							'label'     => __('Quiz Final Grade Point', 'tutor-pro'),
+							'default'   => '4.0',
+							'desc'      => __('This is final grade point of Quiz', 'tutor-pro'),
+						),
+						'gradebook_final_assignment_grade_point' => array(
+							'type'      => 'text',
+							'label'     => __('Assignment Final Grade Point', 'tutor-pro'),
+							'default'   => '4.0',
+							'desc'      => __('This is final grade point of Assignment', 'tutor-pro'),
+						),
+
 					),
 				),
 			),
