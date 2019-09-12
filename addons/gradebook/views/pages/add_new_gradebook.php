@@ -82,21 +82,23 @@
             </div>
         </div>
 
+        <!--
         <div class="tutor-option-field-row">
             <div class="tutor-option-field-label">
                 <label for="">
-				    <?php _e('Grade For', 'tutor-pro'); ?>
+				    <?php /*_e('Grade For', 'tutor-pro'); */?>
                     <span class="tutor-required-fields">*</span>
                 </label>
             </div>
             <div class="tutor-option-field">
                 <select name="grade_for">
-                    <option value="quiz"><?php _e('Quiz', 'tutor'); ?></option>
-                    <option value="assignment"><?php _e('Assignment', 'tutor'); ?></option>
-                    <option value="final"><?php _e('Final', 'tutor'); ?></option>
+                    <option value="quiz"><?php /*_e('Quiz', 'tutor'); */?></option>
+                    <option value="assignment"><?php /*_e('Assignment', 'tutor'); */?></option>
+                    <option value="final"><?php /*_e('Final', 'tutor'); */?></option>
                 </select>
             </div>
         </div>
+        -->
 
         <div class="tutor-option-field-row">
             <div class="tutor-option-field-label">

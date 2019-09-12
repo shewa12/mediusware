@@ -7,10 +7,8 @@
     <hr class="wp-header-end">
 
     <nav class="nav-tab-wrapper tutor-gradebook-nav-wrapper">
-        <a href="<?php echo add_query_arg(array('sub_page' => 'student_gradebooks')); ?>"><?php _e('Students GradeBooks'); ?></a>
-        <a href="<?php echo add_query_arg(array('sub_page' => 'final_gradebooks')); ?>"><?php _e('Final Gradebooks'); ?></a>
-        <a href="<?php echo add_query_arg(array('sub_page' => 'quiz_gradebooks')); ?>"><?php _e('Quiz Gradebooks'); ?></a>
-        <a href="<?php echo add_query_arg(array('sub_page' => 'assignments_gradebooks')); ?>"><?php _e('Assignments Gradebooks'); ?></a>
+        <a href="<?php echo remove_query_arg('sub_page'); ?>"><?php _e('Overview'); ?></a>
+        <a href="<?php echo add_query_arg(array('sub_page' => 'gradebooks')); ?>"><?php _e('Gradebooks'); ?></a>
     </nav>
 
     <div class="tutor_admin_gradebook_list">
@@ -18,7 +16,7 @@
 		<?php tutor_alert(null, 'success'); ?>
 
 		<?php
-		$gradebooks = tutils()->get_gradebooks('quiz');
+		$gradebooks = tutils()->get_gradebooks();
 		if (tutils()->count($gradebooks)){
 			?>
             <table class="gradebook-list-table widefat striped">

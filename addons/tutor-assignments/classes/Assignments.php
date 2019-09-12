@@ -27,6 +27,10 @@ class Assignments{
 		add_action('tutor_action_tutor_evaluate_assignment_submission', array($this, 'tutor_evaluate_assignment_submission'));
 
 		add_filter('tutor_dashboard/nav_items', array($this, 'frontend_dashboard_nav_items'));
+		/**
+		 * Lesson List in frontend end
+		 */
+		add_action('tutor/lesson_list/right_icon_area', array($this, 'show_assignment_submitted_icon'));
 	}
 
 	public function register_menu(){
@@ -314,6 +318,8 @@ class Assignments{
 	    tutor_utils()->checking_nonce();
 	    $date = date("Y-m-d H:i:s");
 
+	    do_action('tutor_assignment/evaluate/before');
+
 	    $submitted_id = (int) sanitize_text_field(tutor_utils()->array_get('assignment_submitted_id', $_POST));
 	    $evaluate_fields = tutor_utils()->array_get('evaluate_assignment', $_POST);
 
@@ -321,6 +327,23 @@ class Assignments{
 	        update_comment_meta($submitted_id, $field_key, $field_value);
         }
 	    update_comment_meta($submitted_id, 'evaluate_time', $date);
+
+	    do_action('tutor_assignment/evaluate/after', $submitted_id);
+    }
+
+    public function show_assignment_submitted_icon($post){
+        if ($post->post_type === 'tutor_assignments'){
+            $is_submitted = tutils()->is_assignment_submitted($post->ID);
+
+            if ($is_submitted && $is_submitted->comment_approved === 'submitted'){
+	            echo '<i class="tutor-lesson-complete tutor-icon-mark tutor-done"></i>';
+            }else{
+                $is_submitting = tutils()->is_assignment_submitting($post->ID);
+                if ($is_submitting){
+	                echo '<i class="tutor-lesson-complete tutor-icon-spinner"></i>';
+                }
+            }
+        }
     }
 
 }
