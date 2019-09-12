@@ -16,7 +16,7 @@ class GradeBook{
 		add_action('tutor_action_add_new_gradebook', array($this, 'add_new_gradebook'));
 
 		add_action('tutor_quiz/attempt_ended', array($this, 'quiz_attempt_ended'));
-		add_action('tutor_assignment/evaluate/after', array($this, 'assignment_evaluated'));
+		add_action('tutor_assignment/evaluate/after', array($this, 'generate_grade'));
 	}
 
 	public function admin_scripts($page){
@@ -134,8 +134,11 @@ class GradeBook{
 		do_action('tutor_gradebook/quiz_result/after', $gradebook_result_id);
 	}
 
-	public function assignment_evaluated($submitted_id){
+	public function generate_grade($submitted_id){
 		global $wpdb;
+
+		do_action('tutor_gradebook/assignment_generate/before', $submitted_id);
+		do_action('tutor_gradebook/generate/before');
 
 		$submitted_info = tutor_utils()->get_assignment_submit_info($submitted_id);
 		if ( $submitted_info) {
@@ -143,25 +146,23 @@ class GradeBook{
 			$given_mark = get_comment_meta( $submitted_id, 'assignment_mark', true );
 
 			$earned_percentage = $given_mark > 0 ? ( number_format(($given_mark * 100) / $max_mark)) : 0;
-
-
-
+			
 			$gradebook = $wpdb->get_row("SELECT * FROM {$wpdb->tutor_gradebooks} 
 			WHERE percent_from <= {$earned_percentage} 
 			AND percent_to >= {$earned_percentage} ORDER BY gradebook_id ASC LIMIT 1  ");
 
-			$gradebook_data = array(
-				'user_id'   => $submitted_info->user_id,
-				'course_id'   => $submitted_info->comment_parent,
-				'assignment_id'   => $submitted_info->comment_post_ID,
-				'gradebook_id'   => $gradebook->gradebook_id,
-				'result_for'   => 'assignment',
-				'grade_name'   => $gradebook->grade_name,
-				'grade_point'   => $gradebook->grade_point,
-				'earned_grade_point'   => $gradebook->grade_point,
-				'generate_date'   => date("Y-m-d H:i:s"),
-				'update_date'   => date("Y-m-d H:i:s"),
-			);
+			$gradebook_data = apply_filters('tutor_gradebook_data', array(
+				'user_id'               => $submitted_info->user_id,
+				'course_id'             => $submitted_info->comment_parent,
+				'assignment_id'         => $submitted_info->comment_post_ID,
+				'gradebook_id'          => $gradebook->gradebook_id,
+				'result_for'            => 'assignment',
+				'grade_name'            => $gradebook->grade_name,
+				'grade_point'           => $gradebook->grade_point,
+				'earned_grade_point'    => $gradebook->grade_point,
+				'generate_date'         => date("Y-m-d H:i:s"),
+				'update_date'           => date("Y-m-d H:i:s"),
+			));
 
 			$gradebook_result_id = 0;
 			$gradebook_result = $wpdb->get_row("SELECT * FROM {$wpdb->tutor_gradebooks_results} 
@@ -180,12 +181,9 @@ class GradeBook{
 				$gradebook_result_id = (int) $wpdb->insert_id;
 			}
 
-			die(var_dump($gradebook_result_id));
-
+			do_action('tutor_gradebook/assignment_generate/after', $gradebook_result_id);
+			do_action('tutor_gradebook/generate/after', $gradebook_result_id);
 		}
-
-		die( );
-
 		
 	}
 
