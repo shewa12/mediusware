@@ -99,12 +99,12 @@ class init{
 							'default' => '0',
 							'desc'      => __('After enabling, grade point will be show it in the gradding besides grade name', 'tutor-pro'),
 						),
-						'gradebook_show_final_grade_point' => array(
+						'gradebook_show_grade_scale' => array(
 							'type'      => 'checkbox',
-							'label'     => __('Final Grade Point', 'tutor'),
+							'label'     => __('Grade Scale', 'tutor'),
 							'label_title' => __('Show', 'tutor'),
 							'default' => '0',
-							'desc'      => sprintf(__('This option will allow you to show/view final base grade point, such as 3.8%s', 'tutor-pro'), '<code>/4.0</code>'),
+							'desc'      => sprintf(__('This option will allow you to show/view grade scale, such as 3.8%s', 'tutor-pro'), '<code>/4.0</code>'),
 						),
 /*
 						'grade_data' => array(
@@ -131,30 +131,18 @@ class init{
 							),
 						),*/
 
-						'gradebook_label_dividing_text' => array(
+						'gradebook_scale_separator' => array(
 							'type'      => 'text',
-							'label'     => __('Grade label dividing text', 'tutor-pro'),
+							'label'     => __('Grade scale separator', 'tutor-pro'),
 							'default'   => '/',
 							'desc'      => sprintf(__('This will change grade label separating text, example, 3.6%s4.0 or 3.6%s4.0', 'tutor-pro'), '<code>/</code>', '<code>out of</code>'),
 						),
 
-						'gradebook_final_course_grade_point' => array(
+						'gradebook_scale' => array(
 							'type'      => 'text',
-							'label'     => __('Course Final Grade Point', 'tutor-pro'),
+							'label'     => __('Grade Scale', 'tutor-pro'),
 							'default'   => '4.0',
-							'desc'      => __('This is final grade point of course', 'tutor-pro'),
-						),
-						'gradebook_final_quiz_grade_point' => array(
-							'type'      => 'text',
-							'label'     => __('Quiz Final Grade Point', 'tutor-pro'),
-							'default'   => '4.0',
-							'desc'      => __('This is final grade point of Quiz', 'tutor-pro'),
-						),
-						'gradebook_final_assignment_grade_point' => array(
-							'type'      => 'text',
-							'label'     => __('Assignment Final Grade Point', 'tutor-pro'),
-							'default'   => '4.0',
-							'desc'      => __('This is final grade point of Assignment', 'tutor-pro'),
+							'desc'      => __('This is gradebook scale', 'tutor-pro'),
 						),
 
 					),
