@@ -22,6 +22,12 @@ class GradeBook{
 		add_action('tutor_course/single/actions_btn_group/after', array($this, 'course_single_actions_btn_group'), 10, 0);
 
 		add_action('tutor_action_gradebook_generate_for_course', array($this, 'gradebook_generate_for_course'), 10, 0);
+
+		add_filter('tutor_course/single/enrolled/nav_items_rewrite', array($this, 'add_course_nav_item'));
+		add_filter('tutor_course/single/enrolled/nav_items', array($this, 'add_course_nav_item'));
+		add_action('tutor_course/single/enrolled/gradebook', array($this, 'generate_gradebook_html'));
+
+		//$isExists = $wpdb->query("SHOW TABLES LIKE 'wp_tutor_gradebooks';");
 	}
 
 	public function admin_scripts($page){
@@ -31,7 +37,7 @@ class GradeBook{
 	}
 
 	public function register_menu(){
-		add_submenu_page('tutor-pro', __('Grade Book', 'tutor-pro'), __('Grade Book', 'tutor-pro'), 'manage_tutor', 'tutor_gradebook', array($this, 'tutor_gradebook') );
+		add_submenu_page('tutor', __('Grade Book', 'tutor-pro'), __('Grade Book', 'tutor-pro'), 'manage_tutor', 'tutor_gradebook', array($this, 'tutor_gradebook') );
 	}
 
 	public function tutor_gradebook(){
@@ -83,49 +89,6 @@ class GradeBook{
 
 	public function return_validation_error(){
 		return $this->validation_error;
-	}
-
-
-
-	public function get_gradebook_by_percent($percent = 0){
-		global $wpdb;
-		$gradebook = $wpdb->get_row("SELECT * FROM {$wpdb->tutor_gradebooks} 
-		WHERE percent_from <= {$percent} 
-		AND percent_to >= {$percent} ORDER BY gradebook_id ASC LIMIT 1  ");
-
-		return $gradebook;
-	}
-
-	public function get_generated_gradebook($type = 'final', $ref_id = 0, $user_id = 0){
-		global $wpdb;
-
-		$user_id = tutils()->get_user_id($user_id);
-
-		$res = false;
-		if ($type === 'all'){
-			$res = $wpdb->get_results("SELECT {$wpdb->tutor_gradebooks_results} .*, grade_config FROM {$wpdb->tutor_gradebooks_results} 
-					LEFT JOIN {$wpdb->tutor_gradebooks} ON {$wpdb->tutor_gradebooks_results}.gradebook_id = {$wpdb->tutor_gradebooks}.gradebook_id
-					WHERE user_id = {$user_id} 
-					AND course_id = {$ref_id} 
-					AND result_for != 'final' ");
-
-		}elseif ($type === 'quiz'){
-
-			$res = $wpdb->get_row("SELECT {$wpdb->tutor_gradebooks_results} .*, grade_config FROM {$wpdb->tutor_gradebooks_results} 
-					LEFT JOIN {$wpdb->tutor_gradebooks} ON {$wpdb->tutor_gradebooks_results}.gradebook_id = {$wpdb->tutor_gradebooks}.gradebook_id
-					WHERE user_id = {$user_id} 
-					AND quiz_id = {$ref_id} 
-					AND result_for = 'quiz' ");
-
-		}elseif ($type === 'assignment'){
-			$res = $wpdb->get_row("SELECT {$wpdb->tutor_gradebooks_results} .*, grade_config FROM {$wpdb->tutor_gradebooks_results} 
-					LEFT JOIN {$wpdb->tutor_gradebooks} ON {$wpdb->tutor_gradebooks_results}.gradebook_id = {$wpdb->tutor_gradebooks}.gradebook_id
-					WHERE user_id = {$user_id} 
-					AND assignment_id = {$ref_id} 
-					AND result_for = 'assignment' ");
-		}
-
-		return $res;
 	}
 
 	/**
@@ -241,7 +204,7 @@ class GradeBook{
 		$max_mark = tutor_utils()->get_assignment_option($assignment_id, 'total_mark');
 		$pass_mark = tutor_utils()->get_assignment_option($assignment_id, 'pass_mark');
 		$given_mark = get_comment_meta($submit_id, 'assignment_mark', true);
-		$grade = $this->get_generated_gradebook('assignment', $assignment_id);
+		$grade = get_generated_gradebook('assignment', $assignment_id);
 
 		ob_start();
 		?>
@@ -251,7 +214,7 @@ class GradeBook{
 			<h4 class="submitted-assignment-grade">
 				<?php _e('Your grade is ', 'tutor-pro');
 
-				echo $this->generate_grade_html($grade);
+				echo tutor_generate_grade_html($grade);
 				echo $given_mark >= $pass_mark ? "<span class='submitted-assignment-grade-pass'> (".__('Passed', 'tutor-pro').")</span>" : "<span class='submitted-assignment-grade-failed'> (".__('Failed', 'tutor-pro').")</span>";
 				?>
 			</h4>
@@ -262,136 +225,7 @@ class GradeBook{
 	}
 
 	public function previous_attempts_html($previous_attempts_html, $previous_attempts, $quiz_id){
-		$passing_grade = tutor_utils()->get_quiz_option($quiz_id, 'passing_grade', 0);
-
-		ob_start();
-		?>
-
-		<h4 class="tutor-quiz-attempt-history-title"><?php _e('Previous attempts', 'tutor-pro'); ?></h4>
-		<div class="tutor-quiz-attempt-history single-quiz-page">
-			<table>
-				<tr>
-					<th>#</th>
-					<th><?php _e('Time', 'tutor-pro'); ?></th>
-					<th><?php _e('Questions', 'tutor-pro'); ?></th>
-					<th><?php _e('Total Marks', 'tutor-pro'); ?></th>
-					<th><?php _e('Earned Marks', 'tutor-pro'); ?></th>
-					<th><?php _e('Pass Mark', 'tutor-pro'); ?></th>
-					<th><?php _e('Grade', 'tutor-pro'); ?></th>
-					<th><?php _e('Result', 'tutor-pro'); ?></th>
-				</tr>
-				<?php
-				foreach ( $previous_attempts as $attempt){
-					?>
-					<tr>
-						<td><?php echo $attempt->attempt_id; ?></td>
-						<td title="<?php _e('Time', 'tutor-pro'); ?>">
-							<?php
-							echo date_i18n(get_option('date_format'), strtotime($attempt->attempt_started_at)).' '.date_i18n(get_option('time_format'), strtotime($attempt->attempt_started_at));
-
-							if ($attempt->is_manually_reviewed){
-								?>
-								<p class="attempt-reviewed-text">
-									<?php
-									echo __('Manually reviewed at', 'tutor-pro').date_i18n(get_option('date_format', strtotime($attempt->manually_reviewed_at))).' '.date_i18n(get_option('time_format', strtotime($attempt->manually_reviewed_at)));
-									?>
-								</p>
-								<?php
-							}
-							?>
-						</td>
-						<td  title="<?php _e('Questions', 'tutor-pro'); ?>">
-							<?php echo $attempt->total_questions; ?>
-						</td>
-
-						<td title="<?php _e('Total Marks', 'tutor-pro'); ?>">
-							<?php echo $attempt->total_marks; ?>
-						</td>
-
-						<td title="<?php _e('Earned Marks', 'tutor-pro'); ?>">
-							<?php
-							$earned_percentage = $attempt->earned_marks > 0 ? ( number_format(($attempt->earned_marks * 100) / $attempt->total_marks)) : 0;
-							echo $attempt->earned_marks."({$earned_percentage}%)";
-							?>
-						</td>
-
-						<td title="<?php _e('Pass Mark', 'tutor-pro'); ?>">
-							<?php
-							$pass_marks = ($attempt->total_marks * $passing_grade) / 100;
-							if ($pass_marks > 0){
-								echo number_format_i18n($pass_marks, 2);
-							}
-							echo "({$passing_grade}%)";
-							?>
-						</td>
-
-						<td>
-							<?php
-							$grade = $this->get_gradebook_by_percent($earned_percentage);
-							echo $this->generate_grade_html($grade);
-							?>
-						</td>
-
-
-						<td title="<?php _e('Result', 'tutor-pro'); ?>">
-							<?php
-							if ($earned_percentage >= $passing_grade){
-								echo '<span class="result-pass">'.__('Pass', 'tutor-pro').'</span>';
-							}else{
-								echo '<span class="result-fail">'.__('Fail', 'tutor-pro').'</span>';
-							}
-							?>
-						</td>
-					</tr>
-					<?php
-				}
-				?>
-			</table>
-		</div>
-
-		<?php
-		return ob_get_clean();
-	}
-
-
-	/**
-	 * @param $grade
-	 * @return mixed
-	 *
-	 * Generate Grade HTML
-	 */
-
-	public function generate_grade_html($grade){
-		if ( ! is_object($grade)){
-			global $wpdb;
-
-			$grade = $wpdb->get_row("SELECT {$wpdb->tutor_gradebooks_results} .*, grade_config FROM {$wpdb->tutor_gradebooks_results} 
-					LEFT JOIN {$wpdb->tutor_gradebooks} ON {$wpdb->tutor_gradebooks_results}.gradebook_id = {$wpdb->tutor_gradebooks}.gradebook_id
-					WHERE gradebook_result_id = {$grade} ");
-		}
-
-		ob_start();
-
-		if ($grade){
-			$config = maybe_unserialize($grade->grade_config);
-			$gradebook_enable_grade_point = get_tutor_option('gradebook_enable_grade_point');
-			$gradebook_show_grade_scale = get_tutor_option('gradebook_show_grade_scale');
-			$gradebook_scale_separator = get_tutor_option('gradebook_scale_separator');
-			$gradebook_scale = get_tutor_option('gradebook_scale');
-			?>
-			<span class="gradename-bg" style="background-color: <?php echo tutils()->array_get('grade_color', $config); ?>;" >
-				<?php echo $grade->grade_name; ?>
-			</span>
-			<?php
-			if ($gradebook_enable_grade_point){
-				echo "<span class='gradebook-earned-grade-point'>{$grade->grade_point}</span>";
-			}
-			if ($gradebook_show_grade_scale){
-				echo "<span class='gradebook-scale-separator'>{$gradebook_scale_separator}</span><span class='gradebook_scale'>{$gradebook_scale}</span>";
-			}
-		}
-		$output = apply_filters('tutor_gradebook_grade_output_html', ob_get_clean(), $grade);
-		return $output;
+		tutor_load_template('single.quiz.previous-attempts', compact('previous_attempts_html', 'previous_attempts', 'quiz_id'), true);
 	}
 
 	public function course_single_actions_btn_group(){
@@ -414,9 +248,9 @@ class GradeBook{
 		tutils()->checking_nonce();
 
 		$course_contents = tutils()->get_course_contents_by_id($course_ID);
-		$generated_grades_contents = $this->get_generated_gradebook('all', $course_ID, $user_id);
 
 		if (tutils()->count($course_contents)){
+
 			$require_gradding = array();
 			foreach ($course_contents as $content){
 				if ($content->post_type === 'tutor_quiz' || $content->post_type === 'tutor_assignments'){
@@ -425,27 +259,37 @@ class GradeBook{
 			}
 
 			/**
-			 * Getting assignments, quiz which not graded yet
+			 * re-grade again
 			 */
-			foreach ($require_gradding as $key => $content){
-				foreach ($generated_grades_contents as $generated_grades_content){
-					if ($content->ID == $generated_grades_content->quiz_id || $content->ID == $generated_grades_content->assignment_id){
-						unset($require_gradding[$key]);
-					}
-				}
-			}
 			if (tutils()->count($require_gradding)){
 				global $wpdb;
 
 				$require_graddings = array_values($require_gradding);
 
-				$earned_percentage = 0;
-				$gradebook = $wpdb->get_row("SELECT * FROM {$wpdb->tutor_gradebooks} WHERE percent_from <= {$earned_percentage} AND percent_to >= {$earned_percentage} ORDER BY gradebook_id ASC LIMIT 1  ");
-				if ( ! $gradebook){
-					return;
-				}
-
 				foreach ($require_graddings as $course_item) {
+					$earned_percentage = 0;
+
+					if ($course_item->post_type === 'tutor_quiz') {
+					    //Get Attempt by grading method
+						$attempt = tutils()->get_quiz_attempt($course_item->ID, $user_id);
+						if ($attempt){
+							$earned_percentage = $attempt->earned_marks > 0 ? ( number_format(($attempt->earned_marks * 100) / $attempt->total_marks)): 0;
+						}
+
+					}elseif ($course_item->post_type === 'tutor_assignments'){
+						$submitted_info = tutils()->is_assignment_submitted($course_item->ID, $user_id);
+					    if ($submitted_info){
+						    $submitted_id = $submitted_info->comment_ID;
+						    $max_mark = tutor_utils()->get_assignment_option( $submitted_info->comment_post_ID, 'total_mark' );
+						    $given_mark = get_comment_meta( $submitted_id, 'assignment_mark', true );
+						    $earned_percentage = $given_mark > 0 ? ( number_format(($given_mark * 100) / $max_mark)) : 0;
+                        }
+					}
+
+					$gradebook = $wpdb->get_row("SELECT * FROM {$wpdb->tutor_gradebooks} WHERE percent_from <= {$earned_percentage} AND percent_to >= {$earned_percentage} ORDER BY gradebook_id ASC LIMIT 1  ");
+					if ( ! $gradebook){
+						return;
+					}
 
 					$gradebook_data = array(
 						'user_id'            => $user_id,
@@ -454,6 +298,7 @@ class GradeBook{
 						'grade_name'         => $gradebook->grade_name,
 						'grade_point'        => $gradebook->grade_point,
 						'earned_grade_point' => $gradebook->grade_point,
+						'earned_percent'     => $earned_percentage,
 						'generate_date'      => date( "Y-m-d H:i:s" ),
 						'update_date'        => date( "Y-m-d H:i:s" ),
 					);
@@ -489,23 +334,58 @@ class GradeBook{
 						$wpdb->insert( $wpdb->tutor_gradebooks_results, $gradebook_data );
 					}
 
+				}
+
+				$results = $wpdb->get_row("SELECT AVG(earned_percent) as earned_percent,
+                AVG(grade_point) as earned_grade_point
+                FROM {$wpdb->tutor_gradebooks_results} 
+                WHERE user_id = {$user_id} 
+                AND course_id = {$course_ID} 
+                AND result_for !='final' ");
+
+				if ($results){
+				    $gradebook = get_gradebook_by_percent($results->earned_percent);
+
+					$gradebook_data = array(
+						'user_id'            => $user_id,
+						'course_id'          => $course_ID,
+						'gradebook_id'       => $gradebook->gradebook_id,
+						'result_for'         => 'final',
+						'grade_name'         => $gradebook->grade_name,
+						'grade_point'        => $gradebook->grade_point,
+						'earned_grade_point' => number_format($results->earned_grade_point, 2),
+						'earned_percent'     => $results->earned_percent,
+						'generate_date'      => date( "Y-m-d H:i:s" ),
+						'update_date'        => date( "Y-m-d H:i:s" ),
+					);
+
+					$generated_final = $wpdb->get_row("SELECT * FROM {$wpdb->tutor_gradebooks_results} 
+                    WHERE user_id = {$user_id} AND course_id = {$course_ID} AND result_for ='final' ");
+
+					if ($generated_final){
+					    unset($gradebook_data['generate_date'], $gradebook_data['result_for'] );
+
+					    $wpdb->update($wpdb->tutor_gradebooks_results, $gradebook_data, array('gradebook_result_id' => $generated_final->gradebook_result_id));
+                    }else{
+					    $wpdb->insert( $wpdb->tutor_gradebooks_results, $gradebook_data );
+					}
 
 				}
 
+
 			}
-
-
-
 
 		}
 
 
-
-		echo '<pre>';
-		//print_r($generated_grades_contents);
-		die(print_r($require_gradding));
+		$url = trailingslashit(get_permalink($course_ID)).'gradebook';
+		wp_redirect($url);
+		exit();
 	}
 
+	public function generate_gradebook_html($course_id){
+	    tutor_load_template('single.course.enrolled.gradebook', array(), true);
+    }
 
 	/**
 	 * @param int $quiz_id
@@ -517,5 +397,10 @@ class GradeBook{
 		$quiz_grade_method = get_tutor_option('quiz_grade_method');
 		echo $quiz_grade_method;
 	}
+
+	public function add_course_nav_item($items){
+		$items['gradebook'] = __('Gradebook', 'tutor-pro');
+		return $items;
+    }
 
 }

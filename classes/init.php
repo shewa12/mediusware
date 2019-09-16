@@ -34,6 +34,8 @@ class init{
 			$this->admin = new Admin();
 			$this->assets = new Assets();
 		}
+		$this->includes();
+
 		//$this->load_constructors_asset();
 	}
 
@@ -97,6 +99,11 @@ class init{
 		if ( ! $version){
 			update_option('tutor_pro_version', TUTOR_PRO_VERSION);
 		}
+	}
+
+
+	public function includes(){
+		include tutor_pro()->path.'includes/functions.php';
 	}
 
 	public function load_addons(){
