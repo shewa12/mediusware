@@ -1,15 +1,20 @@
+<?php
+global $wpdb;
 
+$gradebook_id = (int) sanitize_text_field(tutils()->array_get('gradebook_id', $_GET));
+$gradebook = get_gradebook_by_id($gradebook_id);
+?>
 <div class="wrap">
-    <h1 class="wp-heading-inline"><?php _e('Grade Books', 'tutor-pro'); ?>  </h1>
+    <h1 class="wp-heading-inline"><?php _e('Update Gradebook', 'tutor-pro'); ?>  </h1>
 	<?php
-	tutor_alert(null, 'danger');
-	tutor_alert(null, 'success');
+    tutor_alert(null, 'danger');
+    tutor_alert(null, 'success');
 	?>
 
     <hr class="wp-header-end">
 
     <form action="" id="add-gradebook-form" method="post">
-        <input type="hidden" name="tutor_action" value="add_new_gradebook">
+        <input type="hidden" name="tutor_action" value="update_gradebook">
 		<?php
 		tutor_nonce_field();
 		?>
@@ -24,7 +29,7 @@
                 </label>
             </div>
             <div class="tutor-option-field">
-                <input type="text" name="grade_name" value="<?php echo tutor_utils()->input_old('grade_name'); ?>" placeholder="<?php _e('Grade Name',
+                <input type="text" name="grade_name" value="<?php echo tutils()->input_old('grade_name', $gradebook); ?>" placeholder="<?php _e('Grade Name',
                     'tutor-pro'); ?>">
             </div>
         </div>
@@ -37,7 +42,7 @@
                 </label>
             </div>
             <div class="tutor-option-field">
-                <input type="text" name="grade_point" value="<?php echo tutor_utils()->input_old('grade_point'); ?>" placeholder="<?php _e('Grade Point',
+                <input type="text" name="grade_point" value="<?php echo tutils()->input_old('grade_point', $gradebook); ?>" placeholder="<?php _e('Grade Point',
 				    'tutor-pro'); ?>">
             </div>
         </div>
@@ -50,7 +55,8 @@
                 </label>
             </div>
             <div class="tutor-option-field">
-                <input type="text" name="percent_from" value="<?php echo tutor_utils()->input_old('percent_from'); ?>" placeholder="<?php _e('Number Percent From', 'tutor-pro'); ?>">
+                <input type="number" min="0" max="100" name="percent_from" value="<?php echo (int) tutils()->input_old('percent_from', $gradebook); ?>" placeholder="<?php
+                _e('Number Percent From', 'tutor-pro'); ?>">
             </div>
         </div>
 
@@ -62,7 +68,9 @@
                 </label>
             </div>
             <div class="tutor-option-field">
-                <input type="text" name="percent_to" value="<?php echo tutor_utils()->input_old('percent_to'); ?>" placeholder="<?php _e('Number Percent To', 'tutor-pro'); ?>">
+                <input type="number" min="0" max="100" name="percent_to"value="<?php echo tutils()->input_old('percent_to', $gradebook); ?>"
+                       placeholder="<?php _e
+                ('Number Percent To', 'tutor-pro'); ?>">
             </div>
         </div>
 
@@ -74,7 +82,7 @@
                 </label>
             </div>
             <div class="tutor-option-field">
-                <input type="text" class="tutor_colorpicker" name="grade_config[grade_color]" value="<?php echo tutils()->input_old('grade_config.grade_color'); ?>" >
+                <input type="text" class="tutor_colorpicker" name="grade_config[grade_color]" value="<?php echo tutils()->input_old('grade_config.grade_color', $gradebook); ?>" >
             </div>
         </div>
 
@@ -85,7 +93,7 @@
                 <div class="tutor-form-group tutor-reg-form-btn-wrap">
                     <button type="submit" name="tutor_add_gradebook_btn" value="register" class="tutor-button tutor-button-primary">
                         <i class="tutor-icon-plus-square-button"></i>
-						<?php _e('Add new Grade', 'tutor-pro'); ?></button>
+						<?php _e('Update Gradebook', 'tutor-pro'); ?></button>
                 </div>
             </div>
         </div>

@@ -7,13 +7,13 @@ namespace TUTOR_GB;
 
 class GradeBook{
 
-	private $validation_error;
-
 	public function __construct() {
 		add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
 		add_action('tutor_admin_register', 	array($this, 'register_menu'));
 
 		add_action('tutor_action_add_new_gradebook', array($this, 'add_new_gradebook'));
+		add_action('tutor_action_update_gradebook', array($this, 'update_gradebook'));
+		add_action('tutor_action_delete_gradebook', array($this, 'delete_gradebook'));
 
 		add_action('tutor_quiz/attempt_ended', array($this, 'quiz_attempt_ended'));
 		add_action('tutor_assignment/evaluate/after', array($this, 'generate_grade'));
@@ -23,7 +23,7 @@ class GradeBook{
 
 		add_action('tutor_action_gradebook_generate_for_course', array($this, 'gradebook_generate_for_course'), 10, 0);
 
-		add_filter('tutor_course/single/enrolled/nav_items_rewrite', array($this, 'add_course_nav_item'));
+		add_filter('tutor_course/single/enrolled/nav_items_rewrite', array($this, 'add_course_nav_rewrite'));
 		add_filter('tutor_course/single/enrolled/nav_items', array($this, 'add_course_nav_item'));
 		add_action('tutor_course/single/enrolled/gradebook', array($this, 'generate_gradebook_html'));
 
@@ -52,8 +52,7 @@ class GradeBook{
 
 		$required_fields = apply_filters('tutor_gradebook_required_fields', array(
 			'grade_name'            => __('Grade name field is required', 'tutor-pro'),
-			//'number_percent_from'   => __('Number percent from field is required', 'tutor-pro'),
-			'number_percent_to'     => __('Number percent to field is required', 'tutor-pro'),
+			'percent_to'     => __('Number percent to field is required', 'tutor-pro'),
 		));
 
 		$validation_errors = array();
@@ -64,18 +63,17 @@ class GradeBook{
 		}
 
 		if (tutils()->count($validation_errors)){
-			$this->validation_error = $validation_errors;
-			add_filter('tutor_gradebook_validation_error', array($this, 'return_validation_error'));
-			return;
+			$errors_msg = '<ul><li>'.implode('</li><li>', $validation_errors).'</li></ul>';
+			tutor_flash_set('danger', $errors_msg);
+			wp_redirect(tutils()->referer()); exit();
 		}
 
-		$number_percent_from = (int) sanitize_text_field(tutils()->array_get('number_percent_from', $_POST));
-
+		$percent_from = (int) sanitize_text_field(tutils()->array_get('percent_from', $_POST));
 		$data = array(
 			'grade_name'            => sanitize_text_field(tutils()->array_get('grade_name', $_POST)),
 			'grade_point'           => sanitize_text_field(tutils()->array_get('grade_point', $_POST)),
-			'percent_from'          => $number_percent_from,
-			'percent_to'            => sanitize_text_field(tutils()->array_get('number_percent_to', $_POST)),
+			'percent_from'          => $percent_from,
+			'percent_to'            => sanitize_text_field(tutils()->array_get('percent_to', $_POST)),
 			'grade_config'          => maybe_serialize(tutils()->array_get('grade_config', $_POST)),
 		);
 
@@ -83,13 +81,60 @@ class GradeBook{
 		$gradebook_id = (int) $wpdb->insert_id;
 
 		tutor_flash_set('success', __('Gradebook has been added successfully', 'tutor-pro') );
-		wp_redirect(admin_url('admin.php?page=tutor_gradebook'));
+		wp_redirect(admin_url('admin.php?page=tutor_gradebook&sub_page=gradebooks'));
 		exit();
 	}
 
-	public function return_validation_error(){
-		return $this->validation_error;
+	public function update_gradebook(){
+		global $wpdb;
+
+		//Checking nonce
+		tutor_utils()->checking_nonce();
+
+		$required_fields = apply_filters('tutor_gradebook_required_fields', array(
+			'grade_name'            => __('Grade name field is required', 'tutor-pro'),
+			'percent_to'     => __('Number percent to field is required', 'tutor-pro'),
+		));
+
+		$validation_errors = array();
+		foreach ($required_fields as $required_key => $required_value){
+			if (empty($_POST[$required_key])){
+				$validation_errors[$required_key] = $required_value;
+			}
+		}
+
+		if (tutils()->count($validation_errors)){
+		    $errors_msg = '<ul><li>'.implode('</li><li>', $validation_errors).'</li></ul>';
+			tutor_flash_set('danger', $errors_msg);
+			wp_redirect(tutils()->referer()); exit();
+		}
+
+		$gradebook_id = (int) sanitize_text_field(tutils()->array_get('gradebook_id', $_GET));
+		$percent_from = (int) sanitize_text_field(tutils()->array_get('percent_from', $_POST));
+		$data = array(
+			'grade_name'            => sanitize_text_field(tutils()->array_get('grade_name', $_POST)),
+			'grade_point'           => sanitize_text_field(tutils()->array_get('grade_point', $_POST)),
+			'percent_from'          => $percent_from,
+			'percent_to'            => sanitize_text_field(tutils()->array_get('percent_to', $_POST)),
+			'grade_config'          => maybe_serialize(tutils()->array_get('grade_config', $_POST)),
+		);
+
+		$wpdb->update($wpdb->tutor_gradebooks, $data, array('gradebook_id' => $gradebook_id));
+
+		tutor_flash_set('success', __('Gradebook has been updated successfully', 'tutor-pro') );
+		wp_redirect(admin_url('admin.php?page=tutor_gradebook&sub_page=gradebooks'));
+		exit();
 	}
+
+	public function delete_gradebook(){
+	    global $wpdb;
+		$gradebook_id = (int) sanitize_text_field(tutils()->array_get('gradebook_id', $_GET));
+		$wpdb->delete($wpdb->tutor_gradebooks, array('gradebook_id' => $gradebook_id));
+
+		tutor_flash_set('success', __('Gradebook has been deleted successfully', 'tutor-pro') );
+		wp_redirect(admin_url('admin.php?page=tutor_gradebook&sub_page=gradebooks'));
+		exit();
+    }
 
 	/**
 	 * @param $attempt_id
@@ -229,17 +274,7 @@ class GradeBook{
 	}
 
 	public function course_single_actions_btn_group(){
-		?>
-		<form id="tutor-gradebook-generate-for-course" method="post">
-			<?php tutor_nonce_field(); ?>
-			<input type="hidden" name="tutor_action" value="gradebook_generate_for_course">
-			<input type="hidden" name="course_ID" value="<?php echo get_the_ID(); ?>">
-
-			<p>
-				<button type="submit"> <i class="tutor-icon-spreadsheet"></i> <?php _e('Generate Gradebook', 'tutor-pro'); ?></button>
-			</p>
-		</form>
-		<?php
+		get_gradebook_generate_form();
 	}
 
 	public function gradebook_generate_for_course(){
@@ -257,6 +292,10 @@ class GradeBook{
 					$require_gradding[] = $content;
 				}
 			}
+
+			if ( ! tutils()->count($require_gradding)){
+			    return;
+            }
 
 			/**
 			 * re-grade again
@@ -399,8 +438,19 @@ class GradeBook{
 	}
 
 	public function add_course_nav_item($items){
-		$items['gradebook'] = __('Gradebook', 'tutor-pro');
+	    if (is_single() && get_the_ID()){
+		    $gading_content = get_grading_contents_by_course_id();
+		    if (tutils()->count($gading_content)){
+			    $items['gradebook'] = __('Gradebook', 'tutor-pro');
+		    }
+        }
+
 		return $items;
+    }
+
+    public function add_course_nav_rewrite($items){
+	    $items['gradebook'] = __('Gradebook', 'tutor-pro');
+	    return $items;
     }
 
 }

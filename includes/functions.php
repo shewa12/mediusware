@@ -39,7 +39,7 @@ if ( ! function_exists('get_generated_gradebook')) {
 					AND assignment_id = {$ref_id} 
 					AND result_for = 'assignment' " );
 		}elseif ($type === 'final'){
-			$res = $wpdb->get_row( "SELECT {$wpdb->tutor_gradebooks_results} .*, grade_config FROM {$wpdb->tutor_gradebooks_results} 
+			$res = $wpdb->get_row( "SELECT {$wpdb->tutor_gradebooks_results}.*, grade_config FROM {$wpdb->tutor_gradebooks_results} 
 					LEFT JOIN {$wpdb->tutor_gradebooks} ON {$wpdb->tutor_gradebooks_results}.gradebook_id = {$wpdb->tutor_gradebooks}.gradebook_id
 					WHERE user_id = {$user_id} 
 					AND course_id = {$ref_id} 
@@ -51,48 +51,103 @@ if ( ! function_exists('get_generated_gradebook')) {
 	}
 }
 
+/**
+ * @param int $course_id
+ * @param int $user_id
+ *
+ * @return array|null|object|void
+ *
+ * Get assignment gradebook by course
+ */
 
-function get_assignment_gradebook_by_course($course_id = 0, $user_id = 0 ){
-	global $wpdb;
+if ( ! function_exists('get_assignment_gradebook_by_course')) {
+	function get_assignment_gradebook_by_course( $course_id = 0, $user_id = 0 ) {
+		global $wpdb;
 
-	$user_id = tutils()->get_user_id($user_id);
+		$user_id = tutils()->get_user_id( $user_id );
 
-	$res = $wpdb->get_row( "SELECT AVG({$wpdb->tutor_gradebooks_results}.earned_percent) as earned_percent,
-                AVG({$wpdb->tutor_gradebooks_results}.grade_point) as earned_grade_point,
- grade_config FROM {$wpdb->tutor_gradebooks_results} 
-					LEFT JOIN {$wpdb->tutor_gradebooks} ON {$wpdb->tutor_gradebooks_results}.gradebook_id = {$wpdb->tutor_gradebooks}.gradebook_id
- 
-					WHERE user_id = {$user_id} AND result_for = 'assignment' " );
+		$res = $wpdb->get_row( "SELECT COUNT({$wpdb->tutor_gradebooks_results}.earned_percent) AS res_count, AVG({$wpdb->tutor_gradebooks_results}.earned_percent) as earned_percent,
+                FORMAT(AVG({$wpdb->tutor_gradebooks_results}.grade_point), 2) as earned_grade_point,
+                grade_config FROM {$wpdb->tutor_gradebooks_results} 
+				LEFT JOIN {$wpdb->tutor_gradebooks} ON {$wpdb->tutor_gradebooks_results}.gradebook_id = {$wpdb->tutor_gradebooks}.gradebook_id
+				WHERE course_id = {$course_id} AND user_id = {$user_id} AND result_for = 'assignment' " );
 
-	return $res;
+		$res_count = (int) $res->res_count;
+		if ( ! $res_count){
+			return false;
+		}
+
+		return $res;
+	}
 }
 
-function get_quiz_gradebook_by_course($course_id = 0, $user_id = 0 ){
-	global $wpdb;
+/**
+ * @param int $course_id
+ * @param int $user_id
+ *
+ * @return array|null|object|void
+ *
+ * Get quiz gradebook by course
+ */
 
-	$user_id = tutils()->get_user_id($user_id);
+if ( ! function_exists('get_quiz_gradebook_by_course')) {
+	function get_quiz_gradebook_by_course( $course_id = 0, $user_id = 0 ) {
+		global $wpdb;
 
-	$res = $wpdb->get_row( "SELECT AVG({$wpdb->tutor_gradebooks_results}.earned_percent) as earned_percent,
-                AVG({$wpdb->tutor_gradebooks_results}.grade_point) as earned_grade_point,
- grade_config FROM {$wpdb->tutor_gradebooks_results} 
-					LEFT JOIN {$wpdb->tutor_gradebooks} ON {$wpdb->tutor_gradebooks_results}.gradebook_id = {$wpdb->tutor_gradebooks}.gradebook_id
- 
-					WHERE user_id = {$user_id} AND result_for = 'quiz' " );
+		$user_id = tutils()->get_user_id( $user_id );
 
-	return $res;
+		$res = $wpdb->get_row( "SELECT COUNT({$wpdb->tutor_gradebooks_results}.earned_percent) AS res_count, 
+                AVG({$wpdb->tutor_gradebooks_results}.earned_percent) as earned_percent,
+                FORMAT(AVG({$wpdb->tutor_gradebooks_results}.grade_point), 2) as earned_grade_point,
+                grade_config FROM {$wpdb->tutor_gradebooks_results} 
+				LEFT JOIN {$wpdb->tutor_gradebooks} ON {$wpdb->tutor_gradebooks_results}.gradebook_id = {$wpdb->tutor_gradebooks}.gradebook_id
+				WHERE user_id = {$user_id} AND result_for = 'quiz' " );
 
+		$res_count = (int) $res->res_count;
+		if ( ! $res_count){
+		    return false;
+        }
+
+		return $res;
+
+	}
 }
 
-
-function get_gradebook_by_percent($percent = 0){
-	global $wpdb;
-	$gradebook = $wpdb->get_row("SELECT * FROM {$wpdb->tutor_gradebooks} 
+/**
+ * @param int $percent
+ *
+ * @return array|null|object|void
+ *
+ * Get gradebook by percent
+ */
+if ( ! function_exists('get_gradebook_by_percent')) {
+	function get_gradebook_by_percent( $percent = 0 ) {
+		global $wpdb;
+		$gradebook = $wpdb->get_row( "SELECT * FROM {$wpdb->tutor_gradebooks} 
 		WHERE percent_from <= {$percent} 
-		AND percent_to >= {$percent} ORDER BY gradebook_id ASC LIMIT 1  ");
+		AND percent_to >= {$percent} ORDER BY gradebook_id ASC LIMIT 1  " );
 
-	return $gradebook;
+		return $gradebook;
+	}
 }
 
+/**
+ * @param int $point
+ *
+ * @return array|bool|null|object|void
+ *
+ * Get gradebook by point
+ */
+if ( ! function_exists('get_gradebook_by_point')) {
+	function get_gradebook_by_point( $point = 0 ) {
+		if ( ! $point ) {
+			return false;
+		}
+		global $wpdb;
+		$gradebook = $wpdb->get_row( "SELECT * FROM {$wpdb->tutor_gradebooks} WHERE grade_point <= '{$point}' ORDER BY grade_point DESC LIMIT 1 " );
+		return $gradebook;
+	}
+}
 /**
  * @param $grade
  *
@@ -103,6 +158,10 @@ function get_gradebook_by_percent($percent = 0){
 
 if ( ! function_exists('tutor_generate_grade_html')) {
 	function tutor_generate_grade_html( $grade ) {
+	    if ( ! $grade){
+	        return;
+        }
+
 		if ( ! is_object( $grade ) ) {
 			global $wpdb;
 
@@ -110,6 +169,10 @@ if ( ! function_exists('tutor_generate_grade_html')) {
 					LEFT JOIN {$wpdb->tutor_gradebooks} ON {$wpdb->tutor_gradebooks_results}.gradebook_id = {$wpdb->tutor_gradebooks}.gradebook_id
 					WHERE gradebook_result_id = {$grade} " );
 		}
+
+		if (empty($grade->earned_grade_point)){
+		    return;
+        }
 
 		ob_start();
 
@@ -124,11 +187,10 @@ if ( ! function_exists('tutor_generate_grade_html')) {
 			if ( ! empty($grade->grade_name)){
 				$grade_name = $grade->grade_name;
 			}else{
-				$new_grade = get_gradebook_by_percent($grade->earned_percent);
+				$new_grade = get_gradebook_by_point($grade->earned_grade_point);
 				if ($new_grade){
 					$grade_name = $new_grade->grade_name;
 				}
-
 				$config = maybe_unserialize( $new_grade->grade_config );
 			}
 			?>
@@ -147,5 +209,81 @@ if ( ! function_exists('tutor_generate_grade_html')) {
 		$output = apply_filters( 'tutor_gradebook_grade_output_html', ob_get_clean(), $grade );
 
 		return $output;
+	}
+}
+
+/**
+ * @param $gradebook_id
+ *
+ * @return array|bool|null|object|void
+ *
+ * Get gradebook by gradebook id
+ *
+ *
+ */
+
+if ( ! function_exists('get_gradebook_by_id')) {
+	function get_gradebook_by_id( $gradebook_id ) {
+		global $wpdb;
+		$gradebook = $wpdb->get_row( "SELECT * FROM {$wpdb->tutor_gradebooks} WHERE gradebook_id = {$gradebook_id} " );
+		if ( $gradebook ) {
+			$gradebook->grade_config = maybe_unserialize( tutils()->array_get( 'grade_config', $gradebook ) );
+
+			return $gradebook;
+		}
+
+		return false;
+	}
+}
+
+function get_grading_contents_by_course_id($course_id = 0){
+	global $wpdb;
+
+	$course_id = tutils()->get_post_id($course_id);
+	$contents = $wpdb->get_results("SELECT items.* FROM {$wpdb->posts} topic
+				INNER JOIN {$wpdb->posts} items ON topic.ID = items.post_parent 
+				WHERE topic.post_parent = {$course_id} 
+				AND items.post_status = 'publish' 
+				AND (items.post_type = 'tutor_quiz' || items.post_type = 'tutor_assignments') 
+				order by topic.menu_order ASC, items.menu_order ASC;");
+
+	return $contents;
+}
+
+/**
+ * @param int $course_id
+ *
+ * Get gradebook generator form
+ */
+if ( ! function_exists('get_gradebook_generate_form')) {
+	function get_gradebook_generate_form( $course_id = 0, $echo = true ) {
+		$course_id      = tutils()->get_post_id( $course_id );
+		$gading_content = get_grading_contents_by_course_id( $course_id );
+		if ( ! tutils()->count( $gading_content ) ) {
+			return;
+		}
+		$final_grade = get_generated_gradebook( 'final', get_the_ID() );
+
+		ob_start();
+		?>
+        <form id="tutor-gradebook-generate-for-course" method="post">
+			<?php tutor_nonce_field(); ?>
+            <input type="hidden" name="tutor_action" value="gradebook_generate_for_course">
+            <input type="hidden" name="course_ID" value="<?php echo get_the_ID(); ?>">
+
+            <p class="generate-course-gradebook-btn-wrap">
+                <button type="submit" class="tutor-button tutor-button-block bordered-button"><i class="tutor-icon-spreadsheet"></i>
+					<?php $final_grade ? _e( 'Re-Generate Gradebook', 'tutor-pro' ) : _e( 'Generate Gradebook', 'tutor-pro' ); ?>
+                </button>
+            </p>
+        </form>
+		<?php
+        $output = apply_filters('get_gradebook_generate_form_html', ob_get_clean(), $course_id);
+
+        if ($echo){
+            echo $output;
+        }else{
+            return $output;
+        }
 	}
 }
