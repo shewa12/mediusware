@@ -27,6 +27,10 @@ class Assignments{
 		add_action('tutor_action_tutor_evaluate_assignment_submission', array($this, 'tutor_evaluate_assignment_submission'));
 
 		add_filter('tutor_dashboard/nav_items', array($this, 'frontend_dashboard_nav_items'));
+		/**
+		 * Lesson List in frontend end
+		 */
+		add_action('tutor/lesson_list/right_icon_area', array($this, 'show_assignment_submitted_icon'));
 	}
 
 	public function register_menu(){
@@ -216,8 +220,9 @@ class Assignments{
 	    $allowd_upload_files = (int) tutor_utils()->get_assignment_option($assignment_id, 'upload_files_limit');
 	    $assignment_submit_id = tutor_utils()->is_assignment_submitting($assignment_id);
 
-	    $date = date("Y-m-d H:i:s");
+	    do_action('tutor_assignment/before/submit', $assignment_submit_id);
 
+	    $date = date("Y-m-d H:i:s");
 	    $data = apply_filters('tutor_assignment_submit_updating_data', array(
 		    'comment_content'   => $assignment_answer,
 		    'comment_date'      => $date, //Submit Finished
@@ -232,6 +237,8 @@ class Assignments{
 	    }
 
 	    $wpdb->update($wpdb->comments, $data, array('comment_ID' => $assignment_submit_id));
+
+	    do_action('tutor_assignment/after/submit', $assignment_submit_id);
 
 	    if (function_exists('wc_get_raw_referer')){
 		    wp_redirect(wc_get_raw_referer());
@@ -255,9 +262,7 @@ class Assignments{
 
 	    if ( ! empty($_FILES["attached_assignment_files"])) {
 		    $files = $_FILES["attached_assignment_files"];
-
 		    $max_size_mb = (int) tutor_utils()->get_assignment_option($assignment_id, 'upload_file_size_limit', 2);
-
 
 		    foreach ( $files['name'] as $key => $value ) {
 		        $file_size = $files['size'][$key];
@@ -315,6 +320,8 @@ class Assignments{
 	    tutor_utils()->checking_nonce();
 	    $date = date("Y-m-d H:i:s");
 
+	    do_action('tutor_assignment/evaluate/before');
+
 	    $submitted_id = (int) sanitize_text_field(tutor_utils()->array_get('assignment_submitted_id', $_POST));
 	    $evaluate_fields = tutor_utils()->array_get('evaluate_assignment', $_POST);
 
@@ -322,6 +329,23 @@ class Assignments{
 	        update_comment_meta($submitted_id, $field_key, $field_value);
         }
 	    update_comment_meta($submitted_id, 'evaluate_time', $date);
+
+	    do_action('tutor_assignment/evaluate/after', $submitted_id);
+    }
+
+    public function show_assignment_submitted_icon($post){
+        if ($post->post_type === 'tutor_assignments'){
+            $is_submitted = tutils()->is_assignment_submitted($post->ID);
+
+            if ($is_submitted && $is_submitted->comment_approved === 'submitted'){
+	            echo '<i class="tutor-lesson-complete tutor-icon-mark tutor-done"></i>';
+            }else{
+                $is_submitting = tutils()->is_assignment_submitting($post->ID);
+                if ($is_submitting){
+	                echo '<i class="tutor-lesson-complete tutor-icon-spinner"></i>';
+                }
+            }
+        }
     }
 
 }
