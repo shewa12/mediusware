@@ -287,3 +287,54 @@ if ( ! function_exists('get_gradebook_generate_form')) {
         }
 	}
 }
+
+function get_generated_gradebooks($config = array()){
+	global $wpdb;
+
+	$default_attr = array(
+		'start' => '0',
+		'limit' => '20',
+		'order' => 'DESC',
+		'order_by' => 'gradebook_result_id',
+	);
+	$attr = array_merge($default_attr, $config);
+	extract($attr);
+
+	$gradebooks = array(
+		'count' => 0,
+		'res' => false,
+	);
+
+	$term = sanitize_text_field(tutils()->array_get('s', $_REQUEST));
+	$filter_sql = '';
+	if ( $term){
+		$filter_sql = "AND (course.post_title LIKE '%{$term}%' OR student.display_name LIKE '%{$term}%' )";
+	}
+
+	$gradebooks['count'] = $wpdb->get_var("SELECT COUNT(gradebook_result.gradebook_result_id) total_res
+
+FROM {$wpdb->tutor_gradebooks_results} gradebook_result
+LEFT JOIN {$wpdb->posts} course ON gradebook_result.course_id = course.ID
+LEFT  JOIN {$wpdb->users} student ON gradebook_result.user_id = student.ID
+WHERE gradebook_result.result_for = 'final' {$filter_sql} ;");
+
+	$gradebooks['res'] = $wpdb->get_results("SELECT gradebook_result.*, 
+
+(SELECT COUNT(quizzes.quiz_id) FROM {$wpdb->tutor_gradebooks_results} quizzes WHERE quizzes.user_id = gradebook_result.user_id AND quizzes.course_id = gradebook_result.course_id AND quizzes.result_for = 'quiz') as quiz_count,
+
+(SELECT COUNT(assignments.assignment_id) FROM {$wpdb->tutor_gradebooks_results} assignments WHERE assignments.user_id = gradebook_result.user_id AND assignments.course_id = gradebook_result.course_id AND assignments.result_for = 'assignment') as assignment_count,
+grade_config,
+student.display_name,
+course.post_title as course_title
+
+FROM {$wpdb->tutor_gradebooks_results} gradebook_result
+LEFT JOIN {$wpdb->tutor_gradebooks} gradebook ON gradebook_result.gradebook_id = gradebook.gradebook_id
+LEFT JOIN {$wpdb->posts} course ON gradebook_result.course_id = course.ID
+LEFT  JOIN {$wpdb->users} student ON gradebook_result.user_id = student.ID
+
+WHERE gradebook_result.result_for = 'final' {$filter_sql} LIMIT {$start}, {$limit} ");
+
+	$gradebooks = (object) $gradebooks;
+
+	return $gradebooks;
+}

@@ -15,38 +15,29 @@
     height: auto;
     display: block;
 }
-
 .tutor-install-notice{
     padding: 20px;
 }
-
-
 .tutor-install-notice-inner{
     display: flex;
     align-items: center;
 }
-
 .tutor-install-notice-inner .button{
     padding: 5px 30px;
     height: auto;
     line-height: 20px;
     text-transform: capitalize;
 }
-
 .tutor-install-notice-content{
     flex-grow: 1;
     padding-left: 20px;
     padding-right: 20px;
 }
-
-
 .tutor-install-notice-icon img{
     width: 64px;
     border-radius: 4px;
     display: block;
 }
-
-
 .tutor-install-notice-content h2{
     margin-top: 0;
     margin-bottom: 5px;

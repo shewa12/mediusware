@@ -25,8 +25,6 @@ class Report extends Tutor_Base {
 	}
 
 	public function admin_scripts($page){
-		wp_enqueue_style('tutor-report', TUTOR_REPORT()->url.'assets/css/report.css', array(), TUTOR_REPORT()->version);
-
 		/**
 		 * Scripts
 		 */
