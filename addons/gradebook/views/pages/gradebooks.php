@@ -17,6 +17,7 @@
 
 		<?php
 		$gradebooks = tutils()->get_gradebooks();
+
 		if (tutils()->count($gradebooks)){
 			?>
             <table class="gradebook-list-table widefat striped">
@@ -38,7 +39,6 @@
                         <td><?php echo $gradebook->grade_point; ?></td>
                         <td><?php echo $gradebook->percent_from.'-'.$gradebook->percent_to; ?></td>
                         <td>
-
                             <a href="<?php echo add_query_arg(array('sub_page' => 'edit_gradebook', 'gradebook_id' => $gradebook->gradebook_id)); ?>"
                                class="tutor-button tutor-button-small tutor-button-primary">
                                 <i class="tutor-icon-pencil"></i> <?php _e('Edit', 'tutor-pro'); ?>
@@ -55,6 +55,10 @@
 				} ?>
             </table>
 			<?php
+		}else{
+		    $install_msg = sprintf(__("There is no gradding system to manage grade student's courses. %s Import Sample Grade Data %s",
+                'tutor-pro'), "<p><button id='import-gradebook-sample-data' class='tutor-button tutor-button-primary'>", "</button></p>");
+			tutor_alert($install_msg);
 		}
 		?>
 

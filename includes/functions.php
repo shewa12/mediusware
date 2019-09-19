@@ -45,7 +45,11 @@ if ( ! function_exists('get_generated_gradebook')) {
 					AND course_id = {$ref_id} 
 					AND result_for = 'final' " );
 
-		}
+		}elseif ($type === 'byID'){
+			$res = $wpdb->get_row( "SELECT {$wpdb->tutor_gradebooks_results}.*, grade_config FROM {$wpdb->tutor_gradebooks_results} 
+					LEFT JOIN {$wpdb->tutor_gradebooks} ON {$wpdb->tutor_gradebooks_results}.gradebook_id = {$wpdb->tutor_gradebooks}.gradebook_id
+					WHERE gradebook_result_id = {$ref_id};" );
+        }
 
 		return $res;
 	}
