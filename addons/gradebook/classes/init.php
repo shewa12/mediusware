@@ -63,7 +63,6 @@ class init{
 		}
 	}
 
-
 	//Run the TUTOR right now
 	public function run(){
 		register_activation_hook( TUTOR_GB_FILE, array( $this, 'tutor_activate' ) );
@@ -106,31 +105,6 @@ class init{
 							'default' => '0',
 							'desc'      => sprintf(__('This option will allow you to show/view grade scale, such as 3.8%s', 'tutor-pro'), '<code>/4.0</code>'),
 						),
-/*
-						'grade_data' => array(
-							'type'      => 'group_fields',
-							'label'     => __('Grade Settings', 'tutor-pro'),
-							'desc'      => __('Setup your grade', 'tutor-pro'),
-							'repeatable'=> true,
-							'group_fields'  => array(
-								'grade_name' => array(
-									'type'      => 'text',
-									'label'     => __('Grade Name', 'tutor-pro'),
-									'default'   => 'Anik',
-								),
-								'grade_number' => array(
-									'type'      => 'number',
-									'label'     => __('Grade Number', 'tutor-pro'),
-									'default'   => '11',
-								),
-								'grade_color' => array(
-									'type'      => 'color',
-									'label'     => __('Grade Color', 'tutor-pro'),
-									'default'   => '#ccc',
-								),
-							),
-						),*/
-
 						'gradebook_scale_separator' => array(
 							'type'      => 'text',
 							'label'     => __('Grade scale separator', 'tutor-pro'),

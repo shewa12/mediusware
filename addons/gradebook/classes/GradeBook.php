@@ -392,7 +392,6 @@ class GradeBook{
 					} else {
 						$wpdb->insert( $wpdb->tutor_gradebooks_results, $gradebook_data );
 					}
-
 				}
 
 				$results = $wpdb->get_row("SELECT AVG(earned_percent) as earned_percent,
@@ -428,10 +427,7 @@ class GradeBook{
 					}else{
 						$wpdb->insert( $wpdb->tutor_gradebooks_results, $gradebook_data );
 					}
-
 				}
-
-
 			}
 
 		}
