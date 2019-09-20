@@ -88,11 +88,23 @@ GradeBook Addon css
     text-align: center;
     color: #ffffff;
     height: 32px;
+    min-width: 16px;
     font-size: 16px;
     line-height: 32px;
     padding: 0 8px;
     display: inline-block;
     border-radius: 20px;
+}
+.gradename-outline{
+    text-align: center;
+    height: 32px;
+    min-width: 16px;
+    font-size: 16px;
+    line-height: 32px;
+    padding: 0 8px;
+    display: inline-block;
+    border-radius: 20px;
+    border: 2px solid;
 }
 .tutor-gradebook-nav-wrapper{
     margin: 10px 0;
@@ -129,13 +141,13 @@ table.gradebooks-lists tbody h2 {
 table.gradebooks-lists tbody h2 a {
     font-weight: normal; }
 table.gradebooks-lists th {
-    background-color: #eeeeee;
+    background-color: #fafbfc;
 }
 table.gradebooks-lists tbody td {
-    background-color: #f1f1f1;
+    background-color: #ffffff;
 }
 table.gradebooks-lists tbody tr:nth-child(2n) td {
-    background-color: #ffffff;
+    background-color: #fafbfc;
 }
 table.gradebooks-lists a{
     text-decoration: none;

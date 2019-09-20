@@ -161,7 +161,7 @@ if ( ! function_exists('get_gradebook_by_point')) {
  */
 
 if ( ! function_exists('tutor_generate_grade_html')) {
-	function tutor_generate_grade_html( $grade ) {
+	function tutor_generate_grade_html( $grade, $style = 'bgfill' ) {
 	    if ( ! $grade){
 	        return;
         }
@@ -197,11 +197,14 @@ if ( ! function_exists('tutor_generate_grade_html')) {
 				}
 				$config = maybe_unserialize( $new_grade->grade_config );
 			}
-			?>
-			<span class="gradename-bg" style="background-color: <?php echo tutils()->array_get( 'grade_color', $config ); ?>;">
-				<?php echo $grade_name; ?>
-			</span>
-			<?php
+
+			$bgcolor = tutils()->array_get( 'grade_color', $config );
+			if ($style === 'bgfill'){
+			    echo "<span class='gradename-bg {$style}' style='background-color: {$bgcolor};'>{$grade_name}</span> ";
+            }else{
+				echo "<span class='gradename-outline {$style}' style='color: {$bgcolor};'>{$grade_name}</span> ";
+			}
+
 			$grade_point = ! empty($grade->earned_grade_point) ? $grade->earned_grade_point : $grade->grade_point;
 			if ( $gradebook_enable_grade_point ) {
 				echo "<span class='gradebook-earned-grade-point'>{$grade_point}</span>";

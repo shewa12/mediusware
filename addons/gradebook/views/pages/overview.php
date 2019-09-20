@@ -65,9 +65,9 @@ $gradebooks = get_generated_gradebooks(array('course_id' => $course_id, 'start' 
                 <table class="wp-list-table gradebooks-lists">
                     <thead>
                     <tr>
-                        <td id="cb" class="manage-column column-cb check-column" width="20">
+                        <th id="cb" class="manage-column column-cb check-column" width="20">
                             <input id="cb-select-all-1" type="checkbox">
-                        </td>
+                        </th>
                         <th><?php _e('Student', 'tutor-pro'); ?></th>
                         <th><?php _e('Course', 'tutor-pro'); ?></th>
                         <th><?php _e('Quiz', 'tutor-pro'); ?></th>
@@ -83,9 +83,9 @@ $gradebooks = get_generated_gradebooks(array('course_id' => $course_id, 'start' 
 						$assignment_grade = get_assignment_gradebook_by_course($gradebook->course_id);
 						?>
                         <tr>
-                            <th scope="row" class="check-column">
+                            <td scope="row" class="check-column">
                                 <input type="checkbox" name="gradebooks_result_ids[]" value="<?php echo $gradebook->gradebook_result_id ?>">
-                            </th>
+                            </td>
                             <td>
                                 <div class="gradebooks-user-col">
                                     <div class="tutor-flex-row">
@@ -119,7 +119,7 @@ $gradebooks = get_generated_gradebooks(array('course_id' => $course_id, 'start' 
 
                             <td><?php echo tutor_generate_grade_html($quiz_grade); ?></td>
                             <td><?php echo tutor_generate_grade_html($assignment_grade); ?></td>
-                            <td><?php echo tutor_generate_grade_html($gradebook); ?></td>
+                            <td><?php echo tutor_generate_grade_html($gradebook, 'outline'); ?></td>
                         </tr>
 
 						<?php

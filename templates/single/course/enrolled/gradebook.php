@@ -37,7 +37,7 @@ $quiz_grade = get_quiz_gradebook_by_course($course_id);
         <tr>
             <td><?php echo tutor_generate_grade_html($quiz_grade); ?></td>
             <td><?php echo tutor_generate_grade_html($assignment_grade); ?></td>
-            <td><?php echo tutor_generate_grade_html($final_grade); ?></td>
+            <td><?php echo tutor_generate_grade_html($final_grade, 'outline'); ?></td>
         </tr>
     </table>
 <?php
