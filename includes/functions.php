@@ -296,6 +296,7 @@ function get_generated_gradebooks($config = array()){
 	global $wpdb;
 
 	$default_attr = array(
+		'course_id' => 0,
 		'start' => '0',
 		'limit' => '20',
 		'order' => 'DESC',
@@ -311,8 +312,11 @@ function get_generated_gradebooks($config = array()){
 
 	$term = sanitize_text_field(tutils()->array_get('s', $_REQUEST));
 	$filter_sql = '';
+	if ($course_id){
+		$filter_sql .= " AND gradebook_result.course_id = {$course_id} ";
+	}
 	if ( $term){
-		$filter_sql = "AND (course.post_title LIKE '%{$term}%' OR student.display_name LIKE '%{$term}%' )";
+		$filter_sql .= " AND (course.post_title LIKE '%{$term}%' OR student.display_name LIKE '%{$term}%' ) ";
 	}
 
 	$gradebooks['count'] = $wpdb->get_var("SELECT COUNT(gradebook_result.gradebook_result_id) total_res

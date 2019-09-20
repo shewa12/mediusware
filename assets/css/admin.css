@@ -137,6 +137,9 @@ table.gradebooks-lists tbody td {
 table.gradebooks-lists tbody tr:nth-child(2n) td {
     background-color: #ffffff;
 }
+table.gradebooks-lists a{
+    text-decoration: none;
+}
 .gradebook-date{
     color: #4b5981;
 }

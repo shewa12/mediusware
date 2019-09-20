@@ -3,7 +3,9 @@ $per_page = get_tutor_option('pagination_per_page', 10);
 $current_page = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0;
 $start =  max( 0,($current_page-1)*$per_page );
 
-$gradebooks = get_generated_gradebooks(array('start' => $start, 'limit' => $per_page));
+
+$course_id = (int) sanitize_text_field(tutils()->array_get('course_id', $_GET));
+$gradebooks = get_generated_gradebooks(array('course_id' => $course_id, 'start' => $start, 'limit' => $per_page));
 ?>
 <div class="wrap">
     <h1 class="wp-heading-inline"><?php _e('Gradebooks', 'tutor-pro'); ?>  </h1>
@@ -102,7 +104,11 @@ $gradebooks = get_generated_gradebooks(array('start' => $start, 'limit' => $per_
                             </td>
 
                             <td>
-                                <p><?php echo $gradebook->course_title; ?></p>
+                                <p>
+                                    <a href="<?php echo add_query_arg(array('course_id' => $gradebook->course_id)); ?>">
+                                        <?php echo $gradebook->course_title; ?>
+                                    </a>
+                                </p>
                                 <p>
 									<?php
 									echo tutils()->course_progress_status_context($gradebook->course_id, $gradebook->user_id);
