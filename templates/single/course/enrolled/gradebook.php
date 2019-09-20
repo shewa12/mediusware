@@ -65,24 +65,18 @@ if (tutils()->count($grades)){
 						?>
                     </p>
                     <p class="datetime">
-						<?php _e('Generated at', 'tutor-pro'); ?>: <?php echo date_i18n(get_option('date_format').' '.get_option('time_format'),
-							strtotime($grade->generate_date)); ?>
+						<?php _e('Generated at', 'tutor-pro'); ?>: <?php echo date_i18n(get_option('date_format').' '.get_option('time_format'), strtotime($grade->generate_date)); ?>
                     </p>
                     <p class="datetime">
-						<?php _e('Updated at', 'tutor-pro'); ?>: <?php echo date_i18n(get_option('date_format').' '.get_option('time_format'),
-							strtotime($grade->update_date)); ?>
+						<?php _e('Updated at', 'tutor-pro'); ?>: <?php echo date_i18n(get_option('date_format').' '.get_option('time_format'), strtotime($grade->update_date)); ?>
                     </p>
                 </td>
                 <td><?php echo tutor_generate_grade_html($grade); ?></td>
             </tr>
 			<?php
 		}
-
 		?>
-
     </table>
 
 	<?php
-
-
 }
