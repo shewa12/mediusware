@@ -26,7 +26,7 @@ define('TUTOR_GB_FILE', __FILE__);
 add_filter('tutor_addons_lists_config', 'tutor_gradebook_config');
 function tutor_gradebook_config($config){
 	$newConfig = array(
-		'name'          => __('Tutor Gradebook', 'tutor-multi-instructors'),
+		'name'          => __('Gradebook', 'tutor-multi-instructors'),
 		'description'   => 'Shows student progress from assignment and quiz',
 	);
 	$basicConfig = (array) TUTOR_GB();
