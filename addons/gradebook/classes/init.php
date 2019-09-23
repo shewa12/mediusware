@@ -14,11 +14,12 @@ class init{
 	public $multi_instructors;
 
 	function __construct() {
-		if ( ! function_exists('tutor-pro')){
+		if ( ! function_exists('tutor')){
 			return;
 		}
 		$addonConfig = tutor_utils()->get_addon_config(TUTOR_GB()->basename);
 		$isEnable = (bool) tutils()->array_get('is_enable', $addonConfig);
+
 		if ( ! $isEnable){
 			return;
 		}

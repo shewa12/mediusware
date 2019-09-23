@@ -40,7 +40,7 @@ class GradeBook{
 	}
 
 	public function register_menu(){
-		add_submenu_page('tutor-pro', __('Grade Book', 'tutor-pro'), __('Grade Book', 'tutor-pro'), 'manage_tutor', 'tutor_gradebook', array($this, 'tutor_gradebook') );
+		add_submenu_page('tutor', __('Grade Book', 'tutor-pro'), __('Grade Book', 'tutor-pro'), 'manage_tutor', 'tutor_gradebook', array($this, 'tutor_gradebook') );
 	}
 
 	public function tutor_gradebook(){
