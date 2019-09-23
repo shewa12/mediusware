@@ -97,27 +97,27 @@ class init{
 							'label'     => __('Grade Point', 'tutor-pro'),
 							'label_title' => __('Enable', 'tutor-pro'),
 							'default' => '0',
-							'desc'      => __('After enabling, grade point will be show it in the gradding besides grade name', 'tutor-pro'),
+							'desc'      => __('Enable this option for the database to calculate in grade points instead of division.', 'tutor-pro'),
 						),
 						'gradebook_show_grade_scale' => array(
 							'type'      => 'checkbox',
 							'label'     => __('Grade Scale', 'tutor-pro'),
 							'label_title' => __('Show', 'tutor-pro'),
 							'default' => '0',
-							'desc'      => sprintf(__('This option will allow you to show/view grade scale, such as 3.8%s', 'tutor-pro'), '<code>/4.0</code>'),
+							'desc'      => sprintf(__('Display the final grade point to everyone such as 3.8%s', 'tutor-pro'), '<code>/4.0</code>'),
 						),
 						'gradebook_scale_separator' => array(
 							'type'      => 'text',
 							'label'     => __('Grade scale separator', 'tutor-pro'),
 							'default'   => '/',
-							'desc'      => sprintf(__('This will change grade label separating text, example, 3.6%s4.0 or 3.6%s4.0', 'tutor-pro'), '<code>/</code>', '<code>out of</code>'),
+							'desc'      => __('Input the separator text or symbol to display. Example: Insert “/” to display 3.8/4.0 or “out of” 3.8 out of 4.', 'tutor-pro'),
 						),
 
 						'gradebook_scale' => array(
 							'type'      => 'text',
 							'label'     => __('Grade Scale', 'tutor-pro'),
 							'default'   => '4.0',
-							'desc'      => __('This is gradebook scale', 'tutor-pro'),
+							'desc'      => __('Insert the grade point out of which the final results will be calculated.', 'tutor-pro'),
 						),
 
 					),

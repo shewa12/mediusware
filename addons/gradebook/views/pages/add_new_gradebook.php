@@ -45,31 +45,31 @@
         <div class="tutor-option-field-row">
             <div class="tutor-option-field-label">
                 <label for="">
-				    <?php _e('Number Percent From', 'tutor-pro'); ?>
+				    <?php _e('Minimum Grade Percentile', 'tutor-pro'); ?>
                     <span class="tutor-required-fields">*</span>
                 </label>
             </div>
             <div class="tutor-option-field">
-                <input type="text" name="percent_from" value="<?php echo tutor_utils()->input_old('percent_from'); ?>" placeholder="<?php _e('Number Percent From', 'tutor-pro'); ?>">
+                <input type="text" name="percent_from" value="<?php echo tutor_utils()->input_old('percent_from'); ?>" placeholder="<?php _e('Minimum Grade Percentile', 'tutor-pro'); ?>">
             </div>
         </div>
 
         <div class="tutor-option-field-row">
             <div class="tutor-option-field-label">
                 <label for="">
-				    <?php _e('Number Percent To', 'tutor-pro'); ?>
+				    <?php _e('Maximum Grade Percentile', 'tutor-pro'); ?>
                     <span class="tutor-required-fields">*</span>
                 </label>
             </div>
             <div class="tutor-option-field">
-                <input type="text" name="percent_to" value="<?php echo tutor_utils()->input_old('percent_to'); ?>" placeholder="<?php _e('Number Percent To', 'tutor-pro'); ?>">
+                <input type="text" name="percent_to" value="<?php echo tutor_utils()->input_old('percent_to'); ?>" placeholder="<?php _e('Maximum Grade Percentile', 'tutor-pro'); ?>">
             </div>
         </div>
 
         <div class="tutor-option-field-row">
             <div class="tutor-option-field-label">
                 <label for="">
-				    <?php _e('Grade Color', 'tutor-pro'); ?>
+				    <?php _e('Grade Colour', 'tutor-pro'); ?>
                     <span class="tutor-required-fields">*</span>
                 </label>
             </div>

@@ -134,7 +134,7 @@ class GradeBook{
 		$gradebook_id = (int) sanitize_text_field(tutils()->array_get('gradebook_id', $_GET));
 		$wpdb->delete($wpdb->tutor_gradebooks, array('gradebook_id' => $gradebook_id));
 
-		tutor_flash_set('success', __('Gradebook has been deleted successfully', 'tutor-pro') );
+		tutor_flash_set('success', __('The grade has been deleted successfully.', 'tutor-pro') );
 		wp_redirect(admin_url('admin.php?page=tutor_gradebook&sub_page=gradebooks'));
 		exit();
     }

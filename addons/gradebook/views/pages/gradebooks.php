@@ -1,8 +1,8 @@
 
 <div class="wrap">
-    <h1 class="wp-heading-inline"><?php _e('Grade Books', 'tutor-pro'); ?>  </h1>
+    <h1 class="wp-heading-inline"><?php _e('Gradebook', 'tutor-pro'); ?>  </h1>
     <a href="<?php echo admin_url('admin.php?page=tutor_gradebook&sub_page=add_new_gradebook'); ?>" class="page-title-action"><i class="tutor-icon-plus"></i>
-		<?php _e('Add New Grade Book', 'tutor-pro'); ?>
+		<?php _e('Add New Grade', 'tutor-pro'); ?>
     </a>
     <hr class="wp-header-end">
 
@@ -21,12 +21,15 @@
 		if (tutils()->count($gradebooks)){
 			?>
             <table class="gradebook-list-table widefat striped">
+                <thead>
                 <tr>
                     <th><?php _e('Grade Name', 'tutor-pro'); ?></th>
                     <th><?php _e('Grade Point', 'tutor-pro'); ?></th>
-                    <th><?php _e('Range %', 'tutor-pro'); ?></th>
-                    <th>#</th>
+                    <th><?php _e('Grade Range %', 'tutor-pro'); ?></th>
+                    <th><?php _e('Action', 'tutor-pro'); ?> </th>
                 </tr>
+                </thead>
+
 				<?php foreach ($gradebooks as $gradebook){
 				    $config = maybe_unserialize($gradebook->grade_config);
 					?>
@@ -56,7 +59,7 @@
             </table>
 			<?php
 		}else{
-		    $install_msg = sprintf(__("There is no gradding system to manage grade student's courses. %s Import Sample Grade Data %s",
+		    $install_msg = sprintf(__("No grading system has been defined to manage student grades. %s Import Sample Grade Data %s",
                 'tutor-pro'), "<p><button id='import-gradebook-sample-data' class='tutor-button tutor-button-primary'>", "</button></p>");
 			tutor_alert($install_msg);
 		}

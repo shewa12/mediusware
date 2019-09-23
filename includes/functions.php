@@ -279,7 +279,7 @@ if ( ! function_exists('get_gradebook_generate_form')) {
             <input type="hidden" name="course_ID" value="<?php echo get_the_ID(); ?>">
 
             <p class="generate-course-gradebook-btn-wrap">
-                <button type="submit" class="tutor-button tutor-button-block bordered-button"><i class="tutor-icon-spreadsheet"></i>
+                <button type="submit" class="tutor-button tutor-button-block button-light"><i class="tutor-icon-spreadsheet"></i>
 					<?php $final_grade ? _e( 'Re-Generate Gradebook', 'tutor-pro' ) : _e( 'Generate Gradebook', 'tutor-pro' ); ?>
                 </button>
             </p>
