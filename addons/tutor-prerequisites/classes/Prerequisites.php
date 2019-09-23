@@ -25,7 +25,8 @@ class Prerequisites extends Tutor_Base {
 	}
 
 	public function register_meta_box(){
-		add_meta_box( 'tutor-course-prerequisites', __( 'Course Prerequisites', 'tutor-prerequisites' ), array($this, 'prerequisites_courses'), $this->course_post_type, 'advanced', 'high' );
+		add_meta_box( 'tutor-course-prerequisites', __( 'Course Prerequisites', 'tutor-pro' ), array($this, 'prerequisites_courses'),
+			$this->course_post_type, 'advanced', 'high' );
 	}
 
 	public function register_meta_box_in_frontend(){

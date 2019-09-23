@@ -24,7 +24,8 @@ class CoursePreview extends Tutor_Base {
 	}
 
 	public function register_meta_box(){
-		add_meta_box( 'tutor-course-preview', __( 'Lesson Preview', 'tutor' ), array($this, 'additional_data_metabox_before'), $this->lesson_post_type, 'advanced', 'high' );
+		add_meta_box( 'tutor-course-preview', __( 'Lesson Preview', 'tutor-pro' ), array($this, 'additional_data_metabox_before'),
+			$this->lesson_post_type, 'advanced', 'high' );
 	}
 
 	/**

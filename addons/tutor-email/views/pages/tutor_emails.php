@@ -14,7 +14,7 @@
 
         <tbody>
         <tr>
-            <td><?php _e('Quiz Finished'); ?></td>
+            <td><?php _e('Quiz Finished','tutor-pro'); ?></td>
             <td>text/html</td>
             <td>
 				<?php
@@ -32,7 +32,7 @@
             </td>
         </tr>
         <tr>
-            <td><?php _e('Course Completed (to students)'); ?></td>
+            <td><?php _e('Course Completed (to students)','tutor-pro'); ?></td>
             <td>text/html</td>
 
             <td>
@@ -51,7 +51,7 @@
             </td>
         </tr>
         <tr>
-            <td><?php _e('Course Completed (to teacher)'); ?></td>
+            <td><?php _e('Course Completed (to teacher)','tutor-pro'); ?></td>
             <td>text/html</td>
             <td>
 				<?php
@@ -69,7 +69,7 @@
             </td>
         </tr>
         <tr>
-            <td><?php _e('Course Enrolled (to teacher)'); ?></td>
+            <td><?php _e('Course Enrolled (to teacher)','tutor-pro'); ?></td>
             <td>text/html</td>
             <td>
 				<?php
@@ -87,7 +87,7 @@
             </td>
         </tr>
         <tr>
-            <td><?php _e('Asked Question (to teacher)'); ?></td>
+            <td><?php _e('Asked Question (to teacher)','tutor-pro'); ?></td>
             <td>text/html</td>
             <td>
 				<?php
@@ -104,7 +104,7 @@
             </td>
         </tr>
         <tr>
-            <td><?php _e('Student completed a lesson (to teacher)'); ?></td>
+            <td><?php _e('Student completed a lesson (to teacher)','tutor-pro'); ?></td>
             <td>text/html</td>
             <td>
 				<?php

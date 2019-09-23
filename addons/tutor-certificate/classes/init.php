@@ -82,7 +82,7 @@ class init{
 
 	public function add_options($attr){
 		$attr['tutor_certificate'] = array(
-			'label' => __( 'Tutor Certificate', 'tutor-certificate' ),
+			'label' => __( 'Tutor Certificate', 'tutor-pro' ),
 
 			'sections'    => array(
 				'general' => array(
@@ -93,24 +93,24 @@ class init{
 						'enable_course_certificate' => array(
 							'type'      => 'checkbox',
 							'label'     => __('Enable Tutor Certificate', 'tutor-pro'),
-							'desc'      => __('By integrating Tutor Certificate, student will be able to download the certificate',	'tutor-certificate'),
+							'desc'      => __('By integrating Tutor Certificate, student will be able to download the certificate',	'tutor-pro'),
 						),
 						*/
 						'tutor_cert_authorised_name' => array(
 							'type'      => 'text',
 							'label'     => __('Authorised Name', 'tutor-pro'),
-							'desc'      => __('Authorised name will be printed under signature.',	'tutor-certificate'),
+							'desc'      => __('Authorised name will be printed under signature.',	'tutor-pro'),
 						),
 						'tutor_cert_authorised_company_name' => array(
 							'type'      => 'text',
 							'label'     => __('Authorised Company Name', 'tutor-pro'),
-							'desc'      => __('Authorised company name will be printed under authorised name.',	'tutor-certificate'),
+							'desc'      => __('Authorised company name will be printed under authorised name.',	'tutor-pro'),
 						),
 						'tutor_cert_signature_image_id' => array(
 							'type'          => 'media',
 							'label'         => __('Upload Signature', 'tutor-pro'),
 							'attr'          => array('media_type' => 'image'), //image,file
-							'desc'          => __('Upload a signature that will be printed at certificate.',	'tutor-certificate'),
+							'desc'          => __('Upload a signature that will be printed at certificate.',	'tutor-pro'),
 						),
 
 					),

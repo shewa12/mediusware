@@ -33,7 +33,7 @@
 	?>
 
     <p class="text-muted">
-        <?php _e('Total Enrolled Courses:'); ?> <?php echo array_sum($chartData); ?>
+        <?php _e('Total Enrolled Courses:', 'tutor-pro'); ?> <?php echo array_sum($chartData); ?>
         <span class="report-download-csv-icon">
             <a href="<?php echo add_query_arg(array('tutor_report_action' => 'download_course_enrol_csv')); ?>"><i class="tutor-icon-file"></i> <?php _e('Download as CSV');
             ?></a>

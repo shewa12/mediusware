@@ -72,7 +72,7 @@ if ($content_drip_type === 'unlock_sequentially'){
                 </div>
                 <div class="tutor-option-field">
                     <select name="content_drip_settings[prerequisites][]" multiple="multiple" class="select2_multiselect">
-                        <option value=""><?php _e('Select prerequisites item', 'tutor'); ?></option>
+                        <option value=""><?php _e('Select prerequisites item', 'tutor-pro'); ?></option>
 						<?php
 						foreach ($query_topics->posts as $topic){
 							echo "<optgroup label='{$topic->post_title}'>";

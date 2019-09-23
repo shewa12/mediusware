@@ -26,7 +26,8 @@ class CourseAttachments extends Tutor_Base {
 		/**
 		 * Check is allow private file upload
 		 */
-		add_meta_box( 'tutor-course-attachments', __( 'Attachments (private files)', 'tutor' ), array($this, 'course_attachments_metabox'), $coursePostType, 'advanced', 'high' );
+		add_meta_box( 'tutor-course-attachments', __( 'Attachments (private files)', 'tutor-pro' ), array($this, 'course_attachments_metabox'),
+			$coursePostType, 'advanced', 'high' );
 	}
 
 	public function register_meta_box_in_frontend(){

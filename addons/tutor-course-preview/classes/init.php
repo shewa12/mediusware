@@ -82,7 +82,7 @@ class init{
 
 	public function add_options($attr){
 		$attr['tutor_course_preview'] = array(
-			'label' => __( 'Course Preview', 'tutor-course-preview' ),
+			'label' => __( 'Course Preview', 'tutor-pro' ),
 
 			'sections'    => array(
 				'general' => array(
@@ -92,7 +92,7 @@ class init{
 						'enable_course_preview' => array(
 							'type'          => 'checkbox',
 							'label'         => __('Enable Course Preview', 'tutor-pro'),
-							'desc'          => __('This will allow user/guest to check some preview lesson in course before enroll',	'tutor'),
+							'desc'          => __('This will allow user/guest to check some preview lesson in course before enroll',	'tutor-pro'),
 						),
 					),
 				),

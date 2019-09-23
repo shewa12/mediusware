@@ -26,7 +26,7 @@ define('TUTOR_WCS_FILE', __FILE__);
 add_filter('tutor_addons_lists_config', 'tutor_wcs_config');
 function tutor_wcs_config($config){
 	$newConfig = array(
-		'name'          => __('WooCommerce Subscriptions', 'tutor-pmpro'),
+		'name'          => __('WooCommerce Subscriptions', 'tutor-pro'),
 		'description'   => 'Capture Residual Revenue with Recurring Payments.',
 		'depend_plugins'   => array(
 			'woocommerce/woocommerce.php' => 'WooCommerce',

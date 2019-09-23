@@ -26,7 +26,7 @@ define('TUTOR_PMPRO_FILE', __FILE__);
 add_filter('tutor_addons_lists_config', 'tutor_pmpro_config');
 function tutor_pmpro_config($config){
 	$newConfig = array(
-		'name'          => __('Paid Memberships Pro', 'tutor-pmpro'),
+		'name'          => __('Paid Memberships Pro', 'tutor-pro'),
 		'description'   => 'Maximize revenue by selling membership access to all of your courses.',
 		'depend_plugins'   => array('paid-memberships-pro/paid-memberships-pro.php' => 'Paid Memberships Pro'),
 	);

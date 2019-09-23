@@ -227,7 +227,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 
 			?>
 
-            <p><?php _e('Total Enrolled Course'); ?> <?php echo array_sum($chartData); ?> </p>
+            <p><?php _e('Total Enrolled Course','tutor-pro'); ?> <?php echo array_sum($chartData); ?> </p>
 
             <canvas id="myChart" style="width: 100%; height: 400px;"></canvas>
             <script>
@@ -278,7 +278,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
     <div class="tutor-report-overview-section">
 
         <div class="overview-section-col6 tutor-bg-white box-padding">
-            <h3><?php _e('Most popular courses'); ?></h3>
+            <h3><?php _e('Most popular courses','tutor-pro'); ?></h3>
 
             <table class="widefat tutor-report-table ">
                 <tr>
@@ -302,7 +302,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 
         <div class="overview-section-col6 tutor-bg-white box-padding">
 
-            <h3><?php _e('Last enrolled courses'); ?></h3>
+            <h3><?php _e('Last enrolled courses','tutor-pro'); ?></h3>
 
             <table class="widefat tutor-report-table ">
                 <tr>
@@ -333,7 +333,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 
         <div class="last-revews-wrap">
 
-            <h3><?php _e('Recent reviews'); ?></h3>
+            <h3><?php _e('Recent reviews','tutor-pro'); ?></h3>
 
             <table class="widefat tutor-report-table ">
                 <tr>
@@ -372,7 +372,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 
         <div class="last-revews-wrap tutor-bg-white box-padding">
 
-            <h3><?php _e('Recent questions from students'); ?></h3>
+            <h3><?php _e('Recent questions from students','tutor-pro'); ?></h3>
 
             <table class="widefat tutor-report-table ">
                 <th><?php _e('User', 'tutor-pro'); ?> </th>
@@ -420,7 +420,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 <div class="tutor-report-overview-section">
 
     <div class="overview-section-col6 tutor-bg-white box-padding">
-        <h3><?php _e('New registered students'); ?></h3>
+        <h3><?php _e('New registered students','tutor-pro'); ?></h3>
 
         <table class="widefat tutor-report-table ">
             <tr>
@@ -450,7 +450,7 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
     </div>
 
     <div class="overview-section-col6 tutor-bg-white box-padding">
-        <h3><?php _e('New registered teachers'); ?></h3>
+        <h3><?php _e('New registered teachers','tutor-pro'); ?></h3>
 
         <table class="widefat tutor-report-table ">
             <tr>

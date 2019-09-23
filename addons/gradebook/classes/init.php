@@ -14,7 +14,7 @@ class init{
 	public $multi_instructors;
 
 	function __construct() {
-		if ( ! function_exists('tutor')){
+		if ( ! function_exists('tutor-pro')){
 			return;
 		}
 		$addonConfig = tutor_utils()->get_addon_config(TUTOR_GB()->basename);
@@ -93,15 +93,15 @@ class init{
 					'fields' => array(
 						'gradebook_enable_grade_point' => array(
 							'type'      => 'checkbox',
-							'label'     => __('Grade Point', 'tutor'),
-							'label_title' => __('Enable', 'tutor'),
+							'label'     => __('Grade Point', 'tutor-pro'),
+							'label_title' => __('Enable', 'tutor-pro'),
 							'default' => '0',
 							'desc'      => __('After enabling, grade point will be show it in the gradding besides grade name', 'tutor-pro'),
 						),
 						'gradebook_show_grade_scale' => array(
 							'type'      => 'checkbox',
-							'label'     => __('Grade Scale', 'tutor'),
-							'label_title' => __('Show', 'tutor'),
+							'label'     => __('Grade Scale', 'tutor-pro'),
+							'label_title' => __('Show', 'tutor-pro'),
 							'default' => '0',
 							'desc'      => sprintf(__('This option will allow you to show/view grade scale, such as 3.8%s', 'tutor-pro'), '<code>/4.0</code>'),
 						),

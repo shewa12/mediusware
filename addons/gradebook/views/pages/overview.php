@@ -133,7 +133,7 @@ $gradebooks = get_generated_gradebooks(array('course_id' => $course_id, 'start' 
             <div class="gradebook-overview-footer">
                 <div class="tutor-flex-row">
                     <div class="tutor-col gradebook-overview-items-col">
-						<?php echo $gradebooks->count.' '.__('Items', 'tutor'); ?>
+						<?php echo $gradebooks->count.' '.__('Items', 'tutor-pro'); ?>
                     </div>
                     <div class="tutor-col gradebook-overview-pagination-col">
                         <div class="tutor-pagination">

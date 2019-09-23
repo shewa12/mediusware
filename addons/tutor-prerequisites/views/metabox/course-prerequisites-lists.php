@@ -22,7 +22,7 @@
 		?>
 
         <select name="_tutor_course_prerequisites_ids[]" class="tutor_select2" style="min-width: 300px;" multiple="multiple">
-            <option value=""><?php _e('Select a Course'); ?></option>
+            <option value=""><?php _e('Select a Course', 'tutor-pro'); ?></option>
 			<?php
 			foreach ($courses as $course){
 			    $selected = in_array($course->ID, $savedPrerequisitesIDS) ? ' selected="selected" ' : '';

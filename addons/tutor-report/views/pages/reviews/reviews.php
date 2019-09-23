@@ -67,7 +67,7 @@ $reviews = $wpdb->get_results("select {$wpdb->comments}.comment_ID,
                     <td><?php echo human_time_diff(strtotime($review->comment_date)).' '.__('ago', 'tutor-pro'); ?></td>
                     <td>
                         <button type="button" class="button tutor-delete-link tutor-rating-delete-link" data-rating-id="<?php echo $review->comment_ID; ?>">
-                            <i class="tutor-icon-trash"></i> <?php _e('Delete'); ?>
+                            <i class="tutor-icon-trash"></i> <?php _e('Delete', 'tutor-pro'); ?>
                         </button>
                     </td>
                 </tr>
