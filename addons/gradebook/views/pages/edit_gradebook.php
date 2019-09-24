@@ -29,8 +29,7 @@ $gradebook = get_gradebook_by_id($gradebook_id);
                 </label>
             </div>
             <div class="tutor-option-field">
-                <input type="text" name="grade_name" value="<?php echo tutils()->input_old('grade_name', $gradebook); ?>" placeholder="<?php _e('Grade Name',
-                    'tutor-pro'); ?>">
+                <input type="text" name="grade_name" value="<?php echo tutils()->input_old('grade_name', $gradebook); ?>" placeholder="<?php _e('Grade Name', 'tutor-pro'); ?>">
             </div>
         </div>
 
@@ -41,8 +40,7 @@ $gradebook = get_gradebook_by_id($gradebook_id);
                 </label>
             </div>
             <div class="tutor-option-field">
-                <input type="text" name="grade_point" value="<?php echo tutils()->input_old('grade_point', $gradebook); ?>" placeholder="<?php _e('Grade Point',
-				    'tutor-pro'); ?>">
+                <input type="text" name="grade_point" value="<?php echo tutils()->input_old('grade_point', $gradebook); ?>" placeholder="<?php _e('Grade Point', 'tutor-pro'); ?>">
             </div>
         </div>
 
@@ -54,8 +52,8 @@ $gradebook = get_gradebook_by_id($gradebook_id);
                 </label>
             </div>
             <div class="tutor-option-field">
-                <input type="number" min="0" max="100" name="percent_from" value="<?php echo (int) tutils()->input_old('percent_from', $gradebook); ?>" placeholder="<?php
-                _e('Number Percent From', 'tutor-pro'); ?>">
+                <input type="number" min="0" max="100" name="percent_from" value="<?php echo (int) tutils()->input_old('percent_from', $gradebook);
+                ?>" placeholder="<?php _e('Number Percent From', 'tutor-pro'); ?>">
             </div>
         </div>
 
@@ -67,9 +65,7 @@ $gradebook = get_gradebook_by_id($gradebook_id);
                 </label>
             </div>
             <div class="tutor-option-field">
-                <input type="number" min="0" max="100" name="percent_to"value="<?php echo tutils()->input_old('percent_to', $gradebook); ?>"
-                       placeholder="<?php _e
-                ('Number Percent To', 'tutor-pro'); ?>">
+                <input type="number" min="0" max="100" name="percent_to"value="<?php echo tutils()->input_old('percent_to', $gradebook); ?>" placeholder="<?php _e('Number Percent To', 'tutor-pro'); ?>">
             </div>
         </div>
 
@@ -97,6 +93,5 @@ $gradebook = get_gradebook_by_id($gradebook_id);
         </div>
 
     </form>
-
 
 </div>
