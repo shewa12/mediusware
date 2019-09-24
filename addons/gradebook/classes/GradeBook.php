@@ -54,8 +54,9 @@ class GradeBook{
 		tutor_utils()->checking_nonce();
 
 		$required_fields = apply_filters('tutor_gradebook_required_fields', array(
-			'grade_name'            => __('Grade name field is required', 'tutor-pro'),
-			'percent_to'     => __('Number percent to field is required', 'tutor-pro'),
+			'grade_name'        => __('Grade name field is required', 'tutor-pro'),
+			'percent_from'      => __('Minimum Grade Percentile', 'tutor-pro'),
+			'percent_to'        => __('Maximum Grade Percentile', 'tutor-pro'),
 		));
 
 		$validation_errors = array();
@@ -95,8 +96,9 @@ class GradeBook{
 		tutor_utils()->checking_nonce();
 
 		$required_fields = apply_filters('tutor_gradebook_required_fields', array(
-			'grade_name'            => __('Grade name field is required', 'tutor-pro'),
-			'percent_to'     => __('Number percent to field is required', 'tutor-pro'),
+			'grade_name'        => __('Grade name field is required', 'tutor-pro'),
+			'percent_from'      => __('Minimum Grade Percentile', 'tutor-pro'),
+			'percent_to'        => __('Maximum Grade Percentile', 'tutor-pro'),
 		));
 
 		$validation_errors = array();

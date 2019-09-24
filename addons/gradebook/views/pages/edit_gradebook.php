@@ -38,7 +38,6 @@ $gradebook = get_gradebook_by_id($gradebook_id);
             <div class="tutor-option-field-label">
                 <label for="">
 				    <?php _e('Grade Point', 'tutor-pro'); ?>
-                    <span class="tutor-required-fields">*</span>
                 </label>
             </div>
             <div class="tutor-option-field">
@@ -78,7 +77,6 @@ $gradebook = get_gradebook_by_id($gradebook_id);
             <div class="tutor-option-field-label">
                 <label for="">
 				    <?php _e('Grade Color', 'tutor-pro'); ?>
-                    <span class="tutor-required-fields">*</span>
                 </label>
             </div>
             <div class="tutor-option-field">

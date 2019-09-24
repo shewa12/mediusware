@@ -33,7 +33,6 @@
             <div class="tutor-option-field-label">
                 <label for="">
 				    <?php _e('Grade Point', 'tutor-pro'); ?>
-                    <span class="tutor-required-fields">*</span>
                 </label>
             </div>
             <div class="tutor-option-field">
@@ -70,7 +69,6 @@
             <div class="tutor-option-field-label">
                 <label for="">
 				    <?php _e('Grade Colour', 'tutor-pro'); ?>
-                    <span class="tutor-required-fields">*</span>
                 </label>
             </div>
             <div class="tutor-option-field">
