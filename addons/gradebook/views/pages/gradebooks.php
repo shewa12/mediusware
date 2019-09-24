@@ -20,7 +20,7 @@
 
 		if (tutils()->count($gradebooks)){
 			?>
-            <table class="gradebook-list-table widefat striped">
+            <table class="wp-list-table gradebooks-lists">
                 <thead>
                 <tr>
                     <th><?php _e('Grade Name', 'tutor-pro'); ?></th>
@@ -41,15 +41,16 @@
                         </td>
                         <td><?php echo $gradebook->grade_point; ?></td>
                         <td><?php echo $gradebook->percent_from.'-'.$gradebook->percent_to; ?></td>
-                        <td>
-                            <a href="<?php echo add_query_arg(array('sub_page' => 'edit_gradebook', 'gradebook_id' => $gradebook->gradebook_id)); ?>"
-                               class="tutor-button tutor-button-small tutor-button-primary">
-                                <i class="tutor-icon-pencil"></i> <?php _e('Edit', 'tutor-pro'); ?>
+                        <td class="gradebook-actions-wrap">
+
+                            <a href="<?php echo add_query_arg(array('sub_page' => 'edit_gradebook', 'gradebook_id' => $gradebook->gradebook_id));
+                            ?>" class="gradebook-edit-btn">
+                                <i class="tutor-icon-pencil"></i>
                             </a>
 
-                            <a href="<?php echo add_query_arg(array('tutor_action' => 'delete_gradebook', 'gradebook_id' => $gradebook->gradebook_id));
-	                        ?>" class="tutor-button tutor-button-small button-danger" onclick="return confirm('<?php _e('Are you Sure?', 'tutor-pro'); ?>')">
-                                <i class="tutor-icon-garbage"></i> <?php _e('Delete', 'tutor-pro'); ?>
+                            <a href="<?php echo add_query_arg(array('tutor_action' => 'delete_gradebook', 'gradebook_id' => $gradebook->gradebook_id)); ?>" class="gradebook-delete-btn" onclick="return confirm('<?php _e('Are you Sure?',
+                                'tutor-pro'); ?>')">
+                                <i class="tutor-icon-garbage"></i>
                             </a>
 
                         </td>

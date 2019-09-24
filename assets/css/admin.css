@@ -201,6 +201,18 @@ button#gradebook-search-btn {
 .gradebook-search-form-group {
     display: flex;
 }
+.gradebook-actions-wrap a{
+    display: inline-block;
+    color: #A7A8AA;
+    font-size: 20px;
+    margin-right: 15px;
+}
+.gradebook-actions-wrap a.gradebook-edit-btn:hover{
+    color: #3057D5;
+}
+.gradebook-actions-wrap a.gradebook-delete-btn:hover{
+    color: #D71830;
+}
 /**
 *END GradeBook
  */
