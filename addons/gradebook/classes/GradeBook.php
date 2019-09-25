@@ -30,7 +30,7 @@ class GradeBook{
 		add_action('tutor_action_gradebook_result_list_bulk_actions', array($this, 'gradebook_result_list_bulk_actions'), 10, 0);
 
 		//Install Sample Grade Data
-        add_action('wp_ajax_import_gradebook_sample_data', array($this, 'import_gradebook_sample_data'));
+		add_action('wp_ajax_import_gradebook_sample_data', array($this, 'import_gradebook_sample_data'));
 	}
 
 	public function admin_scripts($page){
@@ -40,7 +40,7 @@ class GradeBook{
 	}
 
 	public function register_menu(){
-		add_submenu_page('tutor', __('Grade Book', 'tutor-pro'), __('Grade Book', 'tutor-pro'), 'manage_tutor', 'tutor_gradebook', array($this, 'tutor_gradebook') );
+		add_submenu_page('tutor', __('Gradebook', 'tutor-pro'), __('Gradebook', 'tutor-pro'), 'manage_tutor', 'tutor_gradebook', array($this, 'tutor_gradebook') );
 	}
 
 	public function tutor_gradebook(){
@@ -109,7 +109,7 @@ class GradeBook{
 		}
 
 		if (tutils()->count($validation_errors)){
-		    $errors_msg = '<ul><li>'.implode('</li><li>', $validation_errors).'</li></ul>';
+			$errors_msg = '<ul><li>'.implode('</li><li>', $validation_errors).'</li></ul>';
 			tutor_flash_set('danger', $errors_msg);
 			wp_redirect(tutils()->referer()); exit();
 		}
@@ -132,14 +132,14 @@ class GradeBook{
 	}
 
 	public function delete_gradebook(){
-	    global $wpdb;
+		global $wpdb;
 		$gradebook_id = (int) sanitize_text_field(tutils()->array_get('gradebook_id', $_GET));
 		$wpdb->delete($wpdb->tutor_gradebooks, array('gradebook_id' => $gradebook_id));
 
 		tutor_flash_set('success', __('The grade has been deleted successfully.', 'tutor-pro') );
 		wp_redirect(admin_url('admin.php?page=tutor_gradebook&sub_page=gradebooks'));
 		exit();
-    }
+	}
 
 	/**
 	 * @param $attempt_id
@@ -259,16 +259,16 @@ class GradeBook{
 		ob_start();
 		?>
 
-		<div class="assignment-result-wrap">
-			<h4><?php echo sprintf(__('You received %s points out of %s', 'tutor-pro'), "<span class='received-marks'>{$given_mark}</span>", "<span class='out-of-marks'>{$max_mark}</span>") ?></h4>
-			<h4 class="submitted-assignment-grade">
+        <div class="assignment-result-wrap">
+            <h4><?php echo sprintf(__('You received %s points out of %s', 'tutor-pro'), "<span class='received-marks'>{$given_mark}</span>", "<span class='out-of-marks'>{$max_mark}</span>") ?></h4>
+            <h4 class="submitted-assignment-grade">
 				<?php _e('Your grade is ', 'tutor-pro');
 
 				echo tutor_generate_grade_html($grade);
 				echo $given_mark >= $pass_mark ? "<span class='submitted-assignment-grade-pass'> (".__('Passed', 'tutor-pro').")</span>" : "<span class='submitted-assignment-grade-failed'> (".__('Failed', 'tutor-pro').")</span>";
 				?>
-			</h4>
-		</div>
+            </h4>
+        </div>
 
 		<?php
 		return ob_get_clean();
@@ -297,148 +297,181 @@ class GradeBook{
 	/**
 	 * @param $course_ID
 	 * @param int $user_id
-     *
-     * Generate / update gradebook result by course id and user id
-     *
+	 *
+	 * Generate / update gradebook result by course id and user id
+	 *
 	 */
 
 	public function gradebook_generate($course_ID, $user_id = 0){
+		global $wpdb;
+
 		$user_id = tutils()->get_user_id($user_id);
 
 		$course_contents = tutils()->get_course_contents_by_id($course_ID);
+		$previous_gen_item = get_generated_gradebook('all', $course_ID);
 
-		if (tutils()->count($course_contents)){
+
+		if (tutils()->count($course_contents)) {
 			$require_gradding = array();
-			foreach ($course_contents as $content){
-				if ($content->post_type === 'tutor_quiz' || $content->post_type === 'tutor_assignments'){
+			foreach ( $course_contents as $content ) {
+				if ( $content->post_type === 'tutor_quiz' || $content->post_type === 'tutor_assignments' ) {
 					$require_gradding[] = $content;
 				}
 			}
+		}
 
-			if ( ! tutils()->count($require_gradding)){
-				return;
-			}
+		/**
+		 * Delete if not exists
+		 */
+		if (tutils()->count($previous_gen_item)){
+			$quiz_assignment_ids = wp_list_pluck($require_gradding, 'ID');
 
-			/**
-			 * re-grade again
-			 */
-			if (tutils()->count($require_gradding)){
-				global $wpdb;
+			if (tutils()->count($quiz_assignment_ids)){
 
-				$require_graddings = array_values($require_gradding);
+			    foreach ($previous_gen_item as $previous_item){
+			        if ( $previous_item->quiz_id && ! in_array($previous_item->quiz_id, $quiz_assignment_ids)){
+				        $wpdb->delete($wpdb->tutor_gradebooks_results, array('quiz_id' => $previous_item->quiz_id));
+			        }
+				    if ( $previous_item->assignment_id && ! in_array($previous_item->assignment_id, $quiz_assignment_ids)){
+					    $wpdb->delete($wpdb->tutor_gradebooks_results, array('assignment_id' => $previous_item->assignment_id));
+				    }
+                }
 
-				foreach ($require_graddings as $course_item) {
-					$earned_percentage = 0;
+            }else{
+				$wpdb->delete($wpdb->tutor_gradebooks_results, array('course_id' => $course_ID));
+            }
+        }
 
-					if ($course_item->post_type === 'tutor_quiz') {
-						//Get Attempt by grading method
-						$attempt = tutils()->get_quiz_attempt($course_item->ID, $user_id);
-						if ($attempt){
-							$earned_percentage = $attempt->earned_marks > 0 ? ( number_format(($attempt->earned_marks * 100) / $attempt->total_marks)): 0;
-						}
 
-					}elseif ($course_item->post_type === 'tutor_assignments'){
-						$submitted_info = tutils()->is_assignment_submitted($course_item->ID, $user_id);
-						if ($submitted_info){
-							$submitted_id = $submitted_info->comment_ID;
-							$max_mark = tutor_utils()->get_assignment_option( $submitted_info->comment_post_ID, 'total_mark' );
-							$given_mark = get_comment_meta( $submitted_id, 'assignment_mark', true );
-							$earned_percentage = $given_mark > 0 ? ( number_format(($given_mark * 100) / $max_mark)) : 0;
-						}
+		if ( ! tutils()->count($require_gradding)){
+			return;
+		}
+
+		/**
+		 * re-grade again
+		 */
+		if (tutils()->count($require_gradding)){
+
+			$require_graddings = array_values($require_gradding);
+
+			foreach ($require_graddings as $course_item) {
+				$earned_percentage = 0;
+
+				if ($course_item->post_type === 'tutor_quiz') {
+					//Get Attempt by grading method
+					$attempt = tutils()->get_quiz_attempt($course_item->ID, $user_id);
+					if ($attempt){
+						$earned_percentage = $attempt->earned_marks > 0 ? ( number_format(($attempt->earned_marks * 100) / $attempt->total_marks)): 0;
 					}
 
-					$gradebook = $wpdb->get_row("SELECT * FROM {$wpdb->tutor_gradebooks} WHERE percent_from <= {$earned_percentage} AND percent_to >= {$earned_percentage} ORDER BY gradebook_id ASC LIMIT 1  ");
-					if ( ! $gradebook){
-						return;
+				}elseif ($course_item->post_type === 'tutor_assignments'){
+					$submitted_info = tutils()->is_assignment_submitted($course_item->ID, $user_id);
+					if ($submitted_info){
+						$submitted_id = $submitted_info->comment_ID;
+						$max_mark = tutor_utils()->get_assignment_option( $submitted_info->comment_post_ID, 'total_mark' );
+						$given_mark = get_comment_meta( $submitted_id, 'assignment_mark', true );
+						$earned_percentage = $given_mark > 0 ? ( number_format(($given_mark * 100) / $max_mark)) : 0;
 					}
+				}
 
-					$gradebook_data = array(
-						'user_id'            => $user_id,
-						'course_id'          => $course_ID,
-						'gradebook_id'       => $gradebook->gradebook_id,
-						'grade_name'         => $gradebook->grade_name,
-						'grade_point'        => $gradebook->grade_point,
-						'earned_grade_point' => $gradebook->grade_point,
-						'earned_percent'     => $earned_percentage,
-						'generate_date'      => date( "Y-m-d H:i:s" ),
-						'update_date'        => date( "Y-m-d H:i:s" ),
-					);
+				if ($earned_percentage > 100){
+					$earned_percentage = 100;
+				}
 
-					$gradebook_result = false;
+				$gradebook = $wpdb->get_row("SELECT * FROM {$wpdb->tutor_gradebooks} WHERE percent_from <= {$earned_percentage} AND percent_to >= {$earned_percentage} ORDER BY gradebook_id ASC LIMIT 1  ");
 
-					if ($course_item->post_type === 'tutor_quiz'){
-						$gradebook_data['quiz_id'] = $course_item->ID;
-						$gradebook_data['result_for'] = 'quiz';
+				if ( ! $gradebook){
+					//continue;
+				}
 
-						$gradebook_result    = $wpdb->get_row( "SELECT * FROM {$wpdb->tutor_gradebooks_results} 
+				$gradebook_data = array(
+					'user_id'            => $user_id,
+					'course_id'          => $course_ID,
+					'gradebook_id'       => $gradebook->gradebook_id,
+					'grade_name'         => $gradebook->grade_name,
+					'grade_point'        => $gradebook->grade_point,
+					'earned_grade_point' => $gradebook->grade_point,
+					'earned_percent'     => $earned_percentage,
+					'generate_date'      => date( "Y-m-d H:i:s" ),
+					'update_date'        => date( "Y-m-d H:i:s" ),
+				);
+
+				$gradebook_result = false;
+
+				if ($course_item->post_type === 'tutor_quiz'){
+					$gradebook_data['quiz_id'] = $course_item->ID;
+					$gradebook_data['result_for'] = 'quiz';
+
+					$gradebook_result    = $wpdb->get_row( "SELECT * FROM {$wpdb->tutor_gradebooks_results} 
 							WHERE result_for = 'quiz' 
 							AND user_id = {$user_id} 
 							AND course_id = {$course_ID} 
 							AND quiz_id = {$course_item->ID} " );
 
-					}elseif ($course_item->post_type === 'tutor_assignments'){
-						$gradebook_data['assignment_id'] = $course_item->ID;
-						$gradebook_data['result_for'] = 'assignment';
+				}elseif ($course_item->post_type === 'tutor_assignments'){
+					$gradebook_data['assignment_id'] = $course_item->ID;
+					$gradebook_data['result_for'] = 'assignment';
 
-						$gradebook_result    = $wpdb->get_row( "SELECT * FROM {$wpdb->tutor_gradebooks_results} 
+					$gradebook_result    = $wpdb->get_row( "SELECT * FROM {$wpdb->tutor_gradebooks_results} 
 							WHERE result_for = 'assignment' 
 							AND user_id = {$user_id} 
 							AND course_id = {$course_ID} 
 							AND assignment_id = {$course_item->ID} " );
-					}
-
-					if ( $gradebook_result ) {
-						//Update Gradebook Result
-						unset( $gradebook_data['generate_date'] );
-						$wpdb->update( $wpdb->tutor_gradebooks_results, $gradebook_data, array( 'gradebook_result_id' => $gradebook_result->gradebook_result_id ) );
-					} else {
-						$wpdb->insert( $wpdb->tutor_gradebooks_results, $gradebook_data );
-					}
 				}
 
-				$results = $wpdb->get_row("SELECT AVG(earned_percent) as earned_percent,
+				if ( $gradebook_result ) {
+					//Update Gradebook Result
+					unset( $gradebook_data['generate_date'] );
+					$wpdb->update( $wpdb->tutor_gradebooks_results, $gradebook_data, array( 'gradebook_result_id' => $gradebook_result->gradebook_result_id ) );
+				} else {
+					$wpdb->insert( $wpdb->tutor_gradebooks_results, $gradebook_data );
+				}
+			}
+
+			$results = $wpdb->get_row("SELECT AVG(earned_percent) as earned_percent,
                 AVG(grade_point) as earned_grade_point
                 FROM {$wpdb->tutor_gradebooks_results} 
                 WHERE user_id = {$user_id} 
                 AND course_id = {$course_ID} 
                 AND result_for !='final' ");
 
-				if ($results){
-					$gradebook = get_gradebook_by_percent($results->earned_percent);
 
-					$gradebook_data = array(
-						'user_id'            => $user_id,
-						'course_id'          => $course_ID,
-						'gradebook_id'       => $gradebook->gradebook_id,
-						'result_for'         => 'final',
-						'grade_name'         => $gradebook->grade_name,
-						'grade_point'        => $gradebook->grade_point,
-						'earned_grade_point' => number_format($results->earned_grade_point, 2),
-						'earned_percent'     => $results->earned_percent,
-						'generate_date'      => date( "Y-m-d H:i:s" ),
-						'update_date'        => date( "Y-m-d H:i:s" ),
-					);
+			if ($results){
+				$gradebook = get_gradebook_by_percent($results->earned_percent);
 
-					$generated_final = $wpdb->get_row("SELECT * FROM {$wpdb->tutor_gradebooks_results} 
+				$gradebook_data = array(
+					'user_id'            => $user_id,
+					'course_id'          => $course_ID,
+					'gradebook_id'       => $gradebook->gradebook_id,
+					'result_for'         => 'final',
+					'grade_name'         => $gradebook->grade_name,
+					'grade_point'        => $gradebook->grade_point,
+					'earned_grade_point' => number_format($results->earned_grade_point, 2),
+					'earned_percent'     => $results->earned_percent,
+					'generate_date'      => date( "Y-m-d H:i:s" ),
+					'update_date'        => date( "Y-m-d H:i:s" ),
+				);
+
+				$generated_final = $wpdb->get_row("SELECT * FROM {$wpdb->tutor_gradebooks_results} 
                     WHERE user_id = {$user_id} AND course_id = {$course_ID} AND result_for ='final' ");
 
-					if ($generated_final){
-						unset($gradebook_data['generate_date'], $gradebook_data['result_for'] );
+				if ($generated_final){
+					unset($gradebook_data['generate_date'], $gradebook_data['result_for'] );
 
-						$wpdb->update($wpdb->tutor_gradebooks_results, $gradebook_data, array('gradebook_result_id' => $generated_final->gradebook_result_id));
-					}else{
-						$wpdb->insert( $wpdb->tutor_gradebooks_results, $gradebook_data );
-					}
+					$wpdb->update($wpdb->tutor_gradebooks_results, $gradebook_data, array('gradebook_result_id' => $generated_final->gradebook_result_id));
+				}else{
+					$wpdb->insert( $wpdb->tutor_gradebooks_results, $gradebook_data );
 				}
 			}
-
 		}
 
-    }
+
+
+	}
 
 	public function generate_gradebook_html($course_id){
-	    tutor_load_template('single.course.enrolled.gradebook', array(), true);
-    }
+		tutor_load_template('single.course.enrolled.gradebook', array(), true);
+	}
 
 	/**
 	 * @param int $quiz_id
@@ -452,64 +485,64 @@ class GradeBook{
 	}
 
 	public function add_course_nav_item($items){
-	    if (is_single() && get_the_ID()){
-		    $gading_content = get_grading_contents_by_course_id();
-		    if (tutils()->count($gading_content)){
-			    $items['gradebook'] = __('Gradebook', 'tutor-pro');
-		    }
-        }
+		if (is_single() && get_the_ID()){
+			$gading_content = get_grading_contents_by_course_id();
+			if (tutils()->count($gading_content)){
+				$items['gradebook'] = __('Gradebook', 'tutor-pro');
+			}
+		}
 
 		return $items;
-    }
+	}
 
-    public function add_course_nav_rewrite($items){
-	    $items['gradebook'] = __('Gradebook', 'tutor-pro');
-	    return $items;
-    }
+	public function add_course_nav_rewrite($items){
+		$items['gradebook'] = __('Gradebook', 'tutor-pro');
+		return $items;
+	}
 
-    public function gradebook_result_list_bulk_actions(){
-	    tutils()->checking_nonce('get');
+	public function gradebook_result_list_bulk_actions(){
+		tutils()->checking_nonce('get');
 
-	    $action = sanitize_text_field(tutils()->array_get('action', $_GET));
-	    if ($action === '-1'){
-	        return;
-        }
+		$action = sanitize_text_field(tutils()->array_get('action', $_GET));
+		if ($action === '-1'){
+			return;
+		}
 
-        global $wpdb;
-	    $gradebooks_result_ids = tutils()->array_get('gradebooks_result_ids', $_GET);
+		global $wpdb;
+		$gradebooks_result_ids = tutils()->array_get('gradebooks_result_ids', $_GET);
 
-	    if ($action === 'regenerate_gradebook'){
-	        if (tutils()->count($gradebooks_result_ids)){
-	            foreach ($gradebooks_result_ids as $result_id){
-		            $result = get_generated_gradebook('byID', $result_id);
-		            $this->gradebook_generate($result->course_id, $result->user_id);
-                }
+		if ($action === 'regenerate_gradebook'){
+			if (tutils()->count($gradebooks_result_ids)){
+				foreach ($gradebooks_result_ids as $result_id){
+					$result = get_generated_gradebook('byID', $result_id);
+					$this->gradebook_generate($result->course_id, $result->user_id);
+				}
 
-		        tutor_flash_set('success', __('Gradebook has been re-generated', 'tutor-pro') );
-	        }
-        }
+				tutor_flash_set('success', __('Gradebook has been re-generated', 'tutor-pro') );
+			}
+		}
 
-	    if ($action === 'trash'){
-		    if (tutils()->count($gradebooks_result_ids)){
-			    foreach ($gradebooks_result_ids as $result_id){
-				    $result = get_generated_gradebook('byID', $result_id);
-				    $wpdb->delete($wpdb->tutor_gradebooks_results, array('user_id' => $result->user_id, 'course_id' => $result->course_id ));
-			    }
-			    tutor_flash_set('warning', __('Gradebook has been deleted', 'tutor-pro') );
-		    }
-	    }
+		if ($action === 'trash'){
+			if (tutils()->count($gradebooks_result_ids)){
+				foreach ($gradebooks_result_ids as $result_id){
+					$result = get_generated_gradebook('byID', $result_id);
+					$wpdb->delete($wpdb->tutor_gradebooks_results, array('user_id' => $result->user_id, 'course_id' => $result->course_id ));
+				}
+				tutor_flash_set('warning', __('Gradebook has been deleted', 'tutor-pro') );
+			}
+		}
 
-	    wp_redirect(tutils()->referer());
-	    exit();
-    }
+		wp_redirect(tutils()->referer());
+		exit();
+	}
 
 	/**
 	 * Import Sample Grade Data
 	 */
-    public function import_gradebook_sample_data(){
-        global $wpdb;
+	public function import_gradebook_sample_data(){
+		global $wpdb;
 
-        $data = "INSERT INTO {$wpdb->tutor_gradebooks} (grade_name, grade_point, grade_point_to, percent_from, percent_to, grade_config) VALUES
+		$data = "INSERT INTO {$wpdb->tutor_gradebooks} (grade_name, grade_point, grade_point_to, percent_from, percent_to, grade_config) VALUES
                 ('A+', '4.0', NULL, 90, 100, 'a:1:{s:11:\"grade_color\";s:7:\"#27ae60\";}'),
                 ('A', '3.50', NULL, 80, 89, 'a:1:{s:11:\"grade_color\";s:7:\"#1bbc9b\";}'),
                 ('A-', '3.0', NULL, 70, 79, 'a:1:{s:11:\"grade_color\";s:7:\"#43bca4\";}'),
@@ -519,8 +552,8 @@ class GradeBook{
                 ('C', '1.0', NULL, 30, 39, 'a:1:{s:11:\"grade_color\";s:7:\"#9a13b3\";}'),
                 ('F', '0.0', NULL, 0, 29, 'a:1:{s:11:\"grade_color\";s:7:\"#d71830\";}');";
 
-        $wpdb->query($data);
-        wp_send_json_success();
-    }
+		$wpdb->query($data);
+		wp_send_json_success();
+	}
 
 }

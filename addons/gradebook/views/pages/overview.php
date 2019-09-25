@@ -13,8 +13,8 @@ $gradebooks = get_generated_gradebooks(array('course_id' => $course_id, 'start' 
     <hr class="wp-header-end">
 
     <nav class="nav-tab-wrapper tutor-gradebook-nav-wrapper">
-        <a href="<?php echo remove_query_arg('sub_page'); ?>" class="nav-tab-item nav-tab-item-active"><?php _e('Overview'); ?></a>
-        <a href="<?php echo add_query_arg(array('sub_page' => 'gradebooks')); ?>" class="nav-tab-item"><?php _e('Gradebooks'); ?></a>
+        <a href="<?php echo remove_query_arg('sub_page'); ?>" class="nav-tab-item nav-tab-item-active"><?php _e('Overview', 'tutor-pro'); ?></a>
+        <a href="<?php echo add_query_arg(array('sub_page' => 'gradebooks')); ?>" class="nav-tab-item"><?php _e('Gradebook', 'tutor-pro'); ?></a>
     </nav>
 
 	<?php
@@ -38,7 +38,7 @@ $gradebooks = get_generated_gradebooks(array('course_id' => $course_id, 'start' 
 
                                 <select name="action" id="bulk-action-selector-top">
                                     <option value="-1"><?php _e('Bulk Actions', 'tutor-pro'); ?></option>
-                                    <option value="regenerate_gradebook"><?php _e('Re-Generate Gradebook', 'tutor-pro'); ?></option>
+                                    <option value="regenerate_gradebook"><?php _e('Re-generate Gradebook', 'tutor-pro'); ?></option>
                                     <option value="trash">Delete</option>
                                 </select>
                                 <input type="submit" id="doaction" class="button action" value="Apply">

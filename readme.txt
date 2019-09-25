@@ -1,7 +1,7 @@
 === Tutor LMS Pro - eLearning and online course solution ===
 Contributors: themeum
 Donate link: https://www.themeum.com
-Tags: lms, course, elearning, education, quiz, training, sell courses, courses, e-Learning, learning, learning management system, WordPress LMS
+Tags: lms, course, elearning, education, learning management system
 Requires at least: 4.5
 Tested up to: 5.2
 Requires PHP: 5.4.0
@@ -24,7 +24,6 @@ Get Tutor, the most advanced and powerful WordPress online course plugin.
 [youtube https://www.youtube.com/watch?v=yGDwk4z9EEg]
 
 Create, customize, manage, and sell online courses by building a functional e-learning website with this free LMS plugin for WordPress.
-
 
 Want to know all the latest news and be part of the Tutor LMS community? Join our [Facebook Tutor LMS Community group!](https://www.facebook.com/groups/tutorlms)
 
@@ -161,11 +160,11 @@ Have the most secure learning management system when creating your online course
 
 - **5 Pro Question Patterns:**
 
-    * Short Answer
-    * Matching
-    * Image Matching
-    * Image Answering
-    * Ordering
+* Short Answer
+* Matching
+* Image Matching
+* Image Answering
+* Ordering
 
 Looking for the best LMS for WordPress? Get Tutor and start your e-learning website immediately.
 

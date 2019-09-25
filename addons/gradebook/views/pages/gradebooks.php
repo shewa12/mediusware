@@ -7,8 +7,9 @@
     <hr class="wp-header-end">
 
     <nav class="nav-tab-wrapper tutor-gradebook-nav-wrapper">
-        <a href="<?php echo remove_query_arg('sub_page'); ?>" class="nav-tab-item "><?php _e('Overview'); ?></a>
-        <a href="<?php echo add_query_arg(array('sub_page' => 'gradebooks')); ?>" class="nav-tab-item nav-tab-item-active"><?php _e('Gradebooks'); ?></a>
+        <a href="<?php echo remove_query_arg('sub_page'); ?>" class="nav-tab-item "><?php _e('Overview', 'tutor-pro'); ?></a>
+        <a href="<?php echo add_query_arg(array('sub_page' => 'gradebooks')); ?>" class="nav-tab-item nav-tab-item-active"><?php _e('Gradebook', 'tutor-pro');
+        ?></a>
     </nav>
 
     <div class="tutor_admin_gradebook_list">
@@ -48,8 +49,7 @@
                                 <i class="tutor-icon-pencil"></i>
                             </a>
 
-                            <a href="<?php echo add_query_arg(array('tutor_action' => 'delete_gradebook', 'gradebook_id' => $gradebook->gradebook_id)); ?>" class="gradebook-delete-btn" onclick="return confirm('<?php _e('Are you Sure?',
-                                'tutor-pro'); ?>')">
+                            <a href="<?php echo add_query_arg(array('tutor_action' => 'delete_gradebook', 'gradebook_id' => $gradebook->gradebook_id)); ?>" class="gradebook-delete-btn" onclick="return confirm('<?php _e('Are you Sure?', 'tutor-pro'); ?>')">
                                 <i class="tutor-icon-garbage"></i>
                             </a>
 

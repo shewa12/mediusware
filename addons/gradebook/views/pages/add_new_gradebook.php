@@ -1,6 +1,6 @@
 
 <div class="wrap">
-    <h1 class="wp-heading-inline"><?php _e('Grade Books', 'tutor-pro'); ?>  </h1>
+    <h1 class="wp-heading-inline"><?php _e('Gradebooks', 'tutor-pro'); ?>  </h1>
 	<?php
 	tutor_alert(null, 'danger');
 	tutor_alert(null, 'success');
@@ -25,26 +25,26 @@
             </div>
             <div class="tutor-option-field">
                 <input type="text" name="grade_name" value="<?php echo tutor_utils()->input_old('grade_name'); ?>" placeholder="<?php _e('Grade Name',
-                    'tutor-pro'); ?>">
+					'tutor-pro'); ?>">
             </div>
         </div>
 
         <div class="tutor-option-field-row">
             <div class="tutor-option-field-label">
                 <label for="">
-				    <?php _e('Grade Point', 'tutor-pro'); ?>
+					<?php _e('Grade Point', 'tutor-pro'); ?>
                 </label>
             </div>
             <div class="tutor-option-field">
                 <input type="text" name="grade_point" value="<?php echo tutor_utils()->input_old('grade_point'); ?>" placeholder="<?php _e('Grade Point',
-				    'tutor-pro'); ?>">
+					'tutor-pro'); ?>">
             </div>
         </div>
 
         <div class="tutor-option-field-row">
             <div class="tutor-option-field-label">
                 <label for="">
-				    <?php _e('Minimum Grade Percentile', 'tutor-pro'); ?>
+					<?php _e('Minimum Grade Percentile', 'tutor-pro'); ?>
                     <span class="tutor-required-fields">*</span>
                 </label>
             </div>
@@ -56,7 +56,7 @@
         <div class="tutor-option-field-row">
             <div class="tutor-option-field-label">
                 <label for="">
-				    <?php _e('Maximum Grade Percentile', 'tutor-pro'); ?>
+					<?php _e('Maximum Grade Percentile', 'tutor-pro'); ?>
                     <span class="tutor-required-fields">*</span>
                 </label>
             </div>
@@ -68,7 +68,7 @@
         <div class="tutor-option-field-row">
             <div class="tutor-option-field-label">
                 <label for="">
-				    <?php _e('Grade Colour', 'tutor-pro'); ?>
+					<?php _e('Grade Colour', 'tutor-pro'); ?>
                 </label>
             </div>
             <div class="tutor-option-field">
