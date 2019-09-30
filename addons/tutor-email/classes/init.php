@@ -38,7 +38,7 @@ class init{
 		spl_autoload_register(array($this, 'loader'));
 		$this->email_notification = new EmailNotification();
 
-		add_filter('tutor/options/attr', array($this, 'add_options'));
+		add_filter('tutor/options/extend/attr', array($this, 'add_options'));
 	}
 
 	/**
@@ -110,6 +110,7 @@ class init{
 						),
 					),
 				),
+				/*
 				'email_settings' => array(
 					'label' => __('E-Mail Settings', 'tutor-pro'),
 					'desc' => __('Check and place necessary information here.', 'tutor-pro'),
@@ -134,6 +135,7 @@ class init{
 						),
 					),
 				),
+				*/
 
 			),
 		);
