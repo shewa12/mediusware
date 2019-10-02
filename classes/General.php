@@ -156,5 +156,4 @@ class General{
 		return $template;
 	}
 
-
 }
