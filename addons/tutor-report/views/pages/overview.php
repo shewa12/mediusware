@@ -8,7 +8,7 @@ $totalCourse = $wpdb->get_var("SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_t
 $totalCourseEnrolled = $wpdb->get_var("SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_type ='tutor_enrolled' AND post_status = 'completed' ");
 $totalLesson = $wpdb->get_var("SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_type ='{$lesson_type}' AND post_status = 'publish' ");
 $totalQuiz = $wpdb->get_var("SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_type ='tutor_quiz' AND post_status = 'publish' ");
-$totalQuestion = $wpdb->get_var("SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_type ='tutor_question' AND post_status = 'publish' ");
+$totalQuestion = $wpdb->get_var("SELECT COUNT(question_id) FROM {$wpdb->tutor_quiz_questions} ");
 $totalInstructor = $wpdb->get_var("SELECT COUNT(umeta_id) FROM {$wpdb->usermeta} WHERE meta_key ='_is_tutor_instructor' ");
 $totalStudents = $wpdb->get_var("SELECT COUNT(umeta_id) FROM {$wpdb->usermeta} WHERE meta_key ='_is_tutor_student' ");
 $totalReviews = $wpdb->get_var("SELECT COUNT(comment_ID) FROM {$wpdb->comments} WHERE comment_type ='tutor_course_rating' AND comment_approved = 'approved' ");

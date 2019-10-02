@@ -19,6 +19,24 @@ class Assignments_List extends \Tutor_List_Table {
 			'plural'    => 'assignments',    //plural name of the listed records
 			'ajax'      => false        //does this table support ajax?
 		) );
+
+		$this->delete_assignment();
+	}
+
+	public function delete_assignment(){
+		$assignment_id = (int) tutils()->array_get('delete_assignment', $_GET);
+		
+		if ($assignment_id){
+			global $wpdb;
+			
+			$assignment = $wpdb->get_row("SELECT * FROM {$wpdb->comments} WHERE comment_ID = {$assignment_id}");
+			if ($assignment){
+				$wpdb->delete($wpdb->comments, array('comment_ID' => $assignment_id ));
+				$wpdb->delete($wpdb->commentmeta, array('comment_id' => $assignment_id ));
+			}
+
+			tutor_redirect_back(remove_query_arg('delete_assignment'));
+		}
 	}
 
 	function column_default($item, $column_name){
@@ -59,7 +77,9 @@ class Assignments_List extends \Tutor_List_Table {
 	}
 
 	function column_action($item){
-		echo "<a href='".admin_url('admin.php?page=tutor-assignments&view_assignment='.$item->comment_ID)."'>".__('View', 'tutor-pro')."</a>";
+		echo "<a href='".admin_url('admin.php?page=tutor-assignments&view_assignment='.$item->comment_ID)."' class='tutor-button tutor-button-small tutor-button-primary' style='margin-bottom: 5px;'> <i class='dashicons dashicons-visibility'></i> ".__('View ', 'tutor-pro')."</a> ";
+
+		echo " <a href='".admin_url('admin.php?page=tutor-assignments&delete_assignment='.$item->comment_ID)."' class='tutor-button tutor-button-small tutor-danger' onclick='return confirm(\"".__('Are you sure?', 'tutor-pro')."\")' > <i class='tutor-icon-garbage'></i> ".__(' Delete', 'tutor-pro')."</a>";
 	}
 
 	/**
@@ -81,7 +101,7 @@ class Assignments_List extends \Tutor_List_Table {
 
 	function get_columns(){
 		$columns = array(
-			'cb'                => '<input type="checkbox" />', //Render a checkbox instead of text
+			//'cb'                => '<input type="checkbox" />', //Render a checkbox instead of text
 			'title'      => __('Title', 'tutor-pro'),
 			'student'        => __('Student', 'tutor-pro'),
 			'course'  => __('Course', 'tutor-pro'),
@@ -131,9 +151,11 @@ class Assignments_List extends \Tutor_List_Table {
 		$start = ($current_page-1)*$per_page;
 
 		if ( ! current_user_can('administrator') && current_user_can(tutor()->instructor_role)) {
-			$assignment_items = $wpdb->get_results("SELECT * FROM {$wpdb->comments} WHERE comment_type = 'tutor_assignment' AND comment_approved = 'submitted'  AND comment_parent IN({$in_courses_ids}) LIMIT {$start}, {$per_page} ");
+			$assignment_items = $wpdb->get_results("SELECT * FROM {$wpdb->comments} WHERE comment_type = 'tutor_assignment' AND comment_approved = 'submitted'  ORDER BY comment_ID DESC  AND comment_parent IN({$in_courses_ids}) LIMIT {$start}, {$per_page} ");
 		}else{
-			$assignment_items = $wpdb->get_results("SELECT * FROM {$wpdb->comments} WHERE comment_type = 'tutor_assignment' AND comment_approved = 'submitted' LIMIT {$start}, {$per_page} ");
+			$assignment_items = $wpdb->get_results("SELECT * FROM {$wpdb->comments} WHERE comment_type = 'tutor_assignment' AND comment_approved = 'submitted' ORDER BY comment_ID DESC LIMIT 
+{$start}, 
+{$per_page} ");
 		}
 
 		$this->items = $assignment_items;
