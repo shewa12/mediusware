@@ -10,6 +10,9 @@ class General{
 		add_action('tutor_action_tutor_add_course_builder', array($this, 'tutor_add_course_builder'));
 		add_filter('frontend_course_create_url', array($this, 'frontend_course_create_url'));
 		add_filter( 'template_include', array($this, 'fs_course_builder'), 99 );
+
+		add_filter('tutor/options/extend/attr', array($this, 'extend_general_option'));
+		add_filter('tutor_course_builder_logo_src', array($this, 'tutor_course_builder_logo_src'));
 	}
 
 	/**
@@ -154,6 +157,37 @@ class General{
 		}
 
 		return $template;
+	}
+
+
+	public function extend_general_option($attr){
+		$attr['general'] = array(
+			'label' => __('Quiz', 'tutor'),
+			'sections'    => array(
+				'frontend_course_section' => array(
+					'label' => __('Tutor LMS Pro Settings', 'tutor'),
+					'fields' => array(
+						'tutor_frontend_course_page_logo_id' => array(
+							'type'          => 'media',
+							'label'         => __('Course Builder Page Logo', 'tutor-pro'),
+							'btn_text'      => __('Upload Logo', 'tutor-pro'),
+							'attr'          => array('media_type' => 'image'), //image,file
+							'desc'          => __('Upload a logo to show in frontend course builder page.',	'tutor-pro'),
+						),
+					)
+				)
+			),
+		);
+
+		return $attr;
+	}
+
+	public function tutor_course_builder_logo_src($url){
+		$media_id = (int) get_tutor_option('tutor_frontend_course_page_logo_id');
+		if ($media_id){
+			return wp_get_attachment_url($media_id);
+		}
+		return $url;
 	}
 
 }

@@ -10,10 +10,14 @@ if ( ! defined( 'ABSPATH' ) )
 class Quiz {
 
 	public function __construct() {
-		add_action('tutor_quiz/previous_attempts/table/thead/col', array($this, 'add_attempts_thead_col'));
-		add_action('tutor_quiz/previous_attempts/table/tbody/col', array($this, 'add_attempts_tbody_col'));
-		add_filter('tutor_single_quiz/top', array($this, 'view_quiz_attempt'));
-		add_filter('tutor_single_quiz/body', array($this, 'remove_quiz_body_if_attempt_view'));
+		add_filter('tutor/options/extend/attr', array($this, 'extend_quiz_option'));
+
+		if (get_tutor_option('tutor_quiz_student_attempt_view')) {
+			add_action( 'tutor_quiz/previous_attempts/table/thead/col', array( $this, 'add_attempts_thead_col' ) );
+			add_action( 'tutor_quiz/previous_attempts/table/tbody/col', array( $this, 'add_attempts_tbody_col' ) );
+			add_filter( 'tutor_single_quiz/top', array( $this, 'view_quiz_attempt' ) );
+			add_filter( 'tutor_single_quiz/body', array( $this, 'remove_quiz_body_if_attempt_view' ) );
+		}
 	}
 
 	public function add_attempts_thead_col(){
@@ -50,10 +54,32 @@ class Quiz {
 			if (tutils()->array_get('user_id', $attempt) == $user_id){
 				return '';
 			}
-
 		}
 
 		return $html;
+	}
+
+	public function extend_quiz_option($attr){
+		$attr['quiz'] = array(
+			'label' => __('Quiz', 'tutor'),
+			'sections'    => array(
+				'quiz_attempt_tutor_pro' => array(
+					'label' => __('Tutor LMS Pro Settings', 'tutor'),
+					'desc' => __('The values you set here define the default values that are used in the settings form when you create a new quiz.', 'tutor'),
+					'fields' => array(
+						'tutor_quiz_student_attempt_view' => array(
+							'type'      => 'checkbox',
+							'label'     => __('Detail Attempt View', 'tutor'),
+							'label_title' => __('Enable', 'tutor'),
+							'default' => '0',
+							'desc'      => __('Enabling this option will let the students view quiz attempt details including the answer to each question.',	'tutor'),
+						),
+					)
+				)
+			),
+		);
+
+		return $attr;
 	}
 
 
