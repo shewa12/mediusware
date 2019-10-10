@@ -95,7 +95,7 @@ class init{
 								'quiz_completed' => __('Quiz Completed', 'tutor-pro'),
 								'completed_course' => __('Completed a course', 'tutor-pro'),
 							),
-							'desc'      => __('Select when to send notification to the students',	'tutor'),
+							'desc'      => __('Select when to send notification to the students',	'tutor-pro'),
 						),
 						'email_to_teachers' => array(
 							'type'      => 'checkbox',
@@ -106,7 +106,7 @@ class init{
 								'a_student_completed_lesson'            => __('A Student Completed Lesson', 'tutor-pro'),
 								'a_student_placed_question'             => __('A Student asked a question in Q&amp;A', 'tutor-pro'),
 							),
-							'desc'      => __('Select when to send notification to the teachers',	'tutor'),
+							'desc'      => __('Select when to send notification to the teachers',	'tutor-pro'),
 						),
 					),
 				),
@@ -119,7 +119,7 @@ class init{
 							'type'      => 'text',
 							'label'     => __('Name', 'tutor-pro'),
 							'default'   => get_option('blogname'),
-							'desc'      => __('The name under which all the emails will be sent',	'tutor'),
+							'desc'      => __('The name under which all the emails will be sent',	'tutor-pro'),
 						),
 						'email_from_address' => array(
 							'type'      => 'text',

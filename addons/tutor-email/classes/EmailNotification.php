@@ -253,7 +253,7 @@ class EmailNotification{
 		
 		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data );
 
-		$subject = apply_filters('student_quiz_completed_email_subject', __("Thank you for {$quiz_name}  answers, we have received", "tutor"));
+		$subject = apply_filters('student_quiz_completed_email_subject', sprintf(__("Thank you for %s  answers, we have received", "tutor"), $quiz_name));
 		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
 		$header = apply_filters('student_quiz_completed_email_header', $header, $attempt_id);
 
