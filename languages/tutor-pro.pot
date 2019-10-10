@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Tutor LMS Pro\n"
-"POT-Creation-Date: 2019-08-30 16:09+0600\n"
-"PO-Revision-Date: 2019-08-30 16:08+0600\n"
+"POT-Creation-Date: 2019-10-10 13:20+0600\n"
+"PO-Revision-Date: 2019-10-10 13:20+0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,104 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: addons/content-drip/classes/ContentDrip.php:42
+#: addons/content-drip/content-drip.php:29
+msgid "Content Drip"
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:43
+msgid "Tutor Content Drip allow you to schedule publish topics / lesson"
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:50
+#: addons/gradebook/classes/init.php:98 classes/Quiz.php:73
+msgid "Enable"
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:52
+msgid "Enable / Disable content drip"
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:59
+msgid "Schedule course contents by date"
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:60
+msgid "Content available after X days from enrollment"
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:61
+msgid "Course content available sequentially"
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:62
+msgid "Course content unlocked after finishing prerequisites"
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:64
+msgid ""
+"You can schedule your course content using the above content drip options."
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:123
+#, php-format
+msgid "This %s will be available from %s"
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:139
+#, php-format
+msgid "This lesson will be available for you from %s"
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:157
+#: addons/content-drip/classes/ContentDrip.php:171
+#, php-format
+msgid "Please complete previous %s first"
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:164
+#, php-format
+msgid "Please submit previous %s first"
+msgstr ""
+
+#: addons/content-drip/classes/ContentDrip.php:220
+#, php-format
+msgid "You can take this %s after finishing the following prerequisites:"
+msgstr ""
+
+#: addons/content-drip/views/content-drip-lesson.php:33
+msgid "Content Drip Settings"
+msgstr ""
+
+#: addons/content-drip/views/content-drip-lesson.php:41
+msgid "Lesson unlocking date:"
+msgstr ""
+
+#: addons/content-drip/views/content-drip-lesson.php:45
+msgid "Date Format:"
+msgstr ""
+
+#: addons/content-drip/views/content-drip-lesson.php:54
+msgid "Days"
+msgstr ""
+
+#: addons/content-drip/views/content-drip-lesson.php:58
+msgid "This lesson will be available after the given number of days."
+msgstr ""
+
+#: addons/content-drip/views/content-drip-lesson.php:71
+#: addons/tutor-prerequisites/tutor-prerequisites.php:29
+msgid "Prerequisites"
+msgstr ""
+
+#: addons/content-drip/views/content-drip-lesson.php:75
+msgid "Select prerequisites item"
+msgstr ""
+
+#: addons/content-drip/views/content-drip-lesson.php:95
+msgid "Select items that should be complete before this item"
+msgstr ""
 
 #: addons/enrollments/classes/Enrollments.php:28
 #: addons/enrollments/enrollments.php:29
@@ -51,13 +149,15 @@ msgstr ""
 
 #: addons/enrollments/classes/Enrollments_List.php:84
 #: addons/enrollments/views/enroll_student.php:18
-#: addons/tutor-assignments/classes/Assignments_List.php:86
+#: addons/gradebook/views/pages/overview.php:71
+#: addons/tutor-assignments/classes/Assignments_List.php:106
 msgid "Student"
 msgstr ""
 
 #: addons/enrollments/classes/Enrollments_List.php:85
 #: addons/enrollments/views/enroll_student.php:32
-#: addons/tutor-assignments/classes/Assignments_List.php:87
+#: addons/gradebook/views/pages/overview.php:72
+#: addons/tutor-assignments/classes/Assignments_List.php:107
 #: addons/tutor-assignments/views/pages/submitted_assignment.php:16
 #: addons/tutor-report/views/pages/courses/body.php:99
 #: addons/tutor-report/views/pages/overview.php:341
@@ -71,6 +171,7 @@ msgid "Order"
 msgstr ""
 
 #: addons/enrollments/classes/Enrollments_List.php:87
+#: templates/single/course/enrolled/gradebook.php:52
 msgid "Status"
 msgstr ""
 
@@ -102,6 +203,242 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+#: addons/gradebook/classes/GradeBook.php:43
+#: addons/gradebook/classes/GradeBook.php:491
+#: addons/gradebook/classes/GradeBook.php:499
+#: addons/gradebook/classes/init.php:89 addons/gradebook/classes/init.php:92
+#: addons/gradebook/gradebook.php:29
+#: addons/gradebook/views/pages/gradebooks.php:3
+#: addons/gradebook/views/pages/gradebooks.php:11
+#: addons/gradebook/views/pages/overview.php:17
+msgid "Gradebook"
+msgstr ""
+
+#: addons/gradebook/classes/GradeBook.php:57
+#: addons/gradebook/classes/GradeBook.php:99
+msgid "Grade name field is required"
+msgstr ""
+
+#: addons/gradebook/classes/GradeBook.php:58
+#: addons/gradebook/classes/GradeBook.php:100
+#: addons/gradebook/views/pages/add_new_gradebook.php:47
+#: addons/gradebook/views/pages/add_new_gradebook.php:52
+msgid "Minimum Grade Percentile"
+msgstr ""
+
+#: addons/gradebook/classes/GradeBook.php:59
+#: addons/gradebook/classes/GradeBook.php:101
+#: addons/gradebook/views/pages/add_new_gradebook.php:59
+#: addons/gradebook/views/pages/add_new_gradebook.php:64
+msgid "Maximum Grade Percentile"
+msgstr ""
+
+#: addons/gradebook/classes/GradeBook.php:87
+msgid "Gradebook has been added successfully"
+msgstr ""
+
+#: addons/gradebook/classes/GradeBook.php:129
+msgid "Gradebook has been updated successfully"
+msgstr ""
+
+#: addons/gradebook/classes/GradeBook.php:139
+msgid "The grade has been deleted successfully."
+msgstr ""
+
+#: addons/gradebook/classes/GradeBook.php:263
+#, php-format
+msgid "You received %s points out of %s"
+msgstr ""
+
+#: addons/gradebook/classes/GradeBook.php:265
+msgid "Your grade is "
+msgstr ""
+
+#: addons/gradebook/classes/GradeBook.php:268
+#: templates/single/course/enrolled/gradebook.php:88
+#: templates/single/course/enrolled/gradebook.php:100
+msgid "Passed"
+msgstr ""
+
+#: addons/gradebook/classes/GradeBook.php:268
+#: templates/single/course/enrolled/gradebook.php:88
+#: templates/single/course/enrolled/gradebook.php:91
+#: templates/single/course/enrolled/gradebook.php:100
+#: templates/single/course/enrolled/gradebook.php:102
+msgid "Failed"
+msgstr ""
+
+#: addons/gradebook/classes/GradeBook.php:521
+msgid "Gradebook has been re-generated"
+msgstr ""
+
+#: addons/gradebook/classes/GradeBook.php:531
+msgid "Gradebook has been deleted"
+msgstr ""
+
+#: addons/gradebook/classes/init.php:93
+msgid "Gradebook Settings"
+msgstr ""
+
+#: addons/gradebook/classes/init.php:97
+#: addons/gradebook/views/pages/add_new_gradebook.php:35
+#: addons/gradebook/views/pages/add_new_gradebook.php:39
+#: addons/gradebook/views/pages/edit_gradebook.php:39
+#: addons/gradebook/views/pages/edit_gradebook.php:43
+#: addons/gradebook/views/pages/gradebooks.php:28
+msgid "Grade Point"
+msgstr ""
+
+#: addons/gradebook/classes/init.php:100
+msgid ""
+"Enable this option for the database to calculate in grade points instead of "
+"division."
+msgstr ""
+
+#: addons/gradebook/classes/init.php:104 addons/gradebook/classes/init.php:118
+msgid "Grade Scale"
+msgstr ""
+
+#: addons/gradebook/classes/init.php:105
+msgid "Show"
+msgstr ""
+
+#: addons/gradebook/classes/init.php:107
+#, php-format
+msgid "Display the final grade point to everyone such as 3.8%s"
+msgstr ""
+
+#: addons/gradebook/classes/init.php:111
+msgid "Grade scale separator"
+msgstr ""
+
+#: addons/gradebook/classes/init.php:113
+msgid ""
+"Input the separator text or symbol to display. Example: Insert “/” to "
+"display 3.8/4.0 or “out of” 3.8 out of 4."
+msgstr ""
+
+#: addons/gradebook/classes/init.php:120
+msgid ""
+"Insert the grade point out of which the final results will be calculated."
+msgstr ""
+
+#: addons/gradebook/views/pages/add_new_gradebook.php:3
+#: addons/gradebook/views/pages/overview.php:11
+msgid "Gradebooks"
+msgstr ""
+
+#: addons/gradebook/views/pages/add_new_gradebook.php:22
+#: addons/gradebook/views/pages/add_new_gradebook.php:27
+#: addons/gradebook/views/pages/edit_gradebook.php:27
+#: addons/gradebook/views/pages/edit_gradebook.php:32
+#: addons/gradebook/views/pages/gradebooks.php:27
+msgid "Grade Name"
+msgstr ""
+
+#: addons/gradebook/views/pages/add_new_gradebook.php:71
+msgid "Grade Colour"
+msgstr ""
+
+#: addons/gradebook/views/pages/add_new_gradebook.php:86
+msgid "Add new Grade"
+msgstr ""
+
+#: addons/gradebook/views/pages/edit_gradebook.php:8
+#: addons/gradebook/views/pages/edit_gradebook.php:90
+msgid "Update Gradebook"
+msgstr ""
+
+#: addons/gradebook/views/pages/edit_gradebook.php:50
+#: addons/gradebook/views/pages/edit_gradebook.php:56
+msgid "Number Percent From"
+msgstr ""
+
+#: addons/gradebook/views/pages/edit_gradebook.php:63
+#: addons/gradebook/views/pages/edit_gradebook.php:68
+msgid "Number Percent To"
+msgstr ""
+
+#: addons/gradebook/views/pages/edit_gradebook.php:75
+msgid "Grade Color"
+msgstr ""
+
+#: addons/gradebook/views/pages/gradebooks.php:5
+msgid "Add New Grade"
+msgstr ""
+
+#: addons/gradebook/views/pages/gradebooks.php:10
+#: addons/gradebook/views/pages/overview.php:16
+#: addons/tutor-report/views/pages/report.php:4
+msgid "Overview"
+msgstr ""
+
+#: addons/gradebook/views/pages/gradebooks.php:29
+msgid "Grade Range %"
+msgstr ""
+
+#: addons/gradebook/views/pages/gradebooks.php:30
+#: addons/tutor-report/views/pages/courses/body.php:101
+#: addons/tutor-report/views/pages/reviews/reviews.php:54
+msgid "Action"
+msgstr ""
+
+#: addons/gradebook/views/pages/gradebooks.php:52
+msgid "Are you Sure?"
+msgstr ""
+
+#: addons/gradebook/views/pages/gradebooks.php:63
+#, php-format
+msgid ""
+"No grading system has been defined to manage student grades. %s Import "
+"Sample Grade Data %s"
+msgstr ""
+
+#: addons/gradebook/views/pages/overview.php:40
+msgid "Bulk Actions"
+msgstr ""
+
+#: addons/gradebook/views/pages/overview.php:41 includes/functions.php:283
+msgid "Re-generate Gradebook"
+msgstr ""
+
+#: addons/gradebook/views/pages/overview.php:53
+msgid "Search by course or student name"
+msgstr ""
+
+#: addons/gradebook/views/pages/overview.php:73
+#: addons/tutor-report/views/pages/overview.php:125 classes/General.php:165
+#: classes/Quiz.php:64 templates/single/course/enrolled/gradebook.php:32
+msgid "Quiz"
+msgstr ""
+
+#: addons/gradebook/views/pages/overview.php:74
+#: addons/tutor-assignments/classes/Assignments.php:37
+#: addons/tutor-assignments/classes/Assignments.php:41
+#: addons/tutor-assignments/classes/Assignments.php:74
+#: addons/tutor-assignments/tutor-assignments.php:29
+#: templates/single/course/enrolled/gradebook.php:33
+msgid "Assignments"
+msgstr ""
+
+#: addons/gradebook/views/pages/overview.php:75
+#: templates/single/course/enrolled/gradebook.php:34
+msgid "Final Grade"
+msgstr ""
+
+#: addons/gradebook/views/pages/overview.php:115
+#, php-format
+msgid "%d quiz, %d assignment"
+msgstr ""
+
+#: addons/gradebook/views/pages/overview.php:135
+msgid "Items"
+msgstr ""
+
+#: addons/gradebook/views/pages/overview.php:156
+msgid "No enough data to show"
+msgstr ""
+
 #: addons/pmpro/classes/PaidMembershipsPro.php:155
 #, php-format
 msgid "You must have a %s membership plan %s to enroll in this course."
@@ -131,64 +468,66 @@ msgstr ""
 msgid "Course Categories"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments.php:33
-#: addons/tutor-assignments/classes/Assignments.php:37
-#: addons/tutor-assignments/classes/Assignments.php:70
-#: addons/tutor-assignments/tutor-assignments.php:29
-msgid "Assignments"
-msgstr ""
-
-#: addons/tutor-assignments/classes/Assignments.php:52
+#: addons/tutor-assignments/classes/Assignments.php:56
 msgid "Create Assignments"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments.php:183
+#: addons/tutor-assignments/classes/Assignments.php:189
 msgid "An assignment is submitting currently, please submit previous one first"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments.php:205
+#: addons/tutor-assignments/classes/Assignments.php:211
 msgid "Answer has been added successfully"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments.php:265
+#: addons/tutor-assignments/classes/Assignments.php:272
 #, php-format
 msgid "Maximum attachment upload size allowed is %d MB"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments_List.php:51
+#: addons/tutor-assignments/classes/Assignments_List.php:69
 msgid "Started"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments_List.php:56
+#: addons/tutor-assignments/classes/Assignments_List.php:74
 msgid "Finished"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments_List.php:62
-msgid "View"
+#: addons/tutor-assignments/classes/Assignments_List.php:80
+msgid "View "
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments_List.php:85
+#: addons/tutor-assignments/classes/Assignments_List.php:82
+msgid "Are you sure?"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments_List.php:82
+msgid " Delete"
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments_List.php:105
+#: templates/single/course/enrolled/gradebook.php:50
 msgid "Title"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments_List.php:88
+#: addons/tutor-assignments/classes/Assignments_List.php:108
 #: addons/tutor-assignments/views/modal/assignments.php:96
 msgid "Total Points"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments_List.php:89
+#: addons/tutor-assignments/classes/Assignments_List.php:109
 msgid "Minumum Pass Points"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments_List.php:90
+#: addons/tutor-assignments/classes/Assignments_List.php:110
 msgid "Duration"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments_List.php:91
+#: addons/tutor-assignments/classes/Assignments_List.php:111
 msgid "Date"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments_List.php:92
+#: addons/tutor-assignments/classes/Assignments_List.php:112
 msgid "Actions"
 msgstr ""
 
@@ -247,7 +586,7 @@ msgstr ""
 msgid "Define maximum file size attachment in %s"
 msgstr ""
 
-#: addons/tutor-assignments/views/modal/assignments.php:138
+#: addons/tutor-assignments/views/modal/assignments.php:140
 msgid "Update Assignment"
 msgstr ""
 
@@ -372,8 +711,7 @@ msgid "Tutor Course Attachments Settings"
 msgstr ""
 
 #: addons/tutor-course-preview/classes/init.php:94
-#: addons/tutor-course-preview/views/metabox/course-preview-metabox.php:17
-#: addons/tutor-course-preview/views/metabox/course-preview-metabox.php:24
+#: addons/tutor-course-preview/views/metabox/course-preview-metabox.php:15
 msgid "Enable Course Preview"
 msgstr ""
 
@@ -383,7 +721,7 @@ msgid ""
 "enroll"
 msgstr ""
 
-#: addons/tutor-course-preview/views/metabox/course-preview-metabox.php:28
+#: addons/tutor-course-preview/views/metabox/course-preview-metabox.php:19
 msgid "If checked, any users/guest can view this lesson without enroll course"
 msgstr ""
 
@@ -398,6 +736,11 @@ msgstr ""
 
 #: addons/tutor-email/classes/EmailNotification.php:192
 msgid " just completed "
+msgstr ""
+
+#: addons/tutor-email/classes/EmailNotification.php:256
+#, php-format
+msgid "Thank you for %s  answers, we have received"
 msgstr ""
 
 #: addons/tutor-email/classes/EmailNotification.php:296
@@ -460,40 +803,6 @@ msgstr ""
 msgid "Select when to send notification to the teachers"
 msgstr ""
 
-#: addons/tutor-email/classes/init.php:114
-msgid "E-Mail Settings"
-msgstr ""
-
-#: addons/tutor-email/classes/init.php:115
-msgid "Check and place necessary information here."
-msgstr ""
-
-#: addons/tutor-email/classes/init.php:119
-#: addons/tutor-report/views/pages/overview.php:427
-#: addons/tutor-report/views/pages/overview.php:457
-msgid "Name"
-msgstr ""
-
-#: addons/tutor-email/classes/init.php:121
-msgid "The name under which all the emails will be sent"
-msgstr ""
-
-#: addons/tutor-email/classes/init.php:125
-msgid "E-Mail Address"
-msgstr ""
-
-#: addons/tutor-email/classes/init.php:127
-msgid "The E-Mail address from which all emails will be sent"
-msgstr ""
-
-#: addons/tutor-email/classes/init.php:131
-msgid "E-Mail Footer Text"
-msgstr ""
-
-#: addons/tutor-email/classes/init.php:133
-msgid "The text to appear in E-Mail template footer"
-msgstr ""
-
 #: addons/tutor-email/tutor-email.php:29
 #: addons/tutor-report/views/pages/overview.php:428
 #: addons/tutor-report/views/pages/overview.php:458
@@ -544,17 +853,13 @@ msgstr ""
 msgid "Course Prerequisites"
 msgstr ""
 
-#: addons/tutor-prerequisites/tutor-prerequisites.php:29
-msgid "Prerequisites"
-msgstr ""
-
 #: addons/tutor-prerequisites/views/frontend/show-course-prerequisites.php:2
 msgid "Course Prerequisite(s)"
 msgstr ""
 
 #: addons/tutor-prerequisites/views/frontend/show-course-prerequisites.php:14
 msgid ""
-"Please note that this course has the follwoing prerequisites which must be "
+"Please note that this course has the following prerequisites which must be "
 "completed before it can be accessed"
 msgstr ""
 
@@ -570,7 +875,7 @@ msgstr ""
 msgid "List courses that must be completed before enrolling for this course."
 msgstr ""
 
-#: addons/tutor-report/classes/Report.php:41
+#: addons/tutor-report/classes/Report.php:39
 #: addons/tutor-report/tutor-report.php:29
 msgid "Report"
 msgstr ""
@@ -614,11 +919,6 @@ msgstr ""
 msgid "Total Enrolled"
 msgstr ""
 
-#: addons/tutor-report/views/pages/courses/body.php:101
-#: addons/tutor-report/views/pages/reviews/reviews.php:54
-msgid "Action"
-msgstr ""
-
 #: addons/tutor-report/views/pages/courses/top_menu.php:4
 msgid "Last Year"
 msgstr ""
@@ -652,11 +952,9 @@ msgstr ""
 msgid "Lessons"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:125
-msgid "Quiz"
-msgstr ""
-
 #: addons/tutor-report/views/pages/overview.php:138
+#: templates/single/quiz/previous-attempts.php:12
+#: templates/single/quiz/previous-attempts.php:43
 msgid "Questions"
 msgstr ""
 
@@ -728,6 +1026,8 @@ msgstr ""
 
 #: addons/tutor-report/views/pages/overview.php:344
 #: addons/tutor-report/views/pages/reviews/reviews.php:53
+#: templates/single/quiz/previous-attempts.php:11
+#: templates/single/quiz/previous-attempts.php:28
 msgid "Time"
 msgstr ""
 
@@ -736,11 +1036,17 @@ msgid "Recent questions from students"
 msgstr ""
 
 #: addons/tutor-report/views/pages/overview.php:379
+#: templates/single/quiz/view_attempt.php:30
 msgid "Question"
 msgstr ""
 
 #: addons/tutor-report/views/pages/overview.php:423
 msgid "New registered students"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:427
+#: addons/tutor-report/views/pages/overview.php:457
+msgid "Name"
 msgstr ""
 
 #: addons/tutor-report/views/pages/overview.php:429
@@ -750,10 +1056,6 @@ msgstr ""
 
 #: addons/tutor-report/views/pages/overview.php:453
 msgid "New registered teachers"
-msgstr ""
-
-#: addons/tutor-report/views/pages/report.php:4
-msgid "Overview"
 msgstr ""
 
 #: addons/tutor-report/views/pages/report.php:15
@@ -783,9 +1085,45 @@ msgstr ""
 msgid "Installing Plugin: %s"
 msgstr ""
 
-#: classes/General.php:79
+#: classes/General.php:82
 #, php-format
 msgid "Invalid taxonomy: %s."
+msgstr ""
+
+#: classes/General.php:168 classes/Quiz.php:67
+msgid "Tutor LMS Pro Settings"
+msgstr ""
+
+#: classes/General.php:172
+msgid "Course Builder Page Logo"
+msgstr ""
+
+#: classes/General.php:173
+msgid "Upload Logo"
+msgstr ""
+
+#: classes/General.php:175
+msgid "Upload a logo to show in frontend course builder page."
+msgstr ""
+
+#: classes/Quiz.php:28
+msgid "View Attempt"
+msgstr ""
+
+#: classes/Quiz.php:68
+msgid ""
+"The values you set here define the default values that are used in the "
+"settings form when you create a new quiz."
+msgstr ""
+
+#: classes/Quiz.php:72
+msgid "Detail Attempt View"
+msgstr ""
+
+#: classes/Quiz.php:75
+msgid ""
+"Enabling this option will let the students view quiz attempt details "
+"including the answer to each question."
 msgstr ""
 
 #: classes/Updater.php:39
@@ -899,6 +1237,101 @@ msgstr ""
 msgid ""
 "There is an error with your Tutor Pro License. Automatic update has been "
 "turned off, %s Please check license %s"
+msgstr ""
+
+#: includes/functions.php:283
+msgid "Generate Gradebook"
+msgstr ""
+
+#: templates/single/course/enrolled/gradebook.php:17
+msgid "Gradebook not generated yet"
+msgstr ""
+
+#: templates/single/course/enrolled/gradebook.php:18
+msgid ""
+"After generate gradebook for this couse, you can see details report, quiz "
+"and assignments wise and you will get a final grade"
+msgstr ""
+
+#: templates/single/course/enrolled/gradebook.php:51
+#: templates/single/quiz/previous-attempts.php:16
+msgid "Grade"
+msgstr ""
+
+#: templates/single/course/enrolled/gradebook.php:73
+msgid "Last Updated at"
+msgstr ""
+
+#: templates/single/quiz/previous-attempts.php:5
+msgid "Previous attempts"
+msgstr ""
+
+#: templates/single/quiz/previous-attempts.php:13
+#: templates/single/quiz/previous-attempts.php:47
+msgid "Total Marks"
+msgstr ""
+
+#: templates/single/quiz/previous-attempts.php:14
+#: templates/single/quiz/previous-attempts.php:51
+msgid "Earned Marks"
+msgstr ""
+
+#: templates/single/quiz/previous-attempts.php:15
+#: templates/single/quiz/previous-attempts.php:58
+msgid "Pass Mark"
+msgstr ""
+
+#: templates/single/quiz/previous-attempts.php:17
+#: templates/single/quiz/previous-attempts.php:76
+msgid "Result"
+msgstr ""
+
+#: templates/single/quiz/previous-attempts.php:36
+msgid "Manually reviewed at"
+msgstr ""
+
+#: templates/single/quiz/previous-attempts.php:79
+msgid "Pass"
+msgstr ""
+
+#: templates/single/quiz/previous-attempts.php:81
+msgid "Fail"
+msgstr ""
+
+#: templates/single/quiz/view_attempt.php:20
+msgid "View Attempts"
+msgstr ""
+
+#: templates/single/quiz/view_attempt.php:22
+msgid "Back to quiz"
+msgstr ""
+
+#: templates/single/quiz/view_attempt.php:28
+msgid "Type"
+msgstr ""
+
+#: templates/single/quiz/view_attempt.php:29
+msgid "No."
+msgstr ""
+
+#: templates/single/quiz/view_attempt.php:31
+msgid "Given Answers"
+msgstr ""
+
+#: templates/single/quiz/view_attempt.php:32
+msgid "Correct/Incorrect"
+msgstr ""
+
+#: templates/single/quiz/view_attempt.php:148
+msgid "Correct"
+msgstr ""
+
+#: templates/single/quiz/view_attempt.php:151
+msgid "Review Required"
+msgstr ""
+
+#: templates/single/quiz/view_attempt.php:153
+msgid "Incorrect"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
