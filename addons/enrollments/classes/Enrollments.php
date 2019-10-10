@@ -100,7 +100,7 @@ class Enrollments {
 			if ($isEnrolled) {
 				do_action('tutor_after_enroll', $course_id, $isEnrolled);
 				//Mark Current User as Students with user meta data
-				update_user_meta( $user_id, '_is_tutor_student', time() );
+				update_user_meta( $user_id, '_is_tutor_student', tutor_time() );
 			}
 
 			$this->success_msgs = get_tnotice(__('Enrolment has been done', 'tutor-pro'), 'Success', 'success');

@@ -122,7 +122,7 @@ class EmailNotification{
 		$student = get_userdata($user_id);
 
 		$completion_time = tutor_utils()->is_completed_course($course_id);
-		$completion_time = $completion_time ? $completion_time : time();
+		$completion_time = $completion_time ? $completion_time : tutor_time();
 
 		$completion_time_format = date_i18n(get_option('date_format'), $completion_time).' '.date_i18n(get_option('time_format'), $completion_time);
 
@@ -168,7 +168,7 @@ class EmailNotification{
 		$teacher = get_userdata($course->post_author);
 
 		$completion_time = tutor_utils()->is_completed_course($course_id);
-		$completion_time = $completion_time ? $completion_time : time();
+		$completion_time = $completion_time ? $completion_time : tutor_time();
 
 		$completion_time_format = date_i18n(get_option('date_format'), $completion_time).' '.date_i18n(get_option('time_format'), $completion_time);
 
@@ -219,7 +219,7 @@ class EmailNotification{
 		$attempt_info = tutor_utils()->quiz_attempt_info($attempt_id);
 
 		$submission_time = tutor_utils()->avalue_dot('submission_time', $attempt_info);
-		$submission_time = $submission_time ? $submission_time : time();
+		$submission_time = $submission_time ? $submission_time : tutor_time();
 
 		$quiz_id = tutor_utils()->avalue_dot('comment_post_ID', $attempt);
 		$quiz_name = get_the_title($quiz_id);
@@ -274,7 +274,7 @@ class EmailNotification{
 		$course = get_post($course_id);
 		$teacher = get_userdata($course->post_author);
 
-		$enroll_time = time();
+		$enroll_time = tutor_time();
 		$enroll_time_format = date_i18n(get_option('date_format'), $enroll_time).' '.date_i18n(get_option('time_format'), $enroll_time);
 
 		$file_tpl_variable = array(
@@ -372,7 +372,7 @@ class EmailNotification{
 		$course = get_post($course_id);
 		$teacher = get_userdata($course->post_author);
 
-		$completion_time =  time();
+		$completion_time =  tutor_time();
 		$completion_time_format = date_i18n(get_option('date_format'), $completion_time).' '.date_i18n(get_option('time_format'), $completion_time);
 		
 		$file_tpl_variable = array(

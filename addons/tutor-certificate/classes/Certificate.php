@@ -87,7 +87,7 @@ class Certificate{
 		//Setting Paper
 		$dompdf->setPaper('A4', $this->template['orientation']);
 		$dompdf->render();
-		$dompdf->stream('certificate'.time().'.pdf');
+		$dompdf->stream('certificate'.tutor_time().'.pdf');
 	}
 
 	public function pdf_style() {

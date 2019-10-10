@@ -363,7 +363,7 @@ class CPdf
 
         // also initialize the font families that are known about already
         $this->setFontFamily('init');
-        //  $this->fileIdentifier = md5('xxxxxxxx'.time());
+        //  $this->fileIdentifier = md5('xxxxxxxx'.tutor_time());
     }
 
     /**
