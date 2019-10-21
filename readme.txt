@@ -245,6 +245,7 @@ Tutor enables you to use any third party plugins without facing any compatibilit
 * Added: Disable Course Review option
 * Updated: removed media uploader on dashboard profile photo upload added native file upload system.
 * Updated: Time GMT from WordPress settings
+* Fixed: course start and continue to lesson order fixed
 
 = 1.4.4 - 16 October, 2019 =
 
