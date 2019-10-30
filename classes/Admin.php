@@ -12,6 +12,8 @@ class Admin{
 		add_action('admin_init', array($this, 'check_tutor_free_installed'));
 		add_action('wp_ajax_install_tutor_plugin', array($this, 'install_tutor_plugin'));
 		//add_action('admin_action_install_tutor_free', array($this, 'install_tutor_plugin'));
+
+		add_action('admin_bar_menu', array($this, 'add_toolbar_items'), 100);
 	}
 
 	public function register_menu(){
@@ -126,6 +128,51 @@ class Admin{
 		$upgrader = new \Plugin_Upgrader( new \Plugin_Installer_Skin( compact('title', 'url', 'nonce', 'plugin', 'api') ) );
 		$upgrader->install($api->download_link);
 		die();
+	}
+
+	/**
+	 * @param $admin_bar
+	 *
+	 * @return mixed
+     *
+     * Add admin bar links frontend page edit.
+     *
+     * @since v.1.4.6
+	 */
+
+	public function add_toolbar_items($admin_bar){
+	    global $post;
+
+	    $course_id = (int) sanitize_text_field(tutils()->array_get('post', $_GET));
+	    $course_post_type = tutor()->course_post_type;
+
+	    if (is_admin() && $post && $course_id && $post->post_type === $course_post_type) {
+	        $forntend_course_edit_link = tutils()->course_edit_link($post->ID);
+		    $admin_bar->add_menu( array(
+			    'id'    => 'tutor-frontend-course-builder',
+			    'title' => __( 'Edit With Frontend Course Builder', 'tutor-pro' ),
+			    'href'  => $forntend_course_edit_link,
+			    'meta'  => array(
+				    'title' => __( 'Edit With Frontend Course Builder', 'tutor-pro' ),
+				    'target' => '_blank',
+			    ),
+		    ) );
+	    }
+
+	    if (is_single() && $post && $post->post_type === $course_post_type ){
+		    $forntend_course_edit_link = tutils()->course_edit_link($post->ID);
+		    $admin_bar->add_menu( array(
+			    'id'    => 'tutor-frontend-course-builder',
+			    'title' => __( 'Edit With Frontend Course Builder', 'tutor-pro' ),
+			    'href'  => $forntend_course_edit_link,
+			    'meta'  => array(
+				    'title' => __( 'Edit With Frontend Course Builder', 'tutor-pro' ),
+				    'target' => '_blank',
+			    ),
+		    ) );
+        }
+
+	    return $admin_bar;
 	}
 
 }
