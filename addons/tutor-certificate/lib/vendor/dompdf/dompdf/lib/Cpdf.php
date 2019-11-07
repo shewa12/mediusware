@@ -2312,7 +2312,7 @@ EOT;
 
         if ($this->fileIdentifier === '') {
             $tmp = implode('',  $this->objects[$this->infoObject]['info']);
-            $this->fileIdentifier = md5('DOMPDF' . __FILE__ . $tmp . microtutor_time() . mt_rand());
+            $this->fileIdentifier = md5('DOMPDF' . __FILE__ . $tmp . microtime() . mt_rand());
         }
 
         if ($this->arc4_objnum) {
