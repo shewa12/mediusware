@@ -22,7 +22,6 @@ class BuddyPress {
 
 		add_action('tutor_save_course', array($this, 'save_course_meta'), 10, 2);
 
-
 		/**
 		 * Events Hook
 		 */
@@ -30,6 +29,8 @@ class BuddyPress {
 		add_action('tutor_course_complete_after', array($this, 'tutor_course_complete_after'));
 		add_action('tutor_after_enroll', array($this, 'tutor_after_enroll'));
 		add_action('tutor/course/started', array($this, 'tutor_course_started'));
+		add_action('tutor/lesson_update/after', array($this, 'tutor_lesson_update_after'));
+		add_action('tutor/lesson/created', array($this, 'tutor_lesson_created'));
 	}
 
 	public function settings_attr($args){
@@ -39,7 +40,7 @@ class BuddyPress {
 			'icon_class' => 'dashicons dashicons-buddicons-buddypress-logo',
 			'callback'  => '',
 			'fields'    => array(
-				'enable_content_drip' => array(
+				'enable_tutor_bp' => array(
 					'type'      => 'checkbox',
 					'label'     => '',
 					'label_title' => __('Enable', 'tutor-pro'),
@@ -127,7 +128,7 @@ class BuddyPress {
 	 */
 
 	public function tutor_course_complete_after($course_id){
-		$isEnable = (bool) tutils()->get_course_settings($course_id, 'enable_content_drip');
+		$isEnable = (bool) tutils()->get_course_settings($course_id, 'enable_tutor_bp');
 		if ( ! $isEnable){
 			return;
 		}
@@ -137,8 +138,11 @@ class BuddyPress {
 
 		if (tutils()->count($group_ids)){
 			foreach ($group_ids as $group_id){
-				if (groups_is_user_member($student_id, $group_id)) {
 
+				$activities = maybe_unserialize(groups_get_groupmeta($group_id, '_tutor_bp_group_activities', true));
+				$checked_activity = tutils()->array_get('user_completed_course', $activities);
+
+				if ($checked_activity && groups_is_user_member($student_id, $group_id)) {
 					do_action( 'tutor_bp_record_activity_before' );
 
 					$course_url = "<a href='" . get_the_permalink( $course_id ) . "' target='_blank'>" . get_the_title( $course_id ) . "</a>";
@@ -164,7 +168,7 @@ class BuddyPress {
 	 * Course Enroll BuddyPress
 	 */
 	public function tutor_after_enroll($course_id){
-		$isEnable = (bool) tutils()->get_course_settings($course_id, 'enable_content_drip');
+		$isEnable = (bool) tutils()->get_course_settings($course_id, 'enable_tutor_bp');
 		if ( ! $isEnable){
 			return;
 		}
@@ -174,7 +178,11 @@ class BuddyPress {
 
 		if (tutils()->count($group_ids)){
 			foreach ($group_ids as $group_id){
-				if (groups_is_user_member($student_id, $group_id)) {
+
+				$activities = maybe_unserialize(groups_get_groupmeta($group_id, '_tutor_bp_group_activities', true));
+				$checked_activity = tutils()->array_get('user_enrolled_course', $activities);
+
+				if ($checked_activity && groups_is_user_member($student_id, $group_id)) {
 					do_action( 'tutor_bp_record_activity_before' );
 
 					$course_url = "<a href='" . get_the_permalink( $course_id ) . "' target='_blank'>". get_the_title( $course_id ) ."</a>";
@@ -198,7 +206,7 @@ class BuddyPress {
 
 
 	public function tutor_course_started($course_id){
-		$isEnable = (bool) tutils()->get_course_settings($course_id, 'enable_content_drip');
+		$isEnable = (bool) tutils()->get_course_settings($course_id, 'enable_tutor_bp');
 		if ( ! $isEnable){
 			return;
 		}
@@ -209,7 +217,11 @@ class BuddyPress {
 		if (tutils()->count($group_ids)){
 			$action_type = '_tutor_course_started';
 			foreach ($group_ids as $group_id){
-				if (groups_is_user_member($student_id, $group_id)) {
+
+				$activities = maybe_unserialize(groups_get_groupmeta($group_id, '_tutor_bp_group_activities', true));
+				$checked_activity = tutils()->array_get('user_course_start', $activities);
+
+				if ($checked_activity && groups_is_user_member($student_id, $group_id)) {
 					do_action( 'tutor_bp_record_activity_before', $action_type );
 
 					$course_url = "<a href='" . get_the_permalink( $course_id ) . "' target='_blank'>". get_the_title( $course_id ) ."</a>";
@@ -231,6 +243,89 @@ class BuddyPress {
 
 	}
 
+	public function tutor_lesson_created($lesson_id){
+		$course_id = tutils()->get_course_id_by_content($lesson_id);
+		$isEnable = (bool) tutils()->get_course_settings($course_id, 'enable_tutor_bp');
+		if ( ! $isEnable){
+			return;
+		}
+
+		$instructor_id = get_current_user_id();
+		$group_ids = self::get_group_ids_by_course($course_id);
+
+		if (tutils()->count($group_ids)){
+			$action_type = '_tutor_lesson_creates';
+
+			$course_url = "<a href='" . get_the_permalink( $course_id ) . "' target='_blank'>". get_the_title( $course_id ) ."</a>";
+			$lesson_url = "<a href='" . get_the_permalink( $lesson_id ) . "' target='_blank'>". get_the_title( $lesson_id ) ."</a>";
+
+			foreach ($group_ids as $group_id){
+				$activities = maybe_unserialize(groups_get_groupmeta($group_id, '_tutor_bp_group_activities', true));
+				$checked_activity = tutils()->array_get('user_creates_lesson', $activities);
+
+				if ($checked_activity && groups_is_user_member($instructor_id, $group_id)) {
+					do_action( 'tutor_bp_record_activity_before', $action_type );
+
+					$activity_args = apply_filters( 'tutor_bp_course_started_record_activity_args', array(
+						'user_id'           => $instructor_id,
+						'action'            => $action_type,
+						'content'           => sprintf( __( 'I have created a new lesson %s for my course %s. Go check it out!', 'tutor-pro' ),
+							$lesson_url, $course_url ),
+						'type'              => 'activity_update',
+						'item_id'           => $group_id,
+						'secondary_item_id' => $course_id,
+					) );
+					$activity_id = groups_record_activity( $activity_args );
+
+					do_action( 'tutor_bp_record_activity_after', $action_type, $activity_id );
+				}
+			}
+		}
+
+	}
+
+
+	public function tutor_lesson_update_after($lesson_id){
+
+		$course_id = tutils()->get_course_id_by_content($lesson_id);
+		$isEnable = (bool) tutils()->get_course_settings($course_id, 'enable_tutor_bp');
+		if ( ! $isEnable){
+			return;
+		}
+
+		$instructor_id = get_current_user_id();
+		$group_ids = self::get_group_ids_by_course($course_id);
+
+		if (tutils()->count($group_ids)){
+			$action_type = '_tutor_lesson_updated';
+
+			//$course_url = "<a href='" . get_the_permalink( $course_id ) . "' target='_blank'>". get_the_title( $course_id ) ."</a>";
+			$lesson_url = "<a href='" . get_the_permalink( $lesson_id ) . "' target='_blank'>". get_the_title( $lesson_id ) ."</a>";
+
+			foreach ($group_ids as $group_id){
+
+				$activities = maybe_unserialize(groups_get_groupmeta($group_id, '_tutor_bp_group_activities', true));
+				$checked_activity = tutils()->array_get('user_updated_lesson', $activities);
+
+				if ($checked_activity && groups_is_user_member($instructor_id, $group_id)) {
+					do_action( 'tutor_bp_record_activity_before', $action_type );
+
+					$activity_args = apply_filters( 'tutor_bp_course_started_record_activity_args', array(
+						'user_id'           => $instructor_id,
+						'action'            => $action_type,
+						'content'           => sprintf( __( 'I updated my lesson on %s to add more relevant content. See what’s new!', 'tutor-pro' ), $lesson_url ),
+						'type'              => 'activity_update',
+						'item_id'           => $group_id,
+						'secondary_item_id' => $course_id,
+					) );
+					$activity_id = groups_record_activity( $activity_args );
+
+					do_action( 'tutor_bp_record_activity_after', $action_type, $activity_id );
+				}
+			}
+		}
+
+	}
 
 
 
