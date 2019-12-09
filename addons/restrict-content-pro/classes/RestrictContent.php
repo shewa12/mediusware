@@ -37,7 +37,7 @@ class RestrictContent extends Tutor_Base {
 					return $html;
 				} else {
 					$msg = apply_filters('tutor_restrict_content_msg', rcp_get_restricted_content_message());
-					$msg .= '<a class="tutor-button" href="'.rcp_get_registration_page_url().'">'.__('Get Membership','tutor-pro').'</a>';
+					$msg .= '<a class="tutor-button tutor-membership-btn" href="'.rcp_get_registration_page_url().'">'.__('Get Membership','tutor-pro').'</a>';
 					return apply_filters('tutor_restrict_content_html', $msg);
 				}
 			}
