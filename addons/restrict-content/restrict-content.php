@@ -26,8 +26,8 @@ define('TUTOR_RC_FILE', __FILE__);
 add_filter('tutor_addons_lists_config', 'tutor_restrict_content_config');
 function tutor_restrict_content_config($config){
 	$newConfig = array(
-		'name'          => __('Restrict Content', 'tutor-pro'),
-		'description'   => __('Unlock Lessons depending on Restrict Content Permission.', 'tutor-pro'),
+		'name'          => __('Restrict Content Pro', 'tutor-pro'),
+		'description'   => __('Unlock Course depending on Restrict Content Permission.', 'tutor-pro'),
 		'depend_plugins'   => array(
 			'restrict-content-pro/restrict-content-pro.php' => 'Restrict Content Pro'
 		),
