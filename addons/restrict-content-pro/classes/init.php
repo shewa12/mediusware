@@ -24,7 +24,7 @@ class init{
 		$monetize_by = tutils()->get_option('monetize_by');
 		$isEnable = (bool) tutils()->array_get('is_enable', $addonConfig);
 		$has_pmpro = $this->has_rc();
-		if ( ! $isEnable || ! $has_pmpro || $monetize_by !== 'restrict-content' ){
+		if ( ! $isEnable || ! $has_pmpro || $monetize_by !== 'restrict-content-pro' ){
 			return;
 		}
 
@@ -81,7 +81,7 @@ class init{
 	public function tutor_monetization_options($arr){
 		$has_rc = $this->has_rc();
 		if ($has_rc){
-			$arr['restrict-content'] = __('Restrict Content Pro', 'tutor-pro');
+			$arr['restrict-content-pro'] = __('Restrict Content Pro', 'tutor-pro');
 		}
 		return $arr;
 	}

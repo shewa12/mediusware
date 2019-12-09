@@ -21,8 +21,7 @@ class RestrictContent extends Tutor_Base {
 
 		$monetize_by = get_tutor_option('monetize_by');
 
-
-		if ($monetize_by !== 'restrict-content'){
+		if ($monetize_by !== 'restrict-content-pro'){
 			return $html;
 		}
 
@@ -37,8 +36,9 @@ class RestrictContent extends Tutor_Base {
 				if ($has_membership_access) {
 					return $html;
 				} else {
-					$msg = rcp_get_restricted_content_message();
-					return apply_filters('tutor_enrol_no_membership_msg', $msg);
+					$msg = apply_filters('tutor_restrict_content_msg', rcp_get_restricted_content_message());
+					$msg .= '<a class="tutor-button" href="'.rcp_get_registration_page_url().'">'.__('Get Membership','tutor-pro').'</a>';
+					return apply_filters('tutor_restrict_content_html', $msg);
 				}
 			}
 		}
@@ -49,7 +49,7 @@ class RestrictContent extends Tutor_Base {
 	public function tutor_course_price($html){
 		$monetize_by = get_tutor_option('monetize_by');
 
-		if ($monetize_by === 'restrict-content'){
+		if ($monetize_by === 'restrict-content-pro'){
 			return '';
 		}
 
