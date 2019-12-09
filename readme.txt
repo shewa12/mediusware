@@ -240,6 +240,22 @@ Tutor enables you to use any third party plugins without facing any compatibilit
 
 == Changelog ==
 
+= 1.4.8 - 10 December, 2019 =
+
+* Added: Restrict Content Pro Integration (TutorLMS Pro)
+* Added: Course Details Page elements enable / disable
+* Added: action hook `do_action( "tutor_save_course_after", $post_ID, $post);`
+* Added: action hook `do_action('tutor/course/started', $course_id);`
+* Added: action hook `do_action('tutor/lesson/created', $lesson_id);`
+* Fixed: implode parameter in utils `utils()->get_total_quiz_attempts_by_course_ids()`;
+
+= 1.4.7 - 28 November, 2019 =
+
+* Added: Next Previous Lesson|quiz|assignments
+* Added: User Profile Update From Backend and Frontend Dashboard is now synced, no matters it's from media or browser file input.
+* Added: Quiz description implementation
+* Added: `tutor_single_quiz_content()` to get quiz description within Standard Loop
+
 = 1.4.6 - 11 November, 2019 =
 
 * Added: Maintenance Mode
