@@ -25,16 +25,17 @@ class RestrictContent extends Tutor_Base {
 			$has_membership_access = false;
 			$course_id = tutils()->get_course_id_by_content(get_the_ID());
 			$user_id = get_current_user_id();
-			if (function_exists('rcp_user_can_access')) {
-				if (rcp_user_can_access($user_id, $course_id)) {
-					$has_membership_access = true;
+
+			if (tutils()->is_enrolled($course_id)){
+				if (function_exists('rcp_user_can_access')) {
+					if (rcp_user_can_access($user_id, $course_id)) {
+						$has_membership_access = true;
+					}
+				}
+				if (!$has_membership_access) {
+					$wpdb->query("UPDATE {$wpdb->posts} SET post_status = 'expired' WHERE post_type = 'tutor_enrolled' AND post_parent = {$course_id} AND post_author = {$user_id}");
 				}
 			}
-			if (!$has_membership_access) {
-				$wpdb->query("UPDATE {$wpdb->posts} SET post_status = 'expired' WHERE post_type = 'tutor_enrolled' AND post_parent = {$course_id} AND post_author = {$user_id}");
-			}
-
-			return $has_membership_access;
 		}
 	}
 
