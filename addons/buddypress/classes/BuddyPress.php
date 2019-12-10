@@ -31,6 +31,9 @@ class BuddyPress {
 		add_action('tutor/course/started', array($this, 'tutor_course_started'));
 		add_action('tutor/lesson_update/after', array($this, 'tutor_lesson_update_after'));
 		add_action('tutor/lesson/created', array($this, 'tutor_lesson_created'));
+		add_action('tutor_quiz/start/before', array($this, 'quiz_start_before'), 10, 2);
+		add_action('tutor_quiz_finished', array($this, 'tutor_quiz_finished'), 10, 3);
+		add_action('tutor_quiz/attempt_ended', array($this, 'tutor_quiz_attempt_ended') );
 	}
 
 	public function settings_attr($args){
@@ -327,6 +330,103 @@ class BuddyPress {
 
 	}
 
+
+	public function quiz_start_before($quiz_id, $user_id){
+
+		$course_id = tutils()->get_course_id_by_content($quiz_id);
+		$isEnable = (bool) tutils()->get_course_settings($course_id, 'enable_tutor_bp');
+		if ( ! $isEnable){
+			return;
+		}
+
+		$group_ids = self::get_group_ids_by_course($course_id);
+
+		if (tutils()->count($group_ids)){
+			$action_type = '_tutor_quiz_started';
+
+			//$course_url = "<a href='" . get_the_permalink( $course_id ) . "' target='_blank'>". get_the_title( $course_id ) ."</a>";
+			$lesson_url = "<a href='" . get_the_permalink( $quiz_id ) . "' target='_blank'>". get_the_title( $quiz_id ) ."</a>";
+
+			foreach ($group_ids as $group_id){
+				$activities = maybe_unserialize(groups_get_groupmeta($group_id, '_tutor_bp_group_activities', true));
+				$checked_activity = tutils()->array_get('user_started_quiz', $activities);
+
+				if ($checked_activity && groups_is_user_member($user_id, $group_id)) {
+					do_action( 'tutor_bp_record_activity_before', $action_type );
+
+					$activity_args = apply_filters( 'tutor_bp_course_started_record_activity_args', array(
+						'user_id'           => $user_id,
+						'action'            => $action_type,
+						'content'           => sprintf( __('I just started taking the quiz %s, come and take it with me.', 'tutor-pro'), $lesson_url ),
+						'type'              => 'activity_update',
+						'item_id'           => $group_id,
+						'secondary_item_id' => $course_id,
+					) );
+					$activity_id = groups_record_activity( $activity_args );
+
+					do_action( 'tutor_bp_record_activity_after', $action_type, $activity_id );
+				}
+			}
+		}
+
+	}
+
+	public function tutor_quiz_finished($attempt_id, $quiz_id, $user_id){
+		$this->quiz_finish_activity($quiz_id, $user_id);
+	}
+	public function tutor_quiz_attempt_ended($attempt_id){
+		$attempt = tutils()->get_attempt($attempt_id);
+		if ($attempt){
+			$this->quiz_finish_activity($attempt->quiz_id, $attempt->user_id);
+		}
+	}
+
+	/**
+	 * @param $quiz_id
+	 * @param $user_id
+	 *
+	 * Finish Quiz Activity on BuddyPress group
+	 *
+	 * @since v.1.4.9
+	 */
+	public function quiz_finish_activity($quiz_id, $user_id){
+
+		$course_id = tutils()->get_course_id_by_content($quiz_id);
+		$isEnable = (bool) tutils()->get_course_settings($course_id, 'enable_tutor_bp');
+		if ( ! $isEnable){
+			return;
+		}
+
+		$group_ids = self::get_group_ids_by_course($course_id);
+
+		if (tutils()->count($group_ids)){
+			$action_type = '_tutor_quiz_finished';
+
+			//$course_url = "<a href='" . get_the_permalink( $course_id ) . "' target='_blank'>". get_the_title( $course_id ) ."</a>";
+			$lesson_url = "<a href='" . get_the_permalink( $quiz_id ) . "' target='_blank'>". get_the_title( $quiz_id ) ."</a>";
+
+			foreach ($group_ids as $group_id){
+				$activities = maybe_unserialize(groups_get_groupmeta($group_id, '_tutor_bp_group_activities', true));
+				$checked_activity = tutils()->array_get('user_finished_quiz', $activities);
+
+				if ($checked_activity && groups_is_user_member($user_id, $group_id)) {
+					do_action( 'tutor_bp_record_activity_before', $action_type );
+
+					$activity_args = apply_filters( 'tutor_bp_course_started_record_activity_args', array(
+						'user_id'           => $user_id,
+						'action'            => $action_type,
+						'content'           => sprintf( __('Done with %s, it was a challenging quiz.', 'tutor-pro'), $lesson_url ),
+						'type'              => 'activity_update',
+						'item_id'           => $group_id,
+						'secondary_item_id' => $course_id,
+					) );
+					$activity_id = groups_record_activity( $activity_args );
+
+					do_action( 'tutor_bp_record_activity_after', $action_type, $activity_id );
+				}
+			}
+		}
+	}
 
 
 }
