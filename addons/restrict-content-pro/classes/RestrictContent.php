@@ -14,6 +14,28 @@ class RestrictContent extends Tutor_Base {
 
 		add_filter('tutor_course/single/add-to-cart', array($this, 'tutor_course_add_to_cart'));
 		add_filter('tutor_course_price', array($this, 'tutor_course_price'));
+		add_action('tutor_lesson_load_before', array($this,'check_subscription'));
+	}
+
+	public function check_subscription() {
+		global $post, $wpdb;
+		$monetize_by = get_tutor_option('monetize_by');
+		
+		if($monetize_by == 'restrict-content-pro') {
+			$has_membership_access = false;
+			$course_id = tutils()->get_course_id_by_content(get_the_ID());
+			$user_id = get_current_user_id();
+			if (function_exists('rcp_user_can_access')) {
+				if (rcp_user_can_access($user_id, $course_id)) {
+					$has_membership_access = true;
+				}
+			}
+			if (!$has_membership_access) {
+				$wpdb->query("UPDATE {$wpdb->posts} SET post_status = 'expired' WHERE post_type = 'tutor_enrolled' AND post_parent = {$course_id} AND post_author = {$user_id}");
+			}
+
+			return $has_membership_access;
+		}
 	}
 
 	public function tutor_course_add_to_cart($html) {
