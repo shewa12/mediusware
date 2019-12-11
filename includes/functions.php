@@ -49,7 +49,7 @@ if ( ! function_exists('get_generated_gradebook')) {
 			$res = $wpdb->get_row( "SELECT {$wpdb->tutor_gradebooks_results}.*, grade_config FROM {$wpdb->tutor_gradebooks_results} 
 					LEFT JOIN {$wpdb->tutor_gradebooks} ON {$wpdb->tutor_gradebooks_results}.gradebook_id = {$wpdb->tutor_gradebooks}.gradebook_id
 					WHERE gradebook_result_id = {$ref_id};" );
-        }
+		}
 
 		return $res;
 	}
@@ -109,8 +109,8 @@ if ( ! function_exists('get_quiz_gradebook_by_course')) {
 
 		$res_count = (int) $res->res_count;
 		if ( ! $res_count){
-		    return false;
-        }
+			return false;
+		}
 
 		return $res;
 
@@ -162,9 +162,9 @@ if ( ! function_exists('get_gradebook_by_point')) {
 
 if ( ! function_exists('tutor_generate_grade_html')) {
 	function tutor_generate_grade_html( $grade, $style = 'bgfill' ) {
-	    if ( ! $grade){
-	        return;
-        }
+		if ( ! $grade){
+			return;
+		}
 
 		if ( ! is_object( $grade ) ) {
 			global $wpdb;
@@ -175,8 +175,8 @@ if ( ! function_exists('tutor_generate_grade_html')) {
 		}
 
 		if (empty($grade->earned_grade_point)){
-		    return;
-        }
+			return;
+		}
 
 		ob_start();
 
@@ -200,8 +200,8 @@ if ( ! function_exists('tutor_generate_grade_html')) {
 
 			$bgcolor = tutils()->array_get( 'grade_color', $config );
 			if ($style === 'bgfill'){
-			    echo "<span class='gradename-bg {$style}' style='background-color: {$bgcolor};'>{$grade_name}</span> ";
-            }else{
+				echo "<span class='gradename-bg {$style}' style='background-color: {$bgcolor};'>{$grade_name}</span> ";
+			}else{
 				echo "<span class='gradename-outline {$style}' style='color: {$bgcolor};'>{$grade_name}</span> ";
 			}
 
@@ -285,13 +285,13 @@ if ( ! function_exists('get_gradebook_generate_form')) {
             </p>
         </form>
 		<?php
-        $output = apply_filters('get_gradebook_generate_form_html', ob_get_clean(), $course_id);
+		$output = apply_filters('get_gradebook_generate_form_html', ob_get_clean(), $course_id);
 
-        if ($echo){
-            echo $output;
-        }else{
-            return $output;
-        }
+		if ($echo){
+			echo $output;
+		}else{
+			return $output;
+		}
 	}
 }
 
