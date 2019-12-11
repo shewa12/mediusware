@@ -19,8 +19,14 @@ class BuddyPress {
 		add_filter('tutor_course_settings_tabs', array($this, 'settings_attr') );
 		add_filter('bp_get_activity_action', array($this, 'tutor_bp_group_activities'), 10, 3);
 		add_action('tutor_course/settings_tab_content/after/tutor_bp', array($this, 'tutor_bp_settings'));
-
 		add_action('tutor_save_course', array($this, 'save_course_meta'), 10, 2);
+
+		/**
+		 * Setup BP Group Nav
+		 */
+		add_action( 'bp_init', array($this, 'setup_group_nav'), 100 );
+
+		//add_action( 'bp_init', 'setup_group_nav' );
 
 		/**
 		 * Events Hook
@@ -34,6 +40,13 @@ class BuddyPress {
 		add_action('tutor_quiz/start/before', array($this, 'quiz_start_before'), 10, 2);
 		add_action('tutor_quiz_finished', array($this, 'tutor_quiz_finished'), 10, 3);
 		add_action('tutor_quiz/attempt_ended', array($this, 'tutor_quiz_attempt_ended') );
+
+
+		/**
+		 * BuddyPress Message Header
+		 */
+		add_action('bp_before_message_thread_content', array($this, 'bp_before_message_thread_content'));
+
 	}
 
 	public function settings_attr($args){
@@ -124,6 +137,75 @@ class BuddyPress {
 
 		return (array) $group_ids;
 	}
+
+
+	public function setup_group_nav(){
+		global $bp;
+		/* Add some group subnav items */
+		$user_access = false;
+		$group_link = '';
+		if( bp_is_active('groups') && !empty($bp->groups->current_group) ){
+			$group_link = $bp->root_domain . '/' . bp_get_groups_root_slug() . '/' . $bp->groups->current_group->slug . '/';
+			$user_access = $bp->groups->current_group->user_has_access;
+			bp_core_new_subnav_item( array(
+				'name' => __( 'Courses', 'tutor-pro'),
+				'slug' => 'courses',
+				'parent_url' => $group_link,
+				'parent_slug' => $bp->groups->current_group->slug,
+				'screen_function' => array($this, 'bp_group_courses'),
+				'position' => 50,
+				'user_has_access' => $user_access,
+				'item_css_id' => 'courses'
+			));
+		}
+	}
+
+
+	/**
+	 * BuddyPress Group Course Tab Page
+	 *
+	 * @since v.1.4.9
+	 */
+	public function bp_group_courses() {
+		//add_action('bp_template_title', array($this, 'bp_courses_group_show_screen_title'));
+		add_action('bp_template_content', array($this, 'bp_courses_group_show_screen_content'));
+
+		$templates = array('groups/single/plugins.php', 'plugin-template.php');
+		if (strstr(locate_template($templates), 'groups/single/plugins.php')) {
+			bp_core_load_template(apply_filters('bp_core_template_plugin', 'groups/single/plugins'));
+		} else {
+			bp_core_load_template(apply_filters('bp_core_template_plugin', 'plugin-template'));
+		}
+	}
+	function bp_courses_group_show_screen_title() {
+		echo 'New Tab Title';
+	}
+	function bp_courses_group_show_screen_content() {
+		$group_id = bp_get_group_id();
+		if ( ! $group_id){
+			return;
+		}
+
+		global $wpdb;
+
+		$course_ids = $wpdb->get_col("SELECT meta_value FROM {$wpdb->prefix}bp_groups_groupmeta WHERE  meta_key = '_tutor_attached_course' AND group_id = {$group_id} ");
+
+		if (tutils()->count($course_ids)){
+
+			foreach ($course_ids as $key => $course_id){
+				$isEnable = (bool) tutils()->get_course_settings($course_id, 'enable_tutor_bp');
+				if ( ! $isEnable){
+					unset($course_ids[$key]);
+				}
+			}
+
+			$course_ids_string = implode(',', $course_ids);
+			echo do_shortcode("[tutor_course id='{$course_ids_string}' ]");
+		}
+	}
+
+
+
 
 	/**
 	 * Hook Event Started
@@ -428,5 +510,26 @@ class BuddyPress {
 		}
 	}
 
+
+	/**
+	 * BuddyPress Message Thread Header
+	 *
+	 * @since v.1.4.9
+	 */
+
+	public function bp_before_message_thread_content(){
+		global $wp_query;
+
+		$message_thread_id = (int) tutils()->array_get('query.page', $wp_query);
+		$recipients = \BP_Messages_Thread::get_recipients_for_thread($message_thread_id);
+		$current_user_id = get_current_user_id();
+		if (isset($recipients[$current_user_id])){
+			unset($recipients[$current_user_id]);
+		}
+
+		if (tutils()->count($recipients)){
+			tutor_load_template('buddypress.message_thread_recipients', compact('recipients'), true);
+		}
+	}
 
 }
