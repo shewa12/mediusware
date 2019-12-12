@@ -25,10 +25,17 @@ class Admin{
          */
 	}
 
+	/**
+	 * Constructor When TutorLMS regular version exists
+	 */
+
 	public function load_constructor(){
 		add_action('admin_bar_menu', array($this, 'add_toolbar_items'), 100);
 	}
 
+	/**
+	 * Constructor for when TutorLMS regular version not installed...
+	 */
 	public function load_constructor_if_no_tutor_installed(){
 		add_action('admin_menu', array($this, 'register_menu'));
 		add_action('admin_action_activate_tutor_free', array($this, 'activate_tutor_free'));
