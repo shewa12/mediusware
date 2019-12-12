@@ -47,6 +47,8 @@ class BuddyPress {
 		 */
 		add_action('bp_before_message_thread_content', array($this, 'bp_before_message_thread_content'), 99);
 
+		add_action('wp_ajax_tutor_bp_retrieve_user_records_for_thread', array($this, 'tutor_bp_retrieve_user_records_for_thread'));
+
 	}
 
 	public function settings_attr($args){
@@ -518,18 +520,15 @@ class BuddyPress {
 	 */
 
 	public function bp_before_message_thread_content(){
-
-		$action = sanitize_text_field(tutils()->array_get('action', $_POST));
-
-		$message_thread_id = 0;
-		if ($action === 'messages_get_thread_messages'){
-			$message_thread_id = (int) sanitize_text_field(tutils()->array_get('id', $_POST));
-		}else{
-			global $wp_query;
-			$message_thread_id = (int) tutils()->array_get('query.page', $wp_query);
-		}
+		global $wp_query;
+		$thread_id = (int) tutils()->array_get('query.page', $wp_query);
 
 		echo '<div id="tutor-bp-thread-wrap">';
+		echo $this->generate_before_message_thread($thread_id);
+		echo '</div>';
+	}
+
+	public function generate_before_message_thread($message_thread_id = 0){
 		if ($message_thread_id) {
 			$recipients      = \BP_Messages_Thread::get_recipients_for_thread( $message_thread_id );
 			$current_user_id = get_current_user_id();
@@ -538,10 +537,22 @@ class BuddyPress {
 			}
 
 			if ( tutils()->count( $recipients ) ) {
+				ob_start();
 				tutor_load_template( 'buddypress.message_thread_recipients', compact( 'recipients' ), true );
+				return ob_get_clean();
 			}
 		}
-		echo '</div>';
+		return '';
+	}
+
+	public function tutor_bp_retrieve_user_records_for_thread(){
+		tutils()->checking_nonce();
+
+		$thread_id = (int) tutils()->array_get('thread_id', $_POST);
+		if ($thread_id){
+			wp_send_json_success(array('thread_head_html' => $this->generate_before_message_thread($thread_id) ));
+		}
+		wp_send_json_error();
 	}
 
 }
