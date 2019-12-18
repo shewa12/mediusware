@@ -7,14 +7,42 @@ if ( ! defined( 'ABSPATH' ) )
 class Admin{
 
 	public function __construct() {
+		/**
+		 * Load Conditional Constructor based on if Tutor LMS wordpress.org plugin installed or not
+         * @since v.1.0.0
+         *
+         * @updated v.1.4.9
+		 */
+	    if (is_plugin_active('tutor/tutor.php')){
+	        $this->load_constructor();
+        }else{
+	        $this->load_constructor_if_no_tutor_installed();
+        }
+        /**
+         * @updated v.1.4.9
+         *
+         * Warning! : Don't put any code here, use conditional constructor method
+         */
+	}
+
+	/**
+	 * Constructor When TutorLMS regular version exists
+	 */
+
+	public function load_constructor(){
+		add_action('admin_bar_menu', array($this, 'add_toolbar_items'), 100);
+	}
+
+	/**
+	 * Constructor for when TutorLMS regular version not installed...
+	 */
+	public function load_constructor_if_no_tutor_installed(){
 		add_action('admin_menu', array($this, 'register_menu'));
 		add_action('admin_action_activate_tutor_free', array($this, 'activate_tutor_free'));
 		add_action('admin_init', array($this, 'check_tutor_free_installed'));
 		add_action('wp_ajax_install_tutor_plugin', array($this, 'install_tutor_plugin'));
 		//add_action('admin_action_install_tutor_free', array($this, 'install_tutor_plugin'));
-
-		add_action('admin_bar_menu', array($this, 'add_toolbar_items'), 100);
-	}
+    }
 
 	public function register_menu(){
 	    if ( ! defined('TUTOR_VERSION')){
