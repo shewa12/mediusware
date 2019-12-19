@@ -1,6 +1,6 @@
 <?php
 $groups = groups_get_groups();
-$attached_group = (array) \TUTOR_BP\BuddyPress::get_group_ids_by_course(get_the_ID());
+$attached_group = (array) \TUTOR_BP\BuddyPressGroups::get_group_ids_by_course(get_the_ID());
 ?>
 
 <div class="tutor-option-field-row">

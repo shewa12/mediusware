@@ -11,7 +11,8 @@ class init{
 	public $basename;
 
 	//Module
-	private $buddypress;
+	private $buddypress_messages;
+	private $buddypress_groups;
 	private $buddypress_group_settings;
 
 	function __construct() {
@@ -30,23 +31,24 @@ class init{
 		$this->url = plugin_dir_url(TUTOR_BP_FILE);
 		$this->basename = plugin_basename(TUTOR_BP_FILE);
 
-		$this->load_TUTOR_BP();
 
-		add_action('bp_init', array($this, 'load_group_extension'), 10);
+		add_action('bp_init', array($this, 'load_group_extension'));
 	}
 
 	public function load_TUTOR_BP(){
-		if ( ! class_exists('BP_Group_Extension')){
-			include_once BP_PLUGIN_DIR.'bp-groups/classes/class-bp-group-extension.php';
-		}
-
 		/**
 		 * Loading Autoloader
 		 */
 
 		spl_autoload_register(array($this, 'loader'));
-		$this->buddypress = new BuddyPress();
-		$this->buddypress_group_settings = new BuddyPressGroupSettings();
+
+		if( bp_is_active('groups')){
+			$this->buddypress_groups = new BuddyPressGroups();
+			$this->buddypress_group_settings = new BuddyPressGroupSettings();
+		}
+		if (bp_is_active('messages')){
+			$this->buddypress_messages = new BuddyPressMessages();
+		}
 	}
 
 	/**
@@ -77,6 +79,8 @@ class init{
 	 */
 
 	function load_group_extension() {
+		$this->load_TUTOR_BP();
+
 		if ( bp_is_active('groups') && current_user_can('manage_tutor') ) {
 			bp_register_group_extension( 'TUTOR_BP\BuddyPressGroupSettings' );
 		}

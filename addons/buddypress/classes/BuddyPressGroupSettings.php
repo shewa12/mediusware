@@ -15,8 +15,6 @@ if ( ! defined( 'ABSPATH' ) )
 
 class BuddyPressGroupSettings extends \BP_Group_Extension {
 
-
-
 	public function __construct() {
 
 		$args = array(
