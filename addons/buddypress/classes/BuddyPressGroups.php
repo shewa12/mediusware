@@ -157,7 +157,7 @@ class BuddyPressGroups {
 	/**
 	 * BuddyPress Group Course Tab Page
 	 *
-	 * @since v.1.4.9
+	 * @since v.1.5.0
 	 */
 	public function bp_group_courses() {
 		//add_action('bp_template_title', array($this, 'bp_courses_group_show_screen_title'));
@@ -202,7 +202,7 @@ class BuddyPressGroups {
 
 	/**
 	 * Hook Event Started
-	 * @since v.1.4.8
+	 * @since v.1.5.0
 	 */
 
 	public function tutor_course_complete_after($course_id){
@@ -462,7 +462,7 @@ class BuddyPressGroups {
 	 *
 	 * Finish Quiz Activity on BuddyPress group
 	 *
-	 * @since v.1.4.9
+	 * @since v.1.5.0
 	 */
 	public function quiz_finish_activity($quiz_id, $user_id){
 

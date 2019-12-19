@@ -75,7 +75,7 @@ class init{
 
 	/**
 	 *
-	 * @since TutorPro v.1.4.8
+	 * @since TutorPro v.1.5.0
 	 */
 
 	function load_group_extension() {

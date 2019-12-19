@@ -90,15 +90,9 @@ class BuddyPressGroupSettings extends \BP_Group_Extension {
 					?> > <?php _e('User finished quiz', 'tutor-pro'); ?>
                 </label>
 
-
 			</div>
-
-
-
-
 		</div><br/>
 		<?php
-
 
 	}
 

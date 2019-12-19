@@ -26,7 +26,7 @@ class BuddyPressMessages {
 	/**
 	 * BuddyPress Message Thread Header
 	 *
-	 * @since v.1.4.9
+	 * @since v.1.5.0
 	 */
 
 	public function bp_before_message_thread_content(){
