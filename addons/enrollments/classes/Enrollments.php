@@ -48,7 +48,7 @@ class Enrollments {
 
 		$term = sanitize_text_field(tutils()->array_get('term', $_POST));
 
-		$student_res = $wpdb->get_results("SELECT * FROM {$wpdb->users} WHERE  display_name LIKE '%{$term}%' OR user_email LIKE '%{$term}%' ");
+		$student_res = $wpdb->get_results("SELECT * FROM {$wpdb->users} WHERE display_name LIKE '%{$term}%' OR user_email LIKE '%{$term}%' ");
 		$students = array();
 
 		if (tutils()->count($student_res)){
