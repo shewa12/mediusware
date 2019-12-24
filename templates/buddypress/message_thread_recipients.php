@@ -26,7 +26,6 @@ foreach ($recipients as $recipient){
 		$instructor_type = __('Instructor', 'tutor-pro');
 	}
 
-
 	$courses_by_instructor = tutils()->get_courses_by_instructor($current_user_id);
 	if (tutils()->count($courses_by_instructor)){
 		$courses_ids_by_instructor = wp_list_pluck($courses_by_instructor, 'ID');
@@ -62,7 +61,6 @@ foreach ($recipients as $recipient){
 				?>
             </div>
 
-
 			<?php
             $count_common_courses = tutils()->count($enrolled_common_course_ids);
 			if ($count_common_courses){
@@ -82,27 +80,6 @@ foreach ($recipients as $recipient){
 						                <?php echo $course_title; ?>
                                     </a>
                                 </li>
-
-                                <li>
-                                    <a href="<?php echo get_the_permalink( $course_id ); ?>" class="bp-tooltip"
-                                       data-bp-tooltip="<?php echo $course_title; ?>">
-						                <?php echo $course_title; ?>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="<?php echo get_the_permalink( $course_id ); ?>" class="bp-tooltip"
-                                       data-bp-tooltip="<?php echo $course_title; ?>">
-						                <?php echo $course_title; ?>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="<?php echo get_the_permalink( $course_id ); ?>" class="bp-tooltip"
-                                       data-bp-tooltip="<?php echo $course_title; ?>">
-						                <?php echo $course_title; ?>
-                                    </a>
-                                </li>
 				                <?php
 			                }
 		                }
@@ -113,9 +90,6 @@ foreach ($recipients as $recipient){
 				<?php
 			}
 			?>
-
-
-
 
         </div>
 

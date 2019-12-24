@@ -1,5 +1,5 @@
 <?php
-$groups = groups_get_groups();
+$groups = groups_get_groups(array('show_hidden' => true));
 $attached_group = (array) \TUTOR_BP\BuddyPressGroups::get_group_ids_by_course(get_the_ID());
 ?>
 
