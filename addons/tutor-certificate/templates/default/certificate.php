@@ -15,8 +15,6 @@
 
     <div class="certificate-content">
 		<?php
-		$user = wp_get_current_user();
-
 		$hour_text = '';
 		$min_text = '';
 		if ($durationHours){

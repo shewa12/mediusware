@@ -14,13 +14,20 @@ class Certificate{
 		if ( ! function_exists('tutor_utils')){
 			return;
 		}
+
 		add_action('tutor_options_before_tutor_certificate', array($this, 'generate_options'));
 
 		add_action('tutor_enrolled_box_after', array($this, 'certificate_download_btn'));
-		add_action('init', array($this, 'create_certificate'));
+		add_action('init', array($this, 'download_certificate'));
+		/**
+		 * @since v.1.5.1
+		 * View and download certificate
+		 */
+		add_action('init', array($this, 'download_certificate_public'));
+		add_action('wp_loaded', array($this, 'view_certificate'));
 	}
 
-	public function create_certificate(){
+	public function download_certificate(){
 		$download_action = sanitize_text_field(tutor_utils()->avalue_dot('tutor_action', $_GET));
 		if ($download_action !== 'download_course_certificate' || ! is_user_logged_in()){
 			return;
@@ -45,28 +52,101 @@ class Certificate{
 			return;
 		}
 
-		$this->generat_certificate($course_id);
+		$content = $this->generate_certificate($course_id);
+		$this->generate_PDF($content);
 	}
 
-	public function generat_certificate($course_id, $debug = false){
+	/**
+	 * View Certificate
+	 * @since v.1.5.1
+	 */
+	public function view_certificate(){
+		if ( ! extension_loaded('imagick')){
+			die('ImageMagick extension is not installed on your server.');
+		}
+
+		$cert_hash = sanitize_text_field(tutils()->array_get('cert_hash', $_GET));
+		$show_certificate = (bool) tutils()->get_option('tutor_course_certificate_view');
+
+
+		if (! $cert_hash || ! class_exists('Imagick') || ! $show_certificate){
+			return;
+		}
+		$completed = $this->completed_course($cert_hash);
+		if ( ! $completed){
+			return;
+		}
+		$file = $this->get_PDF($completed, true);
+		//generate image
+		$cert_img = new \Imagick();
+		$cert_img->readImageBlob($file);
+		$cert_img->setFormat( "jpg" );
+
+		$course = get_post($completed->course_id);
+		$this->certificate_header_content($course->post_title, $cert_img);
+
+		ob_start();
+		include TUTOR_CERT()->path.'views/certificate.php';
+		$content = ob_get_clean();
+		echo $content;
+		die();
+	}
+
+	/**
+	 * Download PDF Certificate
+	 * @since v.1.5.1
+	 */
+	public function download_certificate_public(){
+		$cert_hash = sanitize_text_field(tutils()->array_get('cert_hash', $_GET));
+		$tutor_action = sanitize_text_field(tutor_utils()->avalue_dot('tutor_action', $_GET));
+		if ($tutor_action !== 'download_pdf_certificate' || ! $cert_hash){
+			return;
+		}
+		$completed = $this->completed_course($cert_hash);
+		if ( ! $completed){
+			return;
+		}
+		$this->get_PDF($completed);
+	}
+
+	/**
+	 * Get PDF content
+	 * @since v.1.5.1
+	 */
+	public function get_PDF($completed, $debug=false){
+		//Get the selected template
+		$templates = $this->templates();
+		$template = tutor_utils()->get_option('certificate_template');
+		if ( ! $template){
+			$template = 'default';
+		}
+		$this->template = tutor_utils()->avalue_dot($template, $templates);
+		$oriantation = $this->template['orientation'];
+		$width = $oriantation === 'portrait' ? '21cm' : '29.7cm';
+		$content = $this->generate_certificate($completed->course_id, $completed);
+		$pdf = $this->generate_PDF($content, $debug);
+		if($debug) {
+			return $pdf;
+		}
+	}
+	
+
+	public function generate_certificate($course_id, $completed=false){
 		$duration           = get_post_meta( $course_id, '_course_duration', true );
 		$durationHours      = (int) tutor_utils()->avalue_dot( 'hours', $duration );
 		$durationMinutes    = (int) tutor_utils()->avalue_dot( 'minutes', $duration );
 		$course             = get_post($course_id);
-		$completed          = tutor_utils()->is_completed_course($course_id);
+		$completed          = ($completed) ? $completed : tutor_utils()->is_completed_course($course_id);
+		$user 				= ($completed) ? get_userdata($completed->completed_user_id) : wp_get_current_user();
 
 		ob_start();
 		include $this->template['path'].'certificate.php';
 		$content = ob_get_clean();
 
-		if ($debug){
-			echo $content;
-			die();
-		}
-		$this->generate_PDF($content);
+		return $content;
 	}
 
-	public function generate_PDF($certificate_content = null){
+	public function generate_PDF($certificate_content=null, $debug=false){
 		if ( ! $certificate_content){
 			return;
 		}
@@ -87,6 +167,9 @@ class Certificate{
 		//Setting Paper
 		$dompdf->setPaper('A4', $this->template['orientation']);
 		$dompdf->render();
+		if($debug) {
+			return $dompdf->output();
+		}
 		$dompdf->stream('certificate'.tutor_time().'.pdf');
 	}
 
@@ -155,5 +238,48 @@ class Certificate{
 		return apply_filters('tutor_certificate_templates', $templates);
 	}
 
+	/**
+	 * Get completed course data
+	 * @since v.1.5.1
+	 */
+	public function completed_course($cert_hash){
+		global $wpdb;
+		$is_completed = $wpdb->get_row(
+			"SELECT comment_ID, 
+					comment_post_ID as course_id, 
+					comment_author as completed_user_id, 
+					comment_date as completion_date, 
+					comment_content as completed_hash 
+			FROM	$wpdb->comments
+			WHERE 	comment_agent = 'TutorLMSPlugin' 
+					AND comment_type = 'course_completed' 
+					AND comment_content = '$cert_hash';"
+		);
 
+		if ($is_completed){
+			return $is_completed;
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Certificate header og content
+	 * @since v.1.5.1
+	 */
+	public function certificate_header_content($course_title, $cert_img){
+		add_action( 'wp_head', function() use ($course_title, $cert_img) {
+			$title = __('Course Completion Certificate', 'tutor-pro');
+			$description = __('My course completion certificate for', 'tutor-pro').' "'.$course_title.'"';
+			echo '
+				<meta property=”og:title” content=”'.$title.'”/>
+				<meta property=”og:description” content=”'.$description.'”/>
+				<meta property=”og:image” content="data:image/jpg;base64,'.base64_encode($cert_img).'"/>
+				<meta name=”twitter:title” content=”Your title here”/>
+				<meta name=”twitter:description” content=”'.$description.'”/>
+				<meta name=”twitter:image” content="data:image/jpg;base64,'.base64_encode($cert_img).'"/>
+			';
+		});
+	}
 }

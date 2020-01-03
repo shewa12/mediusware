@@ -112,6 +112,12 @@ class init{
 							'attr'          => array('media_type' => 'image'), //image,file
 							'desc'          => __('Upload a signature that will be printed at certificate.',	'tutor-pro'),
 						),
+						'tutor_course_certificate_view' => array(
+							'type'      	=> 'checkbox',
+							'label'     	=> __('View Certificate', 'tutor-pro'),
+							'label_title' 	=> __('Enable','tutor'),
+							'desc'      	=> __('By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible', 'tutor-pro'),
+						),
 
 					),
 				),

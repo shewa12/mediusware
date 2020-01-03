@@ -12,12 +12,8 @@
 
         <tr>
             <td>
-
-
                 <div class="certificate-content">
 		            <?php
-		            $user = wp_get_current_user();
-
 		            $hour_text = '';
 		            $min_text = '';
 		            if ($durationHours){
@@ -42,15 +38,9 @@
                     <h2 class="course-title"> <?php echo $course->post_title; ?> </h2>
                     <p>on <?php echo date('F d, Y', strtotime( $completed->completion_date) ); ?></p>
                 </div>
-
-
             </td>
 
-
-
             <td>
-
-
                 <div class="certificate-footer">
                     <table>
                         <tr>
@@ -83,16 +73,9 @@
                         </tr>
                     </table>
                 </div>
-
-
             </td>
         </tr>
-
     </table>
-
-
-
-
 </div>
 
 <div id="watermark">
