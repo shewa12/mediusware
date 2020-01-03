@@ -85,8 +85,21 @@ get_header(); ?>
         .tutor-certificate-sidebar-course {
             margin-top: 75px;
         }
+        .tutor-certificate-sidebar-course h3{
+            font-size: 18px;
+            font-weight: 600;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.56;
+            color: #4b5981;
+        }
         .tutor-certificate-sidebar-course .tutor-star-rating-group {
             display: block;
+            margin-bottom: 5px;
+        }
+        .tutor-certificate-sidebar-course h1.course-name{
+            font-size: 18px;
+            margin-bottom: 20px;
         }
         .tutor-sidebar-course-title {
             font-size: 20px;
@@ -96,12 +109,14 @@ get_header(); ?>
         }
         .tutor-sidebar-course-author {
             font-size: 14px;
+            display: flex;
         }
         .tutor-sidebar-course-author img {
             height: 25px;
             width: 25px;
             border-radius: 50%;
             vertical-align: middle;
+            margin-right: 7px;
         }
         .tutor-dropdown {
             position: relative;
@@ -137,25 +152,27 @@ get_header(); ?>
             margin: 0;
         }
         .tutor-dropdown-content li {
-            padding: 6px 20px;
             border-right: 1px solid #e9ebee;
         }
         .tutor-dropdown-content li:hover {
             background: #fbfbfb;
             cursor: pointer;
         }
-        .tutor-dropdown-content li:last-child { 
-            border-right: none; 
+        .tutor-dropdown-content li:last-child {
+            border-right: none;
         }
         .tutor-dropdown-content li a {
             color: #1d1f37;
             font-size: 16px;
             text-decoration: none;
+            line-height: 47px;
+            text-align: center;
+            padding: 0 20px;
         }
         .tutor-dropdown-content .tutor-social-share-wrap button{
             color: #81878F;
             background: #ffffff;
-            padding: 15px;
+            padding: 10px 15px;
         }
         .tutor-dropdown-content .tutor-social-share-wrap button:hover {
             color: #1b52d8;
@@ -184,9 +201,9 @@ get_header(); ?>
         }
     </style>
 
-	<div class="<?php tutor_container_classes(); ?>">
+    <div class="<?php tutor_container_classes(); ?>">
 		<?php do_action('tutor_certificate/before_content'); ?>
-        
+
         <div class="tutor-certificate-container">
             <div class="tutor-certificate-img-container">
                 <img src="data:image/jpg;base64,<?php echo base64_encode($cert_img); ?>" />
@@ -213,26 +230,28 @@ get_header(); ?>
                         <div class="tutor-share-btn">
                             <button class="tutor-dropbtn tutor-btn bordered-btn tutor-button-block"><i class="tutor-icon-share"></i></button>
                             <div class="tutor-dropdown-content">
-                                <?php tutor_social_share(); ?>
+								<?php tutor_social_share(); ?>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="tutor-certificate-sidebar-course">
-                    <h5><?php _e('About Course', 'tutor-pro'); ?></h5>
+                    <h3><?php _e('About Course', 'tutor-pro'); ?></h3>
                     <div class="tutor-course-loop-level"><?php echo get_tutor_course_level($course->ID); ?></div>
-                    <?php
-                        $course_rating = tutor_utils()->get_course_rating($course->ID);
-                        tutor_utils()->star_rating_generator($course_rating->rating_avg);
-                    ?>
-                    <a href="<?php echo $course->guid; ?>" class="tutor-sidebar-course-title"><?php echo $course->post_title; ?></a>
+					<?php
+					$course_rating = tutor_utils()->get_course_rating($course->ID);
+					tutor_utils()->star_rating_generator($course_rating->rating_avg);
+					?>
+
+                    <h1 class="course-name"><a href="<?php echo $course->guid; ?>" class="tutor-sidebar-course-title"><?php echo $course->post_title;
+                    ?></a></h1>
                     <div class="tutor-sidebar-course-author">
                         <img src="<?php echo get_avatar_url($course->post_author); ?>"/>
                         <span>
-                            <?php _e('by', 'tutor-pro'); ?> 
+                            <?php _e('by', 'tutor-pro'); ?>
                             <a href="<?php echo tutor_utils()->profile_url($course->post_author); ?>">
-                                <?php echo get_the_author_meta('display_name', $course->post_author); ?>
+                                <strong><?php echo get_the_author_meta('display_name', $course->post_author); ?></strong>
                             </a>
                         </span>
                     </div>
