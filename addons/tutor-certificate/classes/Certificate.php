@@ -61,21 +61,22 @@ class Certificate{
 	 * @since v.1.5.1
 	 */
 	public function view_certificate(){
-		if ( ! extension_loaded('imagick')){
-			die('ImageMagick extension is not installed on your server.');
-		}
-
 		$cert_hash = sanitize_text_field(tutils()->array_get('cert_hash', $_GET));
 		$show_certificate = (bool) tutils()->get_option('tutor_course_certificate_view');
 
 
-		if (! $cert_hash || ! class_exists('Imagick') || ! $show_certificate){
+		if (! $cert_hash || ! $show_certificate){
 			return;
 		}
 		$completed = $this->completed_course($cert_hash);
 		if ( ! $completed){
 			return;
 		}
+
+		if ( ! extension_loaded('imagick') || ! class_exists('Imagick') ){
+			die('ImageMagick extension is not installed on your server.');
+		}
+
 		$file = $this->get_PDF($completed, true);
 		//generate image
 		$cert_img = new \Imagick();
