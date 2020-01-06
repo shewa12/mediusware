@@ -39,6 +39,7 @@ get_header(); ?>
         }
         .tutor-certificate-sidebar {
             width: calc(26% - 30px);
+            padding-top: 50px;
         }
         .tutor-certificate-btn-group {
             display: flex;
@@ -126,7 +127,6 @@ get_header(); ?>
             top: 58px;
             right: 0;
             position: absolute;
-            border-radius: 4px;
             box-shadow: 0 22px 24px 0 rgba(219, 215, 215, 0.61);
             background-color: #ffffff;
             z-index: 999;
@@ -168,7 +168,19 @@ get_header(); ?>
             line-height: 47px;
             text-align: center;
             padding: 0 20px;
+            display: block;
         }
+        .tutor-dropdown-content li:first-child a {
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+        .tutor-dropdown-content li:last-child a {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+
+
         .tutor-dropdown-content .tutor-social-share-wrap button{
             color: #81878F;
             background: #ffffff;
