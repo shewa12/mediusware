@@ -167,7 +167,7 @@ class Updater{
                         <i class="dashicons dashicons-calendar"></i>
                         <?php
 
-                        if ($license_info->expires_at){
+                        if (strtotime($license_info->expires_at) > time()){
 	                        _e('License Valid Until : ', 'tutor-pro');
 	                        echo date(get_option( 'date_format' ), strtotime($license_info->expires_at));
                         }else{
