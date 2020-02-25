@@ -16,7 +16,7 @@ class EmailNotification{
 	public function __construct() {
 		add_action('admin_menu', array($this, 'register_menu'));
 
-		add_action('tutor_quiz_finished_after', array($this, 'quiz_finished_send_email_to_student'), 10, 1);
+		add_action('tutor_quiz_finished', array($this, 'quiz_finished_send_email_to_student'), 10, 1);
 		add_action('tutor_course_complete_after', array($this, 'course_complete_email_to_student'), 10, 1);
 		add_action('tutor_course_complete_after', array($this, 'course_complete_email_to_teacher'), 10, 1);
 		add_action('tutor_after_enroll', array($this, 'course_enroll_email'), 10, 1);
