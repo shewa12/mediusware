@@ -365,8 +365,7 @@ class EmailNotification{
 		
 		$user_id = get_current_user_id();
 		$student = get_userdata($user_id);
-		
-		
+
 		$course_id = tutor_utils()->get_course_id_by_lesson($lesson_id);
 
 		$lesson = get_post($lesson_id);
