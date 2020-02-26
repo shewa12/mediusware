@@ -57,11 +57,21 @@ $passing_grade = tutor_utils()->get_quiz_option($quiz_id, 'passing_grade', 0);
 
                 <td title="<?php _e('Pass Mark', 'tutor-pro'); ?>">
 			        <?php
-			        $pass_marks = ($attempt->total_marks * $passing_grade) / 100;
+                    if ($passing_grade > 0){
+	                    $pass_marks = ($attempt->total_marks * $passing_grade) / 100;
+                    }else{
+	                    $pass_marks = 0;
+                    }
 			        if ($pass_marks > 0){
 				        echo number_format_i18n($pass_marks, 2);
-			        }
-			        echo "({$passing_grade}%)";
+			        }else{
+                        echo 0;
+                    }
+			        if ($passing_grade > 0){
+				        echo "({$passing_grade}%)";
+			        }else{
+				        echo "(0%)";
+                    }
 			        ?>
                 </td>
 
