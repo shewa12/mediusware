@@ -2,7 +2,7 @@
 /*
 Plugin Name: Quiz Import Export
 Plugin URI: https://www.themeum.com/product/quiz-import-export
-Description: Quiz Imprort Export in CSV
+Description: Save time by exporting/importing quiz data with easy options
 Author: Themeum
 Version: 1.0.0
 Author URI: http://themeum.com
@@ -27,7 +27,7 @@ add_filter('tutor_addons_lists_config', 'tutor_quiz_import_export_config');
 function tutor_quiz_import_export_config($config){
 	$newConfig = array(
 		'name'          => __('Quiz Import Export', 'quiz-import-export'),
-		'description'   => __('Quiz Imprort Export in CSV', 'quiz-import-export'),
+		'description'   => __('Save time by exporting/importing quiz data with easy options', 'quiz-import-export'),
 	);
 	$basicConfig = (array) QUIZ_IMPORT_EXPORT();
 	$newConfig = array_merge($newConfig, $basicConfig);

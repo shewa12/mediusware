@@ -17,14 +17,14 @@ jQuery(document).ready(function($){
             success: function (arr) {
                 if (arr.success) {
                     let csvContent = "data:text/csv;charset=utf-8,";
-                    arr.data.forEach(function(rowArray) {
+                    arr.data.output_quiz_data.forEach(function(rowArray) {
                         let row = rowArray.join(",");
                         csvContent += row + "\r\n";
                     });
                     const encodedUri = encodeURI(csvContent);
                     let link = document.createElement("a");
                     link.setAttribute("href", encodedUri);
-                    link.setAttribute("download", "tutor_quiz_data.csv");
+                    link.setAttribute("download", "tutor-quiz-"+arr.data.title+".csv");
                     document.body.appendChild(link);
                     link.click();
                 }
