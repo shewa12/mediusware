@@ -175,7 +175,7 @@ class EmailNotification{
 
 
 		$file_tpl_variable = array(
-			'{teacher_username}',
+			'{instructor_username}',
 			'{student_username}',
 			'{course_name}',
 			'{completion_time}',
@@ -279,7 +279,7 @@ class EmailNotification{
 		$enroll_time_format = date_i18n(get_option('date_format'), $enroll_time).' '.date_i18n(get_option('time_format'), $enroll_time);
 
 		$file_tpl_variable = array(
-			'{teacher_username}',
+			'{instructor_username}',
 			'{student_username}',
 			'{course_name}',
 			'{enroll_time}',
@@ -325,7 +325,7 @@ class EmailNotification{
 		$question_title = $get_comment->question_title;
 
 		$file_tpl_variable = array(
-			'{teacher_username}',
+			'{instructor_username}',
 			'{student_username}',
 			'{course_name}',
 			'{course_url}',
@@ -376,7 +376,7 @@ class EmailNotification{
 		$completion_time_format = date_i18n(get_option('date_format'), $completion_time).' '.date_i18n(get_option('time_format'), $completion_time);
 		
 		$file_tpl_variable = array(
-			'{teacher_username}',
+			'{instructor_username}',
 			'{student_username}',
 			'{course_name}',
 			'{lesson_name}',
