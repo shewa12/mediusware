@@ -5,7 +5,7 @@ Tags: lms, course, elearning, education, learning management system
 Requires at least: 4.5
 Tested up to: 5.4
 Requires PHP: 5.4.0
-Stable tag: 1.5.6
+Stable tag: 1.6.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,7 +15,7 @@ A complete WordPress LMS plugin to create any e-learning website easily.
 
 Tutor is a complete, feature-packed and robust WordPress LMS plugin to create & sell courses online easily. All the features of this learning management system hits all the checkpoints for a full-fledged online course marketplace. You can create challenging and fun quizzes, interactive lessons, powerful reports and stats making Tutor potentially the best free WordPress LMS plugin. Manage, administer and monetize your education, online school, and online courses without having to write a single line of code.
 
-⭐ [Tutor LMS Pro](https://www.themeum.com/product/tutor-lms/) ⭐ || ⭐ [Tutor LMS Themes](https://www.themeum.com/theme-category/tutor/) ⭐ || [Live Demo](https://demo.themeum.com/plugins/tutor/) || [Documentation](https://www.themeum.com/docs/tutor-introduction/)
+⭐ [Tutor LMS Pro](https://www.themeum.com/product/tutor-lms/) ⭐ || ⭐ [Tutor LMS Themes](https://www.themeum.com/theme-category/tutor/) ⭐ || [Live Demo](https://demo.themeum.com/plugins/tutor/) || [Documentation](https://docs.themeum.com/tutor-lms/)
 
 Tutor LMS is a completely free Wordpress LMS plugin with premium high-quality addons that you can add to empower the core plugin more! This WordPress LMS plugin is lightweight with addons to enable certificates, e-mail notifications, shopping carts and so much more!
 
@@ -240,9 +240,18 @@ Tutor enables you to use any third party plugins without facing any compatibilit
 
 == Changelog ==
 
-= 1.5.6 - 14 April, 2020 =
+= 1.6.0 - 16 April, 2020 =
 
-* Added: Quiz Import Export Addons in the Tutor LMS Pro version
+* New: Quiz Export/Import add-on (Pro)
+* Added: Method `tutils()->cancel_course_enrol()`
+* Added: Function `is_single_course();`
+* Added: Action hook `do_action('tutor_new_instructor_after', $user_id);` at register instructor and apply as an instructor
+* Added: action hook `do_action(“tutor_course_builder_before_quiz_btn_action”, $quiz_id);`
+* Removed: Options from the _tutorobject JavaScript Variable
+* Fixed: Email notification showing raw variable {instructor_username}
+* Fixed: Paid Membership Pro expiration issue
+* Fixed: ability to empty and deleting empty additional meta fields from the post_meta.
+* Fixed: Earning option enable if the marketplace was selected during the setup wizard
 
 = 1.5.5 - 25 February, 2020 =
 
