@@ -10,10 +10,8 @@
     position: relative;
     margin-right: 2px;
 }
-.tutor-btn.btn-tutor-submit{
+.btn-tutor-submit{
     float: right;
-    padding-top: 8px;
-    padding-bottom: 11px;
     background: #ebeef0;
 }
 .btn-tutor-submit svg{
@@ -24,7 +22,7 @@
     position: relative;
     margin-right: 5px;
 }
-.tutor-btn.btn-tutor-submit:hover{
+.btn-tutor-submit:hover{
     color: var(--tutor-primary-color);
     background-color: #ebeef0;
 }

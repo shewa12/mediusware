@@ -20,7 +20,7 @@ class EmailNotification{
 		add_action('tutor_finish_quiz_attempt', array($this, 'quiz_finished_send_email_to_student'), 10, 1);
 		add_action('tutor_course_complete_after', array($this, 'course_complete_email_to_student'), 10, 1);
 		add_action('tutor_course_complete_after', array($this, 'course_complete_email_to_teacher'), 10, 1);
-		add_action('tutor_after_enroll', array($this, 'course_enroll_email'), 10, 1);
+		add_action('tutor/course/enrol_status_change/after', array($this, 'course_enroll_email'), 10, 2);
 		add_action('tutor_after_add_question', array($this, 'tutor_after_add_question'), 10, 2);
 		add_action('tutor_lesson_completed_after', array($this, 'tutor_lesson_completed_after'), 10, 1);
 	}
@@ -261,18 +261,23 @@ class EmailNotification{
 		$this->send($user->user_email, $subject, $message, $header );
 	}
 
-
-	public function course_enroll_email($course_id){
+    /**
+     * @param $enrol_id
+     * @param $status_to
+     *
+     * E-Mail to teacher when success enrol.
+     */
+	public function course_enroll_email($enrol_id, $status_to){
 		$enroll_notification = tutor_utils()->get_option('email_to_teachers.a_student_enrolled_in_course');
 
-		if ( ! $enroll_notification){
+		if ( ! $enroll_notification || $status_to !== 'completed'){
 			return;
 		}
 
 		$user_id = get_current_user_id();
 		$student = get_userdata($user_id);
 
-		$course = get_post($course_id);
+		$course = tutils()->get_course_by_enrol_id($enrol_id);
 		$teacher = get_userdata($course->post_author);
 
 		$enroll_time = tutor_time();
@@ -291,7 +296,7 @@ class EmailNotification{
 			$student->display_name,
 			$course->post_title,
 			$enroll_time_format,
-			get_the_permalink($course_id),
+			get_the_permalink($course->ID),
 		);
 
 		$subject = __($student->display_name.' enrolled '.$course->post_title, 'tutor-pro');
@@ -302,7 +307,7 @@ class EmailNotification{
 		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data );
 
 		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
-		$header = apply_filters('student_course_completed_email_header', $header, $course_id);
+		$header = apply_filters('student_course_completed_email_header', $header, $course->ID);
 
 		$this->send($teacher->user_email, $subject, $message, $header);
 	}

@@ -22,15 +22,14 @@ class QuizImportExport {
 		add_action('wp_ajax_quiz_import_data', 						array($this, 'quiz_import_data_callback'));
 		add_action('tutor_course_builder_before_quiz_btn_action',	array($this, 'quiz_action_button_callback'));
 		add_action('tutor_course_builder_after_btn_group', 			array($this, 'quiz_import_button_callback'));
-
 	}
 
 	public function quiz_import_button_callback($topic_id){ ?>
 		<input name="csv_file" class="tutor-csv-file" data-topic="<?php echo $topic_id; ?>" type="file" accept=".csv" />
-		<button type="button" class="icon-bl btn-tutor-submit tutor-btn default-btn">
+		<a href="javascript:;" class="btn-tutor-submit">
 			<svg id="Solid" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m232 271.431v-223.431a24 24 0 0 1 48 0v223.431l-24 24zm40.971 97.54 144-144a24 24 0 0 0 -33.942-33.942l-127.029 127.03-127.029-127.03a24 24 0 0 0 -33.942 33.942l144 144a24 24 0 0 0 33.942 0zm215.029 95.029v-112a24 24 0 0 0 -48 0v88h-368v-88a24 24 0 0 0 -48 0v112a24 24 0 0 0 24 24h416a24 24 0 0 0 24-24z"/></svg>
 			<?php _e('Import Quiz', 'tutor'); ?>
-		</button>
+		</a>
 	<?php }
 
 	public function quiz_action_button_callback($quiz_id = ''){
