@@ -56,5 +56,9 @@ jQuery(document).ready(function($){
         $( ".tutor_report_datepicker" ).datepicker({"dateFormat" : 'yy-mm-dd'});
     }
 
+    $('.single-course-report').on('change', function(e){
+        e.preventDefault();
+        window.location.href = window.location+'&course_id='+$(this).val();
+    });
 
 });
