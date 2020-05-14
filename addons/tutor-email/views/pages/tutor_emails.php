@@ -133,7 +133,7 @@
             </td>
             <td>
                 <code>
-                    {instructor_username}, {username}, {quiz_name}, {course_name}, {submission_time}, {quiz_url},
+                    {instructor_username}, {username}, {quiz_name}, {course_name}, {submission_time}, {quiz_review_url},
                 </code>
             </td>
         </tr>

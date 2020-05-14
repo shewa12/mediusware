@@ -284,7 +284,7 @@ class EmailNotification{
         $course_title = get_the_title($course_id);
         $submission_time_format = date_i18n(get_option('date_format'), $submission_time).' '.date_i18n(get_option('time_format'), $submission_time);
 
-        $quiz_url = get_the_permalink($quiz_id);
+        $attempt_url = tutor_utils()->get_tutor_dashboard_page_permalink('quiz-attempts/quiz-reviews/?attempt_id='.$attempt_id);
         $user = get_userdata(tutor_utils()->avalue_dot('user_id', $attempt));
 
         $teacher = get_userdata($course->post_author);
@@ -299,7 +299,7 @@ class EmailNotification{
             '{quiz_name}',
             '{course_name}',
             '{submission_time}',
-            '{quiz_url}',
+            '{quiz_review_url}',
         );
 
         $replace_data = array(
@@ -308,7 +308,7 @@ class EmailNotification{
             $quiz_name,
             $course_title,
             $submission_time_format,
-            "<a href='{$quiz_url}'>{$quiz_url}</a>",
+            "<a href='{$attempt_url}'>{$attempt_url}</a>",
         );
 
         $message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data );
