@@ -120,6 +120,23 @@
                 </code>
             </td>
         </tr>
+        <tr>
+            <td><?php _e('Student completed Submitted quiz','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_teachers.student_submitted_quiz');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {instructor_username}, {username}, {quiz_name}, {course_name}, {submission_time}, {quiz_url},
+                </code>
+            </td>
+        </tr>
 
         </tbody>
     </table>

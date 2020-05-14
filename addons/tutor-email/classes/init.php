@@ -105,6 +105,7 @@ class init{
 								'a_student_completed_course'            => __('A Student Completed Course', 'tutor-pro'),
 								'a_student_completed_lesson'            => __('A Student Completed Lesson', 'tutor-pro'),
 								'a_student_placed_question'             => __('A Student asked a question in Q&amp;A', 'tutor-pro'),
+								'student_submitted_quiz'             => __('Student submitted quiz', 'tutor-pro'),
 							),
 							'desc'      => __('Select when to send notification to the teachers',	'tutor-pro'),
 						),

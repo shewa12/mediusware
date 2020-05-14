@@ -18,7 +18,11 @@ class EmailNotification{
 
 		add_action('tutor_quiz/attempt_ended', array($this, 'quiz_finished_send_email_to_student'), 10, 1);
 		add_action('tutor_finish_quiz_attempt', array($this, 'quiz_finished_send_email_to_student'), 10, 1);
-		add_action('tutor_course_complete_after', array($this, 'course_complete_email_to_student'), 10, 1);
+
+        add_action('tutor_quiz/attempt_ended', array($this, 'quiz_finished_send_email_to_instructor'), 10, 1);
+        add_action('tutor_finish_quiz_attempt', array($this, 'quiz_finished_send_email_to_instructor'), 10, 1);
+
+        add_action('tutor_course_complete_after', array($this, 'course_complete_email_to_student'), 10, 1);
 		add_action('tutor_course_complete_after', array($this, 'course_complete_email_to_teacher'), 10, 1);
 		add_action('tutor/course/enrol_status_change/after', array($this, 'course_enroll_email'), 10, 2);
 		add_action('tutor_after_add_question', array($this, 'tutor_after_add_question'), 10, 2);
@@ -260,6 +264,61 @@ class EmailNotification{
 
 		$this->send($user->user_email, $subject, $message, $header );
 	}
+
+	public function quiz_finished_send_email_to_instructor($attempt_id){
+        $isEnable = tutor_utils()->get_option('email_to_students.student_submitted_quiz');
+        if ( ! $isEnable){
+            return;
+        }
+
+        $attempt = tutor_utils()->get_attempt($attempt_id);
+        $attempt_info = tutor_utils()->quiz_attempt_info($attempt_id);
+
+        $submission_time = tutor_utils()->avalue_dot('submission_time', $attempt_info);
+        $submission_time = $submission_time ? $submission_time : tutor_time();
+
+        $quiz_id = tutor_utils()->avalue_dot('comment_post_ID', $attempt);
+        $quiz_name = get_the_title($quiz_id);
+        $course = tutor_utils()->get_course_by_quiz($quiz_id);
+        $course_id = tutor_utils()->avalue_dot('ID', $course);
+        $course_title = get_the_title($course_id);
+        $submission_time_format = date_i18n(get_option('date_format'), $submission_time).' '.date_i18n(get_option('time_format'), $submission_time);
+
+        $quiz_url = get_the_permalink($quiz_id);
+        $user = get_userdata(tutor_utils()->avalue_dot('user_id', $attempt));
+
+        $teacher = get_userdata($course->post_author);
+
+        ob_start();
+        tutor_load_template( 'email.to_instructor_quiz_completed' );
+        $email_tpl = apply_filters( 'tutor_email_tpl/quiz_completed/to_instructor', ob_get_clean() );
+
+        $file_tpl_variable = array(
+            '{instructor_username}',
+            '{username}',
+            '{quiz_name}',
+            '{course_name}',
+            '{submission_time}',
+            '{quiz_url}',
+        );
+
+        $replace_data = array(
+            $teacher->display_name,
+            $user->display_name,
+            $quiz_name,
+            $course_title,
+            $submission_time_format,
+            "<a href='{$quiz_url}'>{$quiz_url}</a>",
+        );
+
+        $message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data );
+
+        $subject = apply_filters('student_quiz_completed_to_instructor_email_subject', sprintf(__("Submitted %s  answers, Review it", "tutor"), $quiz_name));
+        $header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
+        $header = apply_filters('student_quiz_completed_to_instructor_email_header', $header, $attempt_id);
+
+        $this->send($user->user_email, $subject, $message, $header );
+    }
 
     /**
      * @param $enrol_id
