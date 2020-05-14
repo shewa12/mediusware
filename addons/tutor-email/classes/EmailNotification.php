@@ -266,7 +266,7 @@ class EmailNotification{
 	}
 
 	public function quiz_finished_send_email_to_instructor($attempt_id){
-        $isEnable = tutor_utils()->get_option('email_to_students.student_submitted_quiz');
+        $isEnable = tutor_utils()->get_option('email_to_teachers.student_submitted_quiz');
         if ( ! $isEnable){
             return;
         }
