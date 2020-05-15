@@ -243,10 +243,15 @@ Tutor enables you to use any third party plugins without facing any compatibilit
 = 1.6.2 - 14 May, 2020 =
 
 * Added: Display Name preference on the certificate, added settings to Dashboard > Settings > Profile
+* Added: Custom HTML support for quiz question description
+* Added: Quiz status pending if contains open ended and short questions.
 * Fixed: Tutor LMS > Enrollments is showing same date for all items
-* Fixed: Instant result publish for quiz question types open-ended and short description
-* Does not show 11th course on Dashboard
-* Custom HTML Support support on question description.
+* Fixed: Does not show 11th course on Dashboard
+* Fixed: Check file extension while uploading the video
+* FIxed: Wrong link in withdraw preference in dashboard
+* FIxed: What Will I Learn section is hidden for enrolled students
+* Fixed: Missing translations in dashboard
+* Update: Course status 'Publish' to 'Published' in dashboard
 
 = 1.6.1 - 29 April, 2020 =
 
