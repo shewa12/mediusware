@@ -12,7 +12,6 @@ class Tools {
 		//add_action('tutor_once_in_day_run_schedule', array($this, 'delete_auto_draft_posts'));
 		add_action('tutor_action_regenerate_tutor_pages', array($this, 'regenerate_tutor_pages'));
 
-
 		add_action('tutor_option_save_after', array($this, 'tutor_option_save_after'));
 		add_action('init', array($this, 'check_if_maintenance'));
 
