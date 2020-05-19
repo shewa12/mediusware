@@ -1,0 +1,188 @@
+.certificate-templates-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+.certificate-template {
+    max-width: 150px;
+    padding: 5px;
+    margin: 3px;
+}
+.certificate-template.selected-template, .certificate-template:hover {
+    background: #3057D6;
+}
+.certificate-template img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+.tutor-install-notice{
+    padding: 20px;
+}
+.tutor-install-notice-inner{
+    display: flex;
+    align-items: center;
+}
+.tutor-install-notice-inner .button{
+    padding: 5px 30px;
+    height: auto;
+    line-height: 20px;
+    text-transform: capitalize;
+}
+.tutor-install-notice-content{
+    flex-grow: 1;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.tutor-install-notice-icon img{
+    width: 64px;
+    border-radius: 4px;
+    display: block;
+}
+.tutor-install-notice-content h2{
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.tutor-install-notice-content p{
+    margin-top: 0;
+    margin-bottom: 0px;
+    padding: 0;
+}
+/**
+GradeBook Addon css
+ */
+.gradebook-list-table td, .gradebook-list-table th{
+    padding: 10px;
+}
+.gradename-bg{
+    text-align: center;
+    color: #ffffff;
+    height: 32px;
+    min-width: 16px;
+    font-size: 16px;
+    line-height: 32px;
+    padding: 0 8px;
+    display: inline-block;
+    border-radius: 20px;
+}
+.gradename-outline{
+    text-align: center;
+    height: 32px;
+    min-width: 16px;
+    font-size: 16px;
+    line-height: 32px;
+    padding: 0 8px;
+    display: inline-block;
+    border-radius: 20px;
+    border: 2px solid;
+}
+.tutor-gradebook-nav-wrapper{
+    margin: 10px 0;
+}
+
+table.gradebooks-lists {
+    border-spacing: 0;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #dcdfe5;
+}
+table.gradebooks-lists caption {
+    padding: 1em 0;
+    font-weight: 600; }
+table.gradebooks-lists td,
+table.gradebooks-lists th {
+    padding: 1em 1.41575em;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid #dcdfe5;
+}
+table.gradebooks-lists td p:last-child,
+table.gradebooks-lists th p:last-child {
+    margin-bottom: 0; }
+table.gradebooks-lists th {
+    font-weight: 600; }
+table.gradebooks-lists thead th {
+    padding: 1.41575em;
+    vertical-align: middle; }
+table.gradebooks-lists tbody h2 {
+    font-size: 1em;
+    letter-spacing: normal;
+    font-weight: normal; }
+table.gradebooks-lists tbody h2 a {
+    font-weight: normal; }
+table.gradebooks-lists th {
+    background-color: #fafbfc;
+}
+table.gradebooks-lists tbody td {
+    background-color: #ffffff;
+}
+table.gradebooks-lists tbody tr:nth-child(2n) td {
+    background-color: #fafbfc;
+}
+table.gradebooks-lists a{
+    text-decoration: none;
+}
+.gradebook-date{
+    color: #4b5981;
+}
+.gradebooks-user-col img{
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+}
+table.gradebooks-lists p{
+    margin: 0;
+}
+.gradebooks-user-col .user-info-col{
+    margin-left: 10px;
+}
+.course-completion-status{
+    color: #4b5981;
+}
+.course-completion-status.course-inprogress i{
+    color: #f5a623;
+}
+.course-completion-status.course-completed i{
+    color: #35bc31;
+}
+
+.gradebook-overview-footer, .gradebook-overview-header{
+    margin: 20px 0;
+}
+.gradebook-overview-pagination-col .tutor-pagination{
+    margin: 0;
+}
+.gradebook-overview-footer .tutor-flex-row, .gradebook-overview-header .tutor-flex-row{
+    align-items: center;
+    justify-content: space-between;
+}
+#gradebook-search-term{
+    padding: 15px 20px;
+    border: 1px solid #dcdfe5;
+    box-shadow: none;
+    padding-right: 40px;
+    width: 300px;
+}
+button#gradebook-search-btn {
+    border: navajowhite;
+    background: none;
+    margin-left: -33px;
+}
+.gradebook-search-form-group {
+    display: flex;
+}
+.gradebook-actions-wrap a{
+    display: inline-block;
+    color: #A7A8AA;
+    font-size: 20px;
+    margin-right: 15px;
+}
+.gradebook-actions-wrap a.gradebook-edit-btn:hover{
+    color: #3057D5;
+}
+.gradebook-actions-wrap a.gradebook-delete-btn:hover{
+    color: #D71830;
+}
+/**
+*END GradeBook
+ */

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .DS_Store
 node_modules/
 ehthumbs.db
@@ -10,3 +11,6 @@ yarn.lock
 .sass-cache
 assets/css/tutor-front.css.map
 assets/css/tutor-front.min.css.map
+=======
+.DS_Store
+>>>>>>> 4b120e47dd4d6326b3db3775f1703275cc58fbc8

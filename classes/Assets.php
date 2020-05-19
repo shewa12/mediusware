@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
 namespace TUTOR;
+=======
+namespace TUTOR_PRO;
+>>>>>>> 4b120e47dd4d6326b3db3775f1703275cc58fbc8
 
 if ( ! defined( 'ABSPATH' ) )
 	exit;
@@ -8,6 +12,7 @@ class Assets{
 
 	public function __construct() {
 		add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
+<<<<<<< HEAD
 		add_action('wp_enqueue_scripts', array($this, 'frontend_scripts'));
 		add_action( 'admin_head', array($this, 'tutor_add_mce_button'));
 		add_filter( 'get_the_generator_html', array($this, 'tutor_generator_tag'), 10, 2 );
@@ -225,4 +230,14 @@ class Assets{
 		return $gen;
 	}
 	
+=======
+	}
+
+	public function admin_scripts(){
+		wp_enqueue_style('tutor-pro-admin', tutor_pro()->url.'assets/css/admin.css', array(), tutor_pro()->version);
+		wp_enqueue_script('tutor-pro-admin', tutor_pro()->url.'assets/js/admin.js', array('jquery'), tutor_pro()->version, true);
+	}
+
+
+>>>>>>> 4b120e47dd4d6326b3db3775f1703275cc58fbc8
 }
