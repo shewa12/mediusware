@@ -11,7 +11,7 @@ namespace TUTOR_EMAIL;
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
-class EmailNotification{
+class EmailNotification {
 
 	public function __construct() {
 		add_action('admin_menu', array($this, 'register_menu'));
