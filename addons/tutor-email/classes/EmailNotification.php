@@ -390,11 +390,15 @@ class EmailNotification {
 		$question = $get_comment->comment_content;
 		$question_title = $get_comment->question_title;
 
+		$enroll_time = tutor_time();
+		$enroll_time_format = date_i18n(get_option('date_format'), $enroll_time).' '.date_i18n(get_option('time_format'), $enroll_time);
+
 		$file_tpl_variable = array(
 			'{instructor_username}',
 			'{student_username}',
 			'{course_name}',
 			'{course_url}',
+			'{enroll_time}',
 			'{question_title}',
 			'{question}',
 		);
@@ -404,6 +408,7 @@ class EmailNotification {
 			$student->display_name,
 			$course->post_title,
 			get_the_permalink($course_id),
+			$enroll_time_format,
 			$question_title,
 			$question,
 		);
