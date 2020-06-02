@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-=== Tutor LMS - eLearning and online course solution ===
-Contributors: themeum, kawshar, mhshohel, jakirhasan, anik4e, delowardev, rejuancse, badsha_eee, faisalahmed29, joomcoder, sksaaju
-=======
 === Tutor LMS Pro - eLearning and online course solution ===
 Contributors: themeum
->>>>>>> 4b120e47dd4d6326b3db3775f1703275cc58fbc8
 Donate link: https://www.themeum.com
 Tags: lms, course, elearning, education, learning management system
 Requires at least: 4.5
@@ -30,10 +25,6 @@ Get Tutor, the most advanced and powerful WordPress online course plugin.
 
 Create, customize, manage, and sell online courses by building a functional e-learning website with this free LMS plugin for WordPress.
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4b120e47dd4d6326b3db3775f1703275cc58fbc8
 Want to know all the latest news and be part of the Tutor LMS community? Join our [Facebook Tutor LMS Community group!](https://www.facebook.com/groups/tutorlms)
 
 = Features =
@@ -167,15 +158,6 @@ Have the most secure learning management system when creating your online course
 
 - **Frontend Course Builder:** Build your course on the go using the frontend course builder in Tutor LMS plugin. Instructors can see how their course looks live without even having to go backend. The industry-first frontend course builder in any WordPress LMS plugin ever.
 
-<<<<<<< HEAD
-- ** 5 Pro Question Patterns: **
-
-    * Short Answer
-    * Matching
-    * Image Matching
-    * Image Answering
-    * Ordering
-=======
 - **5 Pro Question Patterns:**
 
 * Short Answer
@@ -183,7 +165,6 @@ Have the most secure learning management system when creating your online course
 * Image Matching
 * Image Answering
 * Ordering
->>>>>>> 4b120e47dd4d6326b3db3775f1703275cc58fbc8
 
 Looking for the best LMS for WordPress? Get Tutor and start your e-learning website immediately.
 
@@ -298,57 +279,7 @@ Tutor enables you to use any third party plugins without facing any compatibilit
 * Fixed: ability to empty and deleting empty additional meta fields from the post_meta.
 * Fixed: Earning option enable if the marketplace was selected during the setup wizard
 
-<<<<<<< HEAD
-= 1.5.9 - 08 April, 2020 =
-
-* Fixed: Dashboard > Earning > Statements link fixed from Earning page
-* Fixed: Course author flag, the flag will be only author name besides.
-* Fixed: Instructor search options
-* Fixed: Capability to add more than 10 Instructors
-* Fixed: Fill the gap quiz option is not accepting capital letters
-* Fixed: Perfect report showing from starting day to ending day, scenario: Last Month, This Month, Last Week, This Week, Date Range.
-* Fixed: Allow Publishing Course option is not working in Gutenberg editor backend
-* Fixed: Quiz image matching question image covering the matching words issue
-* Fixed: Withdrawal timezone issue
-* Fixed: One instructor can view others withdrawal amount
-* Fixed: (Oxygen Builder Integration) Student getting Instructor dashboard
-* Fixed: few spelling issue
-
-= 1.5.8 - 31 March, 2020 =
-
-* Updated: Wishlist will now show Tutor LMS popup login form to non-logged users
-* Update: No more course price in a single course if the course already enrolled.
-* Fix: Set value 0 to show default value in option panel
-* Fix: Auto-assign Admin while approving pending course at Gutenberg editor
-* Fix: Admin added as an instructor by default in courses
-* Fix: Disable review option working properly, disabled course review form
-* Fix: Quiz Attempts end time
-* Fix: Quiz Attempts answers order
-* Fix: Wrong calculation when enabled fees deduction before instructor and admin share divide.
-* Deprecated: tutor_archive_course_add_to_cart() from v.1.5.8
-* Removed: "tutor_archive_course_add_to_cart()" from the "plugins/tutor/templates/archive-course.php". Please update if you had overridden this file to your theme.
-
-= 1.5.7 - 19 March, 2020 =
-
-* New: Setup Wizard for faster and smoother launch
-* New: get_tutor_all_withdrawal_methods() function to get all available withdrawal methods
-* Update: Optimized database query on get_course_first_lesson() on Utils
-* Update: Show/hide withdrawal requests and Instructors menu from Tutor Admin Menu based on enable/disable course marketplace
-* Fix: Timezone issue at quiz start and the remaining time
-* Fix: Few text domains added for translation support
-* Fix: Continue to Lesson button issue when 100% of the course is complete
-
-= 1.5.6 - 06 March, 2020 =
-
-* New: Feature image support for lessons
-* Fix: Courses per page issue on course archives in Divi Builder
-* Fix: Search issue on custom course archive pages
-* Fix: Redirect to next lesson issue after completing lessons (headers sent)
-
-= 1.5.5 - 27 February, 2020 =
-=======
 = 1.5.5 - 25 February, 2020 =
->>>>>>> 4b120e47dd4d6326b3db3775f1703275cc58fbc8
 
 * New: Custom links now supported in Dashboard menu
 * New: Dashboard headers added in shortcode/oxygen dashboard template
@@ -383,15 +314,7 @@ Tutor enables you to use any third party plugins without facing any compatibilit
 * Fixed: ask the question from assignments and quiz page.
 * Fixed: permission issue for auto-installation tutor plugin
 
-<<<<<<< HEAD
-= 1.5.1 - 08 January, 2020 =
-
-* Fixed an update during lesson content from modal
-
-= 1.5.0 - 06 January, 2020 =
-=======
 = 1.5.1 - 06 January, 2020 =
->>>>>>> 4b120e47dd4d6326b3db3775f1703275cc58fbc8
 
 * Certificate verification public URL (Pro)
 * Added: filter `apply_filters('tutor_courses_base_slug', $course_post_type)`
@@ -399,11 +322,7 @@ Tutor enables you to use any third party plugins without facing any compatibilit
 * Fixed: lesson editor content post issue, some content sometime not saved before.
 * Fixed: file system issue after update option hook, while create maintance mode file.
 
-<<<<<<< HEAD
-= 1.4.9 - 24 December, 2019 =
-=======
 = 1.5.0 - 24 December, 2019 =
->>>>>>> 4b120e47dd4d6326b3db3775f1703275cc58fbc8
 
 * Added: BuddyPress Integration (TutorLMS Pro)
 * Added: Go next lesson after ending video lesson
@@ -412,13 +331,10 @@ Tutor enables you to use any third party plugins without facing any compatibilit
 * Added: action hook `do_action('tutor_quiz/start/after', $quiz_id, $user_id, $attempt_id);`
 * Added: filter `apply_filters('is_completed_course', $is_completed, $course_id, $user_id)`
 
-<<<<<<< HEAD
-=======
 = 1.4.9 - 12 December, 2019 =
 
 * Fixed: fatal error when tutor LMS regular version is not exists
 
->>>>>>> 4b120e47dd4d6326b3db3775f1703275cc58fbc8
 = 1.4.8 - 10 December, 2019 =
 
 * Added: Restrict Content Pro Integration (TutorLMS Pro)
@@ -493,10 +409,6 @@ do_action('tutor_addon_after_enable_disable');
 * Fixed: `.tutor-icon-angle-left` `.tutor-icon-angle-right` toggle during lesson single sidebar show hide
 * Updated: Addon icons
 
-<<<<<<< HEAD
-
-[View the full changelog](https://github.com/themeum/tutor/blob/master/.github/changelog.md#tutorlms-changelog)
-=======
 = 1.4.1 - 10 September, 2019 =
 
 * Added: utils method `get_course_settings($course_id = 0, $key = null, $default = false)`
@@ -812,7 +724,6 @@ Added: action hook `do_action('tutor_load_template_before', $template, $variable
 = 1.0.0-alpha - 06 Feb, 2019 =
 
 * Alpha Release
->>>>>>> 4b120e47dd4d6326b3db3775f1703275cc58fbc8
 
 == Upgrade Notice ==
 
