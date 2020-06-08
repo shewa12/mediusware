@@ -410,10 +410,10 @@ class EmailNotification {
 			get_the_permalink($course_id),
 			$enroll_time_format,
 			$question_title,
-			$question,
+			wpautop(stripslashes($question)),
 		);
 
-		$subject = __(sprintf('%s Asked a question to %s', $student->display_name, $course->post_title), 'tutor-pro');
+		$subject = __(sprintf('%s asked a question on %s', $student->display_name, $course->post_title), 'tutor-pro');
 
 		ob_start();
 		tutor_load_template( 'email.to_instructor_asked_question_by_student' );
