@@ -175,7 +175,6 @@ class Certificate{
 	}
 
 	public function pdf_style() {
-		//$css = TUTOR_CERT()->path.'assets/css/pdf.css';
 		$css = $this->template['path'].'pdf.css';
 
 		ob_start();
