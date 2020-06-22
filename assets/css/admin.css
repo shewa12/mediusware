@@ -200,13 +200,15 @@ button#gradebook-search-btn {
 /**
 * Tutor Report ------> START
 */
+
+/* Single Course */
 .tutor-report-content {
 	font-size: 14px;
 	font-weight: 400;
 	line-height: 1.71;
 	color: #737787;
 }
-.tutor-report-left-menus {
+.tutor-report-content .tutor-report-left-menus {
 	margin-bottom: 40px;
 }
 .tutor-report-content-menu {
@@ -260,7 +262,7 @@ button#gradebook-search-btn {
 	background-color: #ffffff;
 	padding: 0 14px;
 }
-.date-range-input i.tutor-icon-calendar {
+.tutor-report-content-menu .date-range-input i.tutor-icon-calendar {
 	position: absolute;
 	width: 42px;
 	height: 40px;
@@ -293,7 +295,7 @@ button#gradebook-search-btn {
 	box-shadow: none !important;
 }
 
-.tutor-report-content-main {
+.tutor-report-content-single-course {
 	border-radius: 3px;
 	background-color: #ffffff;
 	padding: 35px 0px;
@@ -311,7 +313,7 @@ button#gradebook-search-btn {
 	padding: 0 30px;
 }
 
-.tutor-report-content .tutor-report-table tr th {
+.tutor-report-content-single-course tr th {
 	background-color: #f7f7f9;
 	font-size: 12px;
 	font-weight: 500;
@@ -321,12 +323,12 @@ button#gradebook-search-btn {
 	text-transform: uppercase;
 }
 
-.tutor-report-table td:not(:first-child) {
+.tutor-report-content-single-course td:not(:first-child) {
 	font-size: 16px;
 	font-weight: 400;
 }
 
-.tutor-report-table td {
+.tutor-report-content-single-course td {
 	border-bottom: 1px solid #eaeaea;
 	padding: 23px;
 	vertical-align: middle;
@@ -336,13 +338,13 @@ button#gradebook-search-btn {
 	color: #3f435b;
 }
 
-.tutor-report-table td:last-child {
+.tutor-report-content-single-course td:last-child {
 	padding-right: 12px;
 	padding-left: 12px;
 }
 
-.tutor-report-content .tutor-report-table tr th:first-child,
-.tutor-report-content .tutor-report-table tr td:first-child {
+.tutor-report-content-single-course tr th:first-child,
+.tutor-report-content-single-course tr td:first-child {
 	width: 45%;
 	padding-left: 30px;
 }
@@ -358,7 +360,7 @@ button#gradebook-search-btn {
 	margin: 0;
 }
 
-.tutor-report-table td a:first-child {
+.tutor-report-content-single-course td a:first-child {
 	font-size: 12px;
 	font-weight: 500;
 	line-height: 1.75;
@@ -370,25 +372,25 @@ button#gradebook-search-btn {
 	margin-right: 15px;
 }
 
-.tutor-report-table td a:hover,
-.tutor-report-table td a:focus {
+.tutor-report-content-single-course td a:hover,
+.tutor-report-content-single-course td a:focus {
 	color: #3e64de;
 	border-color: #3e64de;
 }
 
-.tutor-report-table td a {
+.tutor-report-content-single-course td a {
 	font-size: 14px;
 	color: #b9bac3;
 	transition: 0.2s;
 }
 
-.tutor-report-count {
+.tutor-report-content .tutor-report-count {
 	font-size: 14px;
 	line-height: 1.71;
 	color: #737787;
 }
 
-.tutor-report-count strong {
+.tutor-report-content .tutor-report-count strong {
 	color: #3f435b;
 }
 

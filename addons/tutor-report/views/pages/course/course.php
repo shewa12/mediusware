@@ -463,7 +463,7 @@ if(isset($_GET['course_id'])){
         </div>
     </div>
 
-    <div class="tutor-report-content-main">
+    <div class="tutor-report-content-single-course">
         <div class="tutor-report-content-header"><?php _e('Course List', 'tutor'); ?></div>
         <table class="widefat tutor-report-table">
             <tr>
