@@ -541,88 +541,97 @@ if(isset($_GET['course_id'])){
         $complete_data = 0;
     }
     ?>
-
-    <div>
-        <div><?php _e('Search', 'tutor'); ?></div>
+    <div class="tutor-report-content-menu">
         <div>
-            <input type="text" class="tutor-report-search" value="<?php echo $_search; ?>" autocomplete="off" placeholder="Search in here." />
-            <button class="tutor-report-search-btn"><?php _e('Search' ,'tutor-pro'); ?></button>
+            <div>
+                <input type="text" class="tutor-report-search" value="<?php echo $_search; ?>" autocomplete="off" placeholder="Search in here." />
+                <button class="tutor-report-search-btn"><i class="fas fa-search"></i></button>
+            </div>
         </div>
-    </div>
 
-    <div>
-        <div><?php _e('Category', 'tutor'); ?></div>
         <div>
-            <select class="tutor-report-category">
-                <?php
-                    $terms = get_terms( 'course-category', array( 'hide_empty' => true) );
-                    if (!empty($terms)) {
-                        array_unshift($terms, (object)['term_id' => '', 'name' => 'All']);
-                        foreach ($terms as $key => $val) {
-                            echo '<option '.($_cat == $val->term_id ? "selected" : "").' value="'.$val->term_id.'">'.$val->name.'</option>';
+            <div class="menu-label"><?php _e('Category', 'tutor'); ?></div>
+            <div>
+                <select class="tutor-report-category">
+                    <?php
+                        $terms = get_terms( 'course-category', array( 'hide_empty' => true) );
+                        if (!empty($terms)) {
+                            array_unshift($terms, (object)['term_id' => '', 'name' => 'All']);
+                            foreach ($terms as $key => $val) {
+                                echo '<option '.($_cat == $val->term_id ? "selected" : "").' value="'.$val->term_id.'">'.$val->name.'</option>';
+                            }
                         }
-                    }
-                ?>
-            </select>
+                    ?>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div>
-        <div><?php _e('Sort By', 'tutor'); ?></div>
         <div>
-            <select class="tutor-report-sort">
-                <option <?php selected( $order_filter, 'ASC' ); ?>>ASC</option>
-                <option <?php selected( $order_filter, 'DESC' ); ?>>DESC</option>
-            </select>
+            <div class="menu-label"><?php _e('Sort By', 'tutor'); ?></div>
+            <div>
+                <select class="tutor-report-sort">
+                    <option <?php selected( $order_filter, 'ASC' ); ?>>ASC</option>
+                    <option <?php selected( $order_filter, 'DESC' ); ?>>DESC</option>
+                </select>
+            </div>
+        </div>
+
+        <div>
+            <div class="menu-label"><?php _e('Date', 'tutor'); ?></div>
+            <div class="date-range-input">
+                <input type="text" class="tutor_report_datepicker tutor-report-date" value="<?php echo $_date; ?>" autocomplete="off" placeholder="<?php echo date("Y-m-d", strtotime("last sunday midnight")); ?>" />
+                <i class="tutor-icon-calendar"></i>
+            </div>
         </div>
     </div>
 
-    <div>
-        <div><?php _e('Date', 'tutor'); ?></div>
-        <div class="date-range-input">
-            <input type="text" class="tutor_report_datepicker tutor-report-date" value="<?php echo $_date; ?>" autocomplete="off" placeholder="<?php echo date("Y-m-d", strtotime("last sunday midnight")); ?>" />
-            <i class="tutor-icon-calendar"></i>
+    <div class="tutor-list-wrap tutor-report-course-list ">
+        <div class="tutor-list-header">
+            <div class="heading"><?php _e('Course List', 'tutor'); ?></div>
         </div>
-    </div>
-
-    <div class="tutor-bg-white box-padding">
-        <h3><?php _e('Course List', 'tutor'); ?></h3>
-        <table class="widefat tutor-report-table">
-            <tr>
-                <th><?php _e('Course', 'tutor-pro'); ?></th>
-                <th><?php _e('Lesson', 'tutor-pro'); ?></th>
-                <th><?php _e('Quiz', 'tutor-pro'); ?></th>
-                <th><?php _e('Assignment', 'tutor-pro'); ?></th>
-                <th><?php _e('Total Learners', 'tutor-pro'); ?></th>
-                <th><?php _e('Earnings', 'tutor-pro'); ?></th>
-                <th><?php _e('Action', 'tutor-pro'); ?></th>
-            </tr>
-            <?php foreach ($course_single as $key => $course) { ?>
+        <table class="tutor-list-table ">
+            <thead>
                 <tr>
-                    <td><?php echo $course['course']; ?></td>
-                    <td><?php echo $course['lesson']; ?></td>
-                    <td><?php echo $course['quiz']; ?></td>
-                    <td><?php echo $course['assignment']; ?></td>
-                    <td><?php echo $course['learners']; ?></td>
-                    <td><?php echo $course['earnings']; ?></td>
-                    <td>
-                        <a href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=course&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
-                        <a href="<?php echo $course['link']; ?>" target="_blank"><?php _e('Link', 'tutor') ?></a>
-                    </td>
+                    <th><?php _e('Course', 'tutor-pro'); ?></th>
+                    <th><?php _e('Lesson', 'tutor-pro'); ?></th>
+                    <th><?php _e('Quiz', 'tutor-pro'); ?></th>
+                    <th><?php _e('Assignment', 'tutor-pro'); ?></th>
+                    <th><?php _e('Total Learners', 'tutor-pro'); ?></th>
+                    <th><?php _e('Earnings', 'tutor-pro'); ?></th>
+                    <th></th>
                 </tr>
-            <?php } ?>
+            </thead>
+            <tbody>
+                <?php foreach ($course_single as $key => $course) { ?>
+                    <tr>
+                        <td><?php echo $course['course']; ?></td>
+                        <td><?php echo $course['lesson']; ?></td>
+                        <td><?php echo $course['quiz']; ?></td>
+                        <td><?php echo $course['assignment']; ?></td>
+                        <td><?php echo $course['learners']; ?></td>
+                        <td><?php echo $course['earnings']; ?></td>
+                        <td>
+                            <a href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=course&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
+                            <a href="<?php echo $course['link']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
         </table>
 
-        <div class="tutor-report-count"><?php printf( __( 'Items %d of %d total', 'tutor-pro' ), $per_page, $total_items ); ?></div>
-
-        <div class="tutor-pagination">
-            <?php
-            echo paginate_links( array(
-                'base' => str_replace( 1, '%#%', "admin.php?page=tutor_report&sub_page=course&paged=%#%" ),
-                'current' => max( 1, $current_page ),
-                'total' => ceil($total_items/$per_page)
-            ) );
-            ?>
+        <div class=" tutor-list-footer">
+            <div class="tutor-report-count">
+                <?php echo "Items "."<strong> ".$per_page." </strong> of". "<strong> ".$total_items." </strong> total" ?>
+            </div>
+            <div class="tutor-pagination">
+                <?php
+                echo paginate_links( array(
+                    'base' => str_replace( 1, '%#%', "admin.php?page=tutor_report&sub_page=course&paged=%#%" ),
+                    'current' => max( 1, $current_page ),
+                    'total' => ceil($total_items/$per_page)
+                ) );
+                ?>
+            </div>
         </div>
 
     </div>
