@@ -15,7 +15,7 @@
 					</div>
 				</div>
 				<div class="show-profile">
-					<a href="#" class="btn show-profile-btn">View Profile</a>
+					<a href="#" class="btn show-profile-btn tutor-report-btn primary">View Profile</a>
 				</div></div>
 			<div class="profile-table">
 				<table>
