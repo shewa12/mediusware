@@ -158,7 +158,7 @@
 	</div>
 	<!-- /.report-date-filter -->
 
-	<!-- report-course-list -->
+	<!-- .report-course-list -->
 	<div class="tutor-list-wrap report-course-list">
 		<div class="tutor-list-header report-course-list-header">
 			<div class="heading">Course List</div>
@@ -191,7 +191,7 @@
 						<td><span class="complete">18</span><span class="total">/36</span></td>
 						<td><span class="complete">05</span><span class="total">/12</span></td>
 						<td><span class="complete">04</span><span class="total">/04</span></td>
-						<td><input type="range" name="percentage" min="0" max="100" value="50"></td>
+						<td><div class="course-percentage" style="--percent: 50%;"></div></td>
 						<td>50%</td>
 						<td><a href="#" class="details-link"><i class="fas fa-angle-down"></i></a></td>
 					</tr>
@@ -202,8 +202,8 @@
 						<td><span class="complete">18</span><span class="total">/36</span></td>
 						<td><span class="complete">05</span><span class="total">/12</span></td>
 						<td><span class="complete">04</span><span class="total">/04</span></td>
-						<td><input type="range" name="percentage" min="0" max="100" value="40"></td>
-						<td>40%</td>
+						<td><div class="course-percentage" style="--percent: 30%;"></div></td>
+						<td>30%</td>
 						<td><a href="#" class="details-link"><i class="fas fa-angle-down"></i></a></td>
 					</tr>
 					<tr>
@@ -250,8 +250,8 @@
 						<td><span class="complete">18</span><span class="total">/36</span></td>
 						<td><span class="complete">05</span><span class="total">/12</span></td>
 						<td><span class="complete">04</span><span class="total">/04</span></td>
-						<td><input type="range" name="percentage" min="0" max="100" value="60"></td>
-						<td>50%</td>
+						<td><div class="course-percentage" style="--percent: 70%;"></div></td>
+						<td>70%</td>
 						<td><a href="#" class="details-link"><i class="fas fa-angle-down"></i></a></td>
 					</tr>
 				</tbody>
@@ -260,6 +260,81 @@
 	</div>
 	<!-- /.report-course-list -->
 
-	<!-- something --><!-- /.something -->
-	<!-- something --><!-- /.something -->
+	<!-- .report-review -->
+	<div class="tutor-list-wrap report-review">
+		<div class="tutor-list-header">
+			<div class="heading">Review</div>
+		</div>
+		<div class="report-review-wrap">
+			<table class="tutor-list-table">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Course</th>
+						<th>Date </th>
+						<th>Rating & Feedback </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td><div class="course-title">Nutrition: Build Your Perfect Diet & Meal Plan</div></td>
+						<td><div class="dates">11 May, 2020 <br><span>11:34 PM</span></div></td>
+						<td>
+							<div class="ratings-wrap">
+								<div class="ratings">
+									<span class="icon">
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="far fa-star"></i>
+										<i class="far fa-star"></i>
+									</span>
+									<span>4.6</span>
+								</div>
+								<div class="review">
+									This guy is effing genious. I love his sense of humor. He is really good. This guy is effing genious. I love his sense of humor. He is really good. This guy is effing genious. I love his sense of humor. He is really good.
+								</div>
+							</div>							
+						</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td><div class="course-title">Nutrition: Build Your Perfect Diet & Meal Plan</div></td>
+						<td><div class="dates">11 May, 2020 <br><span>11:34 PM</span></div></td>
+						<td>
+							<div class="ratings-wrap">
+								<div class="ratings">
+									<span class="icon">
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="fas fa-star"></i>
+										<i class="far fa-star"></i>
+										<i class="far fa-star"></i>
+									</span>
+									<span>4.6</span>
+								</div>
+								<div class="review">
+									This guy is effing genious. I love his sense of humor. He is really good. This guy is effing genious. I love his sense of humor. He is really good. This guy is effing genious. I love his sense of humor. He is really good.
+								</div>
+							</div>							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="tutor-list-footer ">
+			<div class="tutor-report-count">
+				<div class="tutor-report-count">Items <strong> 5 </strong> of<strong> 15 </strong> total </div>	
+			</div>
+			<div class="tutor-pagination">
+                <a class="prev page-numbers" href="#"><i class="fas fa-angle-left"></i></a>
+				<a class="page-numbers" href="#">1</a>
+				<span aria-current="page" class="page-numbers current">2</span>
+				<a class="page-numbers" href="#">3</a>
+				<a class="next page-numbers" href="#"><i class="fas fa-angle-right"></i></a>            
+			</div>
+		</div>
+	</div>
+	<!-- /.report-review -->
 </div>

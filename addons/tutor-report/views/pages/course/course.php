@@ -463,35 +463,41 @@ if(isset($_GET['course_id'])){
         </div>
     </div>
 
-    <div class="tutor-report-content-single-course">
-        <div class="tutor-report-content-header"><?php _e('Course List', 'tutor'); ?></div>
-        <table class="widefat tutor-report-table">
-            <tr>
-                <th><?php _e('Course', 'tutor-pro'); ?></th>
-                <th><?php _e('Lesson', 'tutor-pro'); ?></th>
-                <th><?php _e('Quiz', 'tutor-pro'); ?></th>
-                <th><?php _e('Assignment', 'tutor-pro'); ?></th>
-                <th><?php _e('Total Learners', 'tutor-pro'); ?></th>
-                <th><?php _e('Earnings', 'tutor-pro'); ?></th>
-                <th></th>
-            </tr>
-            <?php foreach ($course_single as $key => $course) { ?>
+    <div class="tutor-list-wrap tutor-report-course-list ">
+        <div class="tutor-list-header">
+            <div class="heading"><?php _e('Course List', 'tutor'); ?></div>
+        </div>
+        <table class="tutor-list-table ">
+            <thead>
                 <tr>
-                    <td><?php echo $course['course']; ?></td>
-                    <td><?php echo $course['lesson']; ?></td>
-                    <td><?php echo $course['quiz']; ?></td>
-                    <td><?php echo $course['assignment']; ?></td>
-                    <td><?php echo $course['learners']; ?></td>
-                    <td><?php echo $course['earnings']; ?></td>
-                    <td>
-                        <a href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=course&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
-                        <a href="<?php echo $course['link']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                    </td>
+                    <th><?php _e('Course', 'tutor-pro'); ?></th>
+                    <th><?php _e('Lesson', 'tutor-pro'); ?></th>
+                    <th><?php _e('Quiz', 'tutor-pro'); ?></th>
+                    <th><?php _e('Assignment', 'tutor-pro'); ?></th>
+                    <th><?php _e('Total Learners', 'tutor-pro'); ?></th>
+                    <th><?php _e('Earnings', 'tutor-pro'); ?></th>
+                    <th></th>
                 </tr>
-            <?php } ?>
+            </thead>
+            <tbody>
+                <?php foreach ($course_single as $key => $course) { ?>
+                    <tr>
+                        <td><?php echo $course['course']; ?></td>
+                        <td><?php echo $course['lesson']; ?></td>
+                        <td><?php echo $course['quiz']; ?></td>
+                        <td><?php echo $course['assignment']; ?></td>
+                        <td><?php echo $course['learners']; ?></td>
+                        <td><?php echo $course['earnings']; ?></td>
+                        <td>
+                            <a href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=course&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
+                            <a href="<?php echo $course['link']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
         </table>
 
-        <div class="tutor-report-content-footer">
+        <div class=" tutor-list-footer">
             <div class="tutor-report-count">
                 <?php echo "Items "."<strong> ".$per_page." </strong> of". "<strong> ".$total_items." </strong> total" ?>
             </div>
