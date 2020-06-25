@@ -287,7 +287,7 @@ if(isset($_GET['course_id'])){
                             </div>
                         </div>
                     </td>
-                    <td><?php echo date('j M, Y - h:i a', strtotime($learner->post_date)); ?></td>
+                    <td><?php echo date('j M, Y', strtotime($learner->post_date)); ?></td>
                     <td><?php echo $info_lesson; ?></td>
                     <td><?php echo $info_quiz; ?></td>
                     <td><?php echo $info_assignment; ?></td>
@@ -678,7 +678,7 @@ if(isset($_GET['course_id'])){
                         <td><?php echo $course['learners']; ?></td>
                         <td><?php echo $course['earnings']; ?></td>
                         <td>
-                            <a href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=course&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
+                            <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=course&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
                             <a href="<?php echo $course['link']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
                         </td>
                     </tr>

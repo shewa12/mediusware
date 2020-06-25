@@ -544,7 +544,6 @@ button#gradebook-search-btn {
 	padding: 5px 17px;
 	display: inline-block;
 	text-decoration: none;
-	margin-bottom: 5px;
 	color: #34374b;
 	border: solid 1px #dcdce1;
 	transition: 0.2s ease;
@@ -754,6 +753,8 @@ button#gradebook-search-btn {
 
 .tutor-report-course-list .tutor-list-table td:last-child {
 	text-align: right;
+	display: flex;
+	align-items: center;
 }
 /** 
  * Common CSS /.tutor-list-* - end 
