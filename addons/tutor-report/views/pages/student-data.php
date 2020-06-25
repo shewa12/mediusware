@@ -261,7 +261,7 @@
 	<!-- /.report-course-list -->
 
 	<!-- .report-review -->
-	<div class="tutor-list-wrap report-review">
+	<div class="tutor-list-wrap tutor-report-review">
 		<div class="tutor-list-header">
 			<div class="heading">Review</div>
 		</div>

@@ -562,7 +562,7 @@ button#gradebook-search-btn {
 
 .tutor-report-btn.default:hover,
 .tutor-report-btn.default:focus {
-	color: #fff;
+	color: #fff !important;
 	background-color: #3e64de;
 	border-color: #3e64de;
 }
@@ -910,46 +910,69 @@ button#gradebook-search-btn {
 
 /* .report-review - start */
 .report-review-wrap .tutor-list-table tr th:last-child,
-.report-review-wrap .tutor-list-table tr td:last-child {
+.report-review-wrap .tutor-list-table tr td:last-child,
+.tutor-report-reviews .tutor-list-table tr th:last-child,
+.tutor-report-reviews .tutor-list-table tr td:last-child {
 	width: 54%;
 }
-.report-review-wrap .tutor-list-table td {
+
+.report-review-wrap .tutor-list-table td,
+.tutor-report-reviews .tutor-list-table td {
 	font-size: 16px;
 	font-weight: 300;
 	line-height: 1.75;
 	letter-spacing: normal;
 	color: #3f435b;
 }
-.report-review-wrap .tutor-list-table tbody td {
+
+.report-review-wrap .tutor-list-table tbody td,
+.tutor-report-reviews .tutor-list-table tbody td {
 	padding: 33px 20px 40px 20px;
 }
-.report-review-wrap .tutor-list-table tbody tr {
+
+.report-review-wrap .tutor-list-table tbody tr,
+.tutor-report-reviews .tutor-list-table tbody tr {
 	border-bottom: 1px solid #dcdce1;
 }
+
 .report-review-wrap .tutor-list-table .course-title {
 	font-size: 14px;
 	font-weight: 400;
 }
 
-.report-review-wrap .tutor-list-table .dates span {
+[class^="tutor-report-"] .tutor-list-table .dates span {
 	color: #737787;
 	display: inline-block;
 	margin-top: 5px;
 }
 
-.report-review-wrap .tutor-list-table .ratings .icon {
+[class^="tutor-report-"] .tutor-list-table .ratings .icon {
 	color: #f8c51c;
 	margin-right: 10px;
 }
 
-.report-review-wrap .tutor-list-table .ratings span {
+[class^="tutor-report-"] .tutor-list-table .ratings span {
 	color: #888b90;
 }
 
-.report-review-wrap .tutor-list-table .ratings {
+[class^="tutor-report-"] .tutor-list-table .dates span:first-child {
+	color: #3f435b;
+}
+
+[class^="tutor-report-"] .tutor-list-table .ratings {
 	font-size: 14px;
 	line-height: 1.3;
 	margin-bottom: 20px;
+	display: flex;
+}
+[class^="tutor-report-"] .tutor-list-table .ratings .tutor-star-rating-group {
+	margin-right: 5px;
+}
+[class^="tutor-report-"] .tutor-list-table .review {
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 1.75;
+	color: #3f435b;
 }
 /* /.report-review - end */
 
@@ -1065,11 +1088,78 @@ button#gradebook-search-btn {
 	color: #34374b;
 	font-weight: 400;
 }
-.tutor-report-course-details .header-meta .action {
-}
-.tutor-report-course-details .header-meta .action a {
+[class^="tutor-report-"] .tutor-list-table tbody td {
+	vertical-align: middle;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 1.75;
+	color: #3f435b;
 }
 
+[class^="tutor-report-"] .tutor-list-table .instructor-icon {
+	display: block;
+	width: 50px;
+	height: 50px;
+}
+
+[class^="tutor-report-"] .tutor-list-table .instructor-icon img {
+	max-width: 50px;
+	max-height: 50px;
+	border-radius: 50%;
+}
+
+[class^="tutor-report-"] .tutor-list-table .instructor-name {
+	font-weight: 500;
+	line-height: 1.5;
+}
+
+[class^="tutor-report-"] .tutor-list-table .instructor-email {
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #737787;
+}
+
+[class^="tutor-report-"] .tutor-list-table .instructor {
+	display: flex;
+	align-items: center;
+}
+
+[class^="tutor-report-"] .tutor-list-table .instructor-meta {
+	display: flex;
+	flex-direction: column;
+	margin-left: 18px;
+}
+[class^="tutor-report-"] .tutor-list-table .instructor-name a {
+	font-size: 12px;
+	color: #b9bac3;
+	margin-left: 2px;
+}
+.tutor-report-learners .tutor-list-table td:last-child {
+	color: #737787;
+}
+
+.tutor-list-wrap .tutor-list-table a:hover,
+.tutor-list-wrap .tutor-list-table a:focus {
+	color: #3e64de;
+}
+
+.tutor-report-mentors .tutor-star-rating-group {
+	line-height: 1.2;
+}
+
+.tutor-report-mentors .instructor-rating {
+	font-size: 14px;
+	color: #888b90;
+	margin: 0;
+}
+.tutor-report-mentors .tutor-report-btn.default {
+	color: #737787;
+}
+
+.tutor-report-reviews .tutor-list-table tbody td {
+	vertical-align: top;
+}
 /**
  * Tutor Report ------> END
 */
