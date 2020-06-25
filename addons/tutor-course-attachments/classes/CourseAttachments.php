@@ -67,11 +67,14 @@ class CourseAttachments extends Tutor_Base {
 	public function save_course_meta($post_ID){
 		//Attachments
 		$attachments = array();
-		if ( ! empty($_POST['tutor_attachments'])){
-			$attachments = tutor_utils()->sanitize_array($_POST['tutor_attachments']);
-			$attachments = array_unique($attachments);
+		$attachments_main_edit = tutils()->avalue_dot('_tutor_attachments_main_edit', $_POST);
+		if($attachments_main_edit) {
+			if ( !empty($_POST['tutor_attachments']) ) {
+				$attachments = tutils()->sanitize_array($_POST['tutor_attachments']);
+				$attachments = array_unique($attachments);
+			}
+			update_post_meta($post_ID, '_tutor_attachments', $attachments);
 		}
-		update_post_meta($post_ID, '_tutor_attachments', $attachments);
 	}
 
 

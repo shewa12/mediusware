@@ -54,12 +54,15 @@ class Prerequisites extends Tutor_Base {
 	}
 
 	public function save_course_meta($post_ID){
+		$prerequisites_main_edit = tutor_utils()->avalue_dot('_tutor_prerequisites_main_edit', $_POST);
 		$prerequisites_course_ids = tutor_utils()->avalue_dot('_tutor_course_prerequisites_ids', $_POST);
 
-		if (is_array($prerequisites_course_ids) && count($prerequisites_course_ids)){
-			update_post_meta($post_ID, '_tutor_course_prerequisites_ids', $prerequisites_course_ids);
-		}else{
-			delete_post_meta($post_ID, '_tutor_course_prerequisites_ids');
+		if($prerequisites_main_edit) {
+			if (is_array($prerequisites_course_ids) && count($prerequisites_course_ids)){
+				update_post_meta($post_ID, '_tutor_course_prerequisites_ids', $prerequisites_course_ids);
+			}else{
+				delete_post_meta($post_ID, '_tutor_course_prerequisites_ids');
+			}
 		}
 	}
 
