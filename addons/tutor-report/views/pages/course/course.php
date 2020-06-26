@@ -291,7 +291,12 @@ if(isset($_GET['course_id'])){
                     <td><?php echo $info_lesson; ?></td>
                     <td><?php echo $info_quiz; ?></td>
                     <td><?php echo $info_assignment; ?></td>
-                    <td><?php echo tutor_utils()->get_course_completed_percent($current_id); ?>%</td>
+                    <td>
+                        <div class="course-progress">
+                            <span class="course-percentage" style="--percent: <?php echo tutor_utils()->get_course_completed_percent($current_id); ?>%;"></span>
+                            <span><?php echo tutor_utils()->get_course_completed_percent($current_id); ?>%</span>   
+                        </div>
+                    </td>
                 </tr>
             <?php } ?>
         </table>
