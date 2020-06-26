@@ -82,4 +82,9 @@ jQuery(document).ready(function($){
         window.location = urlPrams( 'search', $('.tutor-report-search').val() );
     });
 
+    $(document).on('click', '.tutor-report-search-action', function(e){
+        e.preventDefault();
+        window.location = urlPrams( 'search', $('.tutor-report-search').val() );
+    })
+
 });

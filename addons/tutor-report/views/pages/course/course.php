@@ -29,10 +29,6 @@ if(isset($_GET['course_id'])){
             AND post_status = 'completed' 
             ORDER BY ID DESC LIMIT {$start},{$per_page};");
 
-    // echo '<pre>';
-    // print_r( $start );
-    // echo '</pre>';
-
     $complete_data = 0;
     $course_single = array();
     if(is_array($course_completed) && !empty($course_completed)){
