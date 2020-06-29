@@ -7,6 +7,7 @@
 	?>
 
 	<?php if(!$_student){ ?>
+
 		<!-- .report-date-filter -->
 		<div class="report-date-filter">
 			<div class="menu-label"><?php _e('User Search', 'tutor'); ?></div>
@@ -18,11 +19,11 @@
 		<!-- /.report-date-filter -->
 
 		<!-- .report-review -->
-		<div class="tutor-list-wrap report-review">
+		<div class="tutor-list-wrap student-single">
 			<div class="tutor-list-header">
 				<div class="heading"><?php _e('Students', 'tutor-pro'); ?></div>
 			</div>
-			<div class="report-review-wrap">
+			<div class="student-single-wrap">
 				<table class="tutor-list-table">
 					<thead>
 						<tr>
@@ -46,16 +47,24 @@
 							<tr>
 								<td><?php echo $student->ID; ?></td>
 								<td>
-									<span class="instructor-icon"><?php echo get_avatar($student->ID, 30); ?></span>
-									<span class="instructor-name"><?php echo $student->display_name; ?></span>
+									<div class="instructor">
+										<div class="instructor-thumb">
+											<span class="instructor-icon"><?php echo get_avatar($student->ID, 50); ?></span>
+										</div>
+										<div class="instructor-meta">
+											<span class="instructor-name"><?php echo $student->display_name; ?></span>
+										</div>
+									</div>
 								</td>
 								<td><?php echo $student->user_login; ?></td>
 								<td><?php echo $student->user_email; ?></td>
 								<td><?php echo date('j M, Y. h:i a', strtotime($student->user_registered)); ?></td>
 								<td><?php echo count(tutor_utils()->get_enrolled_courses_ids_by_user($student->ID)); ?></td>
 								<td>
-									<a href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$student->ID); ?>"><?php _e('Details', 'tutor') ?></a>
-									<a target="_blank" href="<?php echo tutor_utils()->profile_url($student->ID); ?>"><?php _e('Profile', 'tutor-pro'); ?></a>
+									<div class="details-button">
+										<a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$student->ID); ?>"><?php _e('Details', 'tutor') ?></a>
+										<a target="_blank" href="<?php echo tutor_utils()->profile_url($student->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+									</div>
 								</td>
 							</tr>
 						<?php } ?>
@@ -114,7 +123,7 @@
 						</div>
 					</div>
 					<div class="show-profile">
-						<a target="_blank" href="<?php echo tutor_utils()->profile_url($user_info->ID) ?>" class="btn show-profile-btn"><?php _e('View Profile', 'tutor-pro'); ?></a>
+						<a class="tutor-report-btn default" target="_blank" href="<?php echo tutor_utils()->profile_url($user_info->ID) ?>" class="btn show-profile-btn"><?php _e('View Profile', 'tutor-pro'); ?></a>
 					</div></div>
 				<div class="profile-table">
 					<table>
