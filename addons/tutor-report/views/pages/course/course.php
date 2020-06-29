@@ -153,9 +153,33 @@ if(isset($_GET['course_id'])){
         <div class="tutor-list-header">
             <div class="heading">Sales Graph</div>
         </div>
+        
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
         <div class="tutor-report-graph-wrap">
-            <img src="https://image.prntscr.com/image/66IfKwLdTna_fzXfqJq4EQ.png" alt="Sales Graph">
+            <?php 
+            	$sub_page = 'this_year';
+                $course_id = false;
+                if ( ! empty($_GET['time_period'])){
+                    $sub_page = sanitize_text_field($_GET['time_period']);
+                }
+                if ( ! empty($_GET['course_id'])){
+                    $course_id = (int) sanitize_text_field($_GET['course_id']);
+                }
+                if ( ! empty($_GET['date_range_from']) && ! empty($_GET['date_range_to'])){
+                    $sub_page = 'date_range';
+                }
+            
+                include $view_page.$page."/graph/{$sub_page}.php";            
+            ?>
         </div>
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
+
+
     </div>
     <div class="tutor-list-wrap tutor-report-earnings">
         <div class="tutor-list-header tutor-report-single-graph">

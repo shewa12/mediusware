@@ -25,12 +25,7 @@ jQuery(document).ready(function($){
     
     $(document).on('click', '.tutor-quiz-attempt-delete-btn', function (e) {
         e.preventDefault();
-
         var $that= $(this);
-
-        console.log( $that.attr('data-attempt-id'));
-
-
         $.ajax({
             url : ajaxurl,
             type : 'POST',
