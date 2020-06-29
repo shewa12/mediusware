@@ -703,8 +703,10 @@ if(isset($_GET['course_id'])){
                         <td><?php echo $course['learners']; ?></td>
                         <td><?php echo $course['earnings']; ?></td>
                         <td>
-                            <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=course&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
-                            <a href="<?php echo $course['link']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                            <div class="details-button">
+                                <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=course&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
+                                <a href="<?php echo $course['link']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
                         </td>
                     </tr>
                 <?php } ?>
