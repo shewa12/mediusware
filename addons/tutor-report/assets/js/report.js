@@ -85,6 +85,23 @@ jQuery(document).ready(function($){
     $(document).on('click', '.tutor-report-search-action', function(e){
         e.preventDefault();
         window.location = urlPrams( 'search', $('.tutor-report-search').val() );
-    })
+    });
+
+    
+    $(document).on('click', '.details-link', function(e){
+        e.preventDefault();
+        if($(this).hasClass('active')){
+            $(this).removeClass('active');
+        } else {
+            $(this).addClass('active');
+        }
+        let infoRow = $('#table-toggle-'+$(this).data('count'));
+        if(infoRow.hasClass('open')){
+            infoRow.removeClass('open');
+        } else {
+            infoRow.addClass('open');
+        }
+
+    });
 
 });

@@ -292,76 +292,99 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>Nutrition: Build Your Perfect Diet & Meal Plan <a href="#" class="course-link"><i class="fas fa-external-link-alt"></i></a></td>
-							<td>11 May, 2020</td>
-							<td><span class="complete">18</span><span class="total">/36</span></td>
-							<td><span class="complete">05</span><span class="total">/12</span></td>
-							<td><span class="complete">04</span><span class="total">/04</span></td>
-							<td><div class="course-percentage" style="--percent: 50%;"></div></td>
-							<td>50%</td>
-							<td><a href="#" class="details-link"><i class="fas fa-angle-down"></i></a></td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>Help Finding Information Online <a href="#" class="course-link"><i class="fas fa-external-link-alt"></i></a></td>
-							<td>11 May, 2020</td>
-							<td><span class="complete">18</span><span class="total">/36</span></td>
-							<td><span class="complete">05</span><span class="total">/12</span></td>
-							<td><span class="complete">04</span><span class="total">/04</span></td>
-							<td><div class="course-percentage" style="--percent: 30%;"></div></td>
-							<td>30%</td>
-							<td><a href="#" class="details-link"><i class="fas fa-angle-down"></i></a></td>
-						</tr>
-						<tr>
-							<td colspan="9">
-								<table>
-									<tr>
-										<td class="detail">
-											<div class="heading">Lesson</div>
-											<div class="status">
-												<span class="complete">How To Naturally Increase Testosterone </span><br>
-												<span class="complete">5 Best Supplements To Boost Immunity</span><br>
-												<span class="running">Even More Dieting Tips And Strategies</span><br>
-												<span class="running">Intermittent Fasting</span><br>
-												<span class="incomplete">Gluten Free Diet Explained</span><br>
-												<span class="incomplete">Gluten Free Diet Explained</span><br>
-											</div>
-										</td>
-										<td class="detail">
-											<div class="heading">Quiz</div>
-											<div class="status">
-												<span class="complete">How To Naturally Increase Testosterone </span><br>
-												<span class="complete">5 Best Supplements To Boost Immunity</span><br>
-												<span class="running">Even More Dieting Tips And Strategies</span><br>
-												<span class="running">Intermittent Fasting</span><br>
-												<span class="incomplete">Gluten Free Diet Explained</span><br>
-											</div>
-										</td>
-										<td class="detail">
-											<div class="heading">Assignment</div>
-											<div class="status">
-												<span class="complete">How To Naturally Increase Testosterone </span><br>
-												<span class="running">5 Best Supplements To Boost Immunity</span><br>
-												<span class="incomplete">Intermittent Fasting</span><br>
-											</div>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>An Ugly Myspace Profile Will Sure Ruin Your Reputation <a href="#" class="course-link"><i class="fas fa-external-link-alt"></i></a></td>
-							<td>11 May, 2020</td>
-							<td><span class="complete">18</span><span class="total">/36</span></td>
-							<td><span class="complete">05</span><span class="total">/12</span></td>
-							<td><span class="complete">04</span><span class="total">/04</span></td>
-							<td><div class="course-percentage" style="--percent: 70%;"></div></td>
-							<td>70%</td>
-							<td><a href="#" class="details-link"><i class="fas fa-angle-down"></i></a></td>
-						</tr>
+						<?php
+						$count = 0;
+						$courses = tutor_utils()->get_courses_by_user($user_info->ID);						
+
+						if ($courses && is_array($courses->posts) && count($courses->posts)){
+							foreach ($courses->posts as $course){ $count++;
+								?>
+								<tr>
+									<td><?php echo $count; ?></td>
+									<td><?php echo get_the_title($course->ID); ?> <a href="<?php echo get_the_permalink($course->ID); ?>" target="_blank" class="course-link"><i class="fas fa-external-link-alt"></i></a></td>
+									<td><?php echo date('h:i a', strtotime($course->post_date)); ?></td>
+									<td>
+										<span class="complete">
+											<?php 
+												$total_lesson = tutor_utils()->get_lesson($course->ID, -1);
+												echo $total_lesson->post_count;
+											?>
+										</span>
+									</td>
+									<td>
+										<span class="complete">
+											<?php
+											$total_quiz = (array) $wpdb->get_results("SELECT ID FROM {$wpdb->posts} WHERE post_type='tutor_quiz' AND post_status = 'publish' AND post_parent IN (SELECT ID FROM {$wpdb->posts} WHERE post_type='topics' AND post_parent = {$course->ID} AND post_status = 'publish')");	
+											echo count($total_quiz);
+											?>
+										</span>
+									</td>
+									<td>
+										<span class="complete">
+											<?php
+											$total_assignment = (array) $wpdb->get_results("SELECT ID FROM {$wpdb->postmeta} post_meta
+												INNER JOIN {$wpdb->posts} assignment ON post_meta.post_id = assignment.ID AND post_meta.meta_key = '_tutor_course_id_for_assignments'
+												where post_type = 'tutor_assignments' AND post_meta.meta_value IN ({$course->ID}) ORDER BY ID DESC ");	
+											echo count($total_assignment);
+											?>
+										</span>
+									</td>
+									<?php $completed_percent = tutor_utils()->get_course_completed_percent($course->ID, $user_info->ID); ?>
+									<td><div class="course-percentage" style="--percent: <?php echo $completed_percent; ?>%;"></div></td>
+									<td><?php echo $completed_percent; ?>%</td>
+									<td><a href="#" class="details-link" data-count="<?php echo $count; ?>"><i class="fas fa-angle-down"></i></a></td>
+								</tr>
+
+								<tr class="table-toggle open" id="table-toggle-<?php echo $count; ?>">
+								<!-- complete running incomplete -->
+									<td colspan="9">
+										<table>
+											<tr>
+												<?php if($total_lesson->post_count > 0) { ?>
+													<td class="detail">
+														<div class="heading"><?php _e('Lesson', 'tutor-pro'); ?></div>
+														<div class="status">
+															<?php 
+															$count = count($total_lesson->posts) - 1;
+															$posts_data = $total_lesson->posts;
+															for($count; $count >= 0; $count--) { 
+																$is = tutor_utils()->is_completed_lesson($posts_data[$count]->ID, $user_info->ID);
+																?>
+																<span class="<?php echo ($is ? 'complete' : 'incomplete'); ?>"><?php echo get_the_title($posts_data[$count]->ID); ?></span><br>
+															<?php } ?>
+														</div>
+													</td>
+												<?php } ?>
+												<?php if(count($total_quiz) > 0) { ?>
+													<td class="detail">
+														<div class="heading"><?php _e('Quiz', 'tutor-pro'); ?></div>
+														<div class="status">
+															<?php
+															foreach ($total_quiz as $value) { ?>
+																<span class="complete"><?php echo get_the_title($value->ID); ?></span><br>
+															<?php } ?>
+														</div>
+													</td>
+												<?php } ?>
+												<?php if(count($total_assignment) > 0) { ?>
+													<td class="detail">
+														<div class="heading"><?php _e('Assignment', 'tutor-pro'); ?></div>
+														<div class="status">
+															<?php foreach ($total_assignment as $value) { ?>
+																<span class="complete"><?php echo get_the_title($value->ID); ?></span><br>
+															<?php } ?>
+														</div>
+													</td>
+												<?php } ?>
+											</tr>
+										</table>
+									</td>
+								</tr>
+
+								<?php
+							}
+						}
+						?>
 					</tbody>
 				</table>
 			</div>

@@ -1,5 +1,6 @@
 <?php
 $currentSubPage = 'overview';
+$currentName = 'Overview';
 $subPages = array(
 	'overview' => __('Overview', 'tutor-pro'),
 	'courses' => __('Courses', 'tutor-pro'),
@@ -10,7 +11,8 @@ $subPages = array(
 );
 
 if ( ! empty($_GET['sub_page'])){
-	$currentSubPage = sanitize_text_field($_GET['sub_page']);
+    $currentSubPage = sanitize_text_field($_GET['sub_page']);
+    $currentName = isset($subPages[$currentSubPage]) ? $subPages[$currentSubPage] : '';
 }
 ?>
 
@@ -18,14 +20,20 @@ if ( ! empty($_GET['sub_page'])){
 	<h2 class="tutor-page-heading"><?php _e('Tutor LMS Report', 'tutor-pro'); ?></h2>
     <div class="report-main-wrap">
         <div class="tutor-report-left-menus">
-            <ul>
-                <?php
-                foreach ($subPages as $pageKey => $pageName){
-                    $activeClass = ($pageKey === $currentSubPage) ? 'active' : '';
-	                echo "<li class='{$activeClass}'><a href='".add_query_arg(array('page'=>'tutor_report', 'sub_page' => $pageKey), admin_url('admin.php'))."'>{$pageName}</a></li>";
-                }
-                ?>
-            </ul>
+            <div class="tutor-report-title">
+                <strong><?php _e('LMS Report', 'tutor-pro'); ?></strong>
+                <span>/ <?php echo $currentName; ?></span>
+            </div>
+            <div class="tutor-report-menu">
+                <ul>
+                    <?php
+                    foreach ($subPages as $pageKey => $pageName){
+                        $activeClass = ($pageKey === $currentSubPage) ? 'active' : '';
+                        echo "<li class='{$activeClass}'><a href='".add_query_arg(array('page'=>'tutor_report', 'sub_page' => $pageKey), admin_url('admin.php'))."'>{$pageName}</a></li>";
+                    }
+                    ?>
+                </ul>
+            </div>
         </div>
 
         <div class="tutor-report-content">

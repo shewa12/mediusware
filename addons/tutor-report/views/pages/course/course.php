@@ -47,24 +47,25 @@ if(isset($_GET['course_id'])){
     }
     ?>
 
-<div class="tutor-report-single-wrap">
+<div class="tutor-list-wrap tutor-report-course-details">
     
-    <div class="tutor-report-single-title"><?php echo get_the_title($current_id); ?></div>
+    <div class="tutor-list-header"><div class="heading"><?php echo get_the_title($current_id); ?></div>
     
-    <div class="tutor-report-single-subtitle">
-        <div class="tutor-report-date">
-            <span><?php _e('Created:' ,'tutor-pro'); ?> <?php echo get_the_date('d M, Y', $current_id); ?></span>
-            <span><?php _e('Last Update:' ,'tutor-pro'); ?> <?php echo get_the_modified_date('d M, Y', $current_id); ?></span>
-        </div>
-        <div class="tutor-report-action">
-            <a href="<?php echo get_edit_post_link($current_id); ?>" target="_blank"><?php _e('Edit with Builder', 'tutor-pro'); ?></a>
-            <a href="<?php the_permalink($current_id); ?>" target="_blank"><?php _e('View Course', 'tutor-pro'); ?></a>
+        <div class="header-meta">
+            <div class="date">
+                <span><?php _e('Created:' ,'tutor-pro'); ?> <strong><?php echo get_the_date('d M, Y', $current_id); ?></strong></span>
+                <span><?php _e('Last Update:' ,'tutor-pro'); ?> <strong><?php echo get_the_modified_date('d M, Y', $current_id); ?></strong></span>
+            </div>
+            <div class="action">
+                <a class="tutor-report-btn default" href="<?php echo get_edit_post_link($current_id); ?>" target="_blank"><?php _e('Edit with Builder', 'tutor-pro'); ?></a>
+                <a class="tutor-report-btn primary" href="<?php the_permalink($current_id); ?>" target="_blank"><?php _e('View Course', 'tutor-pro'); ?></a>
+            </div>
         </div>
     </div>
     
-    <div class="tutor-report-single-data-wrap">
-        <div class="tutor-report-single-data">
-            <div class="tutor-report-info">
+    <div class="course-details-wrap">
+        <div class="course-details-item">
+            <div class="info">
                 <strong>
                     <?php 
                         $info_lesson = tutor_utils()->get_lesson_count_by_course($current_id);
@@ -74,8 +75,8 @@ if(isset($_GET['course_id'])){
                 <div><?php _e('Lesson', 'tutor-pro'); ?></div>
             </div>
         </div>
-        <div class="tutor-report-single-data">
-            <div class="tutor-report-info">
+        <div class="course-details-item">
+            <div class="info">
                 <strong>
                     <?php 
                         $info_quiz = '';
@@ -92,8 +93,8 @@ if(isset($_GET['course_id'])){
                 <div><?php _e('Total Quiz', 'tutor-pro'); ?></div>
             </div>
         </div>
-        <div class="tutor-report-single-data">
-            <div class="tutor-report-info">
+        <div class="course-details-item">
+            <div class="info">
                 <strong>
                     <?php 
                         $info_assignment = tutor_utils()->get_assignments_by_course($current_id)->count; 
@@ -103,8 +104,8 @@ if(isset($_GET['course_id'])){
                 <div><?php _e('Assignment', 'tutor-pro'); ?></div>
             </div>
         </div>
-        <div class="tutor-report-single-data">
-            <div class="tutor-report-info">
+        <div class="course-details-item">
+            <div class="info">
                 <strong>
                     <?php
                         $info_learners = tutor_utils()->count_enrolled_users_by_course($current_id);
@@ -114,14 +115,14 @@ if(isset($_GET['course_id'])){
                 <div><?php _e('Total Learners', 'tutor-pro'); ?></div>
             </div>
         </div>
-        <div class="tutor-report-single-data">
-            <div class="tutor-report-info">
+        <div class="course-details-item">
+            <div class="info">
                 <strong><?php echo $complete_data; ?></strong>
                 <div><?php _e('Course Completed', 'tutor-pro'); ?></div>
             </div>
         </div>
-        <div class="tutor-report-single-data">
-            <div class="tutor-report-info">
+        <div class="course-details-item">
+            <div class="info">
                 <strong>
                     <?php 
                         $total_student = tutor_utils()->count_enrolled_users_by_course($current_id);
@@ -131,8 +132,8 @@ if(isset($_GET['course_id'])){
                 <div><?php _e('Course Continue', 'tutor-pro'); ?></div>
             </div>
         </div>
-        <div class="tutor-report-single-data">
-            <div class="tutor-report-info">
+        <div class="course-details-item">
+            <div class="info">
                 <strong>
                     <?php 
                         $course_rating = tutor_utils()->get_course_rating($current_id);
@@ -147,77 +148,87 @@ if(isset($_GET['course_id'])){
 </div>
 
 
-<div class="tutor-report-single-wrap">
-    <div class="tutor-report-single-graph">
-        Graph
+<div class="tutor-report-graph-earnings">
+    <div class="tutor-list-wrap tutor-report-graph">
+        <div class="tutor-list-header">
+            <div class="heading">Sales Graph</div>
+        </div>
+        <div class="tutor-report-graph-wrap">
+            <img src="https://image.prntscr.com/image/66IfKwLdTna_fzXfqJq4EQ.png" alt="Sales Graph">
+        </div>
     </div>
-    <div class="tutor-report-single-information">
-        <div>
-            <div><i class="tutor-icon-calendar"></i></div>
-            <div>
-                <div>
-                    <?php
-                    $total_price = $wpdb->get_var("SELECT SUM(meta.meta_value) FROM {$wpdb->posts} AS posts
-                        LEFT JOIN {$wpdb->postmeta} AS meta2 ON posts.ID = meta2.post_id
-                        LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
-                        WHERE meta.meta_key = '_order_total'
-                        AND posts.post_type = 'shop_order'
-                        AND meta2.meta_key = '_tutor_order_for_course_id_{$current_id}'
-                        AND posts.post_status IN ( '" . implode( "','", array( 'wc-completed' ) ) . "' )");
-    
-                        if (function_exists('wc_price')) {
-                            echo wc_price($total_price);
-                        } else {
-                            echo '$'.$total_price;
-                        }
-                    ?>
-                </div>
-                <div><?php _e('Total Earning' ,'tutor-pro'); ?></div>
-            </div>
+    <div class="tutor-list-wrap tutor-report-earnings">
+        <div class="tutor-list-header tutor-report-single-graph">
+            <div class="heading">Earnings</div>
         </div>
-        <div>
-            <div><i class="tutor-icon-calendar"></i></div>
-            <div>
-                <div>
-                    <?php
-                    $discount_price = $wpdb->get_var( "SELECT SUM(meta.meta_value) FROM {$wpdb->posts} AS posts
-                        LEFT JOIN {$wpdb->postmeta} AS meta2 ON posts.ID = meta2.post_id
-                        LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
-                        WHERE meta.meta_key = '_cart_discount'
-                        AND posts.post_type = 'shop_order'
-                        AND meta2.meta_key = '_tutor_order_for_course_id_{$current_id}'
-                        AND posts.post_status IN ( '" . implode( "','", array( 'wc-completed' ) ) . "' )" );
-
-                        if (function_exists('wc_price')) {
-                            echo wc_price($discount_price);
-                        } else {
-                            echo '$'.$discount_price;
-                        }
-                    ?>
+        <div class="tutor-report-earnings-wrap">
+            <div class="earnings-item">
+                <div class="icon"><i class="tutor-icon-professor"></i></div>
+                <div class="text">
+                    <div>
+                        <?php
+                        $total_price = $wpdb->get_var("SELECT SUM(meta.meta_value) FROM {$wpdb->posts} AS posts
+                            LEFT JOIN {$wpdb->postmeta} AS meta2 ON posts.ID = meta2.post_id
+                            LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
+                            WHERE meta.meta_key = '_order_total'
+                            AND posts.post_type = 'shop_order'
+                            AND meta2.meta_key = '_tutor_order_for_course_id_{$current_id}'
+                            AND posts.post_status IN ( '" . implode( "','", array( 'wc-completed' ) ) . "' )");
+        
+                            if (function_exists('wc_price')) {
+                                echo wc_price($total_price);
+                            } else {
+                                echo '$'.$total_price;
+                            }
+                        ?>
+                    </div>
+                    <div><?php _e('Total Earning' ,'tutor-pro'); ?></div>
                 </div>
-                <div><?php _e('Total Discount' ,'tutor-pro'); ?></div>
             </div>
-        </div>
-        <div>
-            <div><i class="tutor-icon-calendar"></i></div>
-            <div>
-                <div>
-                    <?php
-                    $refunded_price = $wpdb->get_var( "SELECT SUM(meta.meta_value) FROM {$wpdb->posts} AS posts
-                        LEFT JOIN {$wpdb->posts} AS posts2 ON posts.ID = posts2.post_parent
-                        LEFT JOIN {$wpdb->postmeta} AS meta ON posts2.ID = meta.post_id
-                        WHERE meta.meta_key = '_refund_amount'
-                        AND posts.post_type = 'shop_order'
-                        AND posts.post_status IN ( '" . implode( "','", array( 'wc-refunded' ) ) . "' )" );
+            <div class="earnings-item">
+                <div class="icon"><i class="tutor-icon-graduate"></i></div>
+                <div class="text">
+                    <div>
+                        <?php
+                        $discount_price = $wpdb->get_var( "SELECT SUM(meta.meta_value) FROM {$wpdb->posts} AS posts
+                            LEFT JOIN {$wpdb->postmeta} AS meta2 ON posts.ID = meta2.post_id
+                            LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
+                            WHERE meta.meta_key = '_cart_discount'
+                            AND posts.post_type = 'shop_order'
+                            AND meta2.meta_key = '_tutor_order_for_course_id_{$current_id}'
+                            AND posts.post_status IN ( '" . implode( "','", array( 'wc-completed' ) ) . "' )" );
 
-                        if (function_exists('wc_price')) {
-                            echo wc_price($refunded_price);
-                        } else {
-                            echo '$'.$refunded_price;
-                        }
-                    ?>
+                            if (function_exists('wc_price')) {
+                                echo wc_price($discount_price);
+                            } else {
+                                echo '$'.$discount_price;
+                            }
+                        ?>
+                    </div>
+                    <div><?php _e('Total Discount' ,'tutor-pro'); ?></div>
                 </div>
-                <div><?php _e('Refund' ,'tutor-pro'); ?></div>
+            </div>
+            <div class="earnings-item">
+                <div class="icon"><i class="tutor-icon-student"></i></div>
+                <div class="text">
+                    <div>
+                        <?php
+                        $refunded_price = $wpdb->get_var( "SELECT SUM(meta.meta_value) FROM {$wpdb->posts} AS posts
+                            LEFT JOIN {$wpdb->posts} AS posts2 ON posts.ID = posts2.post_parent
+                            LEFT JOIN {$wpdb->postmeta} AS meta ON posts2.ID = meta.post_id
+                            WHERE meta.meta_key = '_refund_amount'
+                            AND posts.post_type = 'shop_order'
+                            AND posts.post_status IN ( '" . implode( "','", array( 'wc-refunded' ) ) . "' )" );
+
+                            if (function_exists('wc_price')) {
+                                echo wc_price($refunded_price);
+                            } else {
+                                echo '$'.$refunded_price;
+                            }
+                        ?>
+                    </div>
+                    <div><?php _e('Refund' ,'tutor-pro'); ?></div>
+                </div>
             </div>
         </div>
     </div>
@@ -225,9 +236,9 @@ if(isset($_GET['course_id'])){
 
 
 
-<div class="tutor-report-single-wrap">
-    <div><?php _e('Learners' ,'tutor-pro'); ?></div>
-    <div class="tutor-report-information">
+<div class="tutor-list-wrap tutor-report-learners">
+    <div class="tutor-list-header"><div class="heading"><?php _e('Learners' ,'tutor-pro'); ?></div></div>
+    <div class="tutor-list-data">
         <?php
         $per_learner = 1;
         $learner_page = isset( $_REQUEST['lp'] ) ? absint( $_REQUEST['lp'] ) : 0;
@@ -245,7 +256,7 @@ if(isset($_GET['course_id'])){
             AND posts.post_parent = {$current_id}
             ORDER BY ID DESC LIMIT {$start_learner},{$per_learner}");
         ?>
-        <table class="widefat tutor-report-table">
+        <table class="tutor-list-table">
             <tr>
                 <th><?php _e('ID', 'tutor-pro'); ?></th>
                 <th><?php _e('Name', 'tutor-pro'); ?></th>
@@ -259,22 +270,34 @@ if(isset($_GET['course_id'])){
                 <tr>
                     <td><?php echo $learner->ID; ?></td>
                     <td>
-                        <?php $user_info = get_userdata($learner->post_author); ?>
-                        <span class="instructor-icon"><?php echo get_avatar($user_info->ID, 30); ?></span>
-                        <a target="_blank" href="<?php echo tutor_utils()->profile_url($user_info->ID); ?>">link</a>
-                        <span class="instructor-name"><?php echo $user_info->display_name; ?></span>
-                        <div class="instructor-email"><?php echo $user_info->user_email; ?></div>
+                        <div class="instructor">
+                            <div class="instructor-thumb">
+                                <?php $user_info = get_userdata($learner->post_author); ?>
+                                <span class="instructor-icon"><?php echo get_avatar($user_info->ID, 50); ?></span>
+                            </div>
+                            <div class="instructor-meta">
+                                <span class="instructor-name">
+                                    <?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo tutor_utils()->profile_url($user_info->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+                                </span>
+                                <span class="instructor-email"><?php echo $user_info->user_email; ?></span>
+                            </div>
+                        </div>
                     </td>
-                    <td><?php echo date('j M, Y. h:i a', strtotime($learner->post_date)); ?></td>
+                    <td><?php echo date('j M, Y', strtotime($learner->post_date)); ?></td>
                     <td><?php echo $info_lesson; ?></td>
                     <td><?php echo $info_quiz; ?></td>
                     <td><?php echo $info_assignment; ?></td>
-                    <td><?php echo tutor_utils()->get_course_completed_percent($current_id); ?></td>
+                    <td>
+                        <div class="course-progress">
+                            <span class="course-percentage" style="--percent: <?php echo tutor_utils()->get_course_completed_percent($current_id); ?>%;"></span>
+                            <span><?php echo tutor_utils()->get_course_completed_percent($current_id); ?>%</span>   
+                        </div>
+                    </td>
                 </tr>
             <?php } ?>
         </table>
 
-        <?php printf( __('Items %s of %s total'), count($learner_list), $learner_items ); ?>
+        <!-- <?php printf( __('Items %s of %s total'), count($learner_list), $learner_items ); ?>
         <div class="tutor-pagination">
             <?php
             echo paginate_links( array(
@@ -283,17 +306,31 @@ if(isset($_GET['course_id'])){
                 'total' => ceil($learner_items/$per_learner)
             ) );
             ?>
-        </div>
+        </div> -->
 
+    </div>
+    <div class="tutor-list-footer">
+        <div class="tutor-report-count">
+            <div class="tutor-report-count"><?php printf( __('Items <strong> %s </strong> of <strong> %s </strong> total'), count($learner_list), $learner_items ); ?></div>	
+        </div>
+        <div class="tutor-pagination">
+            <?php
+                echo paginate_links( array(
+                    'base' => str_replace( $learner_page, '%#%', "admin.php?page=tutor_report&sub_page=course&course_id=".$current_id."&lp=%#%" ),
+                    'current' => max( 1, $learner_page ),
+                    'total' => ceil($learner_items/$per_learner)
+                ) );
+            ?>           
+        </div>
     </div>
 </div>
 
 
-<div class="tutor-report-single-wrap">
-    <div><?php _e('Mentors' ,'tutor-pro'); ?></div>
-    <div class="tutor-report-information">
+<div class="tutor-list-wrap tutor-report-mentors">
+    <div class="tutor-list-header"><div class="heading"><?php _e('Mentors' ,'tutor-pro'); ?></div></div>
+    <div class="tutor-list-data">
         <?php $instructors = tutor_utils()->get_instructors_by_course($current_id); ?>
-        <table class="widefat tutor-report-table">
+        <table class="tutor-list-table">
             <tr>
                 <th><?php _e('ID', 'tutor-pro'); ?></th>
                 <th><?php _e('Name', 'tutor-pro'); ?></th>
@@ -316,9 +353,17 @@ if(isset($_GET['course_id'])){
                 <tr>
                     <td><?php echo $instructor->ID; ?> </td>
                     <td>
-                        <span class="instructor-icon"><?php echo get_avatar($instructor->ID, 30); ?></span>
-                        <span class="instructor-name"><?php echo $instructor->display_name.' '.$authorTag; ?></span>
-                        <div class="instructor-email"><?php echo $user_info->user_email; ?></div>
+                        <div class="instructor">
+                            <div class="instructor-thumb">
+                                <span class="instructor-icon"><?php echo get_avatar($instructor->ID, 50); ?></span>
+                            </div>
+                            <div class="instructor-meta">
+                                <span class="instructor-name">
+                                    <?php echo $instructor->display_name.' '.$authorTag; ?>
+                                </span>
+                                <span class="instructor-email"><?php echo $user_info->user_email; ?></span>
+                            </div>
+                        </div>
                     </td>
                     <td>
                         <?php
@@ -329,7 +374,9 @@ if(isset($_GET['course_id'])){
                     </td>
                     <td><?php echo tutor_utils()->get_course_count_by_instructor($instructor->ID); ?></td>
                     <td><?php echo tutor_utils()->get_total_students_by_instructor($instructor->ID); ?></td>
-                    <td><a target="_blank" href="<?php echo tutor_utils()->profile_url($instructor->ID); ?>"><?php _e('View Profile', 'tutor-pro'); ?> </td>
+                    <td>
+                        <a class="tutor-report-btn default" target="_blank" href="<?php echo tutor_utils()->profile_url($instructor->ID); ?>"><?php _e('View Profile', 'tutor-pro'); ?> 
+                    </td>
                 </tr>
             <?php } ?>
         </table>
@@ -337,10 +384,10 @@ if(isset($_GET['course_id'])){
 </div>
 
 
-<div class="tutor-report-single-wrap">
-    <div><?php _e('Reviews' ,'tutor-pro'); ?></div>
-    <div class="tutor-report-information">
-        <table class="widefat tutor-report-table">
+<div class="tutor-list-wrap tutor-report-reviews">
+    <div class="tutor-list-header"><div class="heading"><?php _e('Reviews' ,'tutor-pro'); ?></div></div>
+    <div class="tutor-list-data">
+        <table class="tutor-list-table">
             <tr>
                 <th><?php _e('No', 'tutor-pro'); ?> </th>
                 <th><?php _e('Name', 'tutor-pro'); ?> </th>
@@ -361,23 +408,36 @@ if(isset($_GET['course_id'])){
                 <tr>
                     <td><?php echo $count; ?></td>
                     <td>
-                        <span class="instructor-icon"><?php echo get_avatar($review->user_id, 30); ?></span>
-                        <span class="instructor-name"><?php echo $review->display_name; ?></span>
-                        <div class="instructor-email"><?php echo $review->comment_author_email; ?></div>
-                    </td>
-                    <td><?php echo date('j M, Y. h:i a', strtotime($review->comment_date)); ?></td>
-                    <td>
-                        <div>
-                            <?php tutor_utils()->star_rating_generator($review->rating); ?>
-                            <span><?php echo $review->rating; ?></span>
+                        <div class="instructor">
+                            <div class="instructor-thumb">
+                                <span class="instructor-icon"><?php echo get_avatar($review->user_id, 50); ?></span>
+                            </div>
+                            <div class="instructor-meta">
+                                <span class="instructor-name"><?php echo $review->display_name; ?></span>
+                            </div>
                         </div>
-                        <div><?php echo $review->comment_content; ?></div>
+                    </td>
+                    <td>
+                        <div class="dates">
+                            <span><?php echo date('j M, Y', strtotime($review->comment_date)); ?></span><br>
+                            <span><?php echo date('h:i a', strtotime($review->comment_date)); ?></td></span>
+                        </div>
+                    <td>
+                        <div class="ratings-wrap">
+                            <div class="ratings">
+                                <?php tutor_utils()->star_rating_generator($review->rating); ?>
+                                <span><?php echo $review->rating; ?></span>
+                            </div>
+                            <div class="review">
+                                <?php echo $review->comment_content; ?>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             <?php } ?>
         </table>
         
-        <?php printf( __('Items %s of %s total'), count($total_reviews), $review_items ); ?>
+        <!-- <?php printf( __('Items %s of %s total'), count($total_reviews), $review_items ); ?>
         <div class="tutor-pagination">
             <?php
             echo paginate_links( array(
@@ -386,6 +446,18 @@ if(isset($_GET['course_id'])){
                 'total' => ceil($review_items/$per_review)
             ) );
             ?>
+        </div> -->
+    </div>
+    <div class="tutor-list-footer">
+        <div class="tutor-report-count"><?php printf( __('Items <strong> %s </strong> of <strong> %s </strong> total'), count($total_reviews), $review_items ); ?></div>
+        <div class="tutor-pagination">
+            <?php
+                echo paginate_links( array(
+                    'base' => str_replace( $review_page, '%#%', "admin.php?page=tutor_report&sub_page=course&course_id=".$current_id."&rp=%#%" ),
+                    'current' => max( 1, $review_page ),
+                    'total' => ceil($review_items/$per_review)
+                ) );
+            ?>            
         </div>
     </div>
 </div>
@@ -393,10 +465,10 @@ if(isset($_GET['course_id'])){
 
 
 
-    <div class="tutor-bg-white box-padding">
+    <!-- <div class="tutor-list-wrap tutor-bg-white box-padding ">
         <h3><?php echo get_the_title($current_id); ?></h3>
         <p><?php echo sprintf(__('Total Data  %d', 'tutor-pro'), $totalCount) ?></p>
-        <table class="widefat tutor-report-table">
+        <table class="widefat tutor-report-table tutor-list-table">
             <tr>
                 <th><?php _e('Order', 'tutor-pro'); ?> </th>
                 <th><?php _e('Course', 'tutor-pro'); ?> </th>
@@ -440,7 +512,7 @@ if(isset($_GET['course_id'])){
             ?>
         </div>
         
-    </div>
+    </div> -->
 
 <?php } else {
 
@@ -581,11 +653,11 @@ if(isset($_GET['course_id'])){
         </div>
     </div>
 
-    <div class="tutor-list-wrap tutor-report-course-list ">
+    <div class="tutor-list-wrap tutor-report-course-list">
         <div class="tutor-list-header">
             <div class="heading"><?php _e('Course List', 'tutor'); ?></div>
         </div>
-        <table class="tutor-list-table ">
+        <table class="tutor-list-table">
             <thead>
                 <tr>
                     <th><?php _e('Course', 'tutor-pro'); ?></th>
@@ -607,7 +679,7 @@ if(isset($_GET['course_id'])){
                         <td><?php echo $course['learners']; ?></td>
                         <td><?php echo $course['earnings']; ?></td>
                         <td>
-                            <a href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=course&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
+                            <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=course&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
                             <a href="<?php echo $course['link']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
                         </td>
                     </tr>
@@ -615,9 +687,9 @@ if(isset($_GET['course_id'])){
             </tbody>
         </table>
 
-        <div class=" tutor-list-footer">
+        <div class="tutor-list-footer">
             <div class="tutor-report-count">
-                <?php echo "Items "."<strong> ".$per_page." </strong> of". "<strong> ".$total_items." </strong> total" ?>
+                <?php printf( __('Items <strong> %s </strong> of <strong> %s </strong> total'), $per_page,  $total_items ); ?>
             </div>
             <div class="tutor-pagination">
                 <?php
