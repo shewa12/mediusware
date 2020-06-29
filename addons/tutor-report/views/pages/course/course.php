@@ -183,7 +183,7 @@ if(isset($_GET['course_id'])){
     </div>
     <div class="tutor-list-wrap tutor-report-earnings">
         <div class="tutor-list-header tutor-report-single-graph">
-            <div class="heading">Earnings</div>
+            <div class="heading"><?php _e('Earnings', 'tutor-pro'); ?></div>
         </div>
         <div class="tutor-report-earnings-wrap">
             <div class="earnings-item">

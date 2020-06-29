@@ -31,10 +31,6 @@ if ( ! defined( 'ABSPATH' ) )
 		    break;
     }
     echo '</h3>';
-
-    if ($course_id){
-		echo '<h4>'.__('Results for course : ', 'tutor-pro').get_the_title($course_id).'</h4>';
-	}
 	?>
 
 	<?php
