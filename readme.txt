@@ -5,7 +5,7 @@ Tags: lms, course, elearning, education, learning management system
 Requires at least: 4.5
 Tested up to: 5.4
 Requires PHP: 5.4.0
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -239,6 +239,17 @@ Tutor enables you to use any third party plugins without facing any compatibilit
 17. Tutor LMS Working Lifecycle
 
 == Changelog ==
+
+= 1.6.5 - June 29, 2020 =
+
+New: Student Progress Report
+Fixed: Quiz Retry and Reveal Mode issue
+Fixed: Resource issue from course page
+Fixed: Logo image size for course builder
+Fixed: Can not stop loading tutor css/js
+Fixed: Removes course prerequisites & attachments using Quick Edit
+Updated: Add student column in quiz attempt
+Removed: 'Mr.' text from all email notification body
 
 = 1.6.4 - June 15, 2020 =
 
