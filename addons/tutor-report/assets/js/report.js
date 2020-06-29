@@ -56,5 +56,30 @@ jQuery(document).ready(function($){
         $( ".tutor_report_datepicker" ).datepicker({"dateFormat" : 'yy-mm-dd'});
     }
 
+    function urlPrams(type, val){
+        var url = new URL(window.location.href);
+        var search_params = url.searchParams;
+        search_params.set(type, val);
+        
+        url.search = search_params.toString();
+        
+        search_params.set('paged', 1);
+        url.search = search_params.toString();
+
+        return url.toString();
+    }
+
+    $('.tutor-report-category').on('change', function(e){
+        window.location = urlPrams( 'cat', $(this).val() );
+    });
+    $('.tutor-report-sort').on('change', function(e){
+        window.location = urlPrams( 'order', $(this).val() ) ;
+    });
+    $('.tutor-report-date').on('change', function(e){
+        window.location = urlPrams( 'date', $(this).val() ) ;
+    });
+    $(document).on('click', '.tutor-report-search-btn', function (e) {
+        window.location = urlPrams( 'search', $('.tutor-report-search').val() );
+    });
 
 });
