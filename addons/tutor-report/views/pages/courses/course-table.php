@@ -5,7 +5,7 @@ exit;
 
 // Pagination
 $per_page = 5;
-$current_page = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0;
+$current_page = isset( $_GET['paged'] ) ? $_GET['paged'] : 0;
 $start =  max( 0,($current_page-1)*$per_page );
 
 // Order Filter

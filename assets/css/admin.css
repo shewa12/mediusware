@@ -644,6 +644,15 @@ button#gradebook-search-btn {
 	text-align: left;
 	border-collapse: collapse;
 }
+.tutor-list-wrap .tutor-list-table .table-toggle{
+	display: none;
+}
+.tutor-list-wrap .tutor-list-table .table-toggle.open{
+	display: table-row;
+}
+[class^="tutor-report-"] .tutor-list-table tbody td.detail {
+	vertical-align: top;
+}
 
 .tutor-list-wrap .tutor-list-table thead,
 .tutor-list-wrap .tutor-list-table tr:first-child th {
