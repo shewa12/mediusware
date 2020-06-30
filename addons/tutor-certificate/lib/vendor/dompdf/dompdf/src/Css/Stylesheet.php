@@ -1357,7 +1357,7 @@ class Stylesheet
                                 $key = $page_selector;
 
                             default:
-                                continue;
+                                break;
                         }
 
                         // Store the style for later...

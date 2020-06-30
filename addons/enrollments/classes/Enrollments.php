@@ -99,6 +99,8 @@ class Enrollments {
 			$isEnrolled = wp_insert_post( $enroll_data );
 			if ($isEnrolled) {
 				do_action('tutor_after_enroll', $course_id, $isEnrolled);
+				//Change the enrol status again. to fire complete hook
+                tutils()->course_enrol_status_change($isEnrolled, 'completed');
 				//Mark Current User as Students with user meta data
 				update_user_meta( $user_id, '_is_tutor_student', tutor_time() );
 			}

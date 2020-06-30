@@ -20,7 +20,7 @@
 		$courses = tutor_utils()->get_courses(array(get_the_ID()));
 		$savedPrerequisitesIDS = (array) maybe_unserialize(get_post_meta(get_the_ID(), '_tutor_course_prerequisites_ids', true));
 		?>
-
+		<input type="hidden" name="_tutor_prerequisites_main_edit" value="true" />
         <select name="_tutor_course_prerequisites_ids[]" class="tutor_select2" style="min-width: 300px;" multiple="multiple">
             <option value=""><?php _e('Select a Course', 'tutor-pro'); ?></option>
 			<?php

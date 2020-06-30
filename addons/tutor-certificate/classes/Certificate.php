@@ -154,7 +154,7 @@ class Certificate{
 		require_once TUTOR_CERT()->path.'lib/vendor/autoload.php';
 
 		$options =  new Options( apply_filters( 'tutor_cert_dompdf_options', array(
-			'defaultFont'				=> 'sans',
+			'defaultFont'				=> 'Courier',
 			'isRemoteEnabled'			=> true,
 			'isFontSubsettingEnabled'	=> true,
 			// HTML5 parser requires iconv
@@ -175,7 +175,6 @@ class Certificate{
 	}
 
 	public function pdf_style() {
-		//$css = TUTOR_CERT()->path.'assets/css/pdf.css';
 		$css = $this->template['path'].'pdf.css';
 
 		ob_start();
