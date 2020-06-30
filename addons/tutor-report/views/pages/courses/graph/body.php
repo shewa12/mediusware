@@ -3,10 +3,10 @@ if ( ! defined( 'ABSPATH' ) )
     exit;
 ?>
 
-<div class="tutor-report-chart tutor-bg-white box-padding">
+<div class="tutor-report-chart">
 
 	<?php
-    echo '<h3>';
+    echo '<div class="report-graph-title">';
     switch ($sub_page){
         case 'this_year';
 	        echo sprintf(__("Showing results for the year %s", 'tutor-pro'), $currentYear);
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) )
 		    echo sprintf(__("Showing results from %s to %s", 'tutor-pro'), $begin->format('d F, Y'), $end->format('d F, Y'));
 		    break;
     }
-    echo '</h3>';
+    echo '</div>';
 	?>
 
 	<?php

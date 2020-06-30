@@ -184,7 +184,7 @@ exit;
         </div>
         <div class="tutor-report-earnings-wrap">
             <div class="earnings-item">
-                <div class="icon"><i class="tutor-icon-professor"></i></div>
+                <div class="icon"><img src="<?php echo tutor_pro()->url.'addons/tutor-report/assets/images/money-bag.png'?>" alt="Money icon"></div>
                 <div class="text">
                     <div>
                         <?php
@@ -209,7 +209,7 @@ exit;
                 </div>
             </div>
             <div class="earnings-item">
-                <div class="icon"><i class="tutor-icon-graduate"></i></div>
+                <div class="icon"><img src="<?php echo tutor_pro()->url.'addons/tutor-report/assets/images/discount.png'?>" alt="Money icon"></div>
                 <div class="text">
                     <div>
                         <?php
@@ -232,7 +232,7 @@ exit;
                 </div>
             </div>
             <div class="earnings-item">
-                <div class="icon"><i class="tutor-icon-student"></i></div>
+                <div class="icon"><img src="<?php echo tutor_pro()->url.'addons/tutor-report/assets/images/back-in-time.png'?>" alt="Money icon"></div>
                 <div class="text">
                     <div>
                         <?php

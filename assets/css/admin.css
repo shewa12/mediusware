@@ -311,7 +311,9 @@ button#gradebook-search-btn {
 .tutor-report-content-menu input[type="text"]:hover,
 .tutor-report-content-menu input[type="text"]:focus,
 .tutor-report-content-menu select:hover,
-.tutor-report-content-menu select:focus {
+.tutor-report-content-menu select:focus,
+.tutor-date-range-wrap .date-range-input input:hover,
+.tutor-date-range-wrap .date-range-input input:focus {
 	border-color: var(--tutor-primary-color) !important;
 	box-shadow: none !important;
 	outline: none !important;
@@ -549,21 +551,26 @@ button#gradebook-search-btn {
 	border-color: #3e64de;
 }
 
+.tutor-report-btn:hover,
+.tutor-report-btn:focus,
 .tutor-report-btn.default:hover,
 .tutor-report-btn.default:focus {
 	color: #fff !important;
 	background-color: #3e64de;
 	border-color: #3e64de;
 }
+
 .tutor-report-btn.primary:hover,
 .tutor-report-btn.primary:focus {
 	background-color: hsla(226, 66%, 48%, 1);
 	border-color: hsla(226, 66%, 48%, 1);
 	color: #fff;
 }
+
 .tutor-report-btn:not(:last-child) {
 	margin-right: 20px;
 }
+
 .report-student-profile .profile-table {
 	background-color: #f7f7f9;
 	border-radius: 0 0 3px 3px;
@@ -775,6 +782,11 @@ button#gradebook-search-btn {
 	text-align: right;
 	display: flex;
 	align-items: center;
+}
+
+.tutor-list-table .course-link a {
+	color: inherit;
+	text-decoration: none;
 }
 
 @media (max-width: 991px) {
@@ -1010,10 +1022,14 @@ button#gradebook-search-btn {
 	margin-right: 17px;
 }
 
+.tutor-report-graph-wrap .tutor-date-range-filter-wrap {
+	margin-top: 15px;
+}
+
 .tutor-report-graph-earnings {
-	display: grid;
+	/* display: grid;
 	grid-template-columns: 2fr 1fr;
-	grid-gap: 30px;
+	grid-gap: 30px; */
 }
 
 .tutor-report-graph-wrap,
@@ -1021,8 +1037,44 @@ button#gradebook-search-btn {
 	padding: 30px;
 	padding-top: 0;
 }
+
 .tutor-report-graph-wrap img {
 	max-width: 100%;
+}
+
+.tutor-report-graph .tutor-report-btn,
+.tutor-report-chart .tutor-report-btn {
+	padding: 9px 17px;
+	margin-right: 0px;
+}
+
+.tutor-date-range-wrap .date-range-input button {
+	cursor: pointer;
+	border-radius: 0;
+	outline: none;
+}
+
+.tutor-date-range-wrap .date-range-input input {
+	height: 40px;
+}
+
+.tutor-date-range-wrap .date-range-input i.tutor-icon-calendar {
+	color: inherit;
+	font-size: 15px;
+	top: 0;
+	right: 0;
+	height: 40px;
+	width: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.tutor-report-earnings-wrap {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: max-content;
+	grid-gap: 40px;
 }
 
 .tutor-report-earnings-wrap .earnings-item {
@@ -1031,7 +1083,7 @@ button#gradebook-search-btn {
 }
 
 .tutor-report-earnings-wrap .earnings-item:not(:last-child) {
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 }
 
 .tutor-report-earnings-wrap .earnings-item i {
@@ -1041,6 +1093,11 @@ button#gradebook-search-btn {
 
 .tutor-report-earnings-wrap .earnings-item .icon {
 	margin-right: 20px;
+	max-width: 40px;
+}
+
+.tutor-report-earnings-wrap .earnings-item .icon img {
+	width: 100%;
 }
 
 .tutor-report-earnings-wrap .earnings-item .text span {
@@ -1220,7 +1277,8 @@ button#gradebook-search-btn {
 	color: #888b90;
 	margin: 0;
 }
-.tutor-report-mentors .tutor-report-btn.default {
+.tutor-report-mentors .tutor-report-btn.default,
+.tutor-list-table .tutor-report-btn.default {
 	color: #737787;
 }
 
@@ -1249,6 +1307,14 @@ button#gradebook-search-btn {
 }
 .tutor-report-left-menus ul li a {
 	line-height: 62px;
+}
+
+.tutor-report-student-data .tutor-report-graph-wrap {
+	padding-top: 30px;
+}
+
+.report-download-csv-icon a {
+	color: #737787;
 }
 /**
  * Tutor Report ------> END
