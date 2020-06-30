@@ -1,15 +1,22 @@
 <?php
+if ( ! defined( 'ABSPATH' ) )
+exit;
 
-global $wpdb;
-
-$course_type = tutor()->course_post_type;
-
-if(isset($_GET['course_id'])){
     // single
-    $all_data = $wpdb->get_results("SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type ='{$course_type}' AND post_status = 'publish' ");
+    $all_data = $wpdb->get_results(
+        "SELECT ID, post_title 
+        FROM {$wpdb->posts} 
+        WHERE post_type ='{$course_type}' 
+        AND post_status = 'publish' "
+    );
     $current_id = isset($_GET['course_id']) ? $_GET['course_id'] : (isset($all_data[0]) ? $all_data[0]->ID : '');
 
-    $totalCount = (int) $wpdb->get_var("SELECT COUNT(ID) from {$wpdb->posts} WHERE post_parent = {$current_id} AND post_type = 'tutor_enrolled';");
+    $totalCount = (int) $wpdb->get_var(
+        "SELECT COUNT(ID) 
+        FROM {$wpdb->posts} 
+        WHERE post_parent = {$current_id} 
+        AND post_type = 'tutor_enrolled';"
+    );
 
     $per_page = 50;
     $total_items = $totalCount;
@@ -20,14 +27,15 @@ if(isset($_GET['course_id'])){
     $lesson_type = tutor()->lesson_post_type;
 
     $course_completed = $wpdb->get_results(
-            "SELECT ID, post_author, meta.meta_value as order_id from {$wpdb->posts} 
-            JOIN {$wpdb->postmeta} meta 
-            ON ID = meta.post_id
-            WHERE post_type = 'tutor_enrolled' 
-            AND meta.meta_key = '_tutor_enrolled_by_order_id'
-            AND post_parent = {$current_id} 
-            AND post_status = 'completed' 
-            ORDER BY ID DESC LIMIT {$start},{$per_page};");
+        "SELECT ID, post_author, meta.meta_value as order_id from {$wpdb->posts} 
+        JOIN {$wpdb->postmeta} meta 
+        ON ID = meta.post_id
+        WHERE post_type = 'tutor_enrolled' 
+        AND meta.meta_key = '_tutor_enrolled_by_order_id'
+        AND post_parent = {$current_id} 
+        AND post_status = 'completed' 
+        ORDER BY ID DESC LIMIT {$start},{$per_page};"
+    );
 
     $complete_data = 0;
     $course_single = array();
@@ -48,9 +56,7 @@ if(isset($_GET['course_id'])){
     ?>
 
 <div class="tutor-list-wrap tutor-report-course-details">
-    
     <div class="tutor-list-header"><div class="heading"><?php echo get_the_title($current_id); ?></div>
-    
         <div class="header-meta">
             <div class="date">
                 <span><?php _e('Created:' ,'tutor-pro'); ?> <strong><?php echo get_the_date('d M, Y', $current_id); ?></strong></span>
@@ -62,7 +68,6 @@ if(isset($_GET['course_id'])){
             </div>
         </div>
     </div>
-    
     <div class="course-details-wrap">
         <div class="course-details-item">
             <div class="info">
@@ -151,12 +156,9 @@ if(isset($_GET['course_id'])){
 <div class="tutor-report-graph-earnings">
     <div class="tutor-list-wrap tutor-report-graph">
         <div class="tutor-list-header">
-            <div class="heading">Sales Graph</div>
+            <div class="heading"><?php _e('Sales Graph', 'tutor-pro'); ?></div>
         </div>
-        
-        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+
         <div class="tutor-report-graph-wrap">
             <?php 
             	$sub_page = 'this_year';
@@ -174,11 +176,6 @@ if(isset($_GET['course_id'])){
                 include $view_page.$page."/graph/{$sub_page}.php";            
             ?>
         </div>
-        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-        <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
-
-
 
     </div>
     <div class="tutor-list-wrap tutor-report-earnings">
@@ -191,13 +188,15 @@ if(isset($_GET['course_id'])){
                 <div class="text">
                     <div>
                         <?php
-                        $total_price = $wpdb->get_var("SELECT SUM(meta.meta_value) FROM {$wpdb->posts} AS posts
-                            LEFT JOIN {$wpdb->postmeta} AS meta2 ON posts.ID = meta2.post_id
-                            LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
-                            WHERE meta.meta_key = '_order_total'
-                            AND posts.post_type = 'shop_order'
-                            AND meta2.meta_key = '_tutor_order_for_course_id_{$current_id}'
-                            AND posts.post_status IN ( '" . implode( "','", array( 'wc-completed' ) ) . "' )");
+                            $total_price = $wpdb->get_var(
+                                "SELECT SUM(meta.meta_value) FROM {$wpdb->posts} AS posts
+                                LEFT JOIN {$wpdb->postmeta} AS meta2 ON posts.ID = meta2.post_id
+                                LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
+                                WHERE meta.meta_key = '_order_total'
+                                AND posts.post_type = 'shop_order'
+                                AND meta2.meta_key = '_tutor_order_for_course_id_{$current_id}'
+                                AND posts.post_status IN ( '" . implode( "','", array( 'wc-completed' ) ) . "' )"
+                            );
         
                             if (function_exists('wc_price')) {
                                 echo wc_price($total_price);
@@ -325,7 +324,7 @@ if(isset($_GET['course_id'])){
         <div class="tutor-pagination">
             <?php
             echo paginate_links( array(
-                'base' => str_replace( $learner_page, '%#%', "admin.php?page=tutor_report&sub_page=course&course_id=".$current_id."&lp=%#%" ),
+                'base' => str_replace( $learner_page, '%#%', "admin.php?page=tutor_report&sub_page=courses&course_id=".$current_id."&lp=%#%" ),
                 'current' => max( 1, $learner_page ),
                 'total' => ceil($learner_items/$per_learner)
             ) );
@@ -340,7 +339,7 @@ if(isset($_GET['course_id'])){
         <div class="tutor-pagination">
             <?php
                 echo paginate_links( array(
-                    'base' => str_replace( $learner_page, '%#%', "admin.php?page=tutor_report&sub_page=course&course_id=".$current_id."&lp=%#%" ),
+                    'base' => str_replace( $learner_page, '%#%', "admin.php?page=tutor_report&sub_page=courses&course_id=".$current_id."&lp=%#%" ),
                     'current' => max( 1, $learner_page ),
                     'total' => ceil($learner_items/$per_learner)
                 ) );
@@ -460,24 +459,13 @@ if(isset($_GET['course_id'])){
                 </tr>
             <?php } ?>
         </table>
-        
-        <!-- <?php printf( __('Items %s of %s total'), count($total_reviews), $review_items ); ?>
-        <div class="tutor-pagination">
-            <?php
-            echo paginate_links( array(
-                'base' => str_replace( $review_page, '%#%', "admin.php?page=tutor_report&sub_page=course&course_id=".$current_id."&rp=%#%" ),
-                'current' => max( 1, $review_page ),
-                'total' => ceil($review_items/$per_review)
-            ) );
-            ?>
-        </div> -->
     </div>
     <div class="tutor-list-footer">
         <div class="tutor-report-count"><?php printf( __('Items <strong> %s </strong> of <strong> %s </strong> total'), count($total_reviews), $review_items ); ?></div>
         <div class="tutor-pagination">
             <?php
                 echo paginate_links( array(
-                    'base' => str_replace( $review_page, '%#%', "admin.php?page=tutor_report&sub_page=course&course_id=".$current_id."&rp=%#%" ),
+                    'base' => str_replace( $review_page, '%#%', "admin.php?page=tutor_report&sub_page=courses&course_id=".$current_id."&rp=%#%" ),
                     'current' => max( 1, $review_page ),
                     'total' => ceil($review_items/$per_review)
                 ) );
@@ -485,249 +473,3 @@ if(isset($_GET['course_id'])){
         </div>
     </div>
 </div>
-
-
-
-
-    <!-- <div class="tutor-list-wrap tutor-bg-white box-padding ">
-        <h3><?php echo get_the_title($current_id); ?></h3>
-        <p><?php echo sprintf(__('Total Data  %d', 'tutor-pro'), $totalCount) ?></p>
-        <table class="widefat tutor-report-table tutor-list-table">
-            <tr>
-                <th><?php _e('Order', 'tutor-pro'); ?> </th>
-                <th><?php _e('Course', 'tutor-pro'); ?> </th>
-                <th><?php _e('Student', 'tutor-pro'); ?> </th>
-                <th><?php _e('Complete', 'tutor-pro'); ?> </th>
-            </tr>
-            <?php
-            if (is_array($course_single) && count($course_single)){
-                foreach ($course_single as $course){
-                    $order = wc_get_order( $course['order_id'] );
-                    $order_items = $order->get_items();
-                    ?>
-                    <tr>
-                        <?php edit_post_link( '#'.$course['order_id'] , '<td>', '</td>', $course['order_id'], null ); ?>
-                        <td>
-                            <a target="_blank" href="<?php echo get_permalink($course['post_id']); ?>"><?php echo get_the_title($course['post_id']); ?></a>
-                        </td>
-                        <td>
-                            <?php 
-                                $user = get_userdata($course['user_id']);
-                                echo $user->display_name; 
-                            ?>
-                        </td>
-                        <td>
-                            <?php echo $course['complete']; ?>
-                        </td>
-                    </tr>
-                    <?php
-                }
-            }
-            ?>
-        </table>
-
-        <div class="tutor-pagination">
-            <?php
-            echo paginate_links( array(
-                'base' => str_replace( $current_page, '%#%', "admin.php?page=tutor_report&sub_page=sales&paged=%#%" ),
-                'current' => max( 1, $current_page ),
-                'total' => ceil($total_items/$per_page)
-            ) );
-            ?>
-        </div>
-        
-    </div> -->
-
-<?php } else {
-
-    // Pagination
-    $per_page = 5;
-    $current_page = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0;
-    $start =  max( 0,($current_page-1)*$per_page );
-
-    // Order Filter
-    $order_filter = isset($_GET['order']) ? $_GET['order'] : 'DESC';
-
-    // Date Filter
-    $date_filter = '';
-    $_date = isset($_GET['date']) ? $_GET['date'] : ''; 
-    if($_date){
-        $date_filter = DateTime::createFromFormat('Y-m-d', $_date);
-        $date_filter = "AND (post_date BETWEEN '{$date_filter->modify('-1 day')->format('Y-m-d')}' AND '{$date_filter->modify('+2 day')->format('Y-m-d')}')";
-    }
-
-    // Search Filter
-    $search_sql = '';
-    $_search = isset($_GET['search']) ? $_GET['search'] : ''; 
-    if($_search){
-        $search_sql = "AND {$wpdb->posts}.post_title LIKE '%{$_search}%' ";
-    }
-
-    // Category Filter
-    $category_sql = '';
-    $_cat = isset($_GET['cat']) ? $_GET['cat'] : ''; 
-    if($_cat){
-        $category_sql = "SELECT {$wpdb->posts}.ID
-        FROM {$wpdb->posts}, {$wpdb->term_relationships}, {$wpdb->terms}
-        WHERE {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id
-        AND {$wpdb->terms}.term_id = {$wpdb->term_relationships}.term_taxonomy_id
-        AND {$wpdb->terms}.term_id = {$_cat}";
-        $category_sql = "AND {$wpdb->posts}.ID IN ({$category_sql}) ";
-    }
-
-    $all_data = $wpdb->get_results(
-        "SELECT ID, post_title FROM {$wpdb->posts} 
-        WHERE post_type ='{$course_type}' 
-        AND post_status = 'publish'
-        {$search_sql}
-        {$category_sql}
-        {$date_filter}
-        ORDER BY ID {$order_filter} LIMIT {$start},{$per_page};");
-
-    $total_items = count($wpdb->get_results("SELECT ID, post_title FROM {$wpdb->posts} WHERE post_type ='{$course_type}' AND post_status = 'publish' {$search_sql} {$category_sql} {$date_filter};"));
-
-    function quiz_number($current_id){
-        global $wpdb;
-        $quiz_number = $wpdb->get_var(
-            "SELECT COUNT(ID) FROM {$wpdb->posts}
-            WHERE post_parent IN (SELECT ID FROM {$wpdb->posts} WHERE post_type ='topics' AND post_parent = {$current_id} AND post_status = 'publish')
-            AND post_type ='tutor_quiz' 
-            AND post_status = 'publish'");
-            return $quiz_number;
-    }
-
-    $complete_data = 0;
-    $course_single = array();
-    if(is_array($all_data) && !empty($all_data)){
-        $complete = 0;
-        foreach ($all_data as $data) {
-            $var = array();
-            $var['id'] = $data->ID;
-            $var['link'] = get_permalink($data->ID);
-            $var['course'] = $data->post_title;
-            $var['lesson'] = tutor_utils()->get_lesson_count_by_course($data->ID);
-            $var['quiz'] = quiz_number($data->ID);
-            $var['assignment'] = tutor_utils()->get_assignments_by_course($data->ID)->count;
-            $var['learners'] = tutor_utils()->count_enrolled_users_by_course($data->ID);
-
-            $total_sales = 0;
-            $product_id = get_post_meta($data->ID, '_tutor_course_product_id', true);
-            if($product_id){
-                $total_sales = $wpdb->get_var( "SELECT SUM( order_item_meta__line_total.meta_value) as order_item_amount 
-                FROM {$wpdb->posts} AS posts
-                INNER JOIN {$wpdb->prefix}woocommerce_order_items AS order_items ON posts.ID = order_items.order_id
-                INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta__line_total ON (order_items.order_item_id = order_item_meta__line_total.order_item_id)
-                    AND (order_item_meta__line_total.meta_key = '_line_total')
-                INNER JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS order_item_meta__product_id_array ON order_items.order_item_id = order_item_meta__product_id_array.order_item_id 
-                WHERE posts.post_type IN ( 'shop_order' )
-                AND posts.post_status IN ( 'wc-completed' ) AND ( ( order_item_meta__product_id_array.meta_key IN ('_product_id','_variation_id') 
-                AND order_item_meta__product_id_array.meta_value IN ('{$product_id}') ) );" );
-            }
-            if(function_exists('wc_price')){
-                $total_sales = wc_price($total_sales);
-            }
-            $var['earnings'] = $total_sales;
-            $course_single[] = $var;
-        }
-    } else {
-        $complete_data = 0;
-    }
-    ?>
-    <div class="tutor-report-content-menu">
-        <div>
-            <div>
-                <input type="text" class="tutor-report-search" value="<?php echo $_search; ?>" autocomplete="off" placeholder="Search in here." />
-                <button class="tutor-report-search-btn"><i class="fas fa-search"></i></button>
-            </div>
-        </div>
-
-        <div>
-            <div class="menu-label"><?php _e('Category', 'tutor'); ?></div>
-            <div>
-                <select class="tutor-report-category">
-                    <?php
-                        $terms = get_terms( 'course-category', array( 'hide_empty' => true) );
-                        if (!empty($terms)) {
-                            array_unshift($terms, (object)['term_id' => '', 'name' => 'All']);
-                            foreach ($terms as $key => $val) {
-                                echo '<option '.($_cat == $val->term_id ? "selected" : "").' value="'.$val->term_id.'">'.$val->name.'</option>';
-                            }
-                        }
-                    ?>
-                </select>
-            </div>
-        </div>
-
-        <div>
-            <div class="menu-label"><?php _e('Sort By', 'tutor'); ?></div>
-            <div>
-                <select class="tutor-report-sort">
-                    <option <?php selected( $order_filter, 'ASC' ); ?>>ASC</option>
-                    <option <?php selected( $order_filter, 'DESC' ); ?>>DESC</option>
-                </select>
-            </div>
-        </div>
-
-        <div>
-            <div class="menu-label"><?php _e('Date', 'tutor'); ?></div>
-            <div class="date-range-input">
-                <input type="text" class="tutor_report_datepicker tutor-report-date" value="<?php echo $_date; ?>" autocomplete="off" placeholder="<?php echo date("Y-m-d", strtotime("last sunday midnight")); ?>" />
-                <i class="tutor-icon-calendar"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="tutor-list-wrap tutor-report-course-list">
-        <div class="tutor-list-header">
-            <div class="heading"><?php _e('Course List', 'tutor'); ?></div>
-        </div>
-        <table class="tutor-list-table">
-            <thead>
-                <tr>
-                    <th><?php _e('Course', 'tutor-pro'); ?></th>
-                    <th><?php _e('Lesson', 'tutor-pro'); ?></th>
-                    <th><?php _e('Quiz', 'tutor-pro'); ?></th>
-                    <th><?php _e('Assignment', 'tutor-pro'); ?></th>
-                    <th><?php _e('Total Learners', 'tutor-pro'); ?></th>
-                    <th><?php _e('Earnings', 'tutor-pro'); ?></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($course_single as $key => $course) { ?>
-                    <tr>
-                        <td><?php echo $course['course']; ?></td>
-                        <td><?php echo $course['lesson']; ?></td>
-                        <td><?php echo $course['quiz']; ?></td>
-                        <td><?php echo $course['assignment']; ?></td>
-                        <td><?php echo $course['learners']; ?></td>
-                        <td><?php echo $course['earnings']; ?></td>
-                        <td>
-                            <div class="details-button">
-                                <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=course&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
-                                <a href="<?php echo $course['link']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
-
-        <div class="tutor-list-footer">
-            <div class="tutor-report-count">
-                <?php printf( __('Items <strong> %s </strong> of <strong> %s </strong> total'), $per_page,  $total_items ); ?>
-            </div>
-            <div class="tutor-pagination">
-                <?php
-                echo paginate_links( array(
-                    'base' => str_replace( 1, '%#%', "admin.php?page=tutor_report&sub_page=course&paged=%#%" ),
-                    'current' => max( 1, $current_page ),
-                    'total' => ceil($total_items/$per_page)
-                ) );
-                ?>
-            </div>
-        </div>
-
-    </div>
-
-<?php }

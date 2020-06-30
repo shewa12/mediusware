@@ -477,8 +477,5 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 			}
 			?>
         </table>
-
     </div>
-
-
 </div>

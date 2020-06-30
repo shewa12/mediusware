@@ -1,5 +1,8 @@
+<?php
+if ( ! defined( 'ABSPATH' ) )
+exit;
+?>
 <div class="tutor-report-chart tutor-bg-white box-padding">
-
 	<?php
     echo '<h3>';
     switch ($sub_page){
@@ -40,10 +43,7 @@
         </span>
     </p>
 
-
-	<?php
-	include TUTOR_REPORT()->path.'views/pages/courses/top_menu.php';
-	?>
+	<?php include TUTOR_REPORT()->path.'views/pages/students/graph/top_menu.php'; ?>
 
     <canvas id="myChart" style="width: 100%; height: 400px;"></canvas>
     <script>
@@ -76,18 +76,13 @@
                         }
                     }]
                 },
-
                 legend: {
                     display: false
                 }
             }
         });
     </script>
-
-
 </div>
-
-
 <?php
 if (! $course_id){
 	?>
@@ -100,7 +95,6 @@ if (! $course_id){
 				<th><?php _e('Total Enrolled', 'tutor-pro'); ?></th>
 				<th><?php _e('Action', 'tutor-pro'); ?> </th>
 			</tr>
-
 			<?php
 			foreach ($enrolledProduct as $course){
 				?>

@@ -1,19 +1,11 @@
 <?php
-if ( ! defined( 'ABSPATH' ) )
-	exit;
 
-$sub_page = 'this_year';
-$course_id = false;
-if ( ! empty($_GET['time_period'])){
-	$sub_page = sanitize_text_field($_GET['time_period']);
-}
-if ( ! empty($_GET['course_id'])){
-	$course_id = (int) sanitize_text_field($_GET['course_id']);
-}
-if ( ! empty($_GET['date_range_from']) && ! empty($_GET['date_range_to'])){
-	$sub_page = 'date_range';
-}
+global $wpdb;
 
-include $view_page.$page."/{$sub_page}.php";
+$course_type = tutor()->course_post_type;
 
-?>
+if(isset($_GET['course_id'])){
+    include TUTOR_REPORT()->path.'views/pages/courses/course-single.php';
+} else {
+    include TUTOR_REPORT()->path.'views/pages/courses/course-table.php';
+}

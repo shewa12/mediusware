@@ -1,3 +1,7 @@
+<?php
+if ( ! defined( 'ABSPATH' ) )
+exit;
+?>
 <div class="tutor-date-range-filter-wrap">
 	<?php
 	$time_periods = array(
