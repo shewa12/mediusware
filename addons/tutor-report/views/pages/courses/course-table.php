@@ -167,7 +167,7 @@ if(is_array($all_data) && !empty($all_data)){
                     <td><?php echo $course['earnings']; ?></td>
                     <td>
                         <div class="details-button">
-                            <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=course&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
+                            <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=courses&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
                             <a href="<?php echo $course['link']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
                         </div>
                     </td>
