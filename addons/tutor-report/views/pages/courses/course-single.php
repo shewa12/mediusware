@@ -20,7 +20,7 @@ exit;
 
     $per_page = 50;
     $total_items = $totalCount;
-    $current_page = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0;
+    $current_page = isset( $_GET['paged'] ) ? $_GET['paged'] : 0;
     $start =  max( 0,($current_page-1)*$per_page );
 
 
@@ -264,7 +264,7 @@ exit;
     <div class="tutor-list-data">
         <?php
         $per_learner = 1;
-        $learner_page = isset( $_REQUEST['lp'] ) ? absint( $_REQUEST['lp'] ) : 0;
+        $learner_page = isset( $_GET['lp'] ) ? $_GET['lp'] : 0;
         $start_learner =  max( 0,($learner_page-1)*$per_learner );
 
         $learner_items =$wpdb->get_var( "SELECT COUNT(ID) FROM {$wpdb->posts} AS posts
@@ -283,10 +283,9 @@ exit;
             <tr>
                 <th><?php _e('ID', 'tutor-pro'); ?></th>
                 <th><?php _e('Name', 'tutor-pro'); ?></th>
+                <th><?php _e('Email', 'tutor-pro'); ?></th>
                 <th><?php _e('Enroll Date', 'tutor-pro'); ?></th>
                 <th><?php _e('Lesson', 'tutor-pro'); ?></th>
-                <th><?php _e('Quiz', 'tutor-pro'); ?></th>
-                <th><?php _e('Assignment', 'tutor-pro'); ?></th>
                 <th><?php _e('Progress', 'tutor-pro'); ?></th>
             </tr>
             <?php foreach ($learner_list as $learner) { ?>
@@ -300,16 +299,14 @@ exit;
                             </div>
                             <div class="instructor-meta">
                                 <span class="instructor-name">
-                                    <?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo tutor_utils()->profile_url($user_info->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+                                    <?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
                                 </span>
-                                <span class="instructor-email"><?php echo $user_info->user_email; ?></span>
                             </div>
                         </div>
                     </td>
+                    <td><?php echo $user_info->user_email; ?></td>
                     <td><?php echo date('j M, Y', strtotime($learner->post_date)); ?></td>
-                    <td><?php echo $info_lesson; ?></td>
-                    <td><?php echo $info_quiz; ?></td>
-                    <td><?php echo $info_assignment; ?></td>
+                    <td><strong><?php echo tutor_utils()->get_completed_lesson_count_by_course($current_id, $user_info->ID); ?></strong>/<span><?php echo $info_lesson; ?><span></td>
                     <td>
                         <div class="course-progress">
                             <span class="course-percentage" style="--percent: <?php echo tutor_utils()->get_course_completed_percent($current_id); ?>%;"></span>
@@ -420,7 +417,7 @@ exit;
             <?php
                 $count = 0;
                 $per_review = 1;
-                $review_page = isset( $_REQUEST['rp'] ) ? absint( $_REQUEST['rp'] ) : 0;
+                $review_page = isset( $_GET['rp'] ) ? $_GET['rp'] : 0;
                 $review_start =  max( 0,($review_page-1)*$per_review );
                 $review_items = count(tutor_utils()->get_course_reviews($current_id));
                 $total_reviews = tutor_utils()->get_course_reviews($current_id, $review_start, $per_review);

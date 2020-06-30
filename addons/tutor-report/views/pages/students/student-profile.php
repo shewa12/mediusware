@@ -209,10 +209,9 @@ exit;
             <tbody>
                 <?php
                 $count = 0;
-                $courses = tutor_utils()->get_courses_by_user($user_info->ID);						
-
-                if ($courses && is_array($courses->posts) && count($courses->posts)){
-                    foreach ($courses->posts as $course){ $count++;
+                //$courses = tutor_utils()->get_courses_by_user($user_info->ID);
+                if ($enrolled_course && is_array($enrolled_course->posts) && count($enrolled_course->posts)){
+                    foreach ($enrolled_course->posts as $course){ $count++;
                         ?>
                         <tr>
                             <td><?php echo $count; ?></td>
@@ -250,7 +249,7 @@ exit;
                             <td><a href="#" class="details-link" data-count="<?php echo $count; ?>"><i class="fas fa-angle-down"></i></a></td>
                         </tr>
 
-                        <tr class="table-toggle open" id="table-toggle-<?php echo $count; ?>">
+                        <tr class="table-toggle" id="table-toggle-<?php echo $count; ?>">
                         <!-- complete running incomplete -->
                             <td colspan="9">
                                 <table>
@@ -325,7 +324,7 @@ exit;
                 <?php
                     $count = 0;
                     $per_review = 1;
-                    $review_page = isset( $_REQUEST['rp'] ) ? absint( $_REQUEST['rp'] ) : 0;
+                    $review_page = isset( $_GET['rp'] ) ? $_GET['rp'] : 0;
                     $review_start =  max( 0,($review_page-1)*$per_review );
                     $total_reviews = tutor_utils()->get_reviews_by_user($user_info->ID, $review_start, $per_review);
                 ?>

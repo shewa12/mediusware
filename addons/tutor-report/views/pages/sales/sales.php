@@ -6,7 +6,7 @@ $salesCount = (int) $wpdb->get_var("SELECT COUNT(ID) from {$wpdb->posts} WHERE p
 
 $per_page = 50;
 $total_items = $salesCount;
-$current_page = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0;
+$current_page = isset( $_GET['paged'] ) ? $_GET['paged'] : 0;
 $start =  max( 0,($current_page-1)*$per_page );
 
 $sales_report = $wpdb->get_results("SELECT ID as id, post_parent, post_author, post_status, post_date, meta.meta_value as order_id 

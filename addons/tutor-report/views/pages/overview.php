@@ -4,174 +4,184 @@ global $wpdb;
 $course_post_type = tutor()->course_post_type;
 $lesson_type = tutor()->lesson_post_type;
 
-$totalCourse = $wpdb->get_var("SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_type ='{$course_post_type}' AND post_status = 'publish' ");
-$totalCourseEnrolled = $wpdb->get_var("SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_type ='tutor_enrolled' AND post_status = 'completed' ");
-$totalLesson = $wpdb->get_var("SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_type ='{$lesson_type}' AND post_status = 'publish' ");
-$totalQuiz = $wpdb->get_var("SELECT COUNT(ID) FROM {$wpdb->posts} WHERE post_type ='tutor_quiz' AND post_status = 'publish' ");
-$totalQuestion = $wpdb->get_var("SELECT COUNT(question_id) FROM {$wpdb->tutor_quiz_questions} ");
-$totalInstructor = $wpdb->get_var("SELECT COUNT(umeta_id) FROM {$wpdb->usermeta} WHERE meta_key ='_is_tutor_instructor' ");
-$totalStudents = $wpdb->get_var("SELECT COUNT(umeta_id) FROM {$wpdb->usermeta} WHERE meta_key ='_is_tutor_student' ");
-$totalReviews = $wpdb->get_var("SELECT COUNT(comment_ID) FROM {$wpdb->comments} WHERE comment_type ='tutor_course_rating' AND comment_approved = 'approved' ");
+$totalCourse = $wpdb->get_var(
+    "SELECT COUNT(ID) 
+    FROM {$wpdb->posts} 
+    WHERE post_type ='{$course_post_type}' 
+    AND post_status = 'publish' "
+);
 
-$mostPopularCourses = $wpdb->get_results("
-              SELECT COUNT(enrolled.ID) as total_enrolled,
-              enrolled.post_parent as course_id,
-              course.*
-              from {$wpdb->posts} enrolled
-              INNER JOIN {$wpdb->posts} course ON enrolled.post_parent = course.ID
-              WHERE enrolled.post_type = 'tutor_enrolled' AND enrolled.post_status = 'completed'
-              GROUP BY course_id
-              ORDER BY total_enrolled DESC LIMIT 0,10 ;");
+$totalCourseEnrolled = $wpdb->get_var(
+    "SELECT COUNT(ID) 
+    FROM {$wpdb->posts} 
+    WHERE post_type ='tutor_enrolled' 
+    AND post_status = 'completed' "
+);
 
-$lastEnrolledCourses = $wpdb->get_results("
-              SELECT MAX(enrolled.post_date) as enrolled_time,
-              enrolled.post_parent,
-              course.ID,
-              course.post_title
-              
-              from {$wpdb->posts} enrolled
-              LEFT JOIN {$wpdb->posts} course ON enrolled.post_parent = course.ID
-              WHERE enrolled.post_type = 'tutor_enrolled' AND enrolled.post_status = 'completed'
+$totalLesson = $wpdb->get_var(
+    "SELECT COUNT(ID) 
+    FROM {$wpdb->posts} 
+    WHERE post_type ='{$lesson_type}' 
+    AND post_status = 'publish' "
+);
 
-			  GROUP BY enrolled.post_parent
-              ORDER BY enrolled_time DESC LIMIT 0,10 ;");
+$totalQuiz = $wpdb->get_var(
+    "SELECT COUNT(ID) 
+    FROM {$wpdb->posts} 
+    WHERE post_type ='tutor_quiz' 
+    AND post_status = 'publish' "
+);
+
+$totalQuestion = $wpdb->get_var(
+    "SELECT COUNT(question_id) 
+    FROM {$wpdb->tutor_quiz_questions} "
+);
+
+$totalInstructor = $wpdb->get_var(
+    "SELECT COUNT(umeta_id) 
+    FROM {$wpdb->usermeta} 
+    WHERE meta_key ='_is_tutor_instructor' "
+);
+
+$totalStudents = $wpdb->get_var(
+    "SELECT COUNT(umeta_id) 
+    FROM {$wpdb->usermeta} 
+    WHERE meta_key ='_is_tutor_student' "
+);
+
+$totalReviews = $wpdb->get_var(
+    "SELECT COUNT(comment_ID) 
+    FROM {$wpdb->comments} 
+    WHERE comment_type ='tutor_course_rating' 
+    AND comment_approved = 'approved' "
+);
+
+$mostPopularCourses = $wpdb->get_results(
+    "SELECT COUNT(enrolled.ID) as total_enrolled, enrolled.post_parent as course_id, course.*
+    FROM {$wpdb->posts} enrolled
+    INNER JOIN {$wpdb->posts} course ON enrolled.post_parent = course.ID
+    WHERE enrolled.post_type = 'tutor_enrolled' AND enrolled.post_status = 'completed'
+    GROUP BY course_id
+    ORDER BY total_enrolled DESC LIMIT 0,10 ;"
+);
+
+$lastEnrolledCourses = $wpdb->get_results(
+    "SELECT MAX(enrolled.post_date) as enrolled_time, enrolled.post_parent, course.ID, course.post_title
+    FROM {$wpdb->posts} enrolled
+    LEFT JOIN {$wpdb->posts} course ON enrolled.post_parent = course.ID
+    WHERE enrolled.post_type = 'tutor_enrolled' AND enrolled.post_status = 'completed'
+    GROUP BY enrolled.post_parent
+    ORDER BY enrolled_time DESC LIMIT 0,10 ;"
+);
 
 $reviews = $wpdb->get_results("select {$wpdb->comments}.comment_ID, 
-			{$wpdb->comments}.comment_post_ID, 
-			{$wpdb->comments}.comment_author, 
-			{$wpdb->comments}.comment_author_email, 
-			{$wpdb->comments}.comment_date, 
-			{$wpdb->comments}.comment_content, 
-			{$wpdb->comments}.user_id, 
-			{$wpdb->commentmeta}.meta_value as rating,
-			{$wpdb->users}.display_name 
-			
-			from {$wpdb->comments}
-			INNER JOIN {$wpdb->commentmeta} 
-			ON {$wpdb->comments}.comment_ID = {$wpdb->commentmeta}.comment_id 
-			INNER  JOIN {$wpdb->users}
-			ON {$wpdb->comments}.user_id = {$wpdb->users}.ID
-			AND meta_key = 'tutor_rating' ORDER BY comment_ID DESC LIMIT 0,10 ;");
+    {$wpdb->comments}.comment_post_ID, 
+    {$wpdb->comments}.comment_author, 
+    {$wpdb->comments}.comment_author_email, 
+    {$wpdb->comments}.comment_date, 
+    {$wpdb->comments}.comment_content, 
+    {$wpdb->comments}.user_id, 
+    {$wpdb->commentmeta}.meta_value as rating,
+    {$wpdb->users}.display_name 	
+    FROM {$wpdb->comments}
+    INNER JOIN {$wpdb->commentmeta} 
+    ON {$wpdb->comments}.comment_ID = {$wpdb->commentmeta}.comment_id 
+    INNER  JOIN {$wpdb->users}
+    ON {$wpdb->comments}.user_id = {$wpdb->users}.ID
+    AND meta_key = 'tutor_rating' ORDER BY comment_ID DESC LIMIT 0,10 ;"
+);
 
 
-$students = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
-            {$wpdb->usermeta}.meta_value as registered_timestamp
-            FROM {$wpdb->users} 
-			INNER JOIN {$wpdb->usermeta} 
-			ON ( {$wpdb->users}.ID = {$wpdb->usermeta}.user_id ) 
-			WHERE 1=1 AND ( {$wpdb->usermeta}.meta_key = '_is_tutor_student' )
-			ORDER BY {$wpdb->usermeta}.meta_value DESC 
-			LIMIT 0,10 ");
+$students = $wpdb->get_results(
+    "SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
+    {$wpdb->usermeta}.meta_value as registered_timestamp
+    FROM {$wpdb->users} 
+    INNER JOIN {$wpdb->usermeta} 
+    ON ( {$wpdb->users}.ID = {$wpdb->usermeta}.user_id ) 
+    WHERE 1=1 AND ( {$wpdb->usermeta}.meta_key = '_is_tutor_student' )
+    ORDER BY {$wpdb->usermeta}.meta_value DESC 
+    LIMIT 0,10"
+);
 
-$teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
-            {$wpdb->usermeta}.meta_value as registered_timestamp
-            FROM {$wpdb->users} 
-			INNER JOIN {$wpdb->usermeta} 
-			ON ( {$wpdb->users}.ID = {$wpdb->usermeta}.user_id ) 
-			WHERE 1=1 AND ( {$wpdb->usermeta}.meta_key = '_is_tutor_instructor' )
-			ORDER BY {$wpdb->usermeta}.meta_value DESC 
-			LIMIT 0,10 ");
-
+$teachers = $wpdb->get_results(
+    "SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* , {$wpdb->usermeta}.meta_value as registered_timestamp
+    FROM {$wpdb->users} 
+    INNER JOIN {$wpdb->usermeta} 
+    ON ( {$wpdb->users}.ID = {$wpdb->usermeta}.user_id ) 
+    WHERE 1=1 AND ( {$wpdb->usermeta}.meta_key = '_is_tutor_instructor' )
+    ORDER BY {$wpdb->usermeta}.meta_value DESC 
+    LIMIT 0,10 "
+);
 ?>
 
 <div class="tutor-report-overview-wrap">
     <div class="report-stats">
         <div class="report-stat-box">
             <div class="report-stat-box-body">
-                <div class="box-icon">
-                    <i class="tutor-icon-mortarboard"></i>
-                </div>
+                <div class="box-icon"><i class="tutor-icon-mortarboard"></i></div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalCourse; ?></h3>
                     <p><?php _e('Courses', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
-
         <div class="report-stat-box">
             <div class="report-stat-box-body">
-
-                <div class="box-icon">
-                    <i class="tutor-icon-graduate"></i>
-                </div>
+                <div class="box-icon"><i class="tutor-icon-graduate"></i></div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalCourseEnrolled; ?></h3>
                     <p><?php _e('Course Enrolled', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
-
         <div class="report-stat-box">
             <div class="report-stat-box-body">
-
-                <div class="box-icon">
-                    <i class="tutor-icon-open-book-1"></i>
-                </div>
+                <div class="box-icon"><i class="tutor-icon-open-book-1"></i></div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalLesson; ?></h3>
                     <p><?php _e('Lessons', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
-
         <div class="report-stat-box">
             <div class="report-stat-box-body">
-
-                <div class="box-icon">
-                    <i class="tutor-icon-clipboard"></i>
-                </div>
+                <div class="box-icon"><i class="tutor-icon-clipboard"></i></div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalQuiz; ?></h3>
                     <p><?php _e('Quiz', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
-
         <div class="report-stat-box">
             <div class="report-stat-box-body">
-
-                <div class="box-icon">
-                    <i class="tutor-icon-conversation-1"></i>
-                </div>
+                <div class="box-icon"><i class="tutor-icon-conversation-1"></i></div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalQuestion; ?></h3>
                     <p><?php _e('Questions', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
-
         <div class="report-stat-box">
             <div class="report-stat-box-body">
-
-                <div class="box-icon">
-                    <i class="tutor-icon-professor"></i>
-                </div>
+                <div class="box-icon"><i class="tutor-icon-professor"></i></div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalInstructor; ?></h3>
                     <p><?php _e('Instructors', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
-
         <div class="report-stat-box">
             <div class="report-stat-box-body">
-
-                <div class="box-icon">
-                    <i class="tutor-icon-student"></i>
-                </div>
+                <div class="box-icon"><i class="tutor-icon-student"></i></div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalStudents; ?></h3>
                     <p><?php _e('Students', 'tutor-pro'); ?></p>
                 </div>
             </div>
         </div>
-
         <div class="report-stat-box">
             <div class="report-stat-box-body">
-
-                <div class="box-icon">
-                    <i class="tutor-icon-review"></i>
-                </div>
+                <div class="box-icon"><i class="tutor-icon-review"></i></div>
                 <div class="box-stats-text">
                     <h3><?php echo $totalReviews; ?></h3>
                     <p><?php _e('Reviews', 'tutor-pro'); ?></p>
@@ -205,14 +215,14 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
 			/**
 			 * Query last week
 			 */
-			$enrolledQuery = $wpdb->get_results( "
-              SELECT COUNT(ID) as total_enrolled, 
-              DATE(post_date)  as date_format 
-              from {$wpdb->posts} 
-              WHERE post_type = 'tutor_enrolled' 
-              AND (post_date BETWEEN '{$start_week}' AND '{$end_week}')
-              GROUP BY date_format
-              ORDER BY post_date ASC ;");
+			$enrolledQuery = $wpdb->get_results( 
+                "SELECT COUNT(ID) as total_enrolled, DATE(post_date)  as date_format 
+                FROM {$wpdb->posts} 
+                WHERE post_type = 'tutor_enrolled' 
+                AND (post_date BETWEEN '{$start_week}' AND '{$end_week}')
+                GROUP BY date_format
+                ORDER BY post_date ASC ;"
+            );
 
 			$total_enrolled = wp_list_pluck($enrolledQuery, 'total_enrolled');
 			$queried_date = wp_list_pluck($enrolledQuery, 'date_format');
@@ -260,222 +270,254 @@ $teachers = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS {$wpdb->users}.* ,
                                 }
                             }]
                         },
-
                         legend: {
                             display: false
                         }
                     }
                 });
             </script>
-
-
         </div>
-
-
     </div>
 
 
     <div class="tutor-report-overview-section">
-
-        <div class="overview-section-col6 tutor-bg-white box-padding">
+        <div class="overview-section-col6 tutor-bg-white box-padding tutor-list-wrap">
             <h3><?php _e('Most popular courses','tutor-pro'); ?></h3>
-
-            <table class="widefat tutor-report-table ">
-                <tr>
-                    <th><?php _e('Course Name', 'tutor-pro'); ?> </th>
-                    <th><?php _e('Enrolled', 'tutor-pro'); ?> </th>
-                </tr>
-				<?php
-				if (is_array($mostPopularCourses) && count($mostPopularCourses)){
-					foreach ($mostPopularCourses as $course){
-						?>
-                        <tr>
-                            <td><a href="<?php echo get_the_permalink($course->ID); ?>" target="_blank"><?php echo $course->post_title; ?></a> </td>
-                            <td><?php echo $course->total_enrolled; ?></td>
-                        </tr>
-						<?php
-					}
-				}
-				?>
+            <table class="tutor-list-table">
+                <thead>
+                    <tr>
+                        <th><?php _e('Course Name', 'tutor-pro'); ?></th>
+                        <th><?php _e('Enrolled', 'tutor-pro'); ?></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (is_array($mostPopularCourses) && count($mostPopularCourses)){
+                        foreach ($mostPopularCourses as $course){
+                            ?>
+                            <tr>
+                                <td><?php echo $course->post_title; ?></td>
+                                <td><?php echo $course->total_enrolled; ?></td>
+                                <td><a href="<?php echo get_the_permalink($course->ID); ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a></td>
+                            </tr>
+                            <?php
+                        }
+                    }
+                    ?>
+                </tbody>
             </table>
         </div>
 
-        <div class="overview-section-col6 tutor-bg-white box-padding">
-
+        <div class="overview-section-col6 tutor-bg-white box-padding tutor-list-wrap">
             <h3><?php _e('Last enrolled courses','tutor-pro'); ?></h3>
-
-            <table class="widefat tutor-report-table ">
-                <tr>
-                    <td><?php _e('Course Name', 'tutor-pro'); ?> </td>
-                    <td><?php _e('Enrolled', 'tutor-pro'); ?> </td>
-                </tr>
-				<?php
-				if (is_array($lastEnrolledCourses) && count($lastEnrolledCourses)){
-					foreach ($lastEnrolledCourses as $course){
-						?>
-                        <tr>
-                            <td><a href="<?php echo get_the_permalink($course->ID); ?>"><?php echo $course->post_title; ?></a> </td>
-                            <td><?php echo human_time_diff(strtotime($course->enrolled_time)).' '.__('ago', 'tutor-pro'); ?></td>
-                        </tr>
-						<?php
-					}
-				}
-				?>
+            <table class="tutor-list-table">
+                <thead>
+                    <tr>
+                        <th><?php _e('Course Name', 'tutor-pro'); ?> </th>
+                        <th><?php _e('Enrolled', 'tutor-pro'); ?> </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (is_array($lastEnrolledCourses) && count($lastEnrolledCourses)){
+                        foreach ($lastEnrolledCourses as $course){
+                            ?>
+                            <tr>
+                                <td><?php echo $course->post_title; ?></td>
+                                <td><?php echo human_time_diff(strtotime($course->enrolled_time)).' '.__('ago', 'tutor-pro'); ?></td>
+                                <td><a href="<?php echo get_the_permalink($course->ID); ?>"><i class="fas fa-external-link-alt"></i></a></td>
+                            </tr>
+                            <?php
+                        }
+                    }
+                    ?>
+                </tbody>
             </table>
-
         </div>
-
-
     </div>
 
 
     <div class="tutor-report-overview-section tutor-bg-white box-padding">
-
-        <div class="last-revews-wrap">
-
+        <div class="tutor-list-wrap">
             <h3><?php _e('Recent reviews','tutor-pro'); ?></h3>
-
-            <table class="widefat tutor-report-table ">
-                <tr>
-                    <th width="100"><?php _e('User', 'tutor-pro'); ?> </th>
-                    <th><?php _e('Course', 'tutor-pro'); ?> </th>
-                    <th><?php _e('Rating', 'tutor-pro'); ?> </th>
-                    <th><?php _e('Reviews', 'tutor-pro'); ?> </th>
-                    <th><?php _e('Time', 'tutor-pro'); ?> </th>
-                </tr>
-				<?php
-				if (is_array($reviews) && count($reviews)){
-					foreach ($reviews as $review){
-						?>
-                        <tr>
-                            <td><a href="<?php echo tutor_utils()->profile_url($review->user_id); ?>" target="_blank"><?php echo $review->display_name; ?></a> </td>
-                            <td><a href="<?php echo get_the_permalink($review->comment_post_ID); ?>" target="_blank"><?php echo get_the_title
-									($review->comment_post_ID);
-									?></a> </td>
-                            <td><?php tutor_utils()->star_rating_generator($review->rating, true); ?></td>
-                            <td><?php echo wpautop($review->comment_content); ?></td>
-                            <td><?php echo human_time_diff(strtotime($review->comment_date)).' '.__('ago', 'tutor-pro'); ?></td>
-                        </tr>
-						<?php
-					}
-				}
-				?>
+            <table class="tutor-list-table">
+                <thead>
+                    <tr>
+                        <th><?php _e('User', 'tutor-pro'); ?></th>
+                        <th><?php _e('Course', 'tutor-pro'); ?></th>
+                        <th><?php _e('Rating', 'tutor-pro'); ?></th>
+                        <th><?php _e('Reviews', 'tutor-pro'); ?></th>
+                        <th><?php _e('Time', 'tutor-pro'); ?></th>
+                        <th><?php _e('Action', 'tutor-pro'); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (is_array($reviews) && count($reviews)){
+                        foreach ($reviews as $review){
+                            ?>
+                            <tr>
+                                <td>
+                                    <div class="instructor">
+                                        <div class="instructor-thumb">
+                                            <span class="instructor-icon">
+                                                <?php echo get_avatar($review->comment_author_email, 50); ?>
+                                            </span>
+                                        </div>
+                                        <div class="instructor-meta">
+                                            <span class="instructor-name">
+                                                <?php echo $review->display_name; ?> <a target="_blank" href="<?php echo tutor_utils()->profile_url($review->user_id); ?>"><i class="fas fa-external-link-alt"></i></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><?php echo get_the_title($review->comment_post_ID); ?></td>
+                                <td><?php tutor_utils()->star_rating_generator($review->rating, true); ?></td>
+                                <td><?php echo wpautop($review->comment_content); ?></td>
+                                <td><?php echo human_time_diff(strtotime($review->comment_date)).' '.__('ago', 'tutor-pro'); ?></td>
+                                <td>
+                                    <div class="details-button">
+                                        <a class="tutor-report-btn default" href="<?php echo get_the_permalink($review->comment_post_ID); ?>" target="_blank"><?php _e('View','tutor-pro'); ?></a></td>        
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    }
+                    ?>
+                </tbody>
             </table>
-
         </div>
-
     </div>
 
 
 
     <div class="tutor-report-overview-section">
-
-        <div class="last-revews-wrap tutor-bg-white box-padding">
-
+        <div class="tutor-bg-white box-padding tutor-list-wrap">
             <h3><?php _e('Recent questions from students','tutor-pro'); ?></h3>
-
-            <table class="widefat tutor-report-table ">
-                <th><?php _e('User', 'tutor-pro'); ?> </th>
-                <th><?php _e('Question', 'tutor-pro'); ?> </th>
-                <th><?php _e('Course', 'tutor-pro'); ?> </th>
-
-				<?php
-
-				$questions = tutor_utils()->get_qa_questions();
-
-				if (is_array($questions) && count($questions)){
-					foreach ($questions as $question){
-						?>
-                        <tr>
-                            <td><?php echo $question->display_name; ?></td>
-                            <td>
-                                <a href="<?php echo add_query_arg(array('page'=> 'question_answer', 'sub_page' => 'answer', 'question_id' => $question->comment_ID), admin_url('admin.php')) ?>" target="_blank">
-									<?php echo $question->comment_content; ?>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="<?php echo get_the_permalink($question->comment_post_ID); ?>" target="_blank">
-									<?php echo $question->post_title; ?>
-                                </a>
-                            </td>
-                        </tr>
-						<?php
-					}
-				}
-				?>
+            <table class="tutor-list-table">
+                <thead>
+                    <tr>
+                        <th><?php _e('User', 'tutor-pro'); ?> </th>
+                        <th><?php _e('Question', 'tutor-pro'); ?> </th>
+                        <th><?php _e('Course', 'tutor-pro'); ?> </th>
+                        <th><?php _e('Action', 'tutor-pro'); ?> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $questions = tutor_utils()->get_qa_questions();
+                    if (is_array($questions) && count($questions)){
+                        foreach ($questions as $question){
+                            ?>
+                            <tr>
+                                <td><?php echo $question->display_name; ?></td>
+                                <td><?php echo $question->comment_content; ?></td>
+                                <td><?php echo $question->post_title; ?></td>
+                                <td>
+                                    <div class="details-button">
+                                        <a class="tutor-report-btn default" href="<?php echo add_query_arg(array('page'=> 'question_answer', 'sub_page' => 'answer', 'question_id' => $question->comment_ID), admin_url('admin.php')) ?>" target="_blank"><?php _e('Replay', 'tutor-pro'); ?></a>
+                                        <a href="<?php echo get_the_permalink($question->comment_post_ID); ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    }
+                    ?>
+                </tbody>
             </table>
-
         </div>
-
     </div>
-
-
 </div>
-
-
-
-
 
 
 <div class="tutor-report-overview-section">
 
-    <div class="overview-section-col6 tutor-bg-white box-padding">
+    <div class="overview-section-col6 tutor-bg-white box-padding tutor-list-wrap">
         <h3><?php _e('New registered students','tutor-pro'); ?></h3>
-
-        <table class="widefat tutor-report-table ">
-            <tr>
-                <td><?php _e('Name', 'tutor-pro'); ?> </td>
-                <td><?php _e('E-Mail', 'tutor-pro'); ?> </td>
-                <td><?php _e('Registered at', 'tutor-pro'); ?> </td>
-            </tr>
-			<?php
-			if (is_array($students) && count($students)){
-				foreach ($students as $student){
-					?>
-                    <tr>
-                        <td>
-                            <a href="<?php echo tutor_utils()->profile_url($student->ID); ?>">
-                                <?php echo get_avatar($student->user_email, 25); ?>
-                                <?php echo $student->display_name; ?>
-                            </a>
-                        </td>
-                        <td><?php echo $student->user_email; ?> </td>
-                        <td><?php echo human_time_diff($student->registered_timestamp).' '.__('ago', 'tutor-pro'); ?></td>
-                    </tr>
-					<?php
-				}
-			}
-			?>
+        <table class="tutor-list-table">
+            <thead>
+                <tr>
+                    <th><?php _e('Name', 'tutor-pro'); ?> </th>
+                    <th><?php _e('E-Mail', 'tutor-pro'); ?> </th>
+                    <th><?php _e('Registered at', 'tutor-pro'); ?> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (is_array($students) && count($students)){
+                    foreach ($students as $student){
+                        ?>
+                        <tr>
+                            <td>
+                                <div class="instructor">
+                                    <div class="instructor-thumb">
+                                        <span class="instructor-icon">
+                                            <?php echo get_avatar($student->user_email, 50); ?>
+                                        </span>
+                                    </div>
+                                    <div class="instructor-meta">
+                                        <span class="instructor-name">
+                                            <?php echo $student->display_name; ?> <a target="_blank" href="<?php echo tutor_utils()->profile_url($student->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><?php echo $student->user_email; ?> </td>
+                            <td><?php echo human_time_diff($student->registered_timestamp).' '.__('ago', 'tutor-pro'); ?></td>
+                        </tr>
+                        <?php
+                    }
+                }
+                ?>
+            </tbody>
         </table>
     </div>
 
-    <div class="overview-section-col6 tutor-bg-white box-padding">
+
+    <div class="overview-section-col6 tutor-bg-white box-padding tutor-list-wrap">
         <h3><?php _e('New registered teachers','tutor-pro'); ?></h3>
-
-        <table class="widefat tutor-report-table ">
-            <tr>
-                <td><?php _e('Name', 'tutor-pro'); ?> </td>
-                <td><?php _e('E-Mail', 'tutor-pro'); ?> </td>
-                <td><?php _e('Registered at', 'tutor-pro'); ?> </td>
-            </tr>
-			<?php
-			if (is_array($teachers) && count($teachers)){
-				foreach ($teachers as $teacher){
-					?>
-                    <tr>
-                        <td>
-                            <a href="<?php echo tutor_utils()->profile_url($teacher->ID); ?>">
-		                        <?php echo get_avatar($teacher->user_email, 25); ?>
-		                        <?php echo $teacher->display_name; ?>
-                            </a>
-                        </td>
-                        <td><?php echo $teacher->user_email; ?> </td>
-                        <td><?php echo human_time_diff($teacher->registered_timestamp).' '.__('ago', 'tutor-pro'); ?></td>
-                    </tr>
-					<?php
-				}
-			}
-			?>
+        <table class="tutor-list-table">
+            <thead>
+                <tr>
+                    <th><?php _e('Name', 'tutor-pro'); ?></th>
+                    <th><?php _e('E-Mail', 'tutor-pro'); ?></th>
+                    <th><?php _e('Registered at', 'tutor-pro'); ?></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if (is_array($teachers) && count($teachers)){
+                    foreach ($teachers as $teacher){
+                        ?>
+                        <tr>
+                            <td>
+                                <div class="instructor">
+                                    <div class="instructor-thumb">
+                                        <span class="instructor-icon">
+                                            <?php echo get_avatar($teacher->user_email, 50); ?>
+                                        </span>
+                                    </div>
+                                    <div class="instructor-meta">
+                                        <span class="instructor-name">
+                                            <?php echo $teacher->display_name; ?> <a target="_blank" href="<?php echo tutor_utils()->profile_url($teacher->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><?php echo $teacher->user_email; ?> </td>
+                            <td><?php echo human_time_diff($teacher->registered_timestamp).' '.__('ago', 'tutor-pro'); ?></td>
+                        </tr>
+                        <?php
+                    }
+                }
+                ?>
+            </tbody>
         </table>
     </div>
+
 </div>

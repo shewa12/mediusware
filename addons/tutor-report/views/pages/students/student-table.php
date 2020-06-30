@@ -33,7 +33,7 @@ exit;
             <tbody>
                 <?php 
                 $per_page = 1;
-                $current_page = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0;
+                $current_page = isset( $_GET['paged'] ) ? $_GET['paged'] : 0;
                 $start =  max( 0,($current_page-1)*$per_page );
                 $total_items = count(tutor_utils()->get_students(0, 10000, $_search));
                 $students_list = tutor_utils()->get_students($start, $per_page, $_search);

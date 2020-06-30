@@ -6,7 +6,7 @@ $reviewsCount = (int) $wpdb->get_var("SELECT COUNT(comment_ID) from {$wpdb->comm
 
 $per_page = 50;
 $total_items = $reviewsCount;
-$current_page = isset( $_REQUEST['paged'] ) ? absint( $_REQUEST['paged'] ) : 0;
+$current_page = isset( $_GET['paged'] ) ? $_GET['paged'] : 0;
 $start =  max( 0,($current_page-1)*$per_page );
 
 $course_query  = '';
