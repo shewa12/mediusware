@@ -23,9 +23,5 @@ for ($m=1; $m<=12; $m++) {
 	$emptyMonths[date('F', mktime(0,0,0,$m, 1, date('Y')))] = 0;
 }
 $chartData = array_merge($emptyMonths, $monthWiseEnrolled);
-?>
 
-
-<?php
-include TUTOR_REPORT()->path.'views/pages/course/graph/body.php';
-?>
+include TUTOR_REPORT()->path.'views/pages/courses/graph/body.php';

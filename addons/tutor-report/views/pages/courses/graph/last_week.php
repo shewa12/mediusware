@@ -53,5 +53,5 @@ foreach ($chartData as $key => $enrolledCount){
 	$chartData[$formatDate] = $enrolledCount;
 }
 
-include TUTOR_REPORT()->path.'views/pages/course/graph/body.php';
+include TUTOR_REPORT()->path.'views/pages/courses/graph/body.php';
 ?>

@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) )
 	?>
 
 	<?php
-	include TUTOR_REPORT()->path.'views/pages/course/graph/top_menu.php';
+	include TUTOR_REPORT()->path.'views/pages/courses/graph/top_menu.php';
 	?>
 
     <canvas id="myChart" style="width: 100%; height: 400px;"></canvas>

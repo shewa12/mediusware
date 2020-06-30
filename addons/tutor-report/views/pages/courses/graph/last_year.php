@@ -28,5 +28,5 @@ for ($m=1; $m<=12; $m++) {
 }
 $chartData = array_merge($emptyMonths, $monthWiseEnrolled);
 
-include TUTOR_REPORT()->path.'views/pages/course/graph/body.php';
+include TUTOR_REPORT()->path.'views/pages/courses/graph/body.php';
 ?>
