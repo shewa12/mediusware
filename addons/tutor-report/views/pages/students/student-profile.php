@@ -42,7 +42,7 @@ exit;
                             <div><span><?php _e('User Name', 'tutor-pro'); ?></span> <br> <?php echo $user_info->user_login; ?></div>
                         </th>
                         <th>
-                            <div><span><?php _e('Email ID', 'tutor-pro'); ?></span> <br> <?php echo $user_info->user_email; ?> <a href="mailto:<?php echo $user_info->user_email;?>"><i class="fas fa-external-link-alt"></i></a></div>
+                            <div><span><?php _e('Email ID', 'tutor-pro'); ?></span> <br> <?php echo $user_info->user_email; ?> <a href="mailto:<?php echo $user_info->user_email;?>"><i class="tutor-icon-link"></i></a></div>
                         </th>
                         <th>
                             <div><span><?php _e('User ID', 'tutor-pro'); ?></span> <br><?php echo $user_info->ID;?></div>
@@ -215,7 +215,7 @@ exit;
                         ?>
                         <tr>
                             <td><?php echo $count; ?></td>
-                            <td><?php echo get_the_title($course->ID); ?> <a href="<?php echo get_the_permalink($course->ID); ?>" target="_blank" class="course-link"><i class="fas fa-external-link-alt"></i></a></td>
+                            <td><?php echo get_the_title($course->ID); ?> <a href="<?php echo get_the_permalink($course->ID); ?>" target="_blank" class="course-link"><i class="tutor-icon-link"></i></a></td>
                             <td><?php echo date('h:i a', strtotime($course->post_date)); ?></td>
                             <td>
                                 <span class="complete">
@@ -246,7 +246,7 @@ exit;
                             <?php $completed_percent = tutor_utils()->get_course_completed_percent($course->ID, $user_info->ID); ?>
                             <td><div class="course-percentage" style="--percent: <?php echo $completed_percent; ?>%;"></div></td>
                             <td><?php echo $completed_percent; ?>%</td>
-                            <td><a href="#" class="details-link" data-count="<?php echo $count; ?>"><i class="fas fa-angle-down"></i></a></td>
+                            <td><a href="#" class="details-link" data-count="<?php echo $count; ?>"><i class="tutor-icon-angle-down"></i></a></td>
                         </tr>
 
                         <tr class="table-toggle" id="table-toggle-<?php echo $count; ?>">

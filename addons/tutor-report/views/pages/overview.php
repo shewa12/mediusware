@@ -190,10 +190,12 @@ $teachers = $wpdb->get_results(
         </div>
     </div>
 
-    <div class="tutor-report-overview-section tutor-bg-white box-padding">
+    <div class="tutor-report-overview-section tutor-list-wrap tutor-report-graph-wrap">
         <div class="tutor-overview-month-graph" style="width: 100%;">
-
-            <h3><?php echo sprintf(__('Student enrolment graph for %s', 'tutor-pro'), date('F')); ?></h3>
+            
+            <div>
+                <div class="heading"><?php echo sprintf(__('Student enrolment graph for %s', 'tutor-pro'), date('F')); ?></div>
+           
 			<?php
 			/**
 			 * Getting the last week
@@ -237,7 +239,8 @@ $teachers = $wpdb->get_results(
 
 			?>
 
-            <p><?php _e('Total Enrolled Course','tutor-pro'); ?> <?php echo array_sum($chartData); ?> </p>
+                <p><?php _e('Total Enrolled Course','tutor-pro'); ?> <?php echo array_sum($chartData); ?> </p>
+            </div>
 
             <canvas id="myChart" style="width: 100%; height: 400px;"></canvas>
             <script>
@@ -281,12 +284,17 @@ $teachers = $wpdb->get_results(
 
 
     <div class="tutor-report-overview-section">
-        <div class="overview-section-col6 tutor-bg-white box-padding tutor-list-wrap">
-            <h3><?php _e('Most popular courses','tutor-pro'); ?></h3>
+        <div class="overview-section-col6 tutor-list-wrap">
+            <div class="tutor-list-header">
+                <div class="heading">
+                    <?php _e('Most popular courses','tutor-pro'); ?>
+                </div>
+            </div>	
+
             <table class="tutor-list-table">
                 <thead>
                     <tr>
-                        <th><?php _e('Course Name', 'tutor-pro'); ?></th>
+                        <th class="course-title"><?php _e('Course Name', 'tutor-pro'); ?></th>
                         <th><?php _e('Enrolled', 'tutor-pro'); ?></th>
                         <th></th>
                     </tr>
@@ -297,9 +305,9 @@ $teachers = $wpdb->get_results(
                         foreach ($mostPopularCourses as $course){
                             ?>
                             <tr>
-                                <td><?php echo $course->post_title; ?></td>
+                                <td class="course-title"><?php echo $course->post_title; ?></td>
                                 <td><?php echo $course->total_enrolled; ?></td>
-                                <td><a href="<?php echo get_the_permalink($course->ID); ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a></td>
+                                <td><a class="link-icon" href="<?php echo get_the_permalink($course->ID); ?>" target="_blank"><i class="tutor-icon-link"></i></a></td>
                             </tr>
                             <?php
                         }
@@ -309,12 +317,18 @@ $teachers = $wpdb->get_results(
             </table>
         </div>
 
-        <div class="overview-section-col6 tutor-bg-white box-padding tutor-list-wrap">
-            <h3><?php _e('Last enrolled courses','tutor-pro'); ?></h3>
+        <div class="overview-section-col6 tutor-list-wrap">
+            
+            <div class="tutor-list-header">
+                <div class="heading">
+                    <?php _e('Last enrolled courses','tutor-pro'); ?>
+                </div>
+            </div>
+                    
             <table class="tutor-list-table">
                 <thead>
                     <tr>
-                        <th><?php _e('Course Name', 'tutor-pro'); ?> </th>
+                        <th class="course-title"><?php _e('Course Name', 'tutor-pro'); ?> </th>
                         <th><?php _e('Enrolled', 'tutor-pro'); ?> </th>
                         <th></th>
                     </tr>
@@ -325,9 +339,9 @@ $teachers = $wpdb->get_results(
                         foreach ($lastEnrolledCourses as $course){
                             ?>
                             <tr>
-                                <td><?php echo $course->post_title; ?></td>
+                                <td class="course-title"><?php echo $course->post_title; ?></td>
                                 <td><?php echo human_time_diff(strtotime($course->enrolled_time)).' '.__('ago', 'tutor-pro'); ?></td>
-                                <td><a href="<?php echo get_the_permalink($course->ID); ?>"><i class="fas fa-external-link-alt"></i></a></td>
+                                <td><a class="link-icon" href="<?php echo get_the_permalink($course->ID); ?>"><i class="tutor-icon-link"></i></a></td>
                             </tr>
                             <?php
                         }
@@ -339,16 +353,22 @@ $teachers = $wpdb->get_results(
     </div>
 
 
-    <div class="tutor-report-overview-section tutor-bg-white box-padding">
+    <div class="tutor-report-overview-section">
         <div class="tutor-list-wrap">
-            <h3><?php _e('Recent reviews','tutor-pro'); ?></h3>
+                    
+            <div class="tutor-list-header">
+                <div class="heading">
+                    <?php _e('Recent reviews','tutor-pro'); ?>
+                </div>
+            </div>
+
             <table class="tutor-list-table">
                 <thead>
                     <tr>
                         <th><?php _e('User', 'tutor-pro'); ?></th>
-                        <th><?php _e('Course', 'tutor-pro'); ?></th>
+                        <th class="course-title"><?php _e('Course', 'tutor-pro'); ?></th>
                         <th><?php _e('Rating', 'tutor-pro'); ?></th>
-                        <th><?php _e('Reviews', 'tutor-pro'); ?></th>
+                        <th class="review"><?php _e('Reviews', 'tutor-pro'); ?></th>
                         <th><?php _e('Time', 'tutor-pro'); ?></th>
                         <th><?php _e('Action', 'tutor-pro'); ?></th>
                     </tr>
@@ -368,14 +388,14 @@ $teachers = $wpdb->get_results(
                                         </div>
                                         <div class="instructor-meta">
                                             <span class="instructor-name">
-                                                <?php echo $review->display_name; ?> <a target="_blank" href="<?php echo tutor_utils()->profile_url($review->user_id); ?>"><i class="fas fa-external-link-alt"></i></a>
+                                                <span><?php echo $review->display_name; ?></span> <a target="_blank" href="<?php echo tutor_utils()->profile_url($review->user_id); ?>"><i class="tutor-icon-link"></i></a>
                                             </span>
                                         </div>
                                     </div>
                                 </td>
-                                <td><?php echo get_the_title($review->comment_post_ID); ?></td>
+                                <td class="course-title"><?php echo get_the_title($review->comment_post_ID); ?></td>
                                 <td><?php tutor_utils()->star_rating_generator($review->rating, true); ?></td>
-                                <td><?php echo wpautop($review->comment_content); ?></td>
+                                <td class="review"><?php echo wpautop($review->comment_content); ?></td>
                                 <td><?php echo human_time_diff(strtotime($review->comment_date)).' '.__('ago', 'tutor-pro'); ?></td>
                                 <td>
                                     <div class="details-button">
@@ -395,14 +415,18 @@ $teachers = $wpdb->get_results(
 
 
     <div class="tutor-report-overview-section">
-        <div class="tutor-bg-white box-padding tutor-list-wrap">
-            <h3><?php _e('Recent questions from students','tutor-pro'); ?></h3>
+        <div class="tutor-list-wrap">
+            <div class="tutor-list-header">
+                <div class="heading">
+                    <?php _e('Recent questions from students','tutor-pro'); ?>
+                </div>
+            </div>
             <table class="tutor-list-table">
                 <thead>
                     <tr>
                         <th><?php _e('User', 'tutor-pro'); ?> </th>
                         <th><?php _e('Question', 'tutor-pro'); ?> </th>
-                        <th><?php _e('Course', 'tutor-pro'); ?> </th>
+                        <th class="course-title"><?php _e('Course', 'tutor-pro'); ?> </th>
                         <th><?php _e('Action', 'tutor-pro'); ?> </th>
                     </tr>
                 </thead>
@@ -415,11 +439,11 @@ $teachers = $wpdb->get_results(
                             <tr>
                                 <td><?php echo $question->display_name; ?></td>
                                 <td><?php echo $question->comment_content; ?></td>
-                                <td><?php echo $question->post_title; ?></td>
+                                <td class="course-title"><?php echo $question->post_title; ?></td>
                                 <td>
                                     <div class="details-button">
                                         <a class="tutor-report-btn default" href="<?php echo add_query_arg(array('page'=> 'question_answer', 'sub_page' => 'answer', 'question_id' => $question->comment_ID), admin_url('admin.php')) ?>" target="_blank"><?php _e('Replay', 'tutor-pro'); ?></a>
-                                        <a href="<?php echo get_the_permalink($question->comment_post_ID); ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                                        <a href="<?php echo get_the_permalink($question->comment_post_ID); ?>" target="_blank"><i class="tutor-icon-link"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -436,8 +460,12 @@ $teachers = $wpdb->get_results(
 
 <div class="tutor-report-overview-section">
 
-    <div class="overview-section-col6 tutor-bg-white box-padding tutor-list-wrap">
-        <h3><?php _e('New registered students','tutor-pro'); ?></h3>
+    <div class="overview-section-col6 tutor-list-wrap">
+        <div class="tutor-list-header">
+            <div class="heading">
+                <?php _e('New registered students','tutor-pro'); ?>
+            </div>
+        </div>
         <table class="tutor-list-table">
             <thead>
                 <tr>
@@ -461,7 +489,7 @@ $teachers = $wpdb->get_results(
                                     </div>
                                     <div class="instructor-meta">
                                         <span class="instructor-name">
-                                            <?php echo $student->display_name; ?> <a target="_blank" href="<?php echo tutor_utils()->profile_url($student->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+                                            <span><?php echo $student->display_name; ?> </span><a target="_blank" href="<?php echo tutor_utils()->profile_url($student->ID); ?>"><i class="tutor-icon-link"></i></a>
                                         </span>
                                     </div>
                                 </div>
@@ -478,15 +506,18 @@ $teachers = $wpdb->get_results(
     </div>
 
 
-    <div class="overview-section-col6 tutor-bg-white box-padding tutor-list-wrap">
-        <h3><?php _e('New registered teachers','tutor-pro'); ?></h3>
+    <div class="overview-section-col6 tutor-list-wrap">
+        <div class="tutor-list-header">
+            <div class="heading">
+                <?php _e('New registered teachers','tutor-pro'); ?>              
+            </div>
+        </div>
         <table class="tutor-list-table">
             <thead>
                 <tr>
                     <th><?php _e('Name', 'tutor-pro'); ?></th>
                     <th><?php _e('E-Mail', 'tutor-pro'); ?></th>
                     <th><?php _e('Registered at', 'tutor-pro'); ?></th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -504,7 +535,8 @@ $teachers = $wpdb->get_results(
                                     </div>
                                     <div class="instructor-meta">
                                         <span class="instructor-name">
-                                            <?php echo $teacher->display_name; ?> <a target="_blank" href="<?php echo tutor_utils()->profile_url($teacher->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+                                            <span><?php echo $teacher->display_name; ?> </span>
+                                            <a target="_blank" href="<?php echo tutor_utils()->profile_url($teacher->ID); ?>"><i class="tutor-icon-link"></i></a>
                                         </span>
                                     </div>
                                 </div>

@@ -155,11 +155,10 @@ exit;
 
 <div class="tutor-report-graph-earnings">
     <div class="tutor-list-wrap tutor-report-graph">
-        <div class="tutor-list-header">
-            <div class="heading"><?php _e('Sales Graph', 'tutor-pro'); ?></div>
-        </div>
-
         <div class="tutor-report-graph-wrap">
+            
+            <div class="heading"><?php _e('Sales Graph', 'tutor-pro'); ?></div>
+
             <?php 
             	$sub_page = 'this_year';
                 $course_id = false;
@@ -299,7 +298,7 @@ exit;
                             </div>
                             <div class="instructor-meta">
                                 <span class="instructor-name">
-                                    <?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+                                    <span><?php echo $user_info->display_name; ?></span> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="tutor-icon-link"></i></a>
                                 </span>
                             </div>
                         </div>
