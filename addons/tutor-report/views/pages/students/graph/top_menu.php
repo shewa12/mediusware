@@ -21,7 +21,7 @@ exit;
 			$timePeriodPageURL = add_query_arg(array('time_period' => $period));
 			$timePeriodPageURL = remove_query_arg(array('date_range_from', 'date_range_to', 'tutor_report_action'), $timePeriodPageURL);
 
-			echo '<a href="'.$timePeriodPageURL.'" class="'.$activeClass.'">'.$period_name.'</a> ';
+			echo '<a href="'.$timePeriodPageURL.'" class="tutor-report-btn '.$activeClass.'">'.$period_name.'</a> ';
 		}
 		?>
     </div>
