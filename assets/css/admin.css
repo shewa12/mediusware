@@ -12,7 +12,6 @@ a:focus,
 a:visited {
 	box-shadow: none;
 	outline: none;
-	color: #3e64de;
 }
 
 /* Main Style */
@@ -948,14 +947,22 @@ button#gradebook-search-btn {
 }
 
 .report-course-list-wrap .detail {
-	width: unset !important;
 	padding: unset !important;
 	text-align: left !important;
 	font-size: 14px !important;
 	font-weight: 400 !important;
 }
+
 .report-course-list-wrap .tutor-list-table td > table {
 	width: 100%;
+}
+
+.report-course-list .course-list-details {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 1fr;
+	grid-gap: 20px;
+	grid-template-columns: repeat(3, 1fr);
 }
 /* /.report-course-list - end */
 
@@ -1279,7 +1286,8 @@ button#gradebook-search-btn {
 }
 
 .tutor-list-wrap .tutor-list-table a:hover,
-.tutor-list-wrap .tutor-list-table a:focus {
+.tutor-list-wrap .tutor-list-table a:focus,
+.tutor-list-wrap .tutor-list-table a:visited {
 	color: #3e64de;
 }
 

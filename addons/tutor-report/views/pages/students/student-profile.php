@@ -251,47 +251,45 @@ exit;
 
                         <tr class="table-toggle" id="table-toggle-<?php echo $count; ?>">
                         <!-- complete running incomplete -->
-                            <td colspan="9">
-                                <table>
-                                    <tr>
-                                        <?php if($total_lesson->post_count > 0) { ?>
-                                            <td class="detail">
-                                                <div class="heading"><?php _e('Lesson', 'tutor-pro'); ?></div>
-                                                <div class="status">
-                                                    <?php 
-                                                    $count = count($total_lesson->posts) - 1;
-                                                    $posts_data = $total_lesson->posts;
-                                                    for($count; $count >= 0; $count--) { 
-                                                        $is = tutor_utils()->is_completed_lesson($posts_data[$count]->ID, $user_info->ID);
-                                                        ?>
-                                                        <span class="<?php echo ($is ? 'complete' : 'incomplete'); ?>"><?php echo get_the_title($posts_data[$count]->ID); ?></span><br>
-                                                    <?php } ?>
-                                                </div>
-                                            </td>
-                                        <?php } ?>
-                                        <?php if(count($total_quiz) > 0) { ?>
-                                            <td class="detail">
-                                                <div class="heading"><?php _e('Quiz', 'tutor-pro'); ?></div>
-                                                <div class="status">
-                                                    <?php
-                                                    foreach ($total_quiz as $value) { ?>
-                                                        <span class="complete"><?php echo get_the_title($value->ID); ?></span><br>
-                                                    <?php } ?>
-                                                </div>
-                                            </td>
-                                        <?php } ?>
-                                        <?php if(count($total_assignment) > 0) { ?>
-                                            <td class="detail">
-                                                <div class="heading"><?php _e('Assignment', 'tutor-pro'); ?></div>
-                                                <div class="status">
-                                                    <?php foreach ($total_assignment as $value) { ?>
-                                                        <span class="complete"><?php echo get_the_title($value->ID); ?></span><br>
-                                                    <?php } ?>
-                                                </div>
-                                            </td>
-                                        <?php } ?>
-                                    </tr>
-                                </table>
+                            <td colspan="100%">
+                                <div class="course-list-details">
+                                    <?php if($total_lesson->post_count > 0) { ?>
+                                        <div class="detail">
+                                            <div class="heading"><?php _e('Lesson', 'tutor-pro'); ?></div>
+                                            <div class="status">
+                                                <?php 
+                                                $count = count($total_lesson->posts) - 1;
+                                                $posts_data = $total_lesson->posts;
+                                                for($count; $count >= 0; $count--) { 
+                                                    $is = tutor_utils()->is_completed_lesson($posts_data[$count]->ID, $user_info->ID);
+                                                    ?>
+                                                    <span class="<?php echo ($is ? 'complete' : 'incomplete'); ?>"><?php echo get_the_title($posts_data[$count]->ID); ?></span><br>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                    <?php if(count($total_quiz) > 0) { ?>
+                                        <div class="detail">
+                                            <div class="heading"><?php _e('Quiz', 'tutor-pro'); ?></div>
+                                            <div class="status">
+                                                <?php
+                                                foreach ($total_quiz as $value) { ?>
+                                                    <span class="complete"><?php echo get_the_title($value->ID); ?></span><br>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                    <?php if(count($total_assignment) > 0) { ?>
+                                        <div class="detail">
+                                            <div class="heading"><?php _e('Assignment', 'tutor-pro'); ?></div>
+                                            <div class="status">
+                                                <?php foreach ($total_assignment as $value) { ?>
+                                                    <span class="complete"><?php echo get_the_title($value->ID); ?></span><br>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                </div>
                             </td>
                         </tr>
 
