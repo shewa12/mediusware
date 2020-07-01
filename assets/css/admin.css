@@ -4,8 +4,12 @@
 	margin: 0;
 	padding: 0;
 }
+a {
+	text-decoration: none;
+}
 a:active,
-a:focus {
+a:focus,
+a:visited {
 	box-shadow: none;
 	outline: none;
 }
@@ -539,6 +543,7 @@ button#gradebook-search-btn {
 	color: #34374b;
 	border: solid 1px #dcdce1;
 	transition: 0.2s ease;
+	cursor: pointer;
 }
 
 .tutor-report-btn.default {
@@ -578,6 +583,7 @@ button#gradebook-search-btn {
 
 .report-stat-box-body {
 	border-radius: 3px;
+	align-items: center;
 }
 /* /.report-student-profile - end */
 
@@ -644,10 +650,10 @@ button#gradebook-search-btn {
 	text-align: left;
 	border-collapse: collapse;
 }
-.tutor-list-wrap .tutor-list-table .table-toggle{
+.tutor-list-wrap .tutor-list-table .table-toggle {
 	display: none;
 }
-.tutor-list-wrap .tutor-list-table .table-toggle.open{
+.tutor-list-wrap .tutor-list-table .table-toggle.open {
 	display: table-row;
 }
 [class^="tutor-report-"] .tutor-list-table tbody td.detail {
@@ -670,7 +676,8 @@ button#gradebook-search-btn {
 	text-transform: uppercase;
 }
 
-.tutor-list-wrap .tutor-list-table td {
+.tutor-list-wrap .tutor-list-table td,
+.tutor-list-wrap .tutor-list-table td p {
 	font-size: 14px;
 	font-weight: 300;
 	line-height: 1.75;
@@ -760,8 +767,9 @@ button#gradebook-search-btn {
 	margin: 0;
 }
 
-.tutor-list-table td .details-button a {
-	font-size: 14px;
+.tutor-list-table td .details-button a,
+.tutor-list-table .link-icon {
+	font-size: 16px;
 	color: #b9bac3;
 	transition: 0.2s;
 }
@@ -787,6 +795,10 @@ button#gradebook-search-btn {
 .tutor-list-table .course-link a {
 	color: inherit;
 	text-decoration: none;
+}
+.tutor-list-table .tutor-icon-link,
+.profile-table .tutor-icon-link {
+	font-size: 14px;
 }
 
 @media (max-width: 991px) {
@@ -937,14 +949,22 @@ button#gradebook-search-btn {
 }
 
 .report-course-list-wrap .detail {
-	width: unset !important;
 	padding: unset !important;
 	text-align: left !important;
 	font-size: 14px !important;
 	font-weight: 400 !important;
 }
+
 .report-course-list-wrap .tutor-list-table td > table {
 	width: 100%;
+}
+
+.report-course-list .course-list-details {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 1fr;
+	grid-gap: 20px;
+	grid-template-columns: repeat(3, 1fr);
 }
 /* /.report-course-list - end */
 
@@ -1005,12 +1025,16 @@ button#gradebook-search-btn {
 	margin-right: 5px;
 }
 
-[class^="tutor-report-"] .tutor-list-table .review {
+[class^="tutor-report-"] .tutor-list-table tr td.review {
 	font-size: 16px;
 	font-weight: 300;
 	line-height: 1.75;
 	color: #3f435b;
 }
+[class^="tutor-report-"] .tutor-list-table tr td.course-title {
+	font-size: 14px;
+}
+
 /* /.report-review - end */
 
 .tutor-report-learners .tutor-list-table .course-progress {
@@ -1024,12 +1048,6 @@ button#gradebook-search-btn {
 
 .tutor-report-graph-wrap .tutor-date-range-filter-wrap {
 	margin-top: 15px;
-}
-
-.tutor-report-graph-earnings {
-	/* display: grid;
-	grid-template-columns: 2fr 1fr;
-	grid-gap: 30px; */
 }
 
 .tutor-report-graph-wrap,
@@ -1071,6 +1089,22 @@ button#gradebook-search-btn {
 }
 
 .tutor-report-earnings-wrap {
+	padding: unset;
+}
+
+.tutor-report-earnings .earnings-item {
+	min-width: 255px;
+	height: 101px;
+	border-radius: 3px;
+	background-color: #ffffff;
+	padding: 24px;
+}
+
+.tutor-report-earnings {
+	margin-top: 40px;
+}
+
+.tutor-report-earnings-wrap {
 	display: grid;
 	grid-auto-flow: column;
 	grid-auto-columns: max-content;
@@ -1082,10 +1116,6 @@ button#gradebook-search-btn {
 	align-items: center;
 }
 
-.tutor-report-earnings-wrap .earnings-item:not(:last-child) {
-	/* margin-bottom: 20px; */
-}
-
 .tutor-report-earnings-wrap .earnings-item i {
 	color: #3e64de;
 	font-size: 40px;
@@ -1093,7 +1123,7 @@ button#gradebook-search-btn {
 
 .tutor-report-earnings-wrap .earnings-item .icon {
 	margin-right: 20px;
-	max-width: 40px;
+	max-width: 50px;
 }
 
 .tutor-report-earnings-wrap .earnings-item .icon img {
@@ -1309,12 +1339,36 @@ button#gradebook-search-btn {
 	line-height: 62px;
 }
 
+.tutor-report-graph-wrap,
 .tutor-report-student-data .tutor-report-graph-wrap {
 	padding-top: 30px;
 }
 
 .report-download-csv-icon a {
 	color: #737787;
+}
+
+.tutor-list-table tr th.review,
+.tutor-list-table tr td.review,
+.tutor-report-review table tr th:nth-child(2),
+.tutor-report-review table tr td:nth-child(2),
+.tutor-report-review table tr th:nth-child(4),
+.tutor-report-review table tr td:nth-child(4) {
+	width: 25%;
+}
+
+.tutor-report-review table tr th:nth-child(1),
+.tutor-report-review table tr td:nth-child(1) {
+	width: 15%;
+}
+
+.instructor-name {
+	display: flex;
+	align-items: center;
+}
+
+.instructor-name span {
+	margin-right: 10px;
 }
 /**
  * Tutor Report ------> END

@@ -100,7 +100,7 @@ if(is_array($all_data) && !empty($all_data)){
     <div>
         <div>
             <input type="text" class="tutor-report-search" value="<?php echo $_search; ?>" autocomplete="off" placeholder="Search in here." />
-            <button class="tutor-report-search-btn"><i class="fas fa-search"></i></button>
+            <button class="tutor-report-search-btn"><i class="tutor-icon-magnifying-glass-1"></i></button>
         </div>
     </div>
 
@@ -169,7 +169,7 @@ if(is_array($all_data) && !empty($all_data)){
                         <td>
                             <div class="details-button">
                                 <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=courses&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
-                                <a href="<?php echo $course['link']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="<?php echo $course['link']; ?>" target="_blank"><i class="tutor-icon-link"></i></a>
                             </div>
                         </td>
                     </tr>

@@ -154,34 +154,7 @@ exit;
 
 
 <div class="tutor-report-graph-earnings">
-    <div class="tutor-list-wrap tutor-report-graph">
-        <div class="tutor-list-header">
-            <div class="heading"><?php _e('Sales Graph', 'tutor-pro'); ?></div>
-        </div>
-
-        <div class="tutor-report-graph-wrap">
-            <?php 
-            	$sub_page = 'this_year';
-                $course_id = false;
-                if ( ! empty($_GET['time_period'])){
-                    $sub_page = sanitize_text_field($_GET['time_period']);
-                }
-                if ( ! empty($_GET['course_id'])){
-                    $course_id = (int) sanitize_text_field($_GET['course_id']);
-                }
-                if ( ! empty($_GET['date_range_from']) && ! empty($_GET['date_range_to'])){
-                    $sub_page = 'date_range';
-                }
-            
-                include $view_page.$page."/graph/{$sub_page}.php";            
-            ?>
-        </div>
-
-    </div>
-    <div class="tutor-list-wrap tutor-report-earnings">
-        <div class="tutor-list-header tutor-report-single-graph">
-            <div class="heading"><?php _e('Earnings', 'tutor-pro'); ?></div>
-        </div>
+    <div class="tutor-report-earnings">
         <div class="tutor-report-earnings-wrap">
             <div class="earnings-item">
                 <div class="icon"><img src="<?php echo tutor_pro()->url.'addons/tutor-report/assets/images/money-bag.png'?>" alt="Money icon"></div>
@@ -255,6 +228,31 @@ exit;
             </div>
         </div>
     </div>
+
+    <div class="tutor-list-wrap tutor-report-graph">
+        <div class="tutor-report-graph-wrap">
+            
+            <div class="heading"><?php _e('Sales Graph', 'tutor-pro'); ?></div>
+
+            <?php 
+            	$sub_page = 'this_year';
+                $course_id = false;
+                if ( ! empty($_GET['time_period'])){
+                    $sub_page = sanitize_text_field($_GET['time_period']);
+                }
+                if ( ! empty($_GET['course_id'])){
+                    $course_id = (int) sanitize_text_field($_GET['course_id']);
+                }
+                if ( ! empty($_GET['date_range_from']) && ! empty($_GET['date_range_to'])){
+                    $sub_page = 'date_range';
+                }
+            
+                include $view_page.$page."/graph/{$sub_page}.php";            
+            ?>
+        </div>
+
+    </div>
+    
 </div>
 
 
@@ -301,7 +299,7 @@ exit;
                                 </div>
                                 <div class="instructor-meta">
                                     <span class="instructor-name">
-                                        <?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+                                        <?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="tutor-icon-link"></i></a>
                                     </span>
                                 </div>
                             </div>
@@ -311,8 +309,9 @@ exit;
                         <td><strong><?php echo tutor_utils()->get_completed_lesson_count_by_course($current_id, $user_info->ID); ?></strong>/<span><?php echo $info_lesson; ?><span></td>
                         <td>
                             <div class="course-progress">
-                                <span class="course-percentage" style="--percent: <?php echo tutor_utils()->get_course_completed_percent($current_id); ?>%;"></span>
-                                <span><?php echo tutor_utils()->get_course_completed_percent($current_id); ?>%</span>   
+                                <?php $percentage = tutor_utils()->get_course_completed_percent($current_id, $user_info->ID); ?>
+                                <span class="course-percentage" style="--percent: <?php echo $percentage; ?>%;"></span>
+                                <span><?php echo $percentage; ?>%</span>   
                             </div>
                         </td>
                     </tr>

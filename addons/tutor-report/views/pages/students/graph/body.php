@@ -6,7 +6,7 @@ exit;
     <div class="tutor-list-wrap">
         <div class="tutor-report-graph-wrap">
             <?php
-            echo '<div class="report-graph-title">';
+            echo '<div class="report-graph-title heading">';
             switch ($sub_page){
                 case 'this_year';
                     echo sprintf(__("Showing results for the year %s", 'tutor-pro'), $currentYear);

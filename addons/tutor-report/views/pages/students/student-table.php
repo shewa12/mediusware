@@ -60,7 +60,7 @@ exit;
                             <td>
                                 <div class="details-button">
                                     <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$student->ID); ?>"><?php _e('Details', 'tutor') ?></a>
-                                    <a target="_blank" href="<?php echo tutor_utils()->profile_url($student->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+                                    <a target="_blank" href="<?php echo tutor_utils()->profile_url($student->ID); ?>"><i class="tutor-icon-link"></i></a>
                                 </div>
                             </td>
                         </tr>
@@ -74,7 +74,7 @@ exit;
     <div class="tutor-list-footer ">
         <div class="tutor-report-count">
             <div class="tutor-report-count">
-                <?php printf(__('Items <strong>%s</strong> of <strong>%s</strong> total"', 'tutor-pro'), $total_items, count($students_list)); ?>
+                <?php printf(__('Items <strong>%s</strong> of <strong>%s</strong> total', 'tutor-pro'), $total_items, count($students_list)); ?>
             </div>	
         </div>
         <div class="tutor-pagination">

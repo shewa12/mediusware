@@ -3,9 +3,13 @@
 global $wpdb;
 
 $reviewsCount = (int) $wpdb->get_var(
-	"SELECT COUNT(comment_ID) 
-	FROM {$wpdb->comments} 
-	WHERE comment_type = 'tutor_course_rating' ;"
+	"SELECT COUNT({$wpdb->comments}.comment_ID) 
+	FROM {$wpdb->comments}
+	INNER JOIN {$wpdb->commentmeta} 
+	ON {$wpdb->comments}.comment_ID = {$wpdb->commentmeta}.comment_id
+	INNER  JOIN {$wpdb->users}
+	ON {$wpdb->comments}.user_id = {$wpdb->users}.ID
+	AND meta_key = 'tutor_rating'"
 );
 
 $per_page = 50;
@@ -72,7 +76,7 @@ $reviews = $wpdb->get_results(
 									</div>
 									<div class="instructor-meta">
 										<span class="instructor-name">
-											<?php echo $review->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$review->user_id); ?>"><i class="fas fa-external-link-alt"></i></a>
+											<?php echo $review->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$review->user_id); ?>"><i class="tutor-icon-link"></i></a>
 										</span>
 									</div>
 								</div>
@@ -86,7 +90,7 @@ $reviews = $wpdb->get_results(
 									<button type="button" class="button tutor-delete-link tutor-rating-delete-link tutor-report-btn default" data-rating-id="<?php echo $review->comment_ID; ?>">
 										<i class="tutor-icon-trash"></i> <?php _e('Delete', 'tutor-pro'); ?>
 									</button>
-									<a target="_blank" href="<?php echo get_permalink($review->comment_post_ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+									<a target="_blank" href="<?php echo get_permalink($review->comment_post_ID); ?>"><i class="tutor-icon-link"></i></a>
 								</div>
 							</td>
 						</tr>

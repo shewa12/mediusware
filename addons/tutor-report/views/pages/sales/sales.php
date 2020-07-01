@@ -27,9 +27,14 @@ $sales_report = $wpdb->get_results(
 );
 ?>
 
-<div class="tutor-bg-white box-padding tutor-list-wrap">
-    <h3><?php _e('Sales', 'tutor-pro'); ?></h3>
-    <p><?php echo sprintf(__('Total Order  %d', 'tutor-pro'), $salesCount) ?></p>
+<div class="tutor-list-wrap">
+	<div class="tutor-list-header">
+		<div class="heading">
+			<?php _e('Sales', 'tutor-pro'); ?>
+		</div>
+		<p><?php echo sprintf(__('Total Order  %d', 'tutor-pro'), $salesCount) ?></p>
+	</div>	
+	
     <table class="tutor-list-table">
 		<thead>
 			<tr>
@@ -48,7 +53,6 @@ $sales_report = $wpdb->get_results(
 				$order = wc_get_order( $report->order_id );
 				$order_items = $order->get_items();
 				?>
-				<tbody>
 					<tr>
 						<?php edit_post_link( '#'.$report->order_id , '<td>', '</td>', $report->order_id, null ); ?>
 						<td>
@@ -62,14 +66,14 @@ $sales_report = $wpdb->get_results(
 								</div>
 								<div class="instructor-meta">
 									<span class="instructor-name">
-										<?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+										<?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="tutor-icon-link"></i></a>
 									</span>
 								</div>
 							</div>
 						</td>
 						<td>
 							<?php echo get_the_title($report->post_parent); ?>
-							<a href="<?php echo get_permalink($report->post_parent); ?>" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+							<a href="<?php echo get_permalink($report->post_parent); ?>" target="_blank"><i class="tutor-icon-link"></i></a>
 						</td>
 						<td>
 							<?php 
@@ -85,7 +89,6 @@ $sales_report = $wpdb->get_results(
 							<?php echo $report->post_status; ?>
 						</td>
 					</tr>
-				</tbody>
 				<?php
 			}
 		} else { ?>
