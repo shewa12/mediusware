@@ -11,13 +11,31 @@ class CourseAttachments extends Tutor_Base {
 
 	public function __construct() {
 		parent::__construct();
-
 		add_action( 'add_meta_boxes', array($this, 'register_meta_box') );
 		add_action('tutor/dashboard_course_builder_form_field_after', array($this, 'register_meta_box_in_frontend'));
+
+		add_filter('tutor_course/single/enrolled/nav_items_rewrite', array($this, 'add_course_nav_rewrite'));
+		add_filter('tutor_course/single/enrolled/nav_items', array($this, 'add_course_nav_item'));
 
 		add_action('save_post_'.$this->course_post_type, array($this, 'save_course_meta'));
 		add_action('save_post', array($this, 'save_course_meta'));
 		add_action('save_tutor_course', array($this, 'save_course_meta'));
+	}
+
+	public function add_course_nav_item($items){
+		if (is_single() && get_the_ID()) {
+			$course_id = tutils()->get_post_id();
+			$attachments = maybe_unserialize(get_post_meta($course_id, '_tutor_attachments', true));
+			if (is_array($attachments) && count($attachments)) {
+				$items['overview'] = __('Resources', 'tutor-pro');
+			}
+		}
+		return $items;
+	}
+
+	public function add_course_nav_rewrite($items){
+		$items['overview'] = __('Resources', 'tutor-pro');
+		return $items;
 	}
 
 	public function register_meta_box(){
@@ -49,11 +67,14 @@ class CourseAttachments extends Tutor_Base {
 	public function save_course_meta($post_ID){
 		//Attachments
 		$attachments = array();
-		if ( ! empty($_POST['tutor_attachments'])){
-			$attachments = tutor_utils()->sanitize_array($_POST['tutor_attachments']);
-			$attachments = array_unique($attachments);
+		$attachments_main_edit = tutils()->avalue_dot('_tutor_attachments_main_edit', $_POST);
+		if($attachments_main_edit) {
+			if ( !empty($_POST['tutor_attachments']) ) {
+				$attachments = tutils()->sanitize_array($_POST['tutor_attachments']);
+				$attachments = array_unique($attachments);
+			}
+			update_post_meta($post_ID, '_tutor_attachments', $attachments);
 		}
-		update_post_meta($post_ID, '_tutor_attachments', $attachments);
 	}
 
 

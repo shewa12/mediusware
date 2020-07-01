@@ -75,7 +75,7 @@ class Admin{
                 <div class="tutor-install-notice-content">
                     <h2>Thanks for using Tutor LMS Pro</h2>
                     <p>You must have <a href="https://wordpress.org/plugins/tutor/" target="_blank">Tutor LMS </a> Free version installed and activated on this website in order to use Tutor LMS Pro.</p>
-                    <a href="https://www.themeum.com/docs/tutor-introduction/" target="_blank">Learn more about Tutor LMS</a>
+                    <a href="https://docs.themeum.com/tutor-lms/" target="_blank">Learn more about Tutor LMS</a>
                 </div>
                 <div class="tutor-install-notice-button">
                     <a  class="button button-primary" href="<?php echo add_query_arg(array('action' => 'activate_tutor_free'), admin_url()); ?>">Activate Tutor LMS</a>
@@ -97,7 +97,7 @@ class Admin{
                 <div class="tutor-install-notice-content">
                     <h2>Thanks for using Tutor LMS Pro</h2>
                     <p>You must have <a href="https://wordpress.org/plugins/tutor/" target="_blank">Tutor LMS </a> Free version installed and activated on this website in order to use Tutor LMS Pro.</p>
-                    <a href="https://www.themeum.com/docs/tutor-introduction/" target="_blank">Learn more about Tutor LMS</a>
+                    <a href="https://docs.themeum.com/tutor-lms/" target="_blank">Learn more about Tutor LMS</a>
                 </div>
                 <div class="tutor-install-notice-button">
                     <a class="install-tutor-button button button-primary" data-slug="tutor" href="<?php echo add_query_arg(array('action' => 'install_tutor_free'), admin_url()); ?>">Install Tutor LMS</a>

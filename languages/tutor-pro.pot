@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Tutor LMS Pro\n"
-"POT-Creation-Date: 2019-10-10 13:20+0600\n"
-"PO-Revision-Date: 2019-10-10 13:20+0600\n"
+"POT-Creation-Date: 2020-06-11 14:22+0600\n"
+"PO-Revision-Date: 2020-06-11 14:22+0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,113 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
+#: addons/buddypress/buddypress.php:29
+msgid "BuddyPress"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroupSettings.php:22
+msgid "Course Settings"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroupSettings.php:55
+msgid "Which Tutor LMS activity should be displayed in this group?"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroupSettings.php:61
+msgid "User Enrolled a course"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroupSettings.php:66
+msgid "User Starts a course"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroupSettings.php:71
+msgid "User completes a course"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroupSettings.php:76
+msgid "User creates a lesson"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroupSettings.php:80
+msgid "User updated a lesson"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroupSettings.php:86
+msgid "User started quiz"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroupSettings.php:90
+msgid "User finished quiz"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroups.php:47
+#: addons/buddypress/views/bp-group-course.php:9
+msgid "BuddyPress Groups"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroups.php:48
+msgid "Assign this course to a BuddyPress Group"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroups.php:55
+#: addons/content-drip/classes/ContentDrip.php:50
+#: addons/gradebook/classes/init.php:98
+#: addons/tutor-certificate/classes/init.php:118 classes/Quiz.php:73
+msgid "Enable"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroups.php:57
+msgid "Enable / Disable BuddyPress group activity feeds"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroups.php:144
+#: addons/tutor-report/views/pages/overview.php:86
+#: addons/tutor-report/views/pages/report.php:5
+msgid "Courses"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroups.php:230
+#, php-format
+msgid "I just completed learning %d. It was super insightful!"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroups.php:271
+#, php-format
+msgid ""
+"Just got enrolled in %s, looks very promising! You should check it out as "
+"well. "
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroups.php:310
+#, php-format
+msgid "Starting with %s from today. Wish me luck! "
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroups.php:350
+#, php-format
+msgid "I have created a new lesson %s for my course %s. Go check it out!"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroups.php:394
+#, php-format
+msgid "I updated my lesson on %s to add more relevant content. See what’s new!"
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroups.php:435
+#, php-format
+msgid "I just started taking the quiz %s, come and take it with me."
+msgstr ""
+
+#: addons/buddypress/classes/BuddyPressGroups.php:493
+#, php-format
+msgid "Done with %s, it was a challenging quiz."
+msgstr ""
+
+#: addons/buddypress/views/bp-group-course.php:24
+msgid "Assign this course to BuddyPress Groups"
+msgstr ""
+
 #: addons/content-drip/classes/ContentDrip.php:42
 #: addons/content-drip/content-drip.php:29
 msgid "Content Drip"
@@ -27,11 +134,6 @@ msgstr ""
 
 #: addons/content-drip/classes/ContentDrip.php:43
 msgid "Tutor Content Drip allow you to schedule publish topics / lesson"
-msgstr ""
-
-#: addons/content-drip/classes/ContentDrip.php:50
-#: addons/gradebook/classes/init.php:98 classes/Quiz.php:73
-msgid "Enable"
 msgstr ""
 
 #: addons/content-drip/classes/ContentDrip.php:52
@@ -138,7 +240,7 @@ msgstr ""
 msgid "Course Enrolled"
 msgstr ""
 
-#: addons/enrollments/classes/Enrollments.php:106
+#: addons/enrollments/classes/Enrollments.php:108
 msgid "Enrolment has been done"
 msgstr ""
 
@@ -151,6 +253,7 @@ msgstr ""
 #: addons/enrollments/views/enroll_student.php:18
 #: addons/gradebook/views/pages/overview.php:71
 #: addons/tutor-assignments/classes/Assignments_List.php:106
+#: templates/buddypress/message_thread_recipients.php:57
 msgid "Student"
 msgstr ""
 
@@ -415,7 +518,8 @@ msgstr ""
 #: addons/gradebook/views/pages/overview.php:74
 #: addons/tutor-assignments/classes/Assignments.php:37
 #: addons/tutor-assignments/classes/Assignments.php:41
-#: addons/tutor-assignments/classes/Assignments.php:74
+#: addons/tutor-assignments/classes/Assignments.php:58
+#: addons/tutor-assignments/classes/Assignments.php:76
 #: addons/tutor-assignments/tutor-assignments.php:29
 #: templates/single/course/enrolled/gradebook.php:33
 msgid "Assignments"
@@ -439,7 +543,7 @@ msgstr ""
 msgid "No enough data to show"
 msgstr ""
 
-#: addons/pmpro/classes/PaidMembershipsPro.php:155
+#: addons/pmpro/classes/PaidMembershipsPro.php:157
 #, php-format
 msgid "You must have a %s membership plan %s to enroll in this course."
 msgstr ""
@@ -468,19 +572,44 @@ msgstr ""
 msgid "Course Categories"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments.php:56
-msgid "Create Assignments"
+#: addons/quiz-import-export/classes/QuizImportExport.php:31
+msgid "Import Quiz"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments.php:189
+#: addons/quiz-import-export/classes/QuizImportExport.php:254
+msgid "Export"
+msgstr ""
+
+#: addons/quiz-import-export/quiz-import-export.php:29
+msgid "Quiz Export/Import"
+msgstr ""
+
+#: addons/quiz-import-export/quiz-import-export.php:30
+msgid "Save time by exporting/importing quiz data with easy options."
+msgstr ""
+
+#: addons/restrict-content-pro/classes/RestrictContent.php:63
+msgid "Get Membership"
+msgstr ""
+
+#: addons/restrict-content-pro/classes/init.php:84
+#: addons/restrict-content-pro/restrict-content-pro.php:29
+msgid "Restrict Content Pro"
+msgstr ""
+
+#: addons/restrict-content-pro/restrict-content-pro.php:30
+msgid "Unlock Course depending on Restrict Content Permission."
+msgstr ""
+
+#: addons/tutor-assignments/classes/Assignments.php:191
 msgid "An assignment is submitting currently, please submit previous one first"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments.php:211
+#: addons/tutor-assignments/classes/Assignments.php:213
 msgid "Answer has been added successfully"
 msgstr ""
 
-#: addons/tutor-assignments/classes/Assignments.php:272
+#: addons/tutor-assignments/classes/Assignments.php:274
 #, php-format
 msgid "Maximum attachment upload size allowed is %d MB"
 msgstr ""
@@ -639,6 +768,14 @@ msgstr ""
 msgid "Evaluate this submission"
 msgstr ""
 
+#: addons/tutor-certificate/classes/Certificate.php:274
+msgid "Course Completion Certificate"
+msgstr ""
+
+#: addons/tutor-certificate/classes/Certificate.php:275
+msgid "My course completion certificate for"
+msgstr ""
+
 #: addons/tutor-certificate/classes/init.php:85
 #: addons/tutor-certificate/classes/init.php:90
 msgid "Tutor Certificate"
@@ -673,12 +810,44 @@ msgstr ""
 msgid "Upload a signature that will be printed at certificate."
 msgstr ""
 
+#: addons/tutor-certificate/classes/init.php:117
+#: addons/tutor-certificate/views/lesson-menu-after.php:17
+msgid "View Certificate"
+msgstr ""
+
+#: addons/tutor-certificate/classes/init.php:119
+msgid ""
+"By enabling this option, the student will be able to verify and share their "
+"certificates URL which is publicly accessible"
+msgstr ""
+
 #: addons/tutor-certificate/tutor-certificate.php:29
 msgid "Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/views/lesson-menu-after.php:8
+#: addons/tutor-certificate/views/certificate.php:227
+#: addons/tutor-certificate/views/lesson-menu-after.php:10
 msgid "Download Certificate"
+msgstr ""
+
+#: addons/tutor-certificate/views/certificate.php:231
+msgid "PDF"
+msgstr ""
+
+#: addons/tutor-certificate/views/certificate.php:234
+msgid "JPG"
+msgstr ""
+
+#: addons/tutor-certificate/views/certificate.php:241
+msgid "Copy Link"
+msgstr ""
+
+#: addons/tutor-certificate/views/certificate.php:252
+msgid "About Course"
+msgstr ""
+
+#: addons/tutor-certificate/views/certificate.php:264
+msgid "by"
 msgstr ""
 
 #: addons/tutor-certificate/views/template_options.php:9
@@ -725,29 +894,34 @@ msgstr ""
 msgid "If checked, any users/guest can view this lesson without enroll course"
 msgstr ""
 
-#: addons/tutor-email/classes/EmailNotification.php:28
+#: addons/tutor-email/classes/EmailNotification.php:33
 #: addons/tutor-email/views/pages/tutor_emails.php:2
 msgid "E-Mails"
 msgstr ""
 
-#: addons/tutor-email/classes/EmailNotification.php:143
+#: addons/tutor-email/classes/EmailNotification.php:148
 msgid "You just completed "
 msgstr ""
 
-#: addons/tutor-email/classes/EmailNotification.php:192
+#: addons/tutor-email/classes/EmailNotification.php:197
 msgid " just completed "
 msgstr ""
 
-#: addons/tutor-email/classes/EmailNotification.php:256
+#: addons/tutor-email/classes/EmailNotification.php:261
 #, php-format
 msgid "Thank you for %s  answers, we have received"
 msgstr ""
 
-#: addons/tutor-email/classes/EmailNotification.php:296
+#: addons/tutor-email/classes/EmailNotification.php:318
+#, php-format
+msgid "Submitted %s  answers, Review it"
+msgstr ""
+
+#: addons/tutor-email/classes/EmailNotification.php:363
 msgid " enrolled "
 msgstr ""
 
-#: addons/tutor-email/classes/EmailNotification.php:396
+#: addons/tutor-email/classes/EmailNotification.php:462
 msgid " just completed lesson "
 msgstr ""
 
@@ -799,7 +973,11 @@ msgstr ""
 msgid "A Student asked a question in Q&amp;A"
 msgstr ""
 
-#: addons/tutor-email/classes/init.php:109
+#: addons/tutor-email/classes/init.php:108
+msgid "Student submitted quiz"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:110
 msgid "Select when to send notification to the teachers"
 msgstr ""
 
@@ -843,6 +1021,10 @@ msgstr ""
 
 #: addons/tutor-email/views/pages/tutor_emails.php:107
 msgid "Student completed a lesson (to teacher)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:124
+msgid "Student completed Submitted quiz"
 msgstr ""
 
 #: addons/tutor-multi-instructors/tutor-multi-instructors.php:29
@@ -941,11 +1123,6 @@ msgstr ""
 
 #: addons/tutor-report/views/pages/courses/top_menu.php:9
 msgid "This Week"
-msgstr ""
-
-#: addons/tutor-report/views/pages/overview.php:86
-#: addons/tutor-report/views/pages/report.php:5
-msgid "Courses"
 msgstr ""
 
 #: addons/tutor-report/views/pages/overview.php:112
@@ -1076,13 +1253,18 @@ msgid "WooCommerce Subscriptions"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-#: classes/Admin.php:19
+#: classes/Admin.php:49
 msgid "Tutor LMS Pro"
 msgstr ""
 
-#: classes/Admin.php:122
+#: classes/Admin.php:151
 #, php-format
 msgid "Installing Plugin: %s"
+msgstr ""
+
+#: classes/Admin.php:180 classes/Admin.php:183 classes/Admin.php:193
+#: classes/Admin.php:196
+msgid "Edit With Frontend Course Builder"
 msgstr ""
 
 #: classes/General.php:82
@@ -1243,6 +1425,15 @@ msgstr ""
 msgid "Generate Gradebook"
 msgstr ""
 
+#: templates/buddypress/message_thread_recipients.php:26
+msgid "Instructor"
+msgstr ""
+
+#: templates/buddypress/message_thread_recipients.php:69
+#, php-format
+msgid "Enrolled in total %s courses by you"
+msgstr ""
+
 #: templates/single/course/enrolled/gradebook.php:17
 msgid "Gradebook not generated yet"
 msgstr ""
@@ -1282,7 +1473,7 @@ msgid "Pass Mark"
 msgstr ""
 
 #: templates/single/quiz/previous-attempts.php:17
-#: templates/single/quiz/previous-attempts.php:76
+#: templates/single/quiz/previous-attempts.php:85
 msgid "Result"
 msgstr ""
 
@@ -1290,11 +1481,15 @@ msgstr ""
 msgid "Manually reviewed at"
 msgstr ""
 
-#: templates/single/quiz/previous-attempts.php:79
+#: templates/single/quiz/previous-attempts.php:88
+msgid "Under Review"
+msgstr ""
+
+#: templates/single/quiz/previous-attempts.php:91
 msgid "Pass"
 msgstr ""
 
-#: templates/single/quiz/previous-attempts.php:81
+#: templates/single/quiz/previous-attempts.php:93
 msgid "Fail"
 msgstr ""
 
