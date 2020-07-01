@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) )
 	include TUTOR_REPORT()->path.'views/pages/courses/graph/top_menu.php';
 	?>
 
-    <canvas id="myChart" style="width: 100%; height: 400px;"></canvas>
+    <canvas id="myChart" style="width: 100%; height: 250px;"></canvas>
     <script>
         var ctx = document.getElementById("myChart").getContext('2d');
         var myChart = new Chart(ctx, {
