@@ -16,7 +16,6 @@ if ( ! empty($_GET['sub_page'])){
 ?>
 
 <div class="wrap">
-	<h2 class="tutor-page-heading"><?php _e('Tutor LMS Report', 'tutor-pro'); ?></h2>
     <div class="report-main-wrap">
         <div class="tutor-report-left-menus">
             <div class="tutor-report-title">

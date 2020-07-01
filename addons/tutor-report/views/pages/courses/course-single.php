@@ -113,11 +113,11 @@ exit;
             <div class="info">
                 <strong>
                     <?php
-                        $info_learners = tutor_utils()->count_enrolled_users_by_course($current_id);
-                        echo $info_learners;
+                        $info_students = tutor_utils()->count_enrolled_users_by_course($current_id);
+                        echo $info_students;
                     ?>
                 </strong>
-                <div><?php _e('Total Learners', 'tutor-pro'); ?></div>
+                <div><?php _e('Total Students', 'tutor-pro'); ?></div>
             </div>
         </div>
         <div class="course-details-item">
@@ -257,27 +257,27 @@ exit;
 
 
 
-<div class="tutor-list-wrap tutor-report-learners">
-    <div class="tutor-list-header"><div class="heading"><?php _e('Learners' ,'tutor-pro'); ?></div></div>
+<div class="tutor-list-wrap tutor-report-students">
+    <div class="tutor-list-header"><div class="heading"><?php _e('Students' ,'tutor-pro'); ?></div></div>
     <div class="tutor-list-data">
         <?php
-        $per_learner = 10;
-        $learner_page = isset( $_GET['lp'] ) ? $_GET['lp'] : 0;
-        $start_learner =  max( 0,($learner_page-1)*$per_learner );
+        $per_student = 10;
+        $student_page = isset( $_GET['lp'] ) ? $_GET['lp'] : 0;
+        $start_student =  max( 0,($student_page-1)*$per_student );
 
-        $learner_items =$wpdb->get_var( "SELECT COUNT(ID) FROM {$wpdb->posts} AS posts
+        $student_items =$wpdb->get_var( "SELECT COUNT(ID) FROM {$wpdb->posts} AS posts
             WHERE posts.post_type = 'tutor_enrolled'
             AND posts.post_status = 'completed'
             AND posts.post_parent = {$current_id}"
         );
 
-        $learner_list = $wpdb->get_results( "SELECT ID, post_author, post_date, post_parent FROM {$wpdb->posts} AS posts
+        $student_list = $wpdb->get_results( "SELECT ID, post_author, post_date, post_parent FROM {$wpdb->posts} AS posts
             WHERE posts.post_type = 'tutor_enrolled'
             AND posts.post_status = 'completed'
             AND posts.post_parent = {$current_id}
-            ORDER BY ID DESC LIMIT {$start_learner},{$per_learner}");
+            ORDER BY ID DESC LIMIT {$start_student},{$per_student}");
         
-        if(!empty($learner_list)) {
+        if(!empty($student_list)) {
         ?>
             <table class="tutor-list-table">
                 <tr>
@@ -287,25 +287,26 @@ exit;
                     <th><?php _e('Enroll Date', 'tutor-pro'); ?></th>
                     <th><?php _e('Lesson', 'tutor-pro'); ?></th>
                     <th><?php _e('Progress', 'tutor-pro'); ?></th>
+                    <th></th>
                 </tr>
-                <?php foreach ($learner_list as $learner) { ?>
+                <?php foreach ($student_list as $student) { ?>
                     <tr>
-                        <td><?php echo $learner->ID; ?></td>
+                        <td><?php echo $student->ID; ?></td>
                         <td>
                             <div class="instructor">
                                 <div class="instructor-thumb">
-                                    <?php $user_info = get_userdata($learner->post_author); ?>
+                                    <?php $user_info = get_userdata($student->post_author); ?>
                                     <span class="instructor-icon"><?php echo get_avatar($user_info->ID, 50); ?></span>
                                 </div>
                                 <div class="instructor-meta">
                                     <span class="instructor-name">
-                                        <?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="tutor-icon-link"></i></a>
+                                        <?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo tutor_utils()->profile_url($user_info->ID); ?>"><i class="tutor-icon-link"></i></a>
                                     </span>
                                 </div>
                             </div>
                         </td>
                         <td><?php echo $user_info->user_email; ?></td>
-                        <td><?php echo date('j M, Y', strtotime($learner->post_date)); ?></td>
+                        <td><?php echo date('j M, Y', strtotime($student->post_date)); ?></td>
                         <td><strong><?php echo tutor_utils()->get_completed_lesson_count_by_course($current_id, $user_info->ID); ?></strong>/<span><?php echo $info_lesson; ?><span></td>
                         <td>
                             <div class="course-progress">
@@ -314,23 +315,30 @@ exit;
                                 <span><?php echo $percentage; ?>%</span>   
                             </div>
                         </td>
+                        <td><a class="tutor-report-btn default" target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><?php _e('Details', 'tutor-pro'); ?></a></td>
                     </tr>
                 <?php } ?>
             </table>
         <?php } else { ?>
-            <h3><?php _e('No Learners Data Found!', 'tutor-pro'); ?></h3>
+            <h3><?php _e('No Students Data Found!', 'tutor-pro'); ?></h3>
         <?php } ?>
     </div>
     <div class="tutor-list-footer">
         <div class="tutor-report-count">
-            <div class="tutor-report-count"><?php printf( __('Items <strong> %s </strong> of <strong> %s </strong> total'), count($learner_list), $learner_items ); ?></div>	
+            <div class="tutor-report-count">
+                <?php
+                    if($student_items > 0){
+                        printf( __('Items <strong> %s </strong> of <strong> %s </strong> total'), count($student_list), $student_items ); 
+                    }
+                ?>
+            </div>	
         </div>
         <div class="tutor-pagination">
             <?php
                 echo paginate_links( array(
-                    'base' => str_replace( $learner_page, '%#%', "admin.php?page=tutor_report&sub_page=courses&course_id=".$current_id."&lp=%#%" ),
-                    'current' => max( 1, $learner_page ),
-                    'total' => ceil($learner_items/$per_learner)
+                    'base' => str_replace( $student_page, '%#%', "admin.php?page=tutor_report&sub_page=courses&course_id=".$current_id."&lp=%#%" ),
+                    'current' => max( 1, $student_page ),
+                    'total' => ceil($student_items/$per_student)
                 ) );
             ?>           
         </div>
@@ -338,8 +346,8 @@ exit;
 </div>
 
 
-<div class="tutor-list-wrap tutor-report-mentors">
-    <div class="tutor-list-header"><div class="heading"><?php _e('Mentors' ,'tutor-pro'); ?></div></div>
+<div class="tutor-list-wrap tutor-report-instructors">
+    <div class="tutor-list-header"><div class="heading"><?php _e('Instructors' ,'tutor-pro'); ?></div></div>
     <div class="tutor-list-data">
         <?php $instructors = tutor_utils()->get_instructors_by_course($current_id); ?>
         <?php if(!empty($instructors)) { ?>
@@ -349,7 +357,7 @@ exit;
                     <th><?php _e('Name', 'tutor-pro'); ?></th>
                     <th><?php _e('Rating', 'tutor-pro'); ?></th>
                     <th><?php _e('Total Courses', 'tutor-pro'); ?></th>
-                    <th><?php _e('Total Learners', 'tutor-pro'); ?></th>
+                    <th><?php _e('Total Students', 'tutor-pro'); ?></th>
                     <th></th>
                 </tr>
                 <?php 
@@ -394,7 +402,7 @@ exit;
                 <?php } ?>
             </table>
         <?php } else { ?>
-            <h3><?php _e('No Mentor Data Found!', 'tutor-pro'); ?></h3>
+            <h3><?php _e('No Instructor Data Found!', 'tutor-pro'); ?></h3>
         <?php } ?>
     </div>
 </div>
@@ -458,7 +466,13 @@ exit;
         <?php } ?>
     </div>
     <div class="tutor-list-footer">
-        <div class="tutor-report-count"><?php printf( __('Items <strong> %s </strong> of <strong> %s </strong> total'), count($total_reviews), $review_items ); ?></div>
+        <div class="tutor-report-count">
+            <?php 
+                if($review_items){
+                    printf( __('Items <strong> %s </strong> of <strong> %s </strong> total'), count($total_reviews), $review_items );
+                }
+            ?>
+        </div>
         <div class="tutor-pagination">
             <?php
                 echo paginate_links( array(

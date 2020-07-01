@@ -74,7 +74,11 @@ exit;
     <div class="tutor-list-footer ">
         <div class="tutor-report-count">
             <div class="tutor-report-count">
-                <?php printf(__('Items <strong>%s</strong> of <strong>%s</strong> total', 'tutor-pro'), $total_items, count($students_list)); ?>
+                <?php 
+                    if($total_items > 0){
+                        printf(__('Items <strong>%s</strong> of <strong>%s</strong> total', 'tutor-pro'), $total_items, count($students_list));
+                    }
+                ?>
             </div>	
         </div>
         <div class="tutor-pagination">

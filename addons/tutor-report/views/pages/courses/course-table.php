@@ -71,7 +71,7 @@ if(is_array($all_data) && !empty($all_data)){
         $var['lesson'] = tutor_utils()->get_lesson_count_by_course($data->ID);
         $var['quiz'] = quiz_number($data->ID);
         $var['assignment'] = tutor_utils()->get_assignments_by_course($data->ID)->count;
-        $var['learners'] = tutor_utils()->count_enrolled_users_by_course($data->ID);
+        $var['students'] = tutor_utils()->count_enrolled_users_by_course($data->ID);
 
         $total_sales = 0;
         $product_id = get_post_meta($data->ID, '_tutor_course_product_id', true);
@@ -152,7 +152,7 @@ if(is_array($all_data) && !empty($all_data)){
                     <th><?php _e('Lesson', 'tutor-pro'); ?></th>
                     <th><?php _e('Quiz', 'tutor-pro'); ?></th>
                     <th><?php _e('Assignment', 'tutor-pro'); ?></th>
-                    <th><?php _e('Total Learners', 'tutor-pro'); ?></th>
+                    <th><?php _e('Total Students', 'tutor-pro'); ?></th>
                     <th><?php _e('Earnings', 'tutor-pro'); ?></th>
                     <th></th>
                 </tr>
@@ -160,11 +160,11 @@ if(is_array($all_data) && !empty($all_data)){
             <tbody>
                 <?php foreach ($course_single as $key => $course) { ?>
                     <tr>
-                        <td><?php echo $course['course']; ?></td>
+                        <td><a href="<?php echo $course['link']; ?>" target="_blank"><?php echo $course['course']; ?></a></td>
                         <td><?php echo $course['lesson']; ?></td>
                         <td><?php echo $course['quiz']; ?></td>
                         <td><?php echo $course['assignment']; ?></td>
-                        <td><?php echo $course['learners']; ?></td>
+                        <td><?php echo $course['students']; ?></td>
                         <td><?php echo $course['earnings']; ?></td>
                         <td>
                             <div class="details-button">
@@ -182,7 +182,11 @@ if(is_array($all_data) && !empty($all_data)){
 
     <div class="tutor-list-footer">
         <div class="tutor-report-count">
-            <?php printf( __('Items <strong> %s </strong> of <strong> %s </strong> total'), $per_page,  $total_items ); ?>
+            <?php 
+                if($total_items > 0){
+                    printf( __('Items <strong> %s </strong> of <strong> %s </strong> total'), $per_page,  $total_items );
+                }
+            ?>
         </div>
         <div class="tutor-pagination">
             <?php

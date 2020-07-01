@@ -187,7 +187,6 @@ exit;
         <div class="heading"><?php _e('Course List', 'tutor-pro'); ?></div>
         <div class="status">
             <span class="complete"><?php _e('Complete', 'tutor-pro'); ?></span>
-            <span class="running"><?php _e('Running', 'tutor-pro'); ?></span>
             <span class="incomplete"><?php _e('Incomplete', 'tutor-pro'); ?></span>
         </div>
     </div>
@@ -351,7 +350,13 @@ exit;
     </div>
     <div class="tutor-list-footer ">
         <div class="tutor-report-count">
-            <div class="tutor-report-count"><?php printf(__('Items <strong> %s </strong> of<strong> %s </strong> total','tutor-pro'), count($total_reviews), $review_items); ?></div>
+            <div class="tutor-report-count">
+                <?php
+                    if($review_items > 0){ 
+                        printf(__('Items <strong> %s </strong> of<strong> %s </strong> total','tutor-pro'), count($total_reviews), $review_items);
+                    }
+                ?>
+            </div>
         </div>
         <div class="tutor-pagination">
             <?php
