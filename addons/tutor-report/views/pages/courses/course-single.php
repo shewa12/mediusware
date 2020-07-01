@@ -154,10 +154,36 @@ exit;
 
 
 <div class="tutor-report-graph-earnings">
-    <div class="tutor-report-earnings">
+    <div class="tutor-list-wrap tutor-report-graph">
+        <div class="tutor-report-graph-wrap">
+            
+            <div class="heading"><?php _e('Sales Graph', 'tutor-pro'); ?></div>
+
+            <?php 
+            	$sub_page = 'this_year';
+                $course_id = false;
+                if ( ! empty($_GET['time_period'])){
+                    $sub_page = sanitize_text_field($_GET['time_period']);
+                }
+                if ( ! empty($_GET['course_id'])){
+                    $course_id = (int) sanitize_text_field($_GET['course_id']);
+                }
+                if ( ! empty($_GET['date_range_from']) && ! empty($_GET['date_range_to'])){
+                    $sub_page = 'date_range';
+                }
+            
+                include $view_page.$page."/graph/{$sub_page}.php";            
+            ?>
+        </div>
+
+    </div>
+    <div class="tutor-list-wrap tutor-report-earnings">
+        <div class="tutor-list-header tutor-report-single-graph">
+            <div class="heading"><?php _e('Earnings', 'tutor-pro'); ?></div>
+        </div>
         <div class="tutor-report-earnings-wrap">
             <div class="earnings-item">
-                <div class="icon"><img src="<?php echo tutor_pro()->url.'addons/tutor-report/assets/images/money-bag.png'?>" alt="Money icon"></div>
+                <div class="icon"><i class="tutor-icon-total-earning"></i></div>
                 <div class="text">
                     <div>
                         <?php
@@ -182,7 +208,7 @@ exit;
                 </div>
             </div>
             <div class="earnings-item">
-                <div class="icon"><img src="<?php echo tutor_pro()->url.'addons/tutor-report/assets/images/discount.png'?>" alt="Money icon"></div>
+                <div class="icon"><i class="tutor-icon-total-discount"></i></div>
                 <div class="text">
                     <div>
                         <?php
@@ -205,7 +231,7 @@ exit;
                 </div>
             </div>
             <div class="earnings-item">
-                <div class="icon"><img src="<?php echo tutor_pro()->url.'addons/tutor-report/assets/images/back-in-time.png'?>" alt="Money icon"></div>
+                <div class="icon"><i class="tutor-icon-refund"></i></div>
                 <div class="text">
                     <div>
                         <?php
@@ -228,31 +254,6 @@ exit;
             </div>
         </div>
     </div>
-
-    <div class="tutor-list-wrap tutor-report-graph">
-        <div class="tutor-report-graph-wrap">
-            
-            <div class="heading"><?php _e('Sales Graph', 'tutor-pro'); ?></div>
-
-            <?php 
-            	$sub_page = 'this_year';
-                $course_id = false;
-                if ( ! empty($_GET['time_period'])){
-                    $sub_page = sanitize_text_field($_GET['time_period']);
-                }
-                if ( ! empty($_GET['course_id'])){
-                    $course_id = (int) sanitize_text_field($_GET['course_id']);
-                }
-                if ( ! empty($_GET['date_range_from']) && ! empty($_GET['date_range_to'])){
-                    $sub_page = 'date_range';
-                }
-            
-                include $view_page.$page."/graph/{$sub_page}.php";            
-            ?>
-        </div>
-
-    </div>
-    
 </div>
 
 

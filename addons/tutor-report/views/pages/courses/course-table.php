@@ -98,6 +98,7 @@ if(is_array($all_data) && !empty($all_data)){
 ?>
 <div class="tutor-report-content-menu">
     <div>
+        <div class="menu-label"><?php _e('Search', 'tutor'); ?></div>
         <div>
             <input type="text" class="tutor-report-search" value="<?php echo $_search; ?>" autocomplete="off" placeholder="Search in here." />
             <button class="tutor-report-search-btn"><i class="tutor-icon-magnifying-glass-1"></i></button>
