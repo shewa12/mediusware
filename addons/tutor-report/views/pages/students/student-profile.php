@@ -345,7 +345,10 @@ exit;
                 </tbody>
             </table>
         <?php } else { ?>
-            <h3><?php _e('No Review Data Found!', 'tutor-pro'); ?></h3>
+            <div class="no-data-found">
+                <img src="<?php echo tutor_pro()->url."addons/tutor-report/assets/images/empty-data.svg"?>" alt="">
+                <span><?php _e('No Review Data Found!', 'tutor-pro'); ?></span>
+            </div>
         <?php } ?>
     </div>
     <div class="tutor-list-footer ">
