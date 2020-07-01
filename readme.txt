@@ -240,16 +240,16 @@ Tutor enables you to use any third party plugins without facing any compatibilit
 
 == Changelog ==
 
-= 1.6.5 - June 29, 2020 =
+= 1.6.5 - July 1, 2020 =
 
-New: Student Progress Report
-Fixed: Quiz Retry and Reveal Mode issue
-Fixed: Resource issue from course page
-Fixed: Logo image size for course builder
-Fixed: Can not stop loading tutor css/js
-Fixed: Removes course prerequisites & attachments using Quick Edit
-Updated: Add student column in quiz attempt
-Removed: 'Mr.' text from all email notification body
+Updated: Sales & Students report for the Report Add-on(Pro)
+Fixed: Quiz retry and reveal mode error for certain types of quizzes
+Fixed: Resource issue from the course page
+Fixed: Logo image size issue for frontend course builder
+Fixed: Couldn't stop loading certain tutor CSS/JS
+Fixed: Blank content issue while updating course attachment & prerequisites using quick edit
+Updated: New student column in quiz attempt dashboard in the backend
+Removed: 'Mr.' text removed from the content of all email notifications
 
 = 1.6.4 - June 15, 2020 =
 
