@@ -42,7 +42,7 @@ exit;
                             <div><span><?php _e('User Name', 'tutor-pro'); ?></span> <br> <?php echo $user_info->user_login; ?></div>
                         </th>
                         <th>
-                            <div><span><?php _e('Email ID', 'tutor-pro'); ?></span> <br> <?php echo $user_info->user_email; ?> <a href="mailto:<?php echo $user_info->user_email;?>"><i class="tutor-icon-link"></i></a></div>
+                            <div><span><?php _e('Email ID', 'tutor-pro'); ?></span> <br> <?php echo $user_info->user_email; ?> <a href="mailto:<?php echo $user_info->user_email;?>"><i class="tutor-icon-detail-link"></i></a></div>
                         </th>
                         <th>
                             <div><span><?php _e('User ID', 'tutor-pro'); ?></span> <br><?php echo $user_info->ID;?></div>
@@ -215,7 +215,7 @@ exit;
                         ?>
                         <tr>
                             <td><?php echo $count; ?></td>
-                            <td><?php echo get_the_title($course->ID); ?> <a href="<?php echo get_the_permalink($course->ID); ?>" target="_blank" class="course-link"><i class="tutor-icon-link"></i></a></td>
+                            <td><?php echo get_the_title($course->ID); ?> <a href="<?php echo get_the_permalink($course->ID); ?>" target="_blank" class="course-link"><i class="tutor-icon-detail-link"></i></a></td>
                             <td><?php echo date('h:i a', strtotime($course->post_date)); ?></td>
                             <td>
                                 <span class="complete">

@@ -257,9 +257,9 @@ button#gradebook-search-btn {
 
 .tutor-report-content-menu .tutor-report-search-btn {
 	position: absolute;
-	width: 50px;
-	height: 50px;
-	top: 0;
+	width: 40px;
+	height: 40px;
+	bottom: 0;
 	right: 0;
 	border: 0;
 	background: transparent;
@@ -269,7 +269,7 @@ button#gradebook-search-btn {
 	outline: none;
 }
 .tutor-report-content-menu > div:nth-child(1) input {
-	height: 50px;
+	/* height: 50px; */
 	padding-right: 45px;
 }
 
@@ -796,8 +796,8 @@ button#gradebook-search-btn {
 	color: inherit;
 	text-decoration: none;
 }
-.tutor-list-table .tutor-icon-link,
-.profile-table .tutor-icon-link {
+.tutor-list-table .tutor-icon-detail-link,
+.profile-table .tutor-icon-detail-link {
 	font-size: 14px;
 }
 
@@ -1045,9 +1045,30 @@ button#gradebook-search-btn {
 .tutor-report-learners .tutor-list-table .course-percentage {
 	margin-right: 17px;
 }
+@media (max-width: 1600px) {
+	.tutor-report-graph-wrap .tutor-date-range-filter-wrap {
+		flex-direction: column;
+	}
+	.tutor-report-graph-wrap .tutor-date-range-wrap {
+		margin-top: 5px;
+	}
+	.tutor-report-graph .tutor-report-btn {
+		margin-bottom: 5px;
+	}
+}
 
+/* .report-grapgh-earnings - start */
 .tutor-report-graph-wrap .tutor-date-range-filter-wrap {
 	margin-top: 15px;
+}
+
+.tutor-report-graph-earnings {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	grid-gap: 30px;
+}
+.tutor-report-graph-earnings canvas {
+	max-width: 100%;
 }
 
 .tutor-report-graph-wrap,
@@ -1089,31 +1110,19 @@ button#gradebook-search-btn {
 }
 
 .tutor-report-earnings-wrap {
-	padding: unset;
-}
-
-.tutor-report-earnings .earnings-item {
-	min-width: 255px;
-	height: 101px;
-	border-radius: 3px;
-	background-color: #ffffff;
-	padding: 24px;
-}
-
-.tutor-report-earnings {
-	margin-top: 40px;
-}
-
-.tutor-report-earnings-wrap {
 	display: grid;
-	grid-auto-flow: column;
-	grid-auto-columns: max-content;
-	grid-gap: 40px;
+	grid-auto-flow: row;
+	grid-auto-columns: 1fr;
+	grid-gap: 30px;
 }
 
 .tutor-report-earnings-wrap .earnings-item {
 	display: flex;
 	align-items: center;
+}
+
+.tutor-report-earnings-wrap .earnings-item:not(:last-child) {
+	/* margin-bottom: 20px; */
 }
 
 .tutor-report-earnings-wrap .earnings-item i {
@@ -1123,7 +1132,7 @@ button#gradebook-search-btn {
 
 .tutor-report-earnings-wrap .earnings-item .icon {
 	margin-right: 20px;
-	max-width: 50px;
+	max-width: 40px;
 }
 
 .tutor-report-earnings-wrap .earnings-item .icon img {

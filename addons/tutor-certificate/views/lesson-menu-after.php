@@ -14,6 +14,6 @@ $cert_show_url = add_query_arg(array('cert_hash' => $is_completed->completed_has
 		.tutor-view-certificate { text-align:center; margin-top:10px; font-size:16px; text-transform:uppercase; }
 	</style>
 	<div class="tutor-view-certificate">
-		<a href="<?php echo $cert_show_url; ?>"><i class="tutor-icon-link"></i> <?php _e('View Certificate', 'tutor-pro'); ?></a>
+		<a href="<?php echo $cert_show_url; ?>"><i class="tutor-icon-detail-link"></i> <?php _e('View Certificate', 'tutor-pro'); ?></a>
 	</div>
 <?php } ?>

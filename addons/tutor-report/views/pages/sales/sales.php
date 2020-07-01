@@ -64,14 +64,14 @@ $sales_report = $wpdb->get_results(
 								</div>
 								<div class="instructor-meta">
 									<span class="instructor-name">
-										<?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="tutor-icon-link"></i></a>
+										<?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="tutor-icon-detail-link"></i></a>
 									</span>
 								</div>
 							</div>
 						</td>
 						<td>
 							<?php echo get_the_title($report->post_parent); ?>
-							<a href="<?php echo get_permalink($report->post_parent); ?>" target="_blank"><i class="tutor-icon-link"></i></a>
+							<a href="<?php echo get_permalink($report->post_parent); ?>" target="_blank"><i class="tutor-icon-detail-link"></i></a>
 						</td>
 						<td>
 							<?php 

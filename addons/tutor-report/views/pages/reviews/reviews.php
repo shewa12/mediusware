@@ -72,7 +72,7 @@ $reviews = $wpdb->get_results(
 								</div>
 								<div class="instructor-meta">
 									<span class="instructor-name">
-										<span><?php echo $review->display_name; ?> </span><a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$review->user_id); ?>"><i class="tutor-icon-link"></i></a>
+										<span><?php echo $review->display_name; ?> </span><a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$review->user_id); ?>"><i class="tutor-icon-detail-link"></i></a>
 									</span>
 								</div>
 							</div>
@@ -86,7 +86,7 @@ $reviews = $wpdb->get_results(
 								<button type="button" class="tutor-delete-link tutor-rating-delete-link tutor-report-btn default" data-rating-id="<?php echo $review->comment_ID; ?>">
 									<i class="tutor-icon-trash"></i> <?php _e('Delete', 'tutor-pro'); ?>
 								</button>
-								<a target="_blank" href="<?php echo get_permalink($review->comment_post_ID); ?>"><i class="tutor-icon-link"></i></a>
+								<a target="_blank" href="<?php echo get_permalink($review->comment_post_ID); ?>"><i class="tutor-icon-detail-link"></i></a>
 							</div>
 						</td>
 					</tr>

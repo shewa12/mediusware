@@ -307,7 +307,7 @@ $teachers = $wpdb->get_results(
                             <tr>
                                 <td class="course-title"><?php echo $course->post_title; ?></td>
                                 <td><?php echo $course->total_enrolled; ?></td>
-                                <td><a class="link-icon" href="<?php echo get_the_permalink($course->ID); ?>" target="_blank"><i class="tutor-icon-link"></i></a></td>
+                                <td><a class="link-icon" href="<?php echo get_the_permalink($course->ID); ?>" target="_blank"><i class="tutor-icon-detail-link"></i></a></td>
                             </tr>
                             <?php
                         }
@@ -341,7 +341,7 @@ $teachers = $wpdb->get_results(
                             <tr>
                                 <td class="course-title"><?php echo $course->post_title; ?></td>
                                 <td><?php echo human_time_diff(strtotime($course->enrolled_time)).' '.__('ago', 'tutor-pro'); ?></td>
-                                <td><a class="link-icon" href="<?php echo get_the_permalink($course->ID); ?>"><i class="tutor-icon-link"></i></a></td>
+                                <td><a class="link-icon" href="<?php echo get_the_permalink($course->ID); ?>"><i class="tutor-icon-detail-link"></i></a></td>
                             </tr>
                             <?php
                         }
@@ -388,7 +388,7 @@ $teachers = $wpdb->get_results(
                                         </div>
                                         <div class="instructor-meta">
                                             <span class="instructor-name">
-                                                <span><?php echo $review->display_name; ?></span> <a target="_blank" href="<?php echo tutor_utils()->profile_url($review->user_id); ?>"><i class="tutor-icon-link"></i></a>
+                                                <span><?php echo $review->display_name; ?></span> <a target="_blank" href="<?php echo tutor_utils()->profile_url($review->user_id); ?>"><i class="tutor-icon-detail-link"></i></a>
                                             </span>
                                         </div>
                                     </div>
@@ -443,7 +443,7 @@ $teachers = $wpdb->get_results(
                                 <td>
                                     <div class="details-button">
                                         <a class="tutor-report-btn default" href="<?php echo add_query_arg(array('page'=> 'question_answer', 'sub_page' => 'answer', 'question_id' => $question->comment_ID), admin_url('admin.php')) ?>" target="_blank"><?php _e('Replay', 'tutor-pro'); ?></a>
-                                        <a href="<?php echo get_the_permalink($question->comment_post_ID); ?>" target="_blank"><i class="tutor-icon-link"></i></a>
+                                        <a href="<?php echo get_the_permalink($question->comment_post_ID); ?>" target="_blank"><i class="tutor-icon-detail-link"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -489,7 +489,7 @@ $teachers = $wpdb->get_results(
                                     </div>
                                     <div class="instructor-meta">
                                         <span class="instructor-name">
-                                            <span><?php echo $student->display_name; ?> </span><a target="_blank" href="<?php echo tutor_utils()->profile_url($student->ID); ?>"><i class="tutor-icon-link"></i></a>
+                                            <span><?php echo $student->display_name; ?> </span><a target="_blank" href="<?php echo tutor_utils()->profile_url($student->ID); ?>"><i class="tutor-icon-detail-link"></i></a>
                                         </span>
                                     </div>
                                 </div>
@@ -536,7 +536,7 @@ $teachers = $wpdb->get_results(
                                     <div class="instructor-meta">
                                         <span class="instructor-name">
                                             <span><?php echo $teacher->display_name; ?> </span>
-                                            <a target="_blank" href="<?php echo tutor_utils()->profile_url($teacher->ID); ?>"><i class="tutor-icon-link"></i></a>
+                                            <a target="_blank" href="<?php echo tutor_utils()->profile_url($teacher->ID); ?>"><i class="tutor-icon-detail-link"></i></a>
                                         </span>
                                     </div>
                                 </div>
