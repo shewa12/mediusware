@@ -170,7 +170,7 @@ if(is_array($all_data) && !empty($all_data)){
                         <td>
                             <div class="details-button">
                                 <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=courses&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
-                                <a href="<?php echo $course['link']; ?>" target="_blank"><i class="tutor-icon-link"></i></a>
+                                <a href="<?php echo $course['link']; ?>" target="_blank"><i class="tutor-icon-detail-link"></i></a>
                             </div>
                         </td>
                     </tr>
@@ -178,7 +178,10 @@ if(is_array($all_data) && !empty($all_data)){
             </tbody>
         </table>
     <?php } else { ?>
-        <h3><?php _e('No Course Data Found!', 'tutor-pro'); ?></h3>
+        <div class="no-data-found">
+			<img src="<?php echo tutor_pro()->url."addons/tutor-report/assets/images/empty-data.svg"?>" alt="">
+			<span><?php _e('No Course Data Found!', 'tutor-pro'); ?></span>
+		</div>
     <?php } ?>
 
     <div class="tutor-list-footer">

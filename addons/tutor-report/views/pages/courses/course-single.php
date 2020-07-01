@@ -301,7 +301,7 @@ exit;
                                 </div>
                                 <div class="instructor-meta">
                                     <span class="instructor-name">
-                                        <?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo tutor_utils()->profile_url($user_info->ID); ?>"><i class="tutor-icon-link"></i></a>
+                                        <span><?php echo $user_info->display_name; ?> </span> <a target="_blank" href="<?php echo tutor_utils()->profile_url($user_info->ID); ?>"><i class="tutor-icon-detail-link"></i></a>
                                     </span>
                                 </div>
                             </div>
@@ -321,7 +321,10 @@ exit;
                 <?php } ?>
             </table>
         <?php } else { ?>
-            <h3><?php _e('No Students Data Found!', 'tutor-pro'); ?></h3>
+            <div class="no-data-found">
+                <img src="<?php echo tutor_pro()->url."addons/tutor-report/assets/images/empty-data.svg"?>" alt="">
+                <span><?php _e('No Students Data Found!', 'tutor-pro'); ?></span>
+            </div>
         <?php } ?>
     </div>
     <div class="tutor-list-footer">
@@ -403,7 +406,10 @@ exit;
                 <?php } ?>
             </table>
         <?php } else { ?>
-            <h3><?php _e('No Instructor Data Found!', 'tutor-pro'); ?></h3>
+            <div class="no-data-found">
+                <img src="<?php echo tutor_pro()->url."addons/tutor-report/assets/images/empty-data.svg"?>" alt="">
+                <span><?php _e('No Instructor Data Found!', 'tutor-pro'); ?></span>
+            </div>
         <?php } ?>
     </div>
 </div>
@@ -463,7 +469,10 @@ exit;
                 <?php } ?>
             </table>
         <?php } else { ?>
-            <h3><?php _e('No Review Data Found!', 'tutor-pro'); ?></h3>
+            <div class="no-data-found">
+                <img src="<?php echo tutor_pro()->url."addons/tutor-report/assets/images/empty-data.svg"?>" alt="">
+                <span><?php _e('No Review Data Found!', 'tutor-pro'); ?></span>
+            </div>
         <?php } ?>
     </div>
     <div class="tutor-list-footer">

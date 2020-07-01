@@ -213,7 +213,7 @@ exit;
                         ?>
                         <tr>
                             <td><?php echo $counter; ?></td>
-                            <td><?php echo get_the_title($course->ID); ?> <a href="<?php echo get_the_permalink($course->ID); ?>" target="_blank" class="course-link"><i class="tutor-icon-link"></i></a></td>
+                            <td><?php echo get_the_title($course->ID); ?> <a href="<?php echo get_the_permalink($course->ID); ?>" target="_blank" class="course-link"><i class="tutor-icon-detail-link"></i></a></td>
                             <td><?php echo date('h:i a', strtotime($course->post_date)); ?></td>
                             <td>
                                 <span class="complete">
@@ -345,7 +345,10 @@ exit;
                 </tbody>
             </table>
         <?php } else { ?>
-            <h3><?php _e('No Review Data Found!', 'tutor-pro'); ?></h3>
+            <div class="no-data-found">
+                <img src="<?php echo tutor_pro()->url."addons/tutor-report/assets/images/empty-data.svg"?>" alt="">
+                <span><?php _e('No Review Data Found!', 'tutor-pro'); ?></span>
+            </div>
         <?php } ?>
     </div>
     <div class="tutor-list-footer ">

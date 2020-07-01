@@ -47,9 +47,13 @@ $reviews = $wpdb->get_results(
 );
 ?>
 
-<div class="tutor-bg-white box-padding tutor-list-wrap">
-    <h3><?php _e('Reviews', 'tutor-pro'); ?></h3>
-	<p><?php echo sprintf(__('Total reviews %d', 'tutor-pro'), $reviewsCount) ?></p>
+<div class="tutor-list-wrap tutor-report-review">
+	<div class="tutor-list-header">
+		<div class="heading">
+			<?php _e('Reviews', 'tutor-pro'); ?>
+		</div>
+		<p><?php echo sprintf(__('Total reviews %d', 'tutor-pro'), $reviewsCount) ?></p>
+	</div>
 	
 	<?php if(!empty($reviews)) { ?>
 		<table class="tutor-list-table">
@@ -67,7 +71,7 @@ $reviews = $wpdb->get_results(
 			if (is_array($reviews) && count($reviews)){
 				foreach ($reviews as $review){
 					?>
-					<tbody>
+					
 						<tr>
 							<td>
 								<div class="instructor">
@@ -76,7 +80,7 @@ $reviews = $wpdb->get_results(
 									</div>
 									<div class="instructor-meta">
 										<span class="instructor-name">
-											<?php echo $review->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$review->user_id); ?>"><i class="tutor-icon-link"></i></a>
+											<span><?php echo $review->display_name; ?></span> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$review->user_id); ?>"><i class="tutor-icon-detail-link"></i></a>
 										</span>
 									</div>
 								</div>
@@ -87,21 +91,24 @@ $reviews = $wpdb->get_results(
 							<td><?php echo human_time_diff(strtotime($review->comment_date)).' '.__('ago', 'tutor-pro'); ?></td>
 							<td>
 								<div class="details-button">
-									<button type="button" class="button tutor-delete-link tutor-rating-delete-link tutor-report-btn default" data-rating-id="<?php echo $review->comment_ID; ?>">
+									<button type="button" class="tutor-delete-link tutor-report-btn default" data-rating-id="<?php echo $review->comment_ID; ?>">
 										<i class="tutor-icon-trash"></i> <?php _e('Delete', 'tutor-pro'); ?>
 									</button>
-									<a target="_blank" href="<?php echo get_permalink($review->comment_post_ID); ?>"><i class="tutor-icon-link"></i></a>
+									<a target="_blank" href="<?php echo get_permalink($review->comment_post_ID); ?>"><i class="tutor-icon-detail-link"></i></a>
 								</div>
 							</td>
 						</tr>
-					</tbody>
+					
 					<?php
 				}
 			}
 			?>
 		</table>
 	<?php } else { ?>
-		<h3><?php _e('No Review Data Found!', 'tutor-pro'); ?></h3>
+		<div class="no-data-found">
+			<img src="<?php echo tutor_pro()->url."addons/tutor-report/assets/images/empty-data.svg"?>" alt="">
+			<span><?php _e('No Review Data Found!', 'tutor-pro'); ?></span>
+		</div>
 	<?php } ?>
 
 	<div class="tutor-list-footer">

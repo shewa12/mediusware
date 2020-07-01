@@ -92,20 +92,10 @@ $sales_report = $wpdb->get_results(
 			<?php } ?>
 		</table>
 	<?php } else { ?>
-		<h3><?php _e('No Sales Data Found!', 'tutor-pro'); ?></h3>
+		<div class="no-data-found">
+			<img src="<?php echo tutor_pro()->url."addons/tutor-report/assets/images/empty-data.svg"?>" alt="">
+			<span><?php _e('No Sales Data Found!', 'tutor-pro'); ?></span>
+		</div>
 	<?php } ?>
-
-	<div class="tutor-list-footer">
-		<div class="tutor-report-count"></div>
-        <div class="tutor-pagination">
-		<?php
-			echo paginate_links( array(
-				'base' => str_replace( $current_page, '%#%', "admin.php?page=tutor_report&sub_page=sales&paged=%#%" ),
-				'current' => max( 1, $current_page ),
-				'total' => ceil($total_items/$per_page)
-			) );
-			?>
-        </div>
-    </div>
 
 </div>
