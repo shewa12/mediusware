@@ -64,7 +64,6 @@ $reviews = $wpdb->get_results(
 		if (is_array($reviews) && count($reviews)){
 			foreach ($reviews as $review){
 				?>
-				<tbody>
 					<tr>
 						<td>
 							<div class="instructor">
@@ -91,7 +90,7 @@ $reviews = $wpdb->get_results(
 							</div>
 						</td>
 					</tr>
-				</tbody>
+				
 				<?php
 			}
 		}

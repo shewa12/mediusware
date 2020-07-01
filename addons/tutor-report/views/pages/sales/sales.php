@@ -27,7 +27,7 @@ $sales_report = $wpdb->get_results(
 
 <div class="tutor-list-wrap">
 	<div class="tutor-list-header">
-		<div class="heading"><?php _e('Reviews', 'tutor-pro'); ?>
+		<div class="heading">
 			<?php _e('Sales', 'tutor-pro'); ?>
 		</div>
 		<p><?php echo sprintf(__('Total Order  %d', 'tutor-pro'), $salesCount) ?></p>
@@ -51,7 +51,6 @@ $sales_report = $wpdb->get_results(
 				$order = wc_get_order( $report->order_id );
 				$order_items = $order->get_items();
 				?>
-				<tbody>
 					<tr>
 						<?php edit_post_link( '#'.$report->order_id , '<td>', '</td>', $report->order_id, null ); ?>
 						<td>
@@ -88,7 +87,6 @@ $sales_report = $wpdb->get_results(
 							<?php echo $report->post_status; ?>
 						</td>
 					</tr>
-				</tbody>
 				<?php
 			}
 		}
