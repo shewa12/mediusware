@@ -313,7 +313,7 @@ exit;
                             <div class="course-progress">
                                 <?php $percentage = tutor_utils()->get_course_completed_percent($current_id, $user_info->ID); ?>
                                 <span class="course-percentage" style="--percent: <?php echo $percentage; ?>%;"></span>
-                                <span><?php echo $percentage; ?>%</span>   
+                                <span><?php echo $percentage; ?>%</span>
                             </div>
                         </td>
                         <td><a class="tutor-report-btn default" target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><?php _e('Details', 'tutor-pro'); ?></a></td>
@@ -470,7 +470,7 @@ exit;
             </table>
         <?php } else { ?>
             <div class="no-data-found">
-                <img src="<?php echo tutor_pro()->url."addons/tutor-report/assets/images/empty-data.svg"?>" alt="">
+                <img src="<?php echo tutor_pro()->url.'addons/tutor-report/assets/images/empty-data.svg'; ?>" alt="">
                 <span><?php _e('No Review Data Found!', 'tutor-pro'); ?></span>
             </div>
         <?php } ?>
