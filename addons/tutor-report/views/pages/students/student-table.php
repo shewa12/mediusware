@@ -60,7 +60,7 @@ exit;
                             <td>
                                 <div class="details-button">
                                     <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$student->ID); ?>"><?php _e('Details', 'tutor') ?></a>
-                                    <a target="_blank" href="<?php echo tutor_utils()->profile_url($student->ID); ?>"><i class="tutor-icon-link"></i></a>
+                                    <a target="_blank" href="<?php echo tutor_utils()->profile_url($student->ID); ?>"><i class="tutor-icon-detail-link"></i></a>
                                 </div>
                             </td>
                         </tr>

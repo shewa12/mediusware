@@ -301,7 +301,7 @@ exit;
                                 </div>
                                 <div class="instructor-meta">
                                     <span class="instructor-name">
-                                        <?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo tutor_utils()->profile_url($user_info->ID); ?>"><i class="tutor-icon-link"></i></a>
+                                        <span><?php echo $user_info->display_name; ?> </span> <a target="_blank" href="<?php echo tutor_utils()->profile_url($user_info->ID); ?>"><i class="tutor-icon-detail-link"></i></a>
                                     </span>
                                 </div>
                             </div>
