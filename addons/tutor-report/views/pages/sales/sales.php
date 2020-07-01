@@ -35,20 +35,20 @@ $sales_report = $wpdb->get_results(
 		<p><?php echo sprintf(__('Total Order  %d', 'tutor-pro'), $salesCount) ?></p>
 	</div>	
 	
-    <table class="tutor-list-table">
-		<thead>
-			<tr>
-				<th><?php _e('Order', 'tutor-pro'); ?> </th>
-				<th><?php _e('Instructor', 'tutor-pro'); ?> </th>
-				<th><?php _e('Course', 'tutor-pro'); ?> </th>
-				<th><?php _e('Student', 'tutor-pro'); ?> </th>
-				<th><?php _e('Date', 'tutor-pro'); ?> </th>
-				<th><?php _e('Price', 'tutor-pro'); ?> </th>
-				<th><?php _e('Status', 'tutor-pro'); ?> </th>
-			</tr>
-		</thead>
-		<?php
-		if (is_array($sales_report) && count($sales_report)){
+	<?php if (is_array($sales_report) && count($sales_report)) { ?>
+		<table class="tutor-list-table">
+			<thead>
+				<tr>
+					<th><?php _e('Order', 'tutor-pro'); ?> </th>
+					<th><?php _e('Instructor', 'tutor-pro'); ?> </th>
+					<th><?php _e('Course', 'tutor-pro'); ?> </th>
+					<th><?php _e('Student', 'tutor-pro'); ?> </th>
+					<th><?php _e('Date', 'tutor-pro'); ?> </th>
+					<th><?php _e('Price', 'tutor-pro'); ?> </th>
+					<th><?php _e('Status', 'tutor-pro'); ?> </th>
+				</tr>
+			</thead>
+			<?php
 			foreach ($sales_report as $report){
 				$order = wc_get_order( $report->order_id );
 				$order_items = $order->get_items();
@@ -66,14 +66,14 @@ $sales_report = $wpdb->get_results(
 								</div>
 								<div class="instructor-meta">
 									<span class="instructor-name">
-										<?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="tutor-icon-detail-link"></i></a>
+										<?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="tutor-icon-link"></i></a>
 									</span>
 								</div>
 							</div>
 						</td>
 						<td>
 							<?php echo get_the_title($report->post_parent); ?>
-							<a href="<?php echo get_permalink($report->post_parent); ?>" target="_blank"><i class="tutor-icon-detail-link"></i></a>
+							<a href="<?php echo get_permalink($report->post_parent); ?>" target="_blank"><i class="tutor-icon-link"></i></a>
 						</td>
 						<td>
 							<?php 
@@ -89,12 +89,11 @@ $sales_report = $wpdb->get_results(
 							<?php echo $report->post_status; ?>
 						</td>
 					</tr>
-				<?php
-			}
-		} else { ?>
-			<h3><?php _e('No Sales Data Found!', 'tutor-pro'); ?></h3>
-		<?php } ?>
-    </table>
+			<?php } ?>
+		</table>
+	<?php } else { ?>
+		<h3><?php _e('No Sales Data Found!', 'tutor-pro'); ?></h3>
+	<?php } ?>
 
 	<div class="tutor-list-footer">
 		<div class="tutor-report-count"></div>
