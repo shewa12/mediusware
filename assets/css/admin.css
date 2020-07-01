@@ -1050,12 +1050,6 @@ button#gradebook-search-btn {
 	margin-top: 15px;
 }
 
-.tutor-report-graph-earnings {
-	/* display: grid;
-	grid-template-columns: 2fr 1fr;
-	grid-gap: 30px; */
-}
-
 .tutor-report-graph-wrap,
 .tutor-report-earnings-wrap {
 	padding: 30px;
@@ -1095,6 +1089,22 @@ button#gradebook-search-btn {
 }
 
 .tutor-report-earnings-wrap {
+	padding: unset;
+}
+
+.tutor-report-earnings .earnings-item {
+	min-width: 255px;
+	height: 101px;
+	border-radius: 3px;
+	background-color: #ffffff;
+	padding: 24px;
+}
+
+.tutor-report-earnings {
+	margin-top: 40px;
+}
+
+.tutor-report-earnings-wrap {
 	display: grid;
 	grid-auto-flow: column;
 	grid-auto-columns: max-content;
@@ -1106,10 +1116,6 @@ button#gradebook-search-btn {
 	align-items: center;
 }
 
-.tutor-report-earnings-wrap .earnings-item:not(:last-child) {
-	/* margin-bottom: 20px; */
-}
-
 .tutor-report-earnings-wrap .earnings-item i {
 	color: #3e64de;
 	font-size: 40px;
@@ -1117,7 +1123,7 @@ button#gradebook-search-btn {
 
 .tutor-report-earnings-wrap .earnings-item .icon {
 	margin-right: 20px;
-	max-width: 40px;
+	max-width: 50px;
 }
 
 .tutor-report-earnings-wrap .earnings-item .icon img {
