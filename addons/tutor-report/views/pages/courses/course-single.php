@@ -263,7 +263,7 @@ exit;
     <div class="tutor-list-header"><div class="heading"><?php _e('Learners' ,'tutor-pro'); ?></div></div>
     <div class="tutor-list-data">
         <?php
-        $per_learner = 1;
+        $per_learner = 10;
         $learner_page = isset( $_GET['lp'] ) ? $_GET['lp'] : 0;
         $start_learner =  max( 0,($learner_page-1)*$per_learner );
 
@@ -278,56 +278,49 @@ exit;
             AND posts.post_status = 'completed'
             AND posts.post_parent = {$current_id}
             ORDER BY ID DESC LIMIT {$start_learner},{$per_learner}");
+        
+        if(!empty($learner_list)) {
         ?>
-        <table class="tutor-list-table">
-            <tr>
-                <th><?php _e('ID', 'tutor-pro'); ?></th>
-                <th><?php _e('Name', 'tutor-pro'); ?></th>
-                <th><?php _e('Email', 'tutor-pro'); ?></th>
-                <th><?php _e('Enroll Date', 'tutor-pro'); ?></th>
-                <th><?php _e('Lesson', 'tutor-pro'); ?></th>
-                <th><?php _e('Progress', 'tutor-pro'); ?></th>
-            </tr>
-            <?php foreach ($learner_list as $learner) { ?>
+            <table class="tutor-list-table">
                 <tr>
-                    <td><?php echo $learner->ID; ?></td>
-                    <td>
-                        <div class="instructor">
-                            <div class="instructor-thumb">
-                                <?php $user_info = get_userdata($learner->post_author); ?>
-                                <span class="instructor-icon"><?php echo get_avatar($user_info->ID, 50); ?></span>
-                            </div>
-                            <div class="instructor-meta">
-                                <span class="instructor-name">
-                                    <?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
-                                </span>
-                            </div>
-                        </div>
-                    </td>
-                    <td><?php echo $user_info->user_email; ?></td>
-                    <td><?php echo date('j M, Y', strtotime($learner->post_date)); ?></td>
-                    <td><strong><?php echo tutor_utils()->get_completed_lesson_count_by_course($current_id, $user_info->ID); ?></strong>/<span><?php echo $info_lesson; ?><span></td>
-                    <td>
-                        <div class="course-progress">
-                            <span class="course-percentage" style="--percent: <?php echo tutor_utils()->get_course_completed_percent($current_id); ?>%;"></span>
-                            <span><?php echo tutor_utils()->get_course_completed_percent($current_id); ?>%</span>   
-                        </div>
-                    </td>
+                    <th><?php _e('ID', 'tutor-pro'); ?></th>
+                    <th><?php _e('Name', 'tutor-pro'); ?></th>
+                    <th><?php _e('Email', 'tutor-pro'); ?></th>
+                    <th><?php _e('Enroll Date', 'tutor-pro'); ?></th>
+                    <th><?php _e('Lesson', 'tutor-pro'); ?></th>
+                    <th><?php _e('Progress', 'tutor-pro'); ?></th>
                 </tr>
-            <?php } ?>
-        </table>
-
-        <!-- <?php printf( __('Items %s of %s total'), count($learner_list), $learner_items ); ?>
-        <div class="tutor-pagination">
-            <?php
-            echo paginate_links( array(
-                'base' => str_replace( $learner_page, '%#%', "admin.php?page=tutor_report&sub_page=courses&course_id=".$current_id."&lp=%#%" ),
-                'current' => max( 1, $learner_page ),
-                'total' => ceil($learner_items/$per_learner)
-            ) );
-            ?>
-        </div> -->
-
+                <?php foreach ($learner_list as $learner) { ?>
+                    <tr>
+                        <td><?php echo $learner->ID; ?></td>
+                        <td>
+                            <div class="instructor">
+                                <div class="instructor-thumb">
+                                    <?php $user_info = get_userdata($learner->post_author); ?>
+                                    <span class="instructor-icon"><?php echo get_avatar($user_info->ID, 50); ?></span>
+                                </div>
+                                <div class="instructor-meta">
+                                    <span class="instructor-name">
+                                        <?php echo $user_info->display_name; ?> <a target="_blank" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$user_info->ID); ?>"><i class="fas fa-external-link-alt"></i></a>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td><?php echo $user_info->user_email; ?></td>
+                        <td><?php echo date('j M, Y', strtotime($learner->post_date)); ?></td>
+                        <td><strong><?php echo tutor_utils()->get_completed_lesson_count_by_course($current_id, $user_info->ID); ?></strong>/<span><?php echo $info_lesson; ?><span></td>
+                        <td>
+                            <div class="course-progress">
+                                <span class="course-percentage" style="--percent: <?php echo tutor_utils()->get_course_completed_percent($current_id); ?>%;"></span>
+                                <span><?php echo tutor_utils()->get_course_completed_percent($current_id); ?>%</span>   
+                            </div>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </table>
+        <?php } else { ?>
+            <h3><?php _e('No Learners Data Found!', 'tutor-pro'); ?></h3>
+        <?php } ?>
     </div>
     <div class="tutor-list-footer">
         <div class="tutor-report-count">
@@ -350,56 +343,60 @@ exit;
     <div class="tutor-list-header"><div class="heading"><?php _e('Mentors' ,'tutor-pro'); ?></div></div>
     <div class="tutor-list-data">
         <?php $instructors = tutor_utils()->get_instructors_by_course($current_id); ?>
-        <table class="tutor-list-table">
-            <tr>
-                <th><?php _e('ID', 'tutor-pro'); ?></th>
-                <th><?php _e('Name', 'tutor-pro'); ?></th>
-                <th><?php _e('Rating', 'tutor-pro'); ?></th>
-                <th><?php _e('Total Courses', 'tutor-pro'); ?></th>
-                <th><?php _e('Total Learners', 'tutor-pro'); ?></th>
-                <th></th>
-            </tr>
-            <?php 
-            $count = 0;
-            foreach ($instructors as $instructor) { 
-                $count++;
-                $authorTag = '';
-                $instructor_crown_src = tutor()->url.'assets/images/crown.svg';
-                if (get_post_field('post_author', $instructor->ID) == $instructor->ID) {
-                    $authorTag = '<img src="'.$instructor_crown_src.'" />';
-                }
-                $user_info = get_userdata($instructor->ID);
-                ?>
+        <?php if(!empty($instructors)) { ?>
+            <table class="tutor-list-table">
                 <tr>
-                    <td><?php echo $instructor->ID; ?> </td>
-                    <td>
-                        <div class="instructor">
-                            <div class="instructor-thumb">
-                                <span class="instructor-icon"><?php echo get_avatar($instructor->ID, 50); ?></span>
-                            </div>
-                            <div class="instructor-meta">
-                                <span class="instructor-name">
-                                    <?php echo $instructor->display_name.' '.$authorTag; ?>
-                                </span>
-                                <span class="instructor-email"><?php echo $user_info->user_email; ?></span>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <?php
-                         $rating = tutor_utils()->get_instructor_ratings($instructor->ID);
-                         tutor_utils()->star_rating_generator($rating->rating_avg);
-                        ?>
-                        <span class="instructor-rating"><?php printf( __('%s (%s Ratings)', 'tutor-pro'), $rating->rating_avg, $rating->rating_count ); ?></span>
-                    </td>
-                    <td><?php echo tutor_utils()->get_course_count_by_instructor($instructor->ID); ?></td>
-                    <td><?php echo tutor_utils()->get_total_students_by_instructor($instructor->ID); ?></td>
-                    <td>
-                        <a class="tutor-report-btn default" target="_blank" href="<?php echo tutor_utils()->profile_url($instructor->ID); ?>"><?php _e('View Profile', 'tutor-pro'); ?> 
-                    </td>
+                    <th><?php _e('ID', 'tutor-pro'); ?></th>
+                    <th><?php _e('Name', 'tutor-pro'); ?></th>
+                    <th><?php _e('Rating', 'tutor-pro'); ?></th>
+                    <th><?php _e('Total Courses', 'tutor-pro'); ?></th>
+                    <th><?php _e('Total Learners', 'tutor-pro'); ?></th>
+                    <th></th>
                 </tr>
-            <?php } ?>
-        </table>
+                <?php 
+                $count = 0;
+                foreach ($instructors as $instructor) { 
+                    $count++;
+                    $authorTag = '';
+                    $instructor_crown_src = tutor()->url.'assets/images/crown.svg';
+                    if (get_post_field('post_author', $instructor->ID) == $instructor->ID) {
+                        $authorTag = '<img src="'.$instructor_crown_src.'" />';
+                    }
+                    $user_info = get_userdata($instructor->ID);
+                    ?>
+                    <tr>
+                        <td><?php echo $instructor->ID; ?> </td>
+                        <td>
+                            <div class="instructor">
+                                <div class="instructor-thumb">
+                                    <span class="instructor-icon"><?php echo get_avatar($instructor->ID, 50); ?></span>
+                                </div>
+                                <div class="instructor-meta">
+                                    <span class="instructor-name">
+                                        <?php echo $instructor->display_name.' '.$authorTag; ?>
+                                    </span>
+                                    <span class="instructor-email"><?php echo $user_info->user_email; ?></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <?php
+                            $rating = tutor_utils()->get_instructor_ratings($instructor->ID);
+                            tutor_utils()->star_rating_generator($rating->rating_avg);
+                            ?>
+                            <span class="instructor-rating"><?php printf( __('%s (%s Ratings)', 'tutor-pro'), $rating->rating_avg, $rating->rating_count ); ?></span>
+                        </td>
+                        <td><?php echo tutor_utils()->get_course_count_by_instructor($instructor->ID); ?></td>
+                        <td><?php echo tutor_utils()->get_total_students_by_instructor($instructor->ID); ?></td>
+                        <td>
+                            <a class="tutor-report-btn default" target="_blank" href="<?php echo tutor_utils()->profile_url($instructor->ID); ?>"><?php _e('View Profile', 'tutor-pro'); ?> 
+                        </td>
+                    </tr>
+                <?php } ?>
+            </table>
+        <?php } else { ?>
+            <h3><?php _e('No Mentor Data Found!', 'tutor-pro'); ?></h3>
+        <?php } ?>
     </div>
 </div>
 
@@ -407,55 +404,59 @@ exit;
 <div class="tutor-list-wrap tutor-report-reviews">
     <div class="tutor-list-header"><div class="heading"><?php _e('Reviews' ,'tutor-pro'); ?></div></div>
     <div class="tutor-list-data">
-        <table class="tutor-list-table">
-            <tr>
-                <th><?php _e('No', 'tutor-pro'); ?> </th>
-                <th><?php _e('Name', 'tutor-pro'); ?> </th>
-                <th><?php _e('Date', 'tutor-pro'); ?> </th>
-                <th><?php _e('Rating & Feedback', 'tutor-pro'); ?> </th>
-            </tr>
-            <?php
-                $count = 0;
-                $per_review = 1;
-                $review_page = isset( $_GET['rp'] ) ? $_GET['rp'] : 0;
-                $review_start =  max( 0,($review_page-1)*$per_review );
-                $review_items = count(tutor_utils()->get_course_reviews($current_id));
-                $total_reviews = tutor_utils()->get_course_reviews($current_id, $review_start, $per_review);
+        <?php
+            $count = 0;
+            $per_review = 10;
+            $review_page = isset( $_GET['rp'] ) ? $_GET['rp'] : 0;
+            $review_start =  max( 0,($review_page-1)*$per_review );
+            $review_items = count(tutor_utils()->get_course_reviews($current_id));
+            $total_reviews = tutor_utils()->get_course_reviews($current_id, $review_start, $per_review);
 
-                foreach ($total_reviews as $review) {
-                    $count++;
-                ?>
+        if(!empty($total_reviews)){
+            ?>
+            <table class="tutor-list-table">
                 <tr>
-                    <td><?php echo $count; ?></td>
-                    <td>
-                        <div class="instructor">
-                            <div class="instructor-thumb">
-                                <span class="instructor-icon"><?php echo get_avatar($review->user_id, 50); ?></span>
-                            </div>
-                            <div class="instructor-meta">
-                                <span class="instructor-name"><?php echo $review->display_name; ?></span>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="dates">
-                            <span><?php echo date('j M, Y', strtotime($review->comment_date)); ?></span><br>
-                            <span><?php echo date('h:i a', strtotime($review->comment_date)); ?></td></span>
-                        </div>
-                    <td>
-                        <div class="ratings-wrap">
-                            <div class="ratings">
-                                <?php tutor_utils()->star_rating_generator($review->rating); ?>
-                                <span><?php echo $review->rating; ?></span>
-                            </div>
-                            <div class="review">
-                                <?php echo $review->comment_content; ?>
-                            </div>
-                        </div>
-                    </td>
+                    <th><?php _e('No', 'tutor-pro'); ?> </th>
+                    <th><?php _e('Name', 'tutor-pro'); ?> </th>
+                    <th><?php _e('Date', 'tutor-pro'); ?> </th>
+                    <th><?php _e('Rating & Feedback', 'tutor-pro'); ?> </th>
                 </tr>
-            <?php } ?>
-        </table>
+                <?php
+                    foreach ($total_reviews as $review) { $count++; ?>
+                    <tr>
+                        <td><?php echo $count; ?></td>
+                        <td>
+                            <div class="instructor">
+                                <div class="instructor-thumb">
+                                    <span class="instructor-icon"><?php echo get_avatar($review->user_id, 50); ?></span>
+                                </div>
+                                <div class="instructor-meta">
+                                    <span class="instructor-name"><?php echo $review->display_name; ?></span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dates">
+                                <span><?php echo date('j M, Y', strtotime($review->comment_date)); ?></span><br>
+                                <span><?php echo date('h:i a', strtotime($review->comment_date)); ?></td></span>
+                            </div>
+                        <td>
+                            <div class="ratings-wrap">
+                                <div class="ratings">
+                                    <?php tutor_utils()->star_rating_generator($review->rating); ?>
+                                    <span><?php echo $review->rating; ?></span>
+                                </div>
+                                <div class="review">
+                                    <?php echo $review->comment_content; ?>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </table>
+        <?php } else { ?>
+            <h3><?php _e('No Review Data Found!', 'tutor-pro'); ?></h3>
+        <?php } ?>
     </div>
     <div class="tutor-list-footer">
         <div class="tutor-report-count"><?php printf( __('Items <strong> %s </strong> of <strong> %s </strong> total'), count($total_reviews), $review_items ); ?></div>

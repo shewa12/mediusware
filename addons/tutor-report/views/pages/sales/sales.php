@@ -5,9 +5,11 @@ exit;
 global $wpdb;
 
 $salesCount = (int) $wpdb->get_var(
-	"SELECT COUNT(ID) 
-	FROM {$wpdb->posts} 
-	WHERE post_type = 'tutor_enrolled' ;"
+	"SELECT COUNT(ID)
+	FROM {$wpdb->posts}
+	JOIN {$wpdb->postmeta} meta 
+	ON ID = meta.post_id
+	WHERE meta.meta_key = '_tutor_enrolled_by_order_id' AND post_type = 'tutor_enrolled'"
 );
 
 $per_page = 50;
@@ -86,8 +88,9 @@ $sales_report = $wpdb->get_results(
 				</tbody>
 				<?php
 			}
-		}
-		?>
+		} else { ?>
+			<h3><?php _e('No Sales Data Found!', 'tutor-pro'); ?></h3>
+		<?php } ?>
     </table>
 
 	<div class="tutor-list-footer">

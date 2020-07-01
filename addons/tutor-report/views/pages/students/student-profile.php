@@ -311,41 +311,46 @@ exit;
         <div class="heading"><?php _e('Review', 'tutor-pro'); ?></div>
     </div>
     <div class="report-review-wrap">
-        <table class="tutor-list-table">
-            <thead>
-                <tr>
-                    <th><?php _e('No', 'tutor-pro'); ?></th>
-                    <th><?php _e('Course', 'tutor-pro'); ?></th>
-                    <th><?php _e('Date', 'tutor-pro'); ?></th>
-                    <th><?php _e('Rating & Feedback', 'tutor-pro'); ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    $count = 0;
-                    $per_review = 1;
-                    $review_page = isset( $_GET['rp'] ) ? $_GET['rp'] : 0;
-                    $review_start =  max( 0,($review_page-1)*$per_review );
-                    $total_reviews = tutor_utils()->get_reviews_by_user($user_info->ID, $review_start, $per_review);
-                ?>
-                <?php foreach ($total_reviews as $review) { $count++; ?>
+        <?php
+            $count = 0;
+            $per_review = 10;
+            $review_page = isset( $_GET['rp'] ) ? $_GET['rp'] : 0;
+            $review_start =  max( 0,($review_page-1)*$per_review );
+            $total_reviews = tutor_utils()->get_reviews_by_user($user_info->ID, $review_start, $per_review);
+
+        if (!empty($total_reviews)) {
+            ?>
+            <table class="tutor-list-table">
+                <thead>
                     <tr>
-                        <td><?php echo $count; ?></td>
-                        <td><div class="course-title"><?php echo get_the_title($review->comment_post_ID); ?></div></td>
-                        <td><div class="dates"><?php echo date('j M, Y', strtotime($review->comment_date)); ?><br><span><?php echo date('h:i a', strtotime($review->comment_date)); ?></span></div></td>
-                        <td>
-                            <div class="ratings-wrap">
-                                <div class="ratings">
-                                    <?php tutor_utils()->star_rating_generator($review->rating); ?>
-                                    <span><?php echo $review->rating; ?></span>
-                                </div>
-                                <div class="review"><?php echo $review->comment_content; ?></div>
-                            </div>							
-                        </td>
+                        <th><?php _e('No', 'tutor-pro'); ?></th>
+                        <th><?php _e('Course', 'tutor-pro'); ?></th>
+                        <th><?php _e('Date', 'tutor-pro'); ?></th>
+                        <th><?php _e('Rating & Feedback', 'tutor-pro'); ?></th>
                     </tr>
-                <?php } ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php foreach ($total_reviews as $review) { $count++; ?>
+                        <tr>
+                            <td><?php echo $count; ?></td>
+                            <td><div class="course-title"><?php echo get_the_title($review->comment_post_ID); ?></div></td>
+                            <td><div class="dates"><?php echo date('j M, Y', strtotime($review->comment_date)); ?><br><span><?php echo date('h:i a', strtotime($review->comment_date)); ?></span></div></td>
+                            <td>
+                                <div class="ratings-wrap">
+                                    <div class="ratings">
+                                        <?php tutor_utils()->star_rating_generator($review->rating); ?>
+                                        <span><?php echo $review->rating; ?></span>
+                                    </div>
+                                    <div class="review"><?php echo $review->comment_content; ?></div>
+                                </div>							
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        <?php } else { ?>
+            <h3><?php _e('No Review Data Found!', 'tutor-pro'); ?></h3>
+        <?php } ?>
     </div>
     <div class="tutor-list-footer ">
         <div class="tutor-report-count">
