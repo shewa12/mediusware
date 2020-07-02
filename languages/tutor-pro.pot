@@ -3,22 +3,23 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Tutor LMS Pro\n"
-"POT-Creation-Date: 2020-06-11 14:22+0600\n"
-"PO-Revision-Date: 2020-06-11 14:22+0600\n"
+"POT-Creation-Date: 2020-07-02 18:49+0600\n"
+"PO-Revision-Date: 2020-07-02 18:49+0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.3.1\n"
 "X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: tutor-pro.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
 #: addons/buddypress/buddypress.php:29
 msgid "BuddyPress"
@@ -81,8 +82,8 @@ msgid "Enable / Disable BuddyPress group activity feeds"
 msgstr ""
 
 #: addons/buddypress/classes/BuddyPressGroups.php:144
-#: addons/tutor-report/views/pages/overview.php:86
-#: addons/tutor-report/views/pages/report.php:5
+#: addons/tutor-report/views/pages/overview.php:124
+#: addons/tutor-report/views/pages/report.php:6
 msgid "Courses"
 msgstr ""
 
@@ -236,7 +237,7 @@ msgid "This user has been already enrolled on this course"
 msgstr ""
 
 #: addons/enrollments/classes/Enrollments.php:87
-#: addons/tutor-report/views/pages/overview.php:99
+#: addons/tutor-report/views/pages/overview.php:133
 msgid "Course Enrolled"
 msgstr ""
 
@@ -253,6 +254,7 @@ msgstr ""
 #: addons/enrollments/views/enroll_student.php:18
 #: addons/gradebook/views/pages/overview.php:71
 #: addons/tutor-assignments/classes/Assignments_List.php:106
+#: addons/tutor-report/views/pages/sales/sales.php:45
 #: templates/buddypress/message_thread_recipients.php:57
 msgid "Student"
 msgstr ""
@@ -262,18 +264,23 @@ msgstr ""
 #: addons/gradebook/views/pages/overview.php:72
 #: addons/tutor-assignments/classes/Assignments_List.php:107
 #: addons/tutor-assignments/views/pages/submitted_assignment.php:16
-#: addons/tutor-report/views/pages/courses/body.php:99
-#: addons/tutor-report/views/pages/overview.php:341
-#: addons/tutor-report/views/pages/overview.php:380
-#: addons/tutor-report/views/pages/reviews/reviews.php:50
+#: addons/tutor-report/views/pages/courses/course-table.php:152
+#: addons/tutor-report/views/pages/overview.php:369
+#: addons/tutor-report/views/pages/overview.php:429
+#: addons/tutor-report/views/pages/reviews/reviews.php:63
+#: addons/tutor-report/views/pages/sales/sales.php:44
+#: addons/tutor-report/views/pages/students/student-profile.php:198
+#: addons/tutor-report/views/pages/students/student-profile.php:323
 msgid "Course"
 msgstr ""
 
 #: addons/enrollments/classes/Enrollments_List.php:86
+#: addons/tutor-report/views/pages/sales/sales.php:42
 msgid "Order"
 msgstr ""
 
 #: addons/enrollments/classes/Enrollments_List.php:87
+#: addons/tutor-report/views/pages/sales/sales.php:48
 #: templates/single/course/enrolled/gradebook.php:52
 msgid "Status"
 msgstr ""
@@ -303,6 +310,8 @@ msgstr ""
 
 #: addons/enrollments/views/enrollments.php:25
 #: addons/tutor-assignments/views/pages/assignments.php:13
+#: addons/tutor-report/views/pages/courses/course-table.php:101
+#: addons/tutor-report/views/pages/students/student-table.php:9
 msgid "Search"
 msgstr ""
 
@@ -472,7 +481,7 @@ msgstr ""
 
 #: addons/gradebook/views/pages/gradebooks.php:10
 #: addons/gradebook/views/pages/overview.php:16
-#: addons/tutor-report/views/pages/report.php:4
+#: addons/tutor-report/views/pages/report.php:5
 msgid "Overview"
 msgstr ""
 
@@ -481,8 +490,9 @@ msgid "Grade Range %"
 msgstr ""
 
 #: addons/gradebook/views/pages/gradebooks.php:30
-#: addons/tutor-report/views/pages/courses/body.php:101
-#: addons/tutor-report/views/pages/reviews/reviews.php:54
+#: addons/tutor-report/views/pages/overview.php:373
+#: addons/tutor-report/views/pages/overview.php:430
+#: addons/tutor-report/views/pages/reviews/reviews.php:67
 msgid "Action"
 msgstr ""
 
@@ -510,8 +520,12 @@ msgid "Search by course or student name"
 msgstr ""
 
 #: addons/gradebook/views/pages/overview.php:73
-#: addons/tutor-report/views/pages/overview.php:125 classes/General.php:165
-#: classes/Quiz.php:64 templates/single/course/enrolled/gradebook.php:32
+#: addons/tutor-report/views/pages/courses/course-table.php:154
+#: addons/tutor-report/views/pages/overview.php:151
+#: addons/tutor-report/views/pages/students/student-profile.php:201
+#: addons/tutor-report/views/pages/students/student-profile.php:271
+#: classes/General.php:165 classes/Quiz.php:64
+#: templates/single/course/enrolled/gradebook.php:32
 msgid "Quiz"
 msgstr ""
 
@@ -653,6 +667,10 @@ msgid "Duration"
 msgstr ""
 
 #: addons/tutor-assignments/classes/Assignments_List.php:111
+#: addons/tutor-report/views/pages/courses/course-single.php:435
+#: addons/tutor-report/views/pages/courses/course-table.php:136
+#: addons/tutor-report/views/pages/sales/sales.php:46
+#: addons/tutor-report/views/pages/students/student-profile.php:324
 msgid "Date"
 msgstr ""
 
@@ -728,6 +746,11 @@ msgid "Submitted Assignment"
 msgstr ""
 
 #: addons/tutor-assignments/views/pages/submitted_assignment.php:23
+#: addons/tutor-report/views/pages/courses/course-single.php:109
+#: addons/tutor-report/views/pages/courses/course-table.php:155
+#: addons/tutor-report/views/pages/students/student-profile.php:160
+#: addons/tutor-report/views/pages/students/student-profile.php:202
+#: addons/tutor-report/views/pages/students/student-profile.php:282
 msgid "Assignment"
 msgstr ""
 
@@ -768,11 +791,11 @@ msgstr ""
 msgid "Evaluate this submission"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:274
+#: addons/tutor-certificate/classes/Certificate.php:273
 msgid "Course Completion Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:275
+#: addons/tutor-certificate/classes/Certificate.php:274
 msgid "My course completion certificate for"
 msgstr ""
 
@@ -854,7 +877,12 @@ msgstr ""
 msgid "Select Certificate Template"
 msgstr ""
 
-#: addons/tutor-course-attachments/classes/CourseAttachments.php:29
+#: addons/tutor-course-attachments/classes/CourseAttachments.php:30
+#: addons/tutor-course-attachments/classes/CourseAttachments.php:37
+msgid "Resources"
+msgstr ""
+
+#: addons/tutor-course-attachments/classes/CourseAttachments.php:47
 msgid "Attachments (private files)"
 msgstr ""
 
@@ -862,7 +890,7 @@ msgstr ""
 msgid "Course Attachments"
 msgstr ""
 
-#: addons/tutor-course-attachments/views/metabox/course-attachments-metabox.php:17
+#: addons/tutor-course-attachments/views/metabox/course-attachments-metabox.php:19
 msgid "Upload Attachment"
 msgstr ""
 
@@ -921,7 +949,7 @@ msgstr ""
 msgid " enrolled "
 msgstr ""
 
-#: addons/tutor-email/classes/EmailNotification.php:462
+#: addons/tutor-email/classes/EmailNotification.php:467
 msgid " just completed lesson "
 msgstr ""
 
@@ -982,8 +1010,8 @@ msgid "Select when to send notification to the teachers"
 msgstr ""
 
 #: addons/tutor-email/tutor-email.php:29
-#: addons/tutor-report/views/pages/overview.php:428
-#: addons/tutor-report/views/pages/overview.php:458
+#: addons/tutor-report/views/pages/overview.php:473
+#: addons/tutor-report/views/pages/overview.php:519
 msgid "E-Mail"
 msgstr ""
 
@@ -1062,190 +1090,474 @@ msgstr ""
 msgid "Report"
 msgstr ""
 
-#: addons/tutor-report/views/pages/courses/body.php:7
-#: addons/tutor-report/views/pages/courses/body.php:10
+#: addons/tutor-report/views/pages/course/graph/top_menu.php:4
+#: addons/tutor-report/views/pages/courses/graph/top_menu.php:4
+msgid "Last Year"
+msgstr ""
+
+#: addons/tutor-report/views/pages/course/graph/top_menu.php:5
+#: addons/tutor-report/views/pages/courses/graph/top_menu.php:5
+msgid "This Year"
+msgstr ""
+
+#: addons/tutor-report/views/pages/course/graph/top_menu.php:6
+#: addons/tutor-report/views/pages/courses/graph/top_menu.php:6
+msgid "Last Month"
+msgstr ""
+
+#: addons/tutor-report/views/pages/course/graph/top_menu.php:7
+#: addons/tutor-report/views/pages/courses/graph/top_menu.php:7
+msgid "This Month"
+msgstr ""
+
+#: addons/tutor-report/views/pages/course/graph/top_menu.php:8
+#: addons/tutor-report/views/pages/courses/graph/top_menu.php:8
+msgid "Last Week"
+msgstr ""
+
+#: addons/tutor-report/views/pages/course/graph/top_menu.php:9
+#: addons/tutor-report/views/pages/courses/graph/top_menu.php:9
+msgid "This Week"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:62
+#: addons/tutor-report/views/pages/students/student-profile.php:16
+msgid "Created:"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:63
+msgid "Last Update:"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:66
+msgid "Edit with Builder"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:67
+msgid "View Course"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:80
+#: addons/tutor-report/views/pages/courses/course-single.php:289
+#: addons/tutor-report/views/pages/courses/course-table.php:153
+#: addons/tutor-report/views/pages/students/student-profile.php:200
+#: addons/tutor-report/views/pages/students/student-profile.php:256
+msgid "Lesson"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:98
+msgid "Total Quiz"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:120
+#: addons/tutor-report/views/pages/courses/course-single.php:364
+#: addons/tutor-report/views/pages/courses/course-table.php:156
+msgid "Total Students"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:126
+msgid "Course Completed"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:137
+#: addons/tutor-report/views/pages/students/student-profile.php:94
+msgid "Course Continue"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:148
+msgid "Ratings"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:160
+msgid "Sales Graph"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:182
+#: addons/tutor-report/views/pages/courses/course-table.php:157
+msgid "Earnings"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:207
+msgid "Total Earning"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:230
+msgid "Total Discount"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:252
+msgid "Refund"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:262
+#: addons/tutor-report/views/pages/overview.php:178
+#: addons/tutor-report/views/pages/report.php:9
+#: addons/tutor-report/views/pages/students/student-table.php:18
+msgid "Students"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:285
+#: addons/tutor-report/views/pages/courses/course-single.php:360
+#: addons/tutor-report/views/pages/students/student-table.php:32
+msgid "ID"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:286
+#: addons/tutor-report/views/pages/courses/course-single.php:361
+#: addons/tutor-report/views/pages/courses/course-single.php:434
+#: addons/tutor-report/views/pages/overview.php:472
+#: addons/tutor-report/views/pages/overview.php:518
+#: addons/tutor-report/views/pages/students/student-table.php:33
+msgid "Name"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:287
+#: addons/tutor-report/views/pages/students/student-table.php:35
+msgid "Email"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:288
+#: addons/tutor-report/views/pages/students/student-profile.php:199
+msgid "Enroll Date"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:290
+#: addons/tutor-report/views/pages/students/student-table.php:38
+msgid "Progress"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:319
+#: addons/tutor-report/views/pages/courses/course-table.php:172
+#: addons/tutor-report/views/pages/students/student-table.php:62
+msgid "Details"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:326
+#: addons/tutor-report/views/pages/students/student-table.php:73
+msgid "No Students Data Found!"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:335
+#: addons/tutor-report/views/pages/courses/course-single.php:482
+#: addons/tutor-report/views/pages/courses/course-table.php:191
+#, php-format
+msgid "Items <strong> %s </strong> of <strong> %s </strong> total"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:354
+#: addons/tutor-report/views/pages/overview.php:169
+msgid "Instructors"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:362
+#: addons/tutor-report/views/pages/overview.php:370
+#: addons/tutor-report/views/pages/reviews/reviews.php:64
+msgid "Rating"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:363
+msgid "Total Courses"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:398
+#, php-format
+msgid "%s (%s Ratings)"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:403
+#: addons/tutor-report/views/pages/students/student-profile.php:32
+msgid "View Profile"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:411
+msgid "No Instructor Data Found!"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:419
+#: addons/tutor-report/views/pages/overview.php:187
+#: addons/tutor-report/views/pages/overview.php:371
+#: addons/tutor-report/views/pages/report.php:7
+#: addons/tutor-report/views/pages/reviews/reviews.php:53
+#: addons/tutor-report/views/pages/reviews/reviews.php:65
+msgid "Reviews"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:433
+#: addons/tutor-report/views/pages/students/student-profile.php:322
+msgid "No"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:436
+#: addons/tutor-report/views/pages/students/student-profile.php:325
+msgid "Rating & Feedback"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-single.php:474
+#: addons/tutor-report/views/pages/reviews/reviews.php:110
+#: addons/tutor-report/views/pages/students/student-profile.php:350
+msgid "No Review Data Found!"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-table.php:109
+msgid "Category"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-table.php:126
+msgid "Sort By"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-table.php:146
+#: addons/tutor-report/views/pages/students/student-profile.php:187
+msgid "Course List"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/course-table.php:183
+msgid "No Course Data Found!"
+msgstr ""
+
+#: addons/tutor-report/views/pages/courses/graph/body.php:12
+#: addons/tutor-report/views/pages/courses/graph/body.php:15
 #, php-format
 msgid "Showing results for the year %s"
 msgstr ""
 
-#: addons/tutor-report/views/pages/courses/body.php:13
-#: addons/tutor-report/views/pages/courses/body.php:16
+#: addons/tutor-report/views/pages/courses/graph/body.php:18
+#: addons/tutor-report/views/pages/courses/graph/body.php:21
 #, php-format
 msgid "Showing results for the month of %s"
 msgstr ""
 
-#: addons/tutor-report/views/pages/courses/body.php:19
-#: addons/tutor-report/views/pages/courses/body.php:22
-#: addons/tutor-report/views/pages/courses/body.php:25
+#: addons/tutor-report/views/pages/courses/graph/body.php:24
+#: addons/tutor-report/views/pages/courses/graph/body.php:27
+#: addons/tutor-report/views/pages/courses/graph/body.php:30
 #, php-format
 msgid "Showing results from %s to %s"
 msgstr ""
 
-#: addons/tutor-report/views/pages/courses/body.php:31
-msgid "Results for course : "
-msgstr ""
-
-#: addons/tutor-report/views/pages/courses/body.php:36
-msgid "Total Enrolled Courses:"
-msgstr ""
-
-#: addons/tutor-report/views/pages/courses/body.php:38
-msgid "Download as CSV"
-msgstr ""
-
-#: addons/tutor-report/views/pages/courses/body.php:95
-msgid "Highest enrolled courses"
-msgstr ""
-
-#: addons/tutor-report/views/pages/courses/body.php:100
-msgid "Total Enrolled"
-msgstr ""
-
-#: addons/tutor-report/views/pages/courses/top_menu.php:4
-msgid "Last Year"
-msgstr ""
-
-#: addons/tutor-report/views/pages/courses/top_menu.php:5
-msgid "This Year"
-msgstr ""
-
-#: addons/tutor-report/views/pages/courses/top_menu.php:6
-msgid "Last Month"
-msgstr ""
-
-#: addons/tutor-report/views/pages/courses/top_menu.php:7
-msgid "This Month"
-msgstr ""
-
-#: addons/tutor-report/views/pages/courses/top_menu.php:8
-msgid "Last Week"
-msgstr ""
-
-#: addons/tutor-report/views/pages/courses/top_menu.php:9
-msgid "This Week"
-msgstr ""
-
-#: addons/tutor-report/views/pages/overview.php:112
+#: addons/tutor-report/views/pages/overview.php:142
 msgid "Lessons"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:138
+#: addons/tutor-report/views/pages/overview.php:160
 #: templates/single/quiz/previous-attempts.php:12
 #: templates/single/quiz/previous-attempts.php:43
 msgid "Questions"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:151
-msgid "Instructors"
-msgstr ""
-
-#: addons/tutor-report/views/pages/overview.php:164
-msgid "Students"
-msgstr ""
-
-#: addons/tutor-report/views/pages/overview.php:177
-#: addons/tutor-report/views/pages/overview.php:343
-#: addons/tutor-report/views/pages/report.php:6
-#: addons/tutor-report/views/pages/reviews/reviews.php:43
-#: addons/tutor-report/views/pages/reviews/reviews.php:52
-msgid "Reviews"
-msgstr ""
-
-#: addons/tutor-report/views/pages/overview.php:186
+#: addons/tutor-report/views/pages/overview.php:197
 #, php-format
 msgid "Student enrolment graph for %s"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:230
+#: addons/tutor-report/views/pages/overview.php:242
 msgid "Total Enrolled Course"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:281
+#: addons/tutor-report/views/pages/overview.php:290
 msgid "Most popular courses"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:285
-#: addons/tutor-report/views/pages/overview.php:309
+#: addons/tutor-report/views/pages/overview.php:297
+#: addons/tutor-report/views/pages/overview.php:331
 msgid "Course Name"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:286
-#: addons/tutor-report/views/pages/overview.php:310
+#: addons/tutor-report/views/pages/overview.php:298
+#: addons/tutor-report/views/pages/overview.php:332
 msgid "Enrolled"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:305
+#: addons/tutor-report/views/pages/overview.php:324
 msgid "Last enrolled courses"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:318
-#: addons/tutor-report/views/pages/overview.php:357
-#: addons/tutor-report/views/pages/overview.php:443
-#: addons/tutor-report/views/pages/overview.php:473
-#: addons/tutor-report/views/pages/reviews/reviews.php:67
+#: addons/tutor-report/views/pages/overview.php:343
+#: addons/tutor-report/views/pages/overview.php:399
+#: addons/tutor-report/views/pages/overview.php:498
+#: addons/tutor-report/views/pages/overview.php:545
+#: addons/tutor-report/views/pages/reviews/reviews.php:91
 msgid "ago"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:336
+#: addons/tutor-report/views/pages/overview.php:361
 msgid "Recent reviews"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:340
-#: addons/tutor-report/views/pages/overview.php:378
-#: addons/tutor-report/views/pages/reviews/reviews.php:49
+#: addons/tutor-report/views/pages/overview.php:368
+#: addons/tutor-report/views/pages/overview.php:427
+#: addons/tutor-report/views/pages/reviews/reviews.php:62
 msgid "User"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:342
-#: addons/tutor-report/views/pages/reviews/reviews.php:51
-msgid "Rating"
-msgstr ""
-
-#: addons/tutor-report/views/pages/overview.php:344
-#: addons/tutor-report/views/pages/reviews/reviews.php:53
+#: addons/tutor-report/views/pages/overview.php:372
+#: addons/tutor-report/views/pages/reviews/reviews.php:66
 #: templates/single/quiz/previous-attempts.php:11
 #: templates/single/quiz/previous-attempts.php:28
 msgid "Time"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:375
+#: addons/tutor-report/views/pages/overview.php:402
+msgid "View"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:421
 msgid "Recent questions from students"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:379
+#: addons/tutor-report/views/pages/overview.php:428
 #: templates/single/quiz/view_attempt.php:30
 msgid "Question"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:423
+#: addons/tutor-report/views/pages/overview.php:445
+msgid "Replay"
+msgstr ""
+
+#: addons/tutor-report/views/pages/overview.php:466
 msgid "New registered students"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:427
-#: addons/tutor-report/views/pages/overview.php:457
-msgid "Name"
-msgstr ""
-
-#: addons/tutor-report/views/pages/overview.php:429
-#: addons/tutor-report/views/pages/overview.php:459
+#: addons/tutor-report/views/pages/overview.php:474
+#: addons/tutor-report/views/pages/overview.php:520
 msgid "Registered at"
 msgstr ""
 
-#: addons/tutor-report/views/pages/overview.php:453
+#: addons/tutor-report/views/pages/overview.php:512
 msgid "New registered teachers"
 msgstr ""
 
-#: addons/tutor-report/views/pages/report.php:15
-msgid "Tutor LMS Report"
+#: addons/tutor-report/views/pages/report.php:8
+#: addons/tutor-report/views/pages/sales/sales.php:33
+msgid "Sales"
 msgstr ""
 
-#: addons/tutor-report/views/pages/reviews/reviews.php:45
+#: addons/tutor-report/views/pages/report.php:22
+msgid "LMS Report"
+msgstr ""
+
+#: addons/tutor-report/views/pages/reviews/reviews.php:55
 #, php-format
 msgid "Total reviews %d"
 msgstr ""
 
-#: addons/tutor-report/views/pages/reviews/reviews.php:70
+#: addons/tutor-report/views/pages/reviews/reviews.php:95
 msgid "Delete"
+msgstr ""
+
+#: addons/tutor-report/views/pages/sales/sales.php:35
+#, php-format
+msgid "Total Order  %d"
+msgstr ""
+
+#: addons/tutor-report/views/pages/sales/sales.php:43
+#: templates/buddypress/message_thread_recipients.php:26
+msgid "Instructor"
+msgstr ""
+
+#: addons/tutor-report/views/pages/sales/sales.php:47
+msgid "Price"
+msgstr ""
+
+#: addons/tutor-report/views/pages/sales/sales.php:97
+msgid "No Sales Data Found!"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:11
+msgid "tutor student profile photo"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:18
+msgid "Last Activity:"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:22
+msgid "Ago"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:24
+msgid "Never Login Before"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:39
+msgid "Display Name"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:42
+msgid "User Name"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:45
+msgid "Email ID"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:48
+msgid "User ID"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:69
+msgid "Enrolled Courses"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:84
+msgid "Completed Courses"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:109
+msgid "Reviews Placed"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:128
+msgid "Total Lesson"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:138
+msgid "Take Quiz"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:177
+msgid "Total Discussion"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:189
+msgid "Complete"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:190
+msgid "Incomplete"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:203
+msgid "Percentage"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:307
+msgid "Review"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-profile.php:359
+#, php-format
+msgid "Items <strong> %s </strong> of<strong> %s </strong> total"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-table.php:7
+msgid "User Search"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-table.php:34
+msgid "Username"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-table.php:36
+msgid "Registered"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-table.php:37
+msgid "Course Taken"
+msgstr ""
+
+#: addons/tutor-report/views/pages/students/student-table.php:82
+#, php-format
+msgid "Items <strong>%s</strong> of <strong>%s</strong> total"
 msgstr ""
 
 #: addons/wc-subscriptions/wc-subscriptions.php:29
@@ -1267,6 +1579,7 @@ msgstr ""
 msgid "Edit With Frontend Course Builder"
 msgstr ""
 
+#. translators: %s: taxonomy name
 #: classes/General.php:82
 #, php-format
 msgid "Invalid taxonomy: %s."
@@ -1423,10 +1736,6 @@ msgstr ""
 
 #: includes/functions.php:283
 msgid "Generate Gradebook"
-msgstr ""
-
-#: templates/buddypress/message_thread_recipients.php:26
-msgid "Instructor"
 msgstr ""
 
 #: templates/buddypress/message_thread_recipients.php:69
