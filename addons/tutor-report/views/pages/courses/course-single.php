@@ -200,7 +200,7 @@ exit;
                             if (function_exists('wc_price')) {
                                 echo wc_price($total_price);
                             } else {
-                                echo '$'.$total_price;
+                                echo '$'.($total_price ? $total_price : 0);
                             }
                         ?>
                     </div>
@@ -223,7 +223,7 @@ exit;
                             if (function_exists('wc_price')) {
                                 echo wc_price($discount_price);
                             } else {
-                                echo '$'.$discount_price;
+                                echo '$'.($discount_price ? $discount_price : 0);
                             }
                         ?>
                     </div>
@@ -245,7 +245,7 @@ exit;
                             if (function_exists('wc_price')) {
                                 echo wc_price($refunded_price);
                             } else {
-                                echo '$'.$refunded_price;
+                                echo '$'.($refunded_price ? $refunded_price : 0);
                             }
                         ?>
                     </div>

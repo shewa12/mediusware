@@ -146,7 +146,7 @@ class QuizImportExport {
 		global $wpdb;
 		
 		if (isset($_FILES["csv_file"])) {
-			if( $_FILES["csv_file"]["type"] = 'text/csv' && $_FILES["csv_file"]["size"] < 20000 ) {
+			if( $_FILES["csv_file"]["type"] = 'text/csv' && $_FILES["csv_file"]["size"] < 50000 ) {
 				if ($_FILES["csv_file"]["size"] > 0) {
 					
 					$topic_id = sanitize_text_field($_POST["topic_id"]);
@@ -155,7 +155,7 @@ class QuizImportExport {
 					$file = fopen($fileName, "r");
 					$quiz_id = $question_id = $question_type = $quiz_title = '';
 
-					while (($column = fgetcsv($file, 10000, ",")) !== FALSE) {
+					while (($column = fgetcsv($file, 50000, ",")) !== FALSE) {
 
 						if($column[0] == 'settings') {
 							$next_order_id = tutor_utils()->get_next_course_content_order_id($topic_id);

@@ -44,35 +44,31 @@ jQuery(document).ready(function($){
         const _file = $(this).parent().find("input[name='csv_file']").prop('files')
         const that = $(this)
         if ( _file[0] ) {
-            if( _file[0].type == 'text/csv' ) {
-                if ( _file[0].size > 0 ) {
-                    if (_file[0].size < 10000) {
-                        let formData = new FormData();
-                        formData.append( 'action', 'quiz_import_data' );
-                        formData.append( 'csv_file', _file[0] );
-                        formData.append( 'topic_id', $(this).parent().find("input[name='csv_file']").data('topic') );
-                        $.ajax({
-                            url: ajaxurl,
-                            type: 'POST',
-                            data: formData,
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            success: function (data) {
-                                if(data.success){
-                                    that.val('')
-                                    that.closest('.tutor-topics-body').find('.tutor-lessons').append(data.data.output_quiz_row)
-                                }
-                            },
-                        });
-                    } else {
-                        alert('File is too large.');    
-                    }
+            if ( _file[0].size > 0 ) {
+                if (_file[0].size < 60000) {
+                    let formData = new FormData();
+                    formData.append( 'action', 'quiz_import_data' );
+                    formData.append( 'csv_file', _file[0] );
+                    formData.append( 'topic_id', $(this).parent().find("input[name='csv_file']").data('topic') );
+                    $.ajax({
+                        url: ajaxurl,
+                        type: 'POST',
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                            if(data.success){
+                                that.val('')
+                                that.closest('.tutor-topics-body').find('.tutor-lessons').append(data.data.output_quiz_row)
+                            }
+                        },
+                    });
                 } else {
-                    alert('File is Empty.');
+                    alert('File is too large.');    
                 }
             } else {
-                alert('File Type Not Supported.');
+                alert('File is Empty.');
             }
         } else {
             alert('No File Selected.');
