@@ -21,7 +21,7 @@
                 </label>
             </div>
             <div class="tutor-option-field">
-                <select name="student_id" id="select2_search_user_ajax"></select>
+                <select name="student_id" id="select2_search_user_ajax" required="required"></select>
             </div>
         </div>
 
@@ -38,8 +38,8 @@
                 <?php
                 $courses = tutor_utils()->get_courses(array(get_the_ID()));
                 ?>
-                <select name="course_id" class="tutor_select2">
-                    <option value=""><?php _e('Select a Product'); ?></option>
+                <select name="course_id" class="tutor_select2" required="required">
+                    <option value=""><?php _e('Select a Course'); ?></option>
 	                <?php
 	                foreach ($courses as $course){
 		                $selected = in_array($course->ID, $savedPrerequisitesIDS) ? ' selected="selected" ' : '';
