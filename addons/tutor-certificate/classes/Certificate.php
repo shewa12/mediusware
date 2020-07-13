@@ -139,6 +139,11 @@ class Certificate{
 		$course             = get_post($course_id);
 		$completed          = ($completed) ? $completed : tutor_utils()->is_completed_course($course_id);
 		$user 				= ($completed) ? get_userdata($completed->completed_user_id) : wp_get_current_user();
+		$completed_date		= '';
+		if ($completed) {
+			$wp_date_format		= get_option('date_format');
+			$completed_date 	= date($wp_date_format, strtotime($completed->completion_date));
+		}
 
 		ob_start();
 		include $this->template['path'].'certificate.php';
