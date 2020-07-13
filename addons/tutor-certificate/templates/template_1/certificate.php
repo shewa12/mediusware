@@ -33,7 +33,7 @@
         <h1> <?php echo $user->display_name; ?></h1>
         <p>  has successfully completed <?php echo $duration_text; ?>  online course of </p>
         <h2> <?php echo $course->post_title; ?> </h2>
-        <p>on <?php echo date('F d, Y', strtotime( $completed->completion_date) ); ?></p>
+        <p>on <?php echo $completed_date; ?></p>
 
         <div class="certificate-footer">
             <table>

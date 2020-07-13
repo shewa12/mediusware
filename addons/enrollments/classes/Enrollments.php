@@ -75,10 +75,15 @@ class Enrollments {
 		$user_id = (int) sanitize_text_field(tutils()->array_get('student_id', $_POST));
 		$course_id = (int) sanitize_text_field(tutils()->array_get('course_id', $_POST));
 
-		$isEnrolled = tutils()->is_enrolled($course_id, $user_id);
-		if ($isEnrolled){
+		$is_enrolled = tutils()->is_enrolled($course_id, $user_id);
+		$total_enrolled = tutils()->count_enrolled_users_by_course($course_id);
+		$maximum_students = (int) tutils()->get_course_settings($course_id, 'maximum_students');
+
+		if ($is_enrolled) {
 			$this->success_msgs = get_tnotice(__('This user has been already enrolled on this course', 'tutor-pro'), 'Error', 'danger');
-		}else{
+		} else if ($maximum_students && $maximum_students <= $total_enrolled) {
+			$this->success_msgs = get_tnotice(__('Maximum student is reached!', 'tutor-pro'), 'Error', 'danger');
+		} else {
 			/**
 			 * Enroll Now
 			 */
@@ -96,11 +101,11 @@ class Enrollments {
 			);
 
 			// Insert the post into the database
-			$isEnrolled = wp_insert_post( $enroll_data );
-			if ($isEnrolled) {
-				do_action('tutor_after_enroll', $course_id, $isEnrolled);
+			$is_enrolled = wp_insert_post( $enroll_data );
+			if ($is_enrolled) {
+				do_action('tutor_after_enroll', $course_id, $is_enrolled);
 				//Change the enrol status again. to fire complete hook
-                tutils()->course_enrol_status_change($isEnrolled, 'completed');
+                tutils()->course_enrol_status_change($is_enrolled, 'completed');
 				//Mark Current User as Students with user meta data
 				update_user_meta( $user_id, '_is_tutor_student', tutor_time() );
 			}
