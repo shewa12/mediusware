@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Tutor LMS Pro\n"
-"POT-Creation-Date: 2020-07-02 18:49+0600\n"
-"PO-Revision-Date: 2020-07-02 18:49+0600\n"
+"POT-Creation-Date: 2020-07-13 17:39+0600\n"
+"PO-Revision-Date: 2020-07-13 17:39+0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -232,16 +232,20 @@ msgstr ""
 msgid "%1$s (#%2$s - %3$s)"
 msgstr ""
 
-#: addons/enrollments/classes/Enrollments.php:80
+#: addons/enrollments/classes/Enrollments.php:83
 msgid "This user has been already enrolled on this course"
 msgstr ""
 
-#: addons/enrollments/classes/Enrollments.php:87
+#: addons/enrollments/classes/Enrollments.php:85
+msgid "Maximum student is reached!"
+msgstr ""
+
+#: addons/enrollments/classes/Enrollments.php:92
 #: addons/tutor-report/views/pages/overview.php:133
 msgid "Course Enrolled"
 msgstr ""
 
-#: addons/enrollments/classes/Enrollments.php:108
+#: addons/enrollments/classes/Enrollments.php:113
 msgid "Enrolment has been done"
 msgstr ""
 
@@ -291,7 +295,8 @@ msgid "Enroll Student"
 msgstr ""
 
 #: addons/enrollments/views/enroll_student.php:42
-msgid "Select a Product"
+#: addons/tutor-prerequisites/views/metabox/course-prerequisites-lists.php:25
+msgid "Select a Course"
 msgstr ""
 
 #: addons/enrollments/views/enrollments.php:8
@@ -791,11 +796,11 @@ msgstr ""
 msgid "Evaluate this submission"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:273
+#: addons/tutor-certificate/classes/Certificate.php:278
 msgid "Course Completion Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:274
+#: addons/tutor-certificate/classes/Certificate.php:279
 msgid "My course completion certificate for"
 msgstr ""
 
@@ -1075,10 +1080,6 @@ msgstr ""
 
 #: addons/tutor-prerequisites/views/metabox/course-prerequisites-lists.php:15
 msgid "Select course"
-msgstr ""
-
-#: addons/tutor-prerequisites/views/metabox/course-prerequisites-lists.php:25
-msgid "Select a Course"
 msgstr ""
 
 #: addons/tutor-prerequisites/views/metabox/course-prerequisites-lists.php:35
