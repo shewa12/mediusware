@@ -26,7 +26,7 @@ class Assignments{
 		add_action('tutor_action_tutor_assignment_submit', array($this, 'tutor_assignment_submit'));
 		add_action('tutor_action_tutor_evaluate_assignment_submission', array($this, 'tutor_evaluate_assignment_submission'));
 
-		add_filter('tutor_dashboard/nav_items', array($this, 'frontend_dashboard_nav_items'));
+		add_filter('tutor_dashboard/instructor_nav_items', array($this, 'frontend_dashboard_nav_items'));
 		/**
 		 * Lesson List in frontend end
 		 */
