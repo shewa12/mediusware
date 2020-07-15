@@ -115,7 +115,7 @@ class init{
 						'tutor_course_certificate_view' => array(
 							'type'      	=> 'checkbox',
 							'label'     	=> __('View Certificate', 'tutor-pro'),
-							'label_title' 	=> __('Enable','tutor'),
+							'label_title' 	=> __('Enable', 'tutor-pro'),
 							'desc'      	=> __('By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible', 'tutor-pro'),
 						),
 

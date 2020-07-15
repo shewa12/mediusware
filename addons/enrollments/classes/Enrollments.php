@@ -54,7 +54,7 @@ class Enrollments {
 		if (tutils()->count($student_res)){
 			foreach ($student_res as $student){
 				$students[$student->ID] = sprintf(
-					esc_html__( '%1$s (#%2$s - %3$s)', 'tutor' ),
+					esc_html__( '%1$s (#%2$s - %3$s)', 'tutor-pro' ),
 					$student->display_name,
 					$student->ID,
 					$student->user_email

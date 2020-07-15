@@ -98,7 +98,7 @@ if(is_array($all_data) && !empty($all_data)){
 ?>
 <div class="tutor-report-content-menu">
     <div>
-        <div class="menu-label"><?php _e('Search', 'tutor'); ?></div>
+        <div class="menu-label"><?php _e('Search', 'tutor-pro'); ?></div>
         <div>
             <input type="text" class="tutor-report-search" value="<?php echo $_search; ?>" autocomplete="off" placeholder="Search in here." />
             <button class="tutor-report-search-btn"><i class="tutor-icon-magnifying-glass-1"></i></button>
@@ -106,7 +106,7 @@ if(is_array($all_data) && !empty($all_data)){
     </div>
 
     <div>
-        <div class="menu-label"><?php _e('Category', 'tutor'); ?></div>
+        <div class="menu-label"><?php _e('Category', 'tutor-pro'); ?></div>
         <div>
             <select class="tutor-report-category">
                 <?php
@@ -123,7 +123,7 @@ if(is_array($all_data) && !empty($all_data)){
     </div>
 
     <div>
-        <div class="menu-label"><?php _e('Sort By', 'tutor'); ?></div>
+        <div class="menu-label"><?php _e('Sort By', 'tutor-pro'); ?></div>
         <div>
             <select class="tutor-report-sort">
                 <option <?php selected( $order_filter, 'ASC' ); ?>>ASC</option>
@@ -133,7 +133,7 @@ if(is_array($all_data) && !empty($all_data)){
     </div>
 
     <div>
-        <div class="menu-label"><?php _e('Date', 'tutor'); ?></div>
+        <div class="menu-label"><?php _e('Date', 'tutor-pro'); ?></div>
         <div class="date-range-input">
             <input type="text" class="tutor_report_datepicker tutor-report-date" value="<?php echo $_date; ?>" autocomplete="off" placeholder="<?php echo date("Y-m-d", strtotime("last sunday midnight")); ?>" />
             <i class="tutor-icon-calendar"></i>
@@ -143,7 +143,7 @@ if(is_array($all_data) && !empty($all_data)){
 
 <div class="tutor-list-wrap tutor-report-course-list">
     <div class="tutor-list-header">
-        <div class="heading"><?php _e('Course List', 'tutor'); ?></div>
+        <div class="heading"><?php _e('Course List', 'tutor-pro'); ?></div>
     </div>
     <?php if(!empty($course_single)) { ?>
         <table class="tutor-list-table">
@@ -169,7 +169,7 @@ if(is_array($all_data) && !empty($all_data)){
                         <td><?php echo $course['earnings']; ?></td>
                         <td>
                             <div class="details-button">
-                                <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=courses&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor') ?></a>
+                                <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=courses&course_id='.$course['id']); ?>"><?php _e('Details', 'tutor-pro') ?></a>
                                 <a href="<?php echo $course['link']; ?>" target="_blank"><i class="tutor-icon-detail-link"></i></a>
                             </div>
                         </td>

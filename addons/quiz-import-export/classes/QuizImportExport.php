@@ -28,7 +28,7 @@ class QuizImportExport {
 		<input name="csv_file" class="tutor-csv-file" data-topic="<?php echo $topic_id; ?>" type="file" accept=".csv" />
 		<a href="javascript:;" class="btn-tutor-submit">
 			<svg id="Solid" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m232 271.431v-223.431a24 24 0 0 1 48 0v223.431l-24 24zm40.971 97.54 144-144a24 24 0 0 0 -33.942-33.942l-127.029 127.03-127.029-127.03a24 24 0 0 0 -33.942 33.942l144 144a24 24 0 0 0 33.942 0zm215.029 95.029v-112a24 24 0 0 0 -48 0v88h-368v-88a24 24 0 0 0 -48 0v112a24 24 0 0 0 24 24h416a24 24 0 0 0 24-24z"/></svg>
-			<?php _e('Import Quiz', 'tutor'); ?>
+			<?php _e('Import Quiz', 'tutor-pro'); ?>
 		</a>
 	<?php }
 
@@ -251,7 +251,7 @@ class QuizImportExport {
 								<i class=" tutor-icon-doubt"></i>[QUIZ] <?php echo $quiz_title; ?></a>
 							<a href="#quiz-builder-export" class="btn-csv-download" data-id="<?php echo $quiz_id; ?>">
 								<svg id="Solid" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m232 271.431v-223.431a24 24 0 0 1 48 0v223.431l-24 24zm40.971 97.54 144-144a24 24 0 0 0 -33.942-33.942l-127.029 127.03-127.029-127.03a24 24 0 0 0 -33.942 33.942l144 144a24 24 0 0 0 33.942 0zm215.029 95.029v-112a24 24 0 0 0 -48 0v88h-368v-88a24 24 0 0 0 -48 0v112a24 24 0 0 0 24 24h416a24 24 0 0 0 24-24z"></path></svg>
-								<?php _e('Export', 'tutor'); ?>
+								<?php _e('Export', 'tutor-pro'); ?>
 							</a>
 							<a href="javascript:;" class="tutor-delete-quiz-btn" data-quiz-id="<?php echo $quiz_id; ?>"><i class="tutor-icon-garbage"></i></a>
 						</div>

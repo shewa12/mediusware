@@ -61,16 +61,16 @@ class Quiz {
 
 	public function extend_quiz_option($attr){
 		$attr['quiz'] = array(
-			'label' => __('Quiz', 'tutor'),
+			'label' => __('Quiz', 'tutor-pro'),
 			'sections'    => array(
 				'quiz_attempt_tutor_pro' => array(
-					'label' => __('Tutor LMS Pro Settings', 'tutor'),
-					'desc' => __('The values you set here define the default values that are used in the settings form when you create a new quiz.', 'tutor'),
+					'label' => __('Tutor LMS Pro Settings', 'tutor-pro'),
+					'desc' => __('The values you set here define the default values that are used in the settings form when you create a new quiz.', 'tutor-pro'),
 					'fields' => array(
 						'tutor_quiz_student_attempt_view' => array(
 							'type'      => 'checkbox',
-							'label'     => __('Detail Attempt View', 'tutor'),
-							'label_title' => __('Enable', 'tutor'),
+							'label'     => __('Detail Attempt View', 'tutor-pro'),
+							'label_title' => __('Enable', 'tutor-pro'),
 							'default' => '0',
 							'desc'      => __('Enabling this option will let the students view quiz attempt details including the answer to each question.',	'tutor'),
 						),

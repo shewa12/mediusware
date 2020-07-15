@@ -162,10 +162,10 @@ class General{
 
 	public function extend_general_option($attr){
 		$attr['general'] = array(
-			'label' => __('Quiz', 'tutor'),
+			'label' => __('Quiz', 'tutor-pro'),
 			'sections'    => array(
 				'frontend_course_section' => array(
-					'label' => __('Tutor LMS Pro Settings', 'tutor'),
+					'label' => __('Tutor LMS Pro Settings', 'tutor-pro'),
 					'fields' => array(
 						'tutor_frontend_course_page_logo_id' => array(
 							'type'          => 'media',

@@ -4,7 +4,7 @@ exit;
 ?>
 <!-- .report-date-filter -->
 <div class="report-date-filter">
-    <div class="menu-label"><?php _e('User Search', 'tutor'); ?></div>
+    <div class="menu-label"><?php _e('User Search', 'tutor-pro'); ?></div>
     <div class="date-range-input">
         <input type="text" class="tutor-report-search" value="<?php echo $_search; ?>"  placeholder="<?php _e('Search', 'tutor-pro'); ?>" />
         <i class="tutor-icon-magnifying-glass-1 tutor-report-search-action"></i>
@@ -59,7 +59,7 @@ exit;
                             <td><?php echo count(tutor_utils()->get_enrolled_courses_ids_by_user($student->ID)); ?></td>
                             <td>
                                 <div class="details-button">
-                                    <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$student->ID); ?>"><?php _e('Details', 'tutor') ?></a>
+                                    <a class="tutor-report-btn default" href="<?php echo admin_url('admin.php?page=tutor_report&sub_page=students&student_id='.$student->ID); ?>"><?php _e('Details', 'tutor-pro') ?></a>
                                     <a target="_blank" href="<?php echo tutor_utils()->profile_url($student->ID); ?>"><i class="tutor-icon-detail-link"></i></a>
                                 </div>
                             </td>
