@@ -23,7 +23,7 @@ gulp.task('makepot', function () {
 		}))
 		.pipe(wpPot({
 			domain: 'tutor-pro',
-			package: 'Tutor LMS'
+			package: 'Tutor LMS Pro'
 		}))
 		.pipe(gulp.dest('languages/tutor-pro.pot'));
 });
