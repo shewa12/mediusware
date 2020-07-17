@@ -13,31 +13,24 @@
 		<?php
 		$hour_text = '';
 		$min_text = '';
-		if ($durationHours){
-			if ($durationHours > 1){
-				$hour_text = $durationHours.' hours';
-			}else{
-				$hour_text = $durationHours.' hour';
-			}
+		if ($durationHours) {
+			$hour_text = $durationHours.' ';
+			$hour_text .= ($durationHours > 1) ? __('hours', 'tutor-pro') : __('hour', 'tutor-pro');
 		}
-		if ($durationMinutes){
-			if ($durationMinutes > 1){
-				$min_text = $durationMinutes.' minutes';
-			}else{
-				$min_text = $durationMinutes.' minute';
-			}
+		if ($durationMinutes) {
+			$min_text = $durationMinutes.' ';
+			$min_text .= ($durationMinutes > 1) ? __('minutes', 'tutor-pro') : __('minute', 'tutor-pro');
 		}
-		$duration_text= $hour_text.' '.$min_text;
+		$duration_text = $hour_text.' '.$min_text;
 		?>
-        <p>  This is to certify that</p>
-        <h1> <?php echo $user->display_name; ?></h1>
-        <p>  has successfully completed <?php echo $duration_text; ?>  online course of </p>
-        <h2> <?php echo $course->post_title; ?> </h2>
-        <p>on <?php echo $completed_date; ?></p>
+        <p><?php _e('This is to certify that', 'tutor-pro'); ?></p>
+        <h1><?php echo $user->display_name; ?></h1>
+        <p><?php echo __('has successfully completed', 'tutor-pro').' '.$duration_text.' '.__('online course of', 'tutor-pro'); ?></p>
+        <h2><?php echo $course->post_title; ?></h2>
+        <p><?php echo __('on', 'tutor-pro').' '.$completed_date; ?></p>
     </div>
 
     <div class="certificate-footer">
-
         <table>
             <tr>
                 <td class="first-col"> </td>
@@ -54,17 +47,16 @@
                     </div>
                 </td>
             </tr>
-
             <tr>
                 <td class="first-col">
-                    <p> <strong>Valid Certificate ID</strong> </p>
+                    <p><strong><?php _e('Valid Certificate ID', 'tutor-pro'); ?></strong> </p>
                 </td>
                 <td>
                     <p class="certificate-author-name"> <strong><?php echo tutor_utils()->get_option('tutor_cert_authorised_name'); ?></strong> </p>
                 </td>
             </tr>
             <tr>
-                <td class="first-col"> <p><?php echo $completed->completed_hash; ?></p> </td>
+                <td class="first-col"><p><?php echo $completed->completed_hash; ?></p></td>
                 <td><?php echo tutor_utils()->get_option('tutor_cert_authorised_company_name'); ?> </td>
             </tr>
         </table>
@@ -74,7 +66,6 @@
 <div id="watermark">
     <img src="<?php echo $this->template['url'].'background.png'; ?>" height="100%" width="100%" />
 </div>
-
 
 </body>
 </html>
