@@ -168,7 +168,7 @@ class Certificate{
 
 		$dompdf = new Dompdf($options);
 		//Getting Certificate to generate PDF
-		$dompdf->loadHtml($certificate_content);
+		$dompdf->loadHtml($certificate_content, 'UTF-8');
 
 		//Setting Paper
 		$dompdf->setPaper('A4', $this->template['orientation']);
@@ -176,6 +176,7 @@ class Certificate{
 		if($debug) {
 			return $dompdf->output();
 		}
+		ob_end_clean();
 		$dompdf->stream('certificate'.tutor_time().'.pdf');
 	}
 

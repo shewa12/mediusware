@@ -83,4 +83,19 @@
     'bold_italic' => $fontDir . '/Nunito-BlackItalic',
     'light' => $fontDir . '/Nunito-Light',
   ),
+  'hind siliguri' => array(
+    'normal' => $fontDir . '\551afaf31d4053f29ff7d85fb8343682',
+  ),
+  'baloo da 2' => array(
+    'normal' => $fontDir . '\bf8d9dae67ee32c2e38b761f8480452f',
+  ),
+  'adorsholipi' => array(
+    'normal' => $fontDir . '\f53e9a332a933ffd101f53fd8b26b4e6',
+  ),
+  'solaimanlipi' => array(
+    'normal' => $fontDir . '\23f1dfea7d0e8cda644946715a15eb48',
+  ),
+  'siyamrupali' => array(
+    'normal' => $fontDir . '\4fd6aadc31075efeb6369be6a9ca0d4f',
+  ),
 ) ?>
