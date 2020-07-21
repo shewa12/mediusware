@@ -1,14 +1,8 @@
 /* Main Body */
-@page {
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-}
 body {
     color: #333333;
     margin: 0;
-    font-family: 'Nunito';
+    font-family: 'SolaimanLipi', sans-serif;
     font-weight: normal;
     font-size: 9pt;
     line-height: 100%;
