@@ -3,15 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>PDF Certificate Title</title>
-    <style type="text/css">
-        @font-face {
-            font-family: 'SolaimanLipi';
-            font-style: normal;
-            font-weight: normal;
-            src: local('SolaimanLipi'), local('SolaimanLipi'), url(<?php echo $this->template['path'].'SolaimanLipi.ttf'; ?>) format('truetype');
-        }
-        <?php $this->pdf_style(); ?>
-    </style>
+    <style type="text/css"><?php $this->pdf_style(); ?></style>
 </head>
 <body>
 
