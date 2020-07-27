@@ -641,11 +641,11 @@ msgstr ""
 msgid "Evaluate this submission"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:278
+#: addons/tutor-certificate/classes/Certificate.php:279
 msgid "Course Completion Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:279
+#: addons/tutor-certificate/classes/Certificate.php:280
 msgid "My course completion certificate for"
 msgstr ""
 
@@ -687,6 +687,50 @@ msgstr ""
 
 #: addons/tutor-certificate/classes/init.php:119
 msgid "By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible"
+msgstr ""
+
+#: addons/tutor-certificate/templates/default/certificate.php:12
+msgid "VERIFIED"
+msgstr ""
+
+#: addons/tutor-certificate/templates/default/certificate.php:13
+msgid "Certificate of Achievement"
+msgstr ""
+
+#: addons/tutor-certificate/templates/default/certificate.php:22, addons/tutor-certificate/templates/template_10/certificate.php:18, addons/tutor-certificate/templates/template_11/certificate.php:18, addons/tutor-certificate/templates/template_12/certificate.php:18, addons/tutor-certificate/templates/template_1/certificate.php:17, addons/tutor-certificate/templates/template_2/certificate.php:18, addons/tutor-certificate/templates/template_3/certificate.php:21, addons/tutor-certificate/templates/template_4/certificate.php:18, addons/tutor-certificate/templates/template_5/certificate.php:20, addons/tutor-certificate/templates/template_6/certificate.php:18, addons/tutor-certificate/templates/template_7/certificate.php:17, addons/tutor-certificate/templates/template_8/certificate.php:18, addons/tutor-certificate/templates/template_9/certificate.php:18
+msgid "hours"
+msgstr ""
+
+#: addons/tutor-certificate/templates/default/certificate.php:22, addons/tutor-certificate/templates/template_10/certificate.php:18, addons/tutor-certificate/templates/template_11/certificate.php:18, addons/tutor-certificate/templates/template_12/certificate.php:18, addons/tutor-certificate/templates/template_1/certificate.php:17, addons/tutor-certificate/templates/template_2/certificate.php:18, addons/tutor-certificate/templates/template_3/certificate.php:21, addons/tutor-certificate/templates/template_4/certificate.php:18, addons/tutor-certificate/templates/template_5/certificate.php:20, addons/tutor-certificate/templates/template_6/certificate.php:18, addons/tutor-certificate/templates/template_7/certificate.php:17, addons/tutor-certificate/templates/template_8/certificate.php:18, addons/tutor-certificate/templates/template_9/certificate.php:18
+msgid "hour"
+msgstr ""
+
+#: addons/tutor-certificate/templates/default/certificate.php:26, addons/tutor-certificate/templates/template_10/certificate.php:22, addons/tutor-certificate/templates/template_11/certificate.php:22, addons/tutor-certificate/templates/template_12/certificate.php:22, addons/tutor-certificate/templates/template_1/certificate.php:21, addons/tutor-certificate/templates/template_2/certificate.php:22, addons/tutor-certificate/templates/template_3/certificate.php:25, addons/tutor-certificate/templates/template_4/certificate.php:22, addons/tutor-certificate/templates/template_5/certificate.php:24, addons/tutor-certificate/templates/template_6/certificate.php:22, addons/tutor-certificate/templates/template_7/certificate.php:21, addons/tutor-certificate/templates/template_8/certificate.php:22, addons/tutor-certificate/templates/template_9/certificate.php:22
+msgid "minutes"
+msgstr ""
+
+#: addons/tutor-certificate/templates/default/certificate.php:26, addons/tutor-certificate/templates/template_10/certificate.php:22, addons/tutor-certificate/templates/template_11/certificate.php:22, addons/tutor-certificate/templates/template_12/certificate.php:22, addons/tutor-certificate/templates/template_1/certificate.php:21, addons/tutor-certificate/templates/template_2/certificate.php:22, addons/tutor-certificate/templates/template_3/certificate.php:25, addons/tutor-certificate/templates/template_4/certificate.php:22, addons/tutor-certificate/templates/template_5/certificate.php:24, addons/tutor-certificate/templates/template_6/certificate.php:22, addons/tutor-certificate/templates/template_7/certificate.php:21, addons/tutor-certificate/templates/template_8/certificate.php:22, addons/tutor-certificate/templates/template_9/certificate.php:22
+msgid "minute"
+msgstr ""
+
+#: addons/tutor-certificate/templates/default/certificate.php:30, addons/tutor-certificate/templates/template_10/certificate.php:26, addons/tutor-certificate/templates/template_11/certificate.php:26, addons/tutor-certificate/templates/template_12/certificate.php:26, addons/tutor-certificate/templates/template_1/certificate.php:25, addons/tutor-certificate/templates/template_2/certificate.php:26, addons/tutor-certificate/templates/template_3/certificate.php:29, addons/tutor-certificate/templates/template_4/certificate.php:26, addons/tutor-certificate/templates/template_5/certificate.php:28, addons/tutor-certificate/templates/template_6/certificate.php:26, addons/tutor-certificate/templates/template_7/certificate.php:25, addons/tutor-certificate/templates/template_8/certificate.php:26, addons/tutor-certificate/templates/template_9/certificate.php:26
+msgid "This is to certify that"
+msgstr ""
+
+#: addons/tutor-certificate/templates/default/certificate.php:32, addons/tutor-certificate/templates/template_10/certificate.php:28, addons/tutor-certificate/templates/template_11/certificate.php:28, addons/tutor-certificate/templates/template_12/certificate.php:28, addons/tutor-certificate/templates/template_1/certificate.php:27, addons/tutor-certificate/templates/template_2/certificate.php:28, addons/tutor-certificate/templates/template_3/certificate.php:31, addons/tutor-certificate/templates/template_4/certificate.php:28, addons/tutor-certificate/templates/template_5/certificate.php:30, addons/tutor-certificate/templates/template_6/certificate.php:28, addons/tutor-certificate/templates/template_7/certificate.php:27, addons/tutor-certificate/templates/template_8/certificate.php:28, addons/tutor-certificate/templates/template_9/certificate.php:28
+msgid "has successfully completed"
+msgstr ""
+
+#: addons/tutor-certificate/templates/default/certificate.php:32, addons/tutor-certificate/templates/template_10/certificate.php:28, addons/tutor-certificate/templates/template_11/certificate.php:28, addons/tutor-certificate/templates/template_12/certificate.php:28, addons/tutor-certificate/templates/template_1/certificate.php:27, addons/tutor-certificate/templates/template_2/certificate.php:28, addons/tutor-certificate/templates/template_3/certificate.php:31, addons/tutor-certificate/templates/template_4/certificate.php:28, addons/tutor-certificate/templates/template_5/certificate.php:30, addons/tutor-certificate/templates/template_6/certificate.php:28, addons/tutor-certificate/templates/template_7/certificate.php:27, addons/tutor-certificate/templates/template_8/certificate.php:28, addons/tutor-certificate/templates/template_9/certificate.php:28
+msgid "online course of"
+msgstr ""
+
+#: addons/tutor-certificate/templates/default/certificate.php:34, addons/tutor-certificate/templates/template_10/certificate.php:30, addons/tutor-certificate/templates/template_11/certificate.php:30, addons/tutor-certificate/templates/template_12/certificate.php:30, addons/tutor-certificate/templates/template_1/certificate.php:29, addons/tutor-certificate/templates/template_2/certificate.php:30, addons/tutor-certificate/templates/template_3/certificate.php:33, addons/tutor-certificate/templates/template_4/certificate.php:30, addons/tutor-certificate/templates/template_5/certificate.php:32, addons/tutor-certificate/templates/template_6/certificate.php:30, addons/tutor-certificate/templates/template_7/certificate.php:29, addons/tutor-certificate/templates/template_8/certificate.php:30, addons/tutor-certificate/templates/template_9/certificate.php:30
+msgid "on"
+msgstr ""
+
+#: addons/tutor-certificate/templates/default/certificate.php:56, addons/tutor-certificate/templates/template_10/certificate.php:52, addons/tutor-certificate/templates/template_11/certificate.php:52, addons/tutor-certificate/templates/template_12/certificate.php:52, addons/tutor-certificate/templates/template_1/certificate.php:50, addons/tutor-certificate/templates/template_2/certificate.php:52, addons/tutor-certificate/templates/template_3/certificate.php:38, addons/tutor-certificate/templates/template_4/certificate.php:52, addons/tutor-certificate/templates/template_5/certificate.php:55, addons/tutor-certificate/templates/template_6/certificate.php:52, addons/tutor-certificate/templates/template_7/certificate.php:51, addons/tutor-certificate/templates/template_8/certificate.php:52, addons/tutor-certificate/templates/template_9/certificate.php:52
+msgid "Valid Certificate ID"
 msgstr ""
 
 #: addons/tutor-certificate/tutor-certificate.php:29
@@ -869,16 +913,8 @@ msgstr ""
 msgid "Multi Instructors"
 msgstr ""
 
-#: addons/tutor-prerequisites/classes/Prerequisites.php:28
+#: addons/tutor-prerequisites/classes/Prerequisites.php:30
 msgid "Course Prerequisites"
-msgstr ""
-
-#: addons/tutor-prerequisites/views/frontend/show-course-prerequisites.php:2
-msgid "Course Prerequisite(s)"
-msgstr ""
-
-#: addons/tutor-prerequisites/views/frontend/show-course-prerequisites.php:14
-msgid "Please note that this course has the following prerequisites which must be completed before it can be accessed"
 msgstr ""
 
 #: addons/tutor-prerequisites/views/metabox/course-prerequisites-lists.php:15
@@ -1435,6 +1471,14 @@ msgstr ""
 
 #: templates/buddypress/message_thread_recipients.php:69
 msgid "Enrolled in total %s courses by you"
+msgstr ""
+
+#: templates/single/course/course-prerequisites.php:2
+msgid "Course Prerequisite(s)"
+msgstr ""
+
+#: templates/single/course/course-prerequisites.php:14
+msgid "Please note that this course has the following prerequisites which must be completed before it can be accessed"
 msgstr ""
 
 #: templates/single/course/enrolled/gradebook.php:17
