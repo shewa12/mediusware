@@ -442,7 +442,7 @@ $teachers = $wpdb->get_results(
                                 <td class="course-title"><?php echo $question->post_title; ?></td>
                                 <td>
                                     <div class="details-button">
-                                        <a class="tutor-report-btn default" href="<?php echo add_query_arg(array('page'=> 'question_answer', 'sub_page' => 'answer', 'question_id' => $question->comment_ID), admin_url('admin.php')) ?>" target="_blank"><?php _e('Replay', 'tutor-pro'); ?></a>
+                                        <a class="tutor-report-btn default" href="<?php echo add_query_arg(array('page'=> 'question_answer', 'sub_page' => 'answer', 'question_id' => $question->comment_ID), admin_url('admin.php')) ?>" target="_blank"><?php _e('Reply', 'tutor-pro'); ?></a>
                                         <a href="<?php echo get_the_permalink($question->comment_post_ID); ?>" target="_blank"><i class="tutor-icon-detail-link"></i></a>
                                     </div>
                                 </td>

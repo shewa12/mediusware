@@ -1178,7 +1178,7 @@ msgid "Question"
 msgstr ""
 
 #: addons/tutor-report/views/pages/overview.php:445
-msgid "Replay"
+msgid "Reply"
 msgstr ""
 
 #: addons/tutor-report/views/pages/overview.php:466
