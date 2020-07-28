@@ -95,6 +95,9 @@ class Updater{
                 }
 
                 update_option('tutor_license_info', $license_info);
+            } else {
+                $error_string = $api_call->get_error_message();
+                echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
             }
         }
     }
