@@ -1361,107 +1361,107 @@ msgstr ""
 msgid "Tutor Pro License"
 msgstr ""
 
-#: classes/Updater.php:139
+#: classes/Updater.php:142
 msgid "Home"
 msgstr ""
 
-#: classes/Updater.php:140
+#: classes/Updater.php:143
 msgid "Themes"
 msgstr ""
 
-#: classes/Updater.php:141
+#: classes/Updater.php:144
 msgid "Plugins"
 msgstr ""
 
-#: classes/Updater.php:143
+#: classes/Updater.php:146
 msgid "Support"
 msgstr ""
 
-#: classes/Updater.php:145
+#: classes/Updater.php:148
 msgid "Support Forum"
 msgstr ""
 
-#: classes/Updater.php:146
+#: classes/Updater.php:149
 msgid "About us"
 msgstr ""
 
-#: classes/Updater.php:147
+#: classes/Updater.php:150
 msgid "Documentation"
 msgstr ""
 
-#: classes/Updater.php:148
+#: classes/Updater.php:151
 msgid "Contact Us"
 msgstr ""
 
-#: classes/Updater.php:149
+#: classes/Updater.php:152
 msgid "FAQ"
 msgstr ""
 
-#: classes/Updater.php:152
+#: classes/Updater.php:155
 msgid "Blog"
 msgstr ""
 
-#: classes/Updater.php:188
+#: classes/Updater.php:191
 msgid "Valid license required"
 msgstr ""
 
-#: classes/Updater.php:186
+#: classes/Updater.php:189
 msgid "Your license is not connected"
 msgstr ""
 
-#: classes/Updater.php:192
+#: classes/Updater.php:195
 msgid "A valid license is required to unlock available features"
 msgstr ""
 
-#: classes/Updater.php:163
+#: classes/Updater.php:166
 msgid "Your license is connected with"
 msgstr ""
 
-#: classes/Updater.php:164
+#: classes/Updater.php:167
 msgid "Licensed To"
 msgstr ""
 
-#: classes/Updater.php:174
+#: classes/Updater.php:177
 msgid "License Type : "
 msgstr ""
 
-#: classes/Updater.php:171
+#: classes/Updater.php:174
 msgid "License Valid Until : "
 msgstr ""
 
-#: classes/Updater.php:203
+#: classes/Updater.php:206
 msgid "Power Up your Plugin"
 msgstr ""
 
-#: classes/Updater.php:205
+#: classes/Updater.php:208
 msgid "Get License Key"
 msgstr ""
 
-#: classes/Updater.php:208
+#: classes/Updater.php:211
 msgid "Please enter your license key. An active license key is needed for automatic plugin updates and"
 msgstr ""
 
-#: classes/Updater.php:209
+#: classes/Updater.php:212
 msgid "support"
 msgstr ""
 
-#: classes/Updater.php:213
+#: classes/Updater.php:216
 msgid "Enter License Key"
 msgstr ""
 
-#: classes/Updater.php:214
+#: classes/Updater.php:217
 msgid "Already have your key? Enter it here"
 msgstr ""
 
-#: classes/Updater.php:219
+#: classes/Updater.php:222
 msgid "Enter your license key here"
 msgstr ""
 
-#: classes/Updater.php:220
+#: classes/Updater.php:223
 msgid "Connect with License key"
 msgstr ""
 
-#: classes/Updater.php:338
+#: classes/Updater.php:341
 msgid "There is an error with your Tutor Pro License. Automatic update has been turned off, %s Please check license %s"
 msgstr ""
 
