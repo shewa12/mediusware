@@ -1,8 +1,6 @@
 
 <h4><?php _e('Course Prerequisite(s)', 'tutor-pro'); ?></h4>
 
-
-
 <div class="course-prerequisites-lists-wrap">
     <ul class="prerequisites-course-lists">
         <li class="prerequisites-warning">
@@ -38,7 +36,6 @@
 				<?php
 			}
 		}
-
 		?>
     </ul>
 </div>

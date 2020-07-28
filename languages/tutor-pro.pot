@@ -1477,7 +1477,7 @@ msgstr ""
 msgid "Course Prerequisite(s)"
 msgstr ""
 
-#: templates/single/course/course-prerequisites.php:14
+#: templates/single/course/course-prerequisites.php:12
 msgid "Please note that this course has the following prerequisites which must be completed before it can be accessed"
 msgstr ""
 

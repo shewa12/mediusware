@@ -101,7 +101,7 @@ class Prerequisites extends Tutor_Base {
 			setup_postdata($post);
 
 			ob_start();
-			include  TUTOR_PREREQUISITES()->path . 'views/frontend/show-course-prerequisites.php';
+			tutor_load_template('single.course.course-prerequisites', compact('savedPrerequisitesIDS'), true);
 			return ob_get_clean();
 		}
 
