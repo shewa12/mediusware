@@ -91,7 +91,7 @@ $reviews = $wpdb->get_results(
 							<td><?php echo human_time_diff(strtotime($review->comment_date)).' '.__('ago', 'tutor-pro'); ?></td>
 							<td>
 								<div class="details-button">
-									<button type="button" class="tutor-delete-link tutor-report-btn default" data-rating-id="<?php echo $review->comment_ID; ?>">
+									<button type="button" class="tutor-rating-delete-link tutor-report-btn default" data-rating-id="<?php echo $review->comment_ID; ?>">
 										<i class="tutor-icon-trash"></i> <?php _e('Delete', 'tutor-pro'); ?>
 									</button>
 									<a target="_blank" href="<?php echo get_permalink($review->comment_post_ID); ?>"><i class="tutor-icon-detail-link"></i></a>
