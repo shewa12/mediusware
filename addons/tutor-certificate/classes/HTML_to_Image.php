@@ -28,6 +28,7 @@ class HTML_to_Image
             
             wp_enqueue_script('html-to-image-converter', $base.'html2canvas.min.js');
             wp_enqueue_script('html-to-image', $base.'html-to-image.js');
+            wp_enqueue_script('html-to-image-js-pdf', $base.'js-pdf.js');
         }
     }
 }

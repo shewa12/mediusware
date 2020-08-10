@@ -37,7 +37,7 @@ class Certificate{
 		$id = $_GET['course_id'] ?? '';
 		$action = $_GET['tutor_action'] ?? '';
 
-        if(is_numeric($id) && $action=='convert_course_certificate')
+        if(is_numeric($id) && $action=='generate_course_certificate')
         {
 			$this->image_source = 'url';
 			$this->signature_getter_method = 'wp_get_attachment_url'; 

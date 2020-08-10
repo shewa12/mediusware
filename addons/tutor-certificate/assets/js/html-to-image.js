@@ -1,9 +1,7 @@
 jQuery(document).ready(function($)
 {
-    const image=function(course_id)
-    {
-        this.certificate_url = '?tutor_action=convert_course_certificate&course_id='+course_id;
-        
+    const image=function()
+    {                
         // Open the data url in new window
         this.view=url=>
         {
@@ -13,14 +11,11 @@ jQuery(document).ready(function($)
 
         // Convert data url to octet stream
         // and Show image download dialogue
-        this.download=url=>
+        this.download=(url, width, height)=>
         {
-            var link = document.createElement('a');
-            link.setAttribute("download", "certificate.png");
-            link.setAttribute("href", url.replace('image/png', 'image/octet-stream'));
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(document.body.lastChild);
+            var doc = new window.jsPDF({unit:'px', orientation:(width>height ? 'l' : 'p')});
+            doc.addImage(url, 'png', 0, 0);
+            doc.save('certificate.pdf');
         }
 
         // Set scale of the canvas according to water mark dimension
@@ -37,7 +32,7 @@ jQuery(document).ready(function($)
         }
 
         // Call various method like image converter and after action
-        this.dispatch_methods=(action, iframe, iframe_document)=>
+        this.dispatch_methods=(action, iframe, iframe_document, callback)=>
         {
             var body = iframe_document.getElementsByTagName('body')[0];
             var water_mark = iframe_document.getElementById('watermark');
@@ -59,16 +54,20 @@ jQuery(document).ready(function($)
                 var re_canvas = this.re_scale_canvas(canvas, width, height);
 
                 // Dispatch proper action method
-                this[action](re_canvas.toDataURL('image/png'));
+                this[action](re_canvas.toDataURL('image/png'), width, height);
+
+                callback();
             });
         }
 
         // Fetch certificate html from server
         // and initialize converters
-        this.init_render_certificate=action=>
+        this.init_render_certificate=(course_id, action, callback)=>
         {
+            var certificate_url = '?tutor_action=generate_course_certificate&course_id='+course_id;
+
             // Get the HTML from server
-            $.get(this.certificate_url, html=>
+            $.get(certificate_url, html=>
             {
                 // We need to put the html into iframe to make the certificate styles isolated from parent document
                 // Otherwise style might be overridden/influenced
@@ -85,27 +84,39 @@ jQuery(document).ready(function($)
                 iframe_document.write(html);
                 iframe_document.close();
 
-                iframe.onload=()=>this.dispatch_methods(action, iframe, iframe_document);
+                iframe.onload=()=>this.dispatch_methods(action, iframe, iframe_document, callback);
             });
         }
     }
 
-    // Parse course id from the download url 
-    var url = $('.certificate-download-btn').eq(0).attr('href');
-    var course_id = new URL(window.location.origin+url).searchParams.get('course_id');
+    // Configure working state
+    var loading_ = $('<div style="text-align:center;margin:15px 0;">Processing . . .</div>').hide();
+    $('#tutor-download-certificate-pdf').parent().append(loading_);
 
     // Instantiate image processor for this scope
-    var image_processor = new image(course_id);
+    var image_processor = new image();
 
     // register event listener
-    $('.tutor-view-certificate>a').click(function(event)
+    $('#tutor-download-certificate-pdf, #tutor-view-certificate-image').click(function(event)
     {
         // Prevent default action
         event.preventDefault();
 
-        // Invoke the render method according to action type 
-        var class_name = $(this).attr('class') || '';
-        var action = class_name.indexOf('certificate-download-btn')>-1 ? 'download' : 'view';
-        image_processor.init_render_certificate(action);
+        // Avoid repetitive click
+        if(!loading_.is('visible'))
+        {
+            // Set state as work in progress
+            loading_.show();
+
+            // Invoke the render method according to action type 
+            var action = $(this).attr('id')=='tutor-download-certificate-pdf' ? 'download' : 'view';
+            var course_id = $(this).data('course_id');
+            
+            image_processor.init_render_certificate(course_id, action, function()
+            {
+                // Set state as work not in progress/complete
+                loading_.hide();
+            });
+        }
     });
 });
