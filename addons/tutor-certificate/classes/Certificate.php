@@ -11,7 +11,7 @@ use Dompdf\Options;
 class Certificate{
 	private $template;
 	private $image_source='path';
-	private $signatur_getter_method='get_attached_file';
+	private $signature_getter_method='get_attached_file';
 
 	public function __construct() {
 		if ( ! function_exists('tutor_utils')){
@@ -40,7 +40,7 @@ class Certificate{
         if(is_numeric($id) && $action=='convert_course_certificate')
         {
 			$this->image_source = 'url';
-			$this->signatur_getter_method = 'wp_get_attachment_url'; 
+			$this->signature_getter_method = 'wp_get_attachment_url'; 
 
 			//Get the selected template
 			$templates = $this->templates();
@@ -177,7 +177,7 @@ class Certificate{
 			// Translate month name
 			$converter = function ($matches)
 			{
-				$month = __($matches[0]) ?? ''; 
+				$month = __($matches[0]); 
 
 				// Make first letter uppercase if it's not unicode character.
 				strlen($month)==strlen(utf8_decode($month)) ? $month = ucfirst($month) : 0;
