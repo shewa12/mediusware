@@ -28,6 +28,9 @@ class init{
 		$this->basename = plugin_basename(TUTOR_CERT_FILE);
 
 		$this->load_TUTOR_CERT();
+
+		/* Register JS files for html to image conversion */
+		(new HTML_to_Image())->register_script();
 	}
 
 	public function load_TUTOR_CERT(){

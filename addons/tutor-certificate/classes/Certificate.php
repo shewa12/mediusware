@@ -10,6 +10,9 @@ use Dompdf\Options;
 
 class Certificate{
 	private $template;
+	private $image_source='path';
+	private $signatur_getter_method='get_attached_file';
+
 	public function __construct() {
 		if ( ! function_exists('tutor_utils')){
 			return;
@@ -25,7 +28,33 @@ class Certificate{
 		 */
 		add_action('init', array($this, 'download_certificate_public'));
 		add_action('wp_loaded', array($this, 'view_certificate'));
+		add_action('wp_loaded', [$this, 'send_certificate_html']);
 	}
+
+	
+    public function send_certificate_html()
+    {
+		$id = $_GET['course_id'] ?? '';
+		$action = $_GET['tutor_action'] ?? '';
+
+        if(is_numeric($id) && $action=='convert_course_certificate')
+        {
+			$this->image_source = 'url';
+			$this->signatur_getter_method = 'wp_get_attachment_url'; 
+
+			//Get the selected template
+			$templates = $this->templates();
+			$template = tutor_utils()->get_option('certificate_template');
+			if ( ! $template){
+				$template = 'default';
+			}
+			$this->template = tutor_utils()->avalue_dot($template, $templates);
+
+			// Get certificate html
+            $content = $this->generate_certificate($id);
+            exit($content);
+        }
+    }
 
 	public function download_certificate(){
 		$download_action = sanitize_text_field(tutor_utils()->avalue_dot('tutor_action', $_GET));
@@ -143,6 +172,22 @@ class Certificate{
 		if ($completed) {
 			$wp_date_format		= get_option('date_format');
 			$completed_date 	= date($wp_date_format, strtotime($completed->completion_date));
+
+			
+			// Translate month name
+			$converter = function ($matches)
+			{
+				$month = __($matches[0]) ?? ''; 
+
+				// Make first letter uppercase if it's not unicode character.
+				strlen($month)==strlen(utf8_decode($month)) ? $month = ucfirst($month) : 0;
+
+				return $month;
+			};
+			$completed_date		= preg_replace_callback('/[a-z]+/i', $converter, $completed_date);
+
+			// Translate day and year digits
+			$completed_date		= preg_replace_callback('/[0-9]/', function($m){return __($m[0]); }, $completed_date);
 		}
 
 		ob_start();
