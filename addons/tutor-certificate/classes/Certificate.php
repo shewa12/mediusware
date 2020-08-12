@@ -10,7 +10,7 @@ class Certificate{
 	private $certificates_dir_name='tutor-certificates';
 	private $image_source='path';
 	private $signature_getter_method='get_attached_file';
-	private $certificate_stored_key='tutor_pro_certificate_image';
+	private $certificate_stored_key='tutor_pro_certificate_has_image';
 
 	public function __construct() {
 		if ( ! function_exists('tutor_utils')){
