@@ -218,7 +218,7 @@ get_header(); ?>
 
         <div class="tutor-certificate-container">
             <div class="tutor-certificate-img-container">
-                <img id="tuto-pro-certificate-preview" src="<?php echo $cert_img; ?>" />
+                <img id="tutor-pro-certificate-preview" src="<?php echo $cert_img; ?>" />
             </div>
 
             <div class="tutor-certificate-sidebar">

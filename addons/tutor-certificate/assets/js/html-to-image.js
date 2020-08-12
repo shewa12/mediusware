@@ -163,7 +163,7 @@ jQuery(document).ready(function($)
     // Register listeners for certificate preview page
     $('#tutor-pro-certificate-download-image').click(function()
     {
-        var downloader = $('#tuto-pro-certificate-preview');
+        var downloader = $('#tutor-pro-certificate-preview');
         var src = downloader.attr('src');
 
         var a = document.createElement('A');
