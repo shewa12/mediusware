@@ -5,13 +5,12 @@
 
 namespace TUTOR_CERT;
 
-use Dompdf\Dompdf;
-use Dompdf\Options;
 
 class Certificate{
 	private $template;
 	private $image_source='path';
 	private $signature_getter_method='get_attached_file';
+	private $certificate_stored_key='tutor_pro_certificate_image';
 
 	public function __construct() {
 		if ( ! function_exists('tutor_utils')){
@@ -21,17 +20,13 @@ class Certificate{
 		add_action('tutor_options_before_tutor_certificate', array($this, 'generate_options'));
 
 		add_action('tutor_enrolled_box_after', array($this, 'certificate_download_btn'));
-		add_action('init', array($this, 'download_certificate'));
-		/**
-		 * @since v.1.5.1
-		 * View and download certificate
-		 */
-		add_action('init', array($this, 'download_certificate_public'));
+		
 		add_action('wp_loaded', array($this, 'view_certificate'));
-		add_action('wp_loaded', [$this, 'send_certificate_html']);
+		add_action('wp_loaded', array($this, 'send_certificate_html'));
+		add_action('wp_loaded', array($this, 'check_if_certificate_generated'));
+		add_action('wp_loaded', array($this, 'store_certificate_image'));
 	}
 
-	
     public function send_certificate_html()
     {
 		$id = $_GET['course_id'] ?? '';
@@ -54,35 +49,39 @@ class Certificate{
             $content = $this->generate_certificate($id);
             exit($content);
         }
-    }
+	}
+	
+	public function check_if_certificate_generated()
+	{
+		$action = $_GET['tutor_action'] ?? '';
 
-	public function download_certificate(){
-		$download_action = sanitize_text_field(tutor_utils()->avalue_dot('tutor_action', $_GET));
-		if ($download_action !== 'download_course_certificate' || ! is_user_logged_in()){
-			return;
+		if($action=='check_if_certificate_generated')
+		{
+			$completed = $this->completed_course($_GET['cert_hash'] ?? '');
+
+			if($completed)
+			{
+				$stored = get_comment_meta($completed->certificate_id, $this->certificate_stored_key, true);
+
+				exit($stored ? 'yes' : 'no');
+			}
 		}
+	}
 
-		//Get the selected template
-		$templates = $this->templates();
-		$template = tutor_utils()->get_option('certificate_template');
-		if ( ! $template){
-			$template = 'default';
+	public function store_certificate_image()
+	{
+		$hash = $_POST['cert_hash'] ?? '';
+		$action = $_POST['tutor_action'] ?? '';
+		$image = $_POST['certificate_image'] ?? null;
+		$completed = $this->completed_course($hash);
+
+		if($completed && is_string($hash) && $action=='store_certificate_image' && $image)
+		{
+			// Store this media id in the certificate
+			update_comment_meta($completed->certificate_id, $this->certificate_stored_key, $image);
+
+			exit('ok');
 		}
-		$this->template = tutor_utils()->avalue_dot($template, $templates);
-
-		$course_id = (int) sanitize_text_field(tutor_utils()->avalue_dot('course_id', $_GET));
-		$is_enrolled = tutor_utils()->is_enrolled($course_id);
-
-		if ( ! $is_enrolled){
-			return;
-		}
-		$is_completed = tutor_utils()->is_completed_course($course_id);
-		if ( ! $is_completed){
-			return;
-		}
-
-		$content = $this->generate_certificate($course_id);
-		$this->generate_PDF($content);
 	}
 
 	/**
@@ -93,8 +92,7 @@ class Certificate{
 		$cert_hash = sanitize_text_field(tutils()->array_get('cert_hash', $_GET));
 		$show_certificate = (bool) tutils()->get_option('tutor_course_certificate_view');
 
-
-		if (! $cert_hash || ! $show_certificate){
+		if (! $cert_hash || ! $show_certificate || !empty($_GET['tutor_action'])){
 			return;
 		}
 		$completed = $this->completed_course($cert_hash);
@@ -102,17 +100,10 @@ class Certificate{
 			return;
 		}
 
-		if ( ! extension_loaded('imagick') || ! class_exists('Imagick') ){
-			die('ImageMagick extension is not installed on your server.');
-		}
-
-		$file = $this->get_PDF($completed, true);
-		//generate image
-		$cert_img = new \Imagick();
-		$cert_img->readImageBlob($file);
-		$cert_img->setFormat( "jpg" );
-
 		$course = get_post($completed->course_id);
+		
+		$course_id = $completed->course_id;
+		$cert_img = get_comment_meta($completed->certificate_id, $this->certificate_stored_key, true);
 		$this->certificate_header_content($course->post_title, $cert_img);
 
 		ob_start();
@@ -121,45 +112,6 @@ class Certificate{
 		echo $content;
 		die();
 	}
-
-	/**
-	 * Download PDF Certificate
-	 * @since v.1.5.1
-	 */
-	public function download_certificate_public(){
-		$cert_hash = sanitize_text_field(tutils()->array_get('cert_hash', $_GET));
-		$tutor_action = sanitize_text_field(tutor_utils()->avalue_dot('tutor_action', $_GET));
-		if ($tutor_action !== 'download_pdf_certificate' || ! $cert_hash){
-			return;
-		}
-		$completed = $this->completed_course($cert_hash);
-		if ( ! $completed){
-			return;
-		}
-		$this->get_PDF($completed);
-	}
-
-	/**
-	 * Get PDF content
-	 * @since v.1.5.1
-	 */
-	public function get_PDF($completed, $debug=false){
-		//Get the selected template
-		$templates = $this->templates();
-		$template = tutor_utils()->get_option('certificate_template');
-		if ( ! $template){
-			$template = 'default';
-		}
-		$this->template = tutor_utils()->avalue_dot($template, $templates);
-		$oriantation = $this->template['orientation'];
-		$width = $oriantation === 'portrait' ? '21cm' : '29.7cm';
-		$content = $this->generate_certificate($completed->course_id, $completed);
-		$pdf = $this->generate_PDF($content, $debug);
-		if($debug) {
-			return $pdf;
-		}
-	}
-	
 
 	public function generate_certificate($course_id, $completed=false){
 		$duration           = get_post_meta( $course_id, '_course_duration', true );
@@ -195,34 +147,6 @@ class Certificate{
 		$content = ob_get_clean();
 
 		return $content;
-	}
-
-	public function generate_PDF($certificate_content=null, $debug=false){
-		if ( ! $certificate_content){
-			return;
-		}
-		require_once TUTOR_CERT()->path.'lib/vendor/autoload.php';
-
-		$options =  new Options( apply_filters( 'tutor_cert_dompdf_options', array(
-			'defaultFont'				=> 'Courier',
-			'isRemoteEnabled'			=> true,
-			'isFontSubsettingEnabled'	=> true,
-			// HTML5 parser requires iconv
-			'isHtml5ParserEnabled'		=> extension_loaded('iconv') ? true : false,
-		) ) );
-
-		$dompdf = new Dompdf($options);
-		//Getting Certificate to generate PDF
-		$dompdf->loadHtml($certificate_content, 'UTF-8');
-
-		//Setting Paper
-		$dompdf->setPaper('A4', $this->template['orientation']);
-		$dompdf->render();
-		if($debug) {
-			return $dompdf->output();
-		}
-		ob_end_clean();
-		$dompdf->stream('certificate'.tutor_time().'.pdf');
 	}
 
 	public function pdf_style() {
@@ -296,7 +220,7 @@ class Certificate{
 	public function completed_course($cert_hash){
 		global $wpdb;
 		$is_completed = $wpdb->get_row(
-			"SELECT comment_ID, 
+			"SELECT comment_ID as certificate_id, 
 					comment_post_ID as course_id, 
 					comment_author as completed_user_id, 
 					comment_date as completion_date, 
