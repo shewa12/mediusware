@@ -33,7 +33,7 @@ jQuery(document).ready(function($)
             return new_canvas;
         }
 
-        this.store_certificate=(data_url, callback)=>
+        this.store_certificate=(blob, callback)=>
         {
             $.get('?tutor_action=check_if_certificate_generated&cert_hash='+cert_hash, stored=>
             {
@@ -47,7 +47,7 @@ jQuery(document).ready(function($)
                 var form_data = new FormData();
                 form_data.append('tutor_action', 'store_certificate_image');
                 form_data.append('cert_hash', cert_hash);
-                form_data.append('certificate_image', data_url);
+                form_data.append('certificate_image', blob, 'certificate.jpg');
 
                 $.ajax
                 ({
@@ -83,14 +83,18 @@ jQuery(document).ready(function($)
             {
                 // var re_canvas = this.re_scale_canvas(canvas, 852, ((height/width)*852));
                 var re_canvas = this.re_scale_canvas(canvas, width, height);
-                var data_url = re_canvas.toDataURL('image/png');
 
                 // Store the blob on server
-                this.store_certificate(data_url, success=>
+                re_canvas.toBlob(blob=>
                 {
-                    // Dispatch proper action method
-                    success ? this[action](data_url, width, height) : alert('Something Went Wrong.');
-                    callback();
+                    this.store_certificate(blob, success=>
+                    {
+                        var data_url = re_canvas.toDataURL('image/jpeg');
+
+                        // Dispatch proper action method
+                        success ? this[action](data_url, width, height) : alert('Something Went Wrong.');
+                        callback();
+                    });
                 });
             });
         }
@@ -164,11 +168,10 @@ jQuery(document).ready(function($)
     $('#tutor-pro-certificate-download-image').click(function()
     {
         var downloader = $('#tutor-pro-certificate-preview');
-        var src = downloader.attr('src');
-
+        
         var a = document.createElement('A');
-        a.href = src.replace("image/png", "image/octet-stream");
-        a.download = 'certificate.png';
+        a.href = downloader.attr('src');
+        a.download = 'certificate.jpg';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

@@ -5,9 +5,9 @@
 
 namespace TUTOR_CERT;
 
-
 class Certificate{
 	private $template;
+	private $certificates_dir_name='tutor-certificates';
 	private $image_source='path';
 	private $signature_getter_method='get_attached_file';
 	private $certificate_stored_key='tutor_pro_certificate_image';
@@ -18,7 +18,6 @@ class Certificate{
 		}
 
 		add_action('tutor_options_before_tutor_certificate', array($this, 'generate_options'));
-
 		add_action('tutor_enrolled_box_after', array($this, 'certificate_download_btn'));
 		
 		add_action('wp_loaded', array($this, 'view_certificate'));
@@ -27,13 +26,11 @@ class Certificate{
 		add_action('wp_loaded', array($this, 'store_certificate_image'));
 	}
 
-    public function send_certificate_html()
-    {
+    public function send_certificate_html(){
 		$id = $_GET['course_id'] ?? '';
 		$action = $_GET['tutor_action'] ?? '';
 
-        if(is_numeric($id) && $action=='generate_course_certificate')
-        {
+        if(is_numeric($id) && $action=='generate_course_certificate'){
 			$this->image_source = 'url';
 			$this->signature_getter_method = 'wp_get_attachment_url'; 
 
@@ -51,16 +48,13 @@ class Certificate{
         }
 	}
 	
-	public function check_if_certificate_generated()
-	{
+	public function check_if_certificate_generated(){
 		$action = $_GET['tutor_action'] ?? '';
 
-		if($action=='check_if_certificate_generated')
-		{
+		if($action=='check_if_certificate_generated'){
 			$completed = $this->completed_course($_GET['cert_hash'] ?? '');
 
-			if($completed)
-			{
+			if($completed){
 				$stored = get_comment_meta($completed->certificate_id, $this->certificate_stored_key, true);
 
 				exit($stored ? 'yes' : 'no');
@@ -68,18 +62,35 @@ class Certificate{
 		}
 	}
 
-	public function store_certificate_image()
-	{
+	public function store_certificate_image(){
+
+		// Collect post data
 		$hash = $_POST['cert_hash'] ?? '';
 		$action = $_POST['tutor_action'] ?? '';
-		$image = $_POST['certificate_image'] ?? null;
+		$image = $_FILES['certificate_image'] ?? null;
 		$completed = $this->completed_course($hash);
 
-		if($completed && is_string($hash) && $action=='store_certificate_image' && $image)
-		{
-			// Store this media id in the certificate
-			update_comment_meta($completed->certificate_id, $this->certificate_stored_key, $image);
+		if($completed && is_string($hash) && $action=='store_certificate_image' && is_array($image) && $image['error']==0){
+			
+			// et the dir from outside of the filter hook. Otherwise infinity loop will coccur.
+			$certificates_dir = wp_upload_dir()['basedir'].'/'.$this->certificates_dir_name;
 
+			// Change upload directory
+			add_filter('upload_dir', function($array) use($completed, $hash, $certificates_dir){
+
+				$folder = $certificates_dir.'/'.$completed->course_id;
+
+				$array['path']=$folder;
+				$array['url']=$folder;
+				$array['subdir']=$folder;
+
+				return $array;
+			});
+
+			$upload = wp_upload_bits($hash.'.jpg', null, file_get_contents($image["tmp_name"]));
+
+			update_comment_meta($completed->certificate_id, $this->certificate_stored_key, 1);
+			
 			exit('ok');
 		}
 	}
@@ -103,7 +114,9 @@ class Certificate{
 		$course = get_post($completed->course_id);
 		
 		$course_id = $completed->course_id;
-		$cert_img = get_comment_meta($completed->certificate_id, $this->certificate_stored_key, true);
+		$certificate_dir = get_home_url().'/wp-content/uploads/'.$this->certificates_dir_name;
+
+		$cert_img =  $certificate_dir.'/'.$course_id.'/'.$cert_hash.'.jpg';
 		$this->certificate_header_content($course->post_title, $cert_img);
 
 		ob_start();
@@ -248,12 +261,12 @@ class Certificate{
 			$title = __('Course Completion Certificate', 'tutor-pro');
 			$description = __('My course completion certificate for', 'tutor-pro').' "'.$course_title.'"';
 			echo '
-				<meta property=”og:title” content=”'.$title.'”/>
-				<meta property=”og:description” content=”'.$description.'”/>
-				<meta property=”og:image” content="data:image/jpg;base64,'.base64_encode($cert_img).'"/>
-				<meta name=”twitter:title” content=”Your title here”/>
-				<meta name=”twitter:description” content=”'.$description.'”/>
-				<meta name=”twitter:image” content="data:image/jpg;base64,'.base64_encode($cert_img).'"/>
+				<meta property="og:title" content="'.$title.'"/>
+				<meta property="og:description" content="'.$description.'"/>
+				<meta property="og:image" content="'.$cert_img.'"/>
+				<meta name="twitter:title" content="Your title here"/>
+				<meta name="twitter:description" content="'.$description.'"/>
+				<meta name="twitter:image" content="'.$cert_img.'"/>
 			';
 		});
 	}

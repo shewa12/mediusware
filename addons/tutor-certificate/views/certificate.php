@@ -234,7 +234,7 @@ get_header(); ?>
                                 </li>
                                 <li>
                                     <a href="#" id="tutor-pro-certificate-download-image">
-                                        <i class="tutor-icon-jpg"></i> <?php _e('PNG', 'tutor-pro'); ?>
+                                        <i class="tutor-icon-jpg"></i> <?php _e('JPG', 'tutor-pro'); ?>
                                     </a>
                                 </li>
                             </ul>
