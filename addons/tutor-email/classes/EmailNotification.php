@@ -27,6 +27,11 @@ class EmailNotification {
 		add_action('tutor/course/enrol_status_change/after', array($this, 'course_enroll_email'), 10, 2);
 		add_action('tutor_after_add_question', array($this, 'tutor_after_add_question'), 10, 2);
 		add_action('tutor_lesson_completed_after', array($this, 'tutor_lesson_completed_after'), 10, 1);
+
+		/**
+		 * @since 1.6.9
+		 */
+		add_action('tutor_add_new_instructor_after', array($this, 'tutor_new_instructor_signup'), 10, 1);
 	}
 
 	public function register_menu(){
@@ -477,5 +482,46 @@ class EmailNotification {
 		$this->send($teacher->user_email, $subject, $message, $header);
 	}
 
+	/**
+	 * After instructor successfully signup
+	 *
+	 * @since 1.6.9
+	 */
+	public function tutor_new_instructor_signup($user_id){
+		$new_instructor_signup = tutor_utils()->get_option('email_to_admin.new_instructor_signup');
+
+		if ( ! $new_instructor_signup){
+			return;
+		}
+	
+		$instructor_id = tutils()->get_user_id($user_id);
+		$instructor = get_userdata($instructor_id);
+
+		$signup_time =  tutor_time();
+		$signup_time_format = date_i18n(get_option('date_format'), $signup_time).' '.date_i18n(get_option('time_format'), $completion_time);
+		
+		$file_tpl_variable = array(
+			'{instructor_username}',
+			'{signup_time}'
+		);
+
+		$replace_data = array(
+			$instructor->display_name,
+			$signup_time_format,
+		);
+
+		$admin_email = get_option('admin_email');
+		$subject = __($instructor->display_name.' just signup as instructor', 'tutor-pro');
+
+		ob_start();
+		tutor_load_template( 'email.to_admin_new_instructor_signup' );
+		$email_tpl = apply_filters( 'tutor_email_tpl/new_instructor_signup', ob_get_clean() );
+		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data );
+
+		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
+		$header = apply_filters('instructor_signup_email_header', $header, $instructor_id);
+
+		$this->send($admin_email, $subject, $message, $header);
+	}
 
 }
