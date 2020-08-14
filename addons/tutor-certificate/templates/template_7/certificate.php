@@ -39,7 +39,8 @@
 						$signature_id = tutor_utils()->get_option('tutor_cert_signature_image_id');
 						$certURL = TUTOR_CERT()->path.'/assets/images/signature.png';
 						if ($signature_id){
-							$certURL = get_attached_file($signature_id);
+							$method = $this->signature_getter_method;
+							$certURL = $method($signature_id);
 						}
 						?>
                         <img src="<?php echo $certURL; ?>" />
@@ -63,7 +64,7 @@
 </div>
 
 <div id="watermark">
-    <img src="<?php echo $this->template['path'].'background.png'; ?>" height="100%" width="100%" />
+    <img src="<?php echo $this->template[$this->image_source].'background.png'; ?>" height="100%" width="100%" />
 </div>
 
 </body>

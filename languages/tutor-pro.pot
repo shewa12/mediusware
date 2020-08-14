@@ -25,7 +25,7 @@ msgstr ""
 msgid "Assign this course to a BuddyPress Group"
 msgstr ""
 
-#: addons/buddypress/classes/BuddyPressGroups.php:55, addons/content-drip/classes/ContentDrip.php:50, addons/gradebook/classes/init.php:98, addons/tutor-certificate/classes/init.php:118, classes/Quiz.php:73
+#: addons/buddypress/classes/BuddyPressGroups.php:55, addons/content-drip/classes/ContentDrip.php:50, addons/gradebook/classes/init.php:98, addons/tutor-certificate/classes/init.php:121, classes/Quiz.php:73
 msgid "Enable"
 msgstr ""
 
@@ -641,51 +641,51 @@ msgstr ""
 msgid "Evaluate this submission"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:279
+#: addons/tutor-certificate/classes/Certificate.php:261
 msgid "Course Completion Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:280
+#: addons/tutor-certificate/classes/Certificate.php:262
 msgid "My course completion certificate for"
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:85, addons/tutor-certificate/classes/init.php:90
+#: addons/tutor-certificate/classes/init.php:88, addons/tutor-certificate/classes/init.php:93
 msgid "Tutor Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:89, addons/tutor-course-preview/classes/init.php:89
+#: addons/tutor-certificate/classes/init.php:92, addons/tutor-course-preview/classes/init.php:89
 msgid "General"
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:101
+#: addons/tutor-certificate/classes/init.php:104
 msgid "Authorised Name"
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:102
+#: addons/tutor-certificate/classes/init.php:105
 msgid "Authorised name will be printed under signature."
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:106
+#: addons/tutor-certificate/classes/init.php:109
 msgid "Authorised Company Name"
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:107
+#: addons/tutor-certificate/classes/init.php:110
 msgid "Authorised company name will be printed under authorised name."
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:111
+#: addons/tutor-certificate/classes/init.php:114
 msgid "Upload Signature"
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:113
+#: addons/tutor-certificate/classes/init.php:116
 msgid "Upload a signature that will be printed at certificate."
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:117, addons/tutor-certificate/views/lesson-menu-after.php:17
+#: addons/tutor-certificate/classes/init.php:120, addons/tutor-certificate/views/lesson-menu-after.php:26
 msgid "View Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:119
+#: addons/tutor-certificate/classes/init.php:122
 msgid "By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible"
 msgstr ""
 
@@ -729,7 +729,7 @@ msgstr ""
 msgid "on"
 msgstr ""
 
-#: addons/tutor-certificate/templates/default/certificate.php:56, addons/tutor-certificate/templates/template_10/certificate.php:52, addons/tutor-certificate/templates/template_11/certificate.php:52, addons/tutor-certificate/templates/template_12/certificate.php:52, addons/tutor-certificate/templates/template_1/certificate.php:50, addons/tutor-certificate/templates/template_2/certificate.php:52, addons/tutor-certificate/templates/template_3/certificate.php:38, addons/tutor-certificate/templates/template_4/certificate.php:52, addons/tutor-certificate/templates/template_5/certificate.php:55, addons/tutor-certificate/templates/template_6/certificate.php:52, addons/tutor-certificate/templates/template_7/certificate.php:51, addons/tutor-certificate/templates/template_8/certificate.php:52, addons/tutor-certificate/templates/template_9/certificate.php:52
+#: addons/tutor-certificate/templates/default/certificate.php:57, addons/tutor-certificate/templates/template_10/certificate.php:53, addons/tutor-certificate/templates/template_11/certificate.php:53, addons/tutor-certificate/templates/template_12/certificate.php:53, addons/tutor-certificate/templates/template_1/certificate.php:51, addons/tutor-certificate/templates/template_2/certificate.php:53, addons/tutor-certificate/templates/template_3/certificate.php:38, addons/tutor-certificate/templates/template_4/certificate.php:53, addons/tutor-certificate/templates/template_5/certificate.php:56, addons/tutor-certificate/templates/template_6/certificate.php:53, addons/tutor-certificate/templates/template_7/certificate.php:52, addons/tutor-certificate/templates/template_8/certificate.php:53, addons/tutor-certificate/templates/template_9/certificate.php:53
 msgid "Valid Certificate ID"
 msgstr ""
 
@@ -737,27 +737,27 @@ msgstr ""
 msgid "Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/views/certificate.php:227, addons/tutor-certificate/views/lesson-menu-after.php:10
+#: addons/tutor-certificate/views/certificate.php:227, addons/tutor-certificate/views/lesson-menu-after.php:18
 msgid "Download Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/views/certificate.php:231
+#: addons/tutor-certificate/views/certificate.php:232
 msgid "PDF"
 msgstr ""
 
-#: addons/tutor-certificate/views/certificate.php:234
+#: addons/tutor-certificate/views/certificate.php:237
 msgid "JPG"
 msgstr ""
 
-#: addons/tutor-certificate/views/certificate.php:241
+#: addons/tutor-certificate/views/certificate.php:245
 msgid "Copy Link"
 msgstr ""
 
-#: addons/tutor-certificate/views/certificate.php:252
+#: addons/tutor-certificate/views/certificate.php:256
 msgid "About Course"
 msgstr ""
 
-#: addons/tutor-certificate/views/certificate.php:264
+#: addons/tutor-certificate/views/certificate.php:268
 msgid "by"
 msgstr ""
 

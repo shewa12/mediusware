@@ -218,7 +218,7 @@ get_header(); ?>
 
         <div class="tutor-certificate-container">
             <div class="tutor-certificate-img-container">
-                <img src="data:image/jpg;base64,<?php echo base64_encode($cert_img); ?>" />
+                <img id="tutor-pro-certificate-preview" src="<?php echo $cert_img; ?>" />
             </div>
 
             <div class="tutor-certificate-sidebar">
@@ -228,10 +228,14 @@ get_header(); ?>
                         <div class="tutor-dropdown-content">
                             <ul>
                                 <li>
-                                    <a href="<?php echo add_query_arg(array('tutor_action'=>'download_pdf_certificate', 'cert_hash'=>$cert_hash)); ?>"><i class="tutor-icon-pdf"></i> <?php _e('PDF', 'tutor-pro'); ?></a>
+                                    <a id="tutor-pro-certificate-download-pdf" data-cert_hash="<?php echo $cert_hash; ?>" data-course_id="<?php echo $course_id; ?>">
+                                        <i class="tutor-icon-pdf"></i> <?php _e('PDF', 'tutor-pro'); ?>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="data:image/jpg;base64,<?php echo base64_encode($cert_img); ?>" download="certificate<?php echo time(); ?>.jpg"><i class="tutor-icon-jpg"></i> <?php _e('JPG', 'tutor-pro'); ?></a>
+                                    <a href="#" id="tutor-pro-certificate-download-image">
+                                        <i class="tutor-icon-jpg"></i> <?php _e('JPG', 'tutor-pro'); ?>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
