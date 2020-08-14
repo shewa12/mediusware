@@ -35,18 +35,41 @@ class Certificate {
 			$this->image_source = 'url';
 			$this->signature_getter_method = 'wp_get_attachment_url';
 
-			//Get the selected template
-			$templates = $this->templates();
-			$template = tutor_utils()->get_option('certificate_template');
-			if (!$template) {
-				$template = 'default';
-			}
-			$this->template = tutor_utils()->avalue_dot($template, $templates);
+			$this->prepare_template_data();
 
 			// Get certificate html
 			$content = $this->generate_certificate($id);
 			exit($content);
 		}
+	}
+
+	private function cross_platform_path($path)
+	{
+		$path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+		$path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
+
+		return $path;
+	}
+
+	private function prepare_template_data(){	
+		if(!$this->template){
+			//Get the selected template
+			$templates = $this->templates();
+
+			$template = tutor_utils()->get_option('certificate_template');
+			!$template ? $template = 'default' : 0;
+
+			$this->template = tutor_utils()->avalue_dot($template, $templates);
+		}
+	}
+
+	private function get_template_check_sum(){
+		$this->prepare_template_data();
+		
+		$path = $this->template['path'].'certificate.php';
+		$path = $this->cross_platform_path($path);
+		
+		return md5_file($path);
 	}
 
 	public function check_if_certificate_generated() {
@@ -56,11 +79,26 @@ class Certificate {
 			$completed = $this->completed_course($_GET['cert_hash'] ?? '');
 
 			if ($completed) {
-				$stored = get_comment_meta($completed->certificate_id, $this->certificate_stored_key, true);
+				$checksum = get_comment_meta($completed->certificate_id, $this->certificate_stored_key, true);
 
-				exit($stored ? 'yes' : 'no');
+				$is_string = is_string($checksum);
+				$non_numeric = !is_numeric($checksum); // Backward compatible
+				$checksum_matched = $checksum==$this->get_template_check_sum();
+
+				exit(($is_string && $non_numeric && $checksum_matched) ? 'yes' : 'no');
 			}
 		}
+	}
+
+	private function delete_old_certificate_image($certificates_dir, $course_id, $certificate_id, $hash)
+	{
+		// Delete old one
+		$old_checksum = get_comment_meta($certificate_id, $this->certificate_stored_key, true);
+
+		$old_path = $certificates_dir . '/' . $course_id . '/' . $old_checksum . '-' . $hash . '.jpg';
+		$old_path = $this->cross_platform_path($old_path);
+
+		file_exists($old_path) ? unlink($old_path) : 0;
 	}
 
 	public function store_certificate_image() {
@@ -87,9 +125,16 @@ class Certificate {
 				return $array;
 			});
 
-			$upload = wp_upload_bits($hash . '.jpg', null, file_get_contents($image["tmp_name"]));
+			$checksum = $this->get_template_check_sum();
 
-			update_comment_meta($completed->certificate_id, $this->certificate_stored_key, 1);
+			// Store new file
+			$upload = wp_upload_bits($checksum.'-'.$hash . '.jpg', null, file_get_contents($image["tmp_name"]));
+
+			// Delete old one
+			$this->delete_old_certificate_image($certificates_dir, $completed->course_id, $completed->certificate_id, $hash);
+
+			// Update new 
+			update_comment_meta($completed->certificate_id, $this->certificate_stored_key, $checksum);
 
 			exit('ok');
 		}
@@ -117,8 +162,9 @@ class Certificate {
 		$upload_dir = wp_upload_dir();
 		
 		$certificate_dir = $upload_dir['baseurl'] . '/' . $this->certificates_dir_name;
+		$check_sum = get_comment_meta($completed->certificate_id, $this->certificate_stored_key, true);
 
-		$cert_img =  $certificate_dir . '/' . $course_id . '/' . $cert_hash . '.jpg';
+		$cert_img =  $certificate_dir . '/' . $course_id . '/' . $check_sum . '-' . $cert_hash . '.jpg';
 		$this->certificate_header_content($course->post_title, $cert_img);
 
 		ob_start();

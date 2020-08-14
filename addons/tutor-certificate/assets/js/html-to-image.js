@@ -3,9 +3,6 @@ jQuery(document).ready(function ($) {
         // Open the data url in new window
         this.view = url => {
             window.location.assign(view_url);
-
-            // var newTab = window.open();
-            // newTab.document.body.innerHTML='<img src="'+url+'"/>';
         }
 
         // Convert data url to octet stream
@@ -17,6 +14,10 @@ jQuery(document).ready(function ($) {
             });
             doc.addImage(url, 'jpeg', 0, 0);
             doc.save('certificate.pdf');
+        }
+
+        this.reload=function(){
+            window.location.reload();
         }
 
         // Set scale of the canvas according to water mark dimension
@@ -35,7 +36,7 @@ jQuery(document).ready(function ($) {
             $.get('?tutor_action=check_if_certificate_generated&cert_hash=' + cert_hash, stored => {
                 if (stored == 'yes') {
                     // No need to upload again if already stored
-                    callback(true);
+                    callback(true, true);
                     return;
                 }
 
@@ -45,7 +46,7 @@ jQuery(document).ready(function ($) {
                 form_data.append('certificate_image', blob, 'certificate.jpg');
 
                 $.ajax({
-                    url: window.location.href,
+                    url: window.location.origin+window.location.pathname,
                     type: 'POST',
                     data: form_data,
                     processData: false,
@@ -78,12 +79,17 @@ jQuery(document).ready(function ($) {
 
                 // Store the blob on server
                 re_canvas.toBlob(blob => {
-                    this.store_certificate(blob, success => {
+                    this.store_certificate(blob, (success, already_stored) => {
                         var data_url = re_canvas.toDataURL('image/jpeg');
 
-                        // Dispatch proper action method
-                        success ? this[action](data_url, width, height) : alert('Something Went Wrong.');
-                        callback();
+                        // Show error if fails
+                        !success ? alert('Something Went Wrong.') : 0;
+
+                        // Execute other actions
+                        (success && typeof this[action]=='function') ? this[action](data_url, width, height) : 0;
+
+                        // Execute callback if callable
+                        typeof callback=='function' ? callback(success, already_stored) : 0;
                     });
                 });
             });
@@ -146,12 +152,15 @@ jQuery(document).ready(function ($) {
             // Invoke the render method according to action type 
             var action = $(this).attr('id') == 'tutor-view-certificate-image' ? 'view' : 'download';
 
-            image_processor.init_render_certificate(action, () => loading_.hide());
+            image_processor.init_render_certificate(action, function(){
+                loading_.hide();
+            });
         }
     });
 
-    // Register listeners for certificate preview page
-    $('#tutor-pro-certificate-download-image').click(function () {
+    // Download image directly without further processing (in individual certificate page)
+    var image_downloader = $('#tutor-pro-certificate-download-image');
+    image_downloader.click(function () {
         var downloader = $('#tutor-pro-certificate-preview');
 
         var a = document.createElement('A');
@@ -161,4 +170,13 @@ jQuery(document).ready(function ($) {
         a.click();
         document.body.removeChild(a);
     });
+
+    // Regenerate certificate image (in individual page)
+    if(image_downloader.length>0)
+    {
+        image_processor.init_render_certificate('', function(success, already_stored)
+        {
+            !already_stored ? window.location.reload() : 0;
+        });
+    }
 });
