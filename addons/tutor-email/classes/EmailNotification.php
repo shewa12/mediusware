@@ -36,6 +36,8 @@ class EmailNotification {
 		add_action('tutor_after_student_signup', array($this, 'tutor_new_student_signup'), 10, 1);
 		add_action('pending_' . tutor()->course_post_type, array($this, 'tutor_course_pending'), 10, 2);
 		add_action('publish_' . tutor()->course_post_type, array($this, 'tutor_course_published'), 10, 2);
+		add_action('save_post_' . tutor()->course_post_type, array($this, 'tutor_course_updated'), 10, 2);
+		add_action('tutor_assignment/after/submit', array($this, 'tutor_after_assignment_submit'), 10, 2);
 	}
 
 	public function register_menu() {
@@ -649,6 +651,98 @@ class EmailNotification {
 
 		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
 		$header = apply_filters('new_course_published_email_header', $header, $course_id);
+
+		$this->send($admin_email, $subject, $message, $header);
+	}
+
+	/**
+	 * After course updated/edited
+	 *
+	 * @since 1.6.9
+	 */
+	public function tutor_course_updated($course_id, $course, $update) {
+		$course_updated = tutor_utils()->get_option('email_to_admin.course_updated');
+
+		if (!$course_updated || !$update) {
+			return;
+		}
+
+		$updated_time =  tutor_time();
+		$updated_time_format = date_i18n(get_option('date_format'), $updated_time) . ' ' . date_i18n(get_option('time_format'), $updated_time);
+
+		$file_tpl_variable = array(
+			'{course_name}',
+			'{course_url}',
+			'{updated_time}'
+		);
+
+		$replace_data = array(
+			$course->post_title,
+			get_the_permalink($course_id),
+			$updated_time_format,
+		);
+
+		$admin_email = get_option('admin_email');
+		$subject = __('Course Updated', 'tutor-pro');
+
+		ob_start();
+		tutor_load_template('email.to_admin_course_updated');
+		$email_tpl = apply_filters('tutor_email_tpl/course_updated', ob_get_clean());
+		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data);
+
+		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
+		$header = apply_filters('course_updated_email_header', $header, $course_id);
+
+		$this->send($admin_email, $subject, $message, $header);
+	}
+
+	/**
+	 * After course updated/edited
+	 *
+	 * @since 1.6.9
+	 */
+	public function tutor_after_assignment_submit($assignment_submit_id) {
+		$student_submitted_assignment = tutor_utils()->get_option('email_to_teachers.student_submitted_assignment');
+
+		if (!$student_submitted_assignment) {
+			return;
+		}
+
+		$site_title = get_bloginfo( 'name' );
+		$submitted_assignment = tutils()->get_assignment_submit_info($assignment_submit_id);
+		$student_name = get_the_author_meta('display_name', $submitted_assignment->user_id);
+		$course_name = get_the_title($submitted_assignment->comment_parent);
+		$course_url = get_the_permalink($submitted_assignment->comment_parent);
+		$assignment_name = get_the_title($submitted_assignment->comment_post_ID);
+		$submitted_url = tutils()->get_tutor_dashboard_page_permalink('assignments/submitted');
+		$review_link = esc_url($submitted_url.'?assignment='.$submitted_assignment->comment_post_ID);
+
+		$file_tpl_variable = array(
+			'{student_name}',
+			'{course_name}',
+			'{course_url}',
+			'{assignment_name}',
+			'{review_link}'
+		);
+
+		$replace_data = array(
+			$student_name,
+			$course_name,
+			$course_url,
+			$assignment_name,
+			$review_link,
+		);
+
+		$admin_email = get_option('admin_email');
+		$subject = __('New Assignment Submission on course - '.$course_name.' at '.$site_title, 'tutor-pro');
+
+		ob_start();
+		tutor_load_template('email.to_instructor_student_submitted_assignment');
+		$email_tpl = apply_filters('tutor_email_tpl/student_submitted_assignment', ob_get_clean());
+		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data);
+
+		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
+		$header = apply_filters('student_submitted_assignment_email_header', $header, $assignment_submit_id);
 
 		$this->send($admin_email, $subject, $message, $header);
 	}
