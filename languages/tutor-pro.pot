@@ -641,11 +641,11 @@ msgstr ""
 msgid "Evaluate this submission"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:324
+#: addons/tutor-certificate/classes/Certificate.php:261
 msgid "Course Completion Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:325
+#: addons/tutor-certificate/classes/Certificate.php:262
 msgid "My course completion certificate for"
 msgstr ""
 
@@ -681,7 +681,7 @@ msgstr ""
 msgid "Upload a signature that will be printed at certificate."
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:120, addons/tutor-certificate/views/lesson-menu-after.php:20
+#: addons/tutor-certificate/classes/init.php:120, addons/tutor-certificate/views/lesson-menu-after.php:26
 msgid "View Certificate"
 msgstr ""
 
@@ -737,27 +737,27 @@ msgstr ""
 msgid "Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/views/certificate.php:227, addons/tutor-certificate/views/lesson-menu-after.php:12
+#: addons/tutor-certificate/views/certificate.php:227, addons/tutor-certificate/views/lesson-menu-after.php:18
 msgid "Download Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/views/certificate.php:231
+#: addons/tutor-certificate/views/certificate.php:232
 msgid "PDF"
 msgstr ""
 
-#: addons/tutor-certificate/views/certificate.php:234
+#: addons/tutor-certificate/views/certificate.php:237
 msgid "JPG"
 msgstr ""
 
-#: addons/tutor-certificate/views/certificate.php:241
+#: addons/tutor-certificate/views/certificate.php:245
 msgid "Copy Link"
 msgstr ""
 
-#: addons/tutor-certificate/views/certificate.php:252
+#: addons/tutor-certificate/views/certificate.php:256
 msgid "About Course"
 msgstr ""
 
-#: addons/tutor-certificate/views/certificate.php:264
+#: addons/tutor-certificate/views/certificate.php:268
 msgid "by"
 msgstr ""
 
