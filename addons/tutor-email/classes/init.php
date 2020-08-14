@@ -114,6 +114,9 @@ class init{
 							'label'     => __('E-Mail to Admin', 'tutor-pro'),
 							'options'   => array(
 								'new_instructor_signup' 	=> __('New instructor signup', 'tutor-pro'),
+								'new_student_signup' 		=> __('New student signup', 'tutor-pro'),
+								'new_course_submitted' 		=> __('New Course Submitted for Review', 'tutor-pro'),
+								'new_course_published' 		=> __('New Course Published', 'tutor-pro'),
 							),
 							'desc'      => __('Select when to send notification to the teachers',	'tutor-pro'),
 						),
