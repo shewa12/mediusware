@@ -94,6 +94,7 @@ class init{
 							'options'   => array(
 								'quiz_completed' 	=> __('Quiz Completed', 'tutor-pro'),
 								'completed_course' 	=> __('Completed a course', 'tutor-pro'),
+								'assignment_graded' 	=> __('Assignment Graded', 'tutor-pro'),
 							),
 							'desc'      => __('Select when to send notification to the students',	'tutor-pro'),
 						),

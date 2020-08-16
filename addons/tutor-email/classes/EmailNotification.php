@@ -38,6 +38,9 @@ class EmailNotification {
 		add_action('publish_' . tutor()->course_post_type, array($this, 'tutor_course_published'), 10, 2);
 		add_action('save_post_' . tutor()->course_post_type, array($this, 'tutor_course_updated'), 10, 2);
 		add_action('tutor_assignment/after/submit', array($this, 'tutor_after_assignment_submit'), 10, 2);
+		add_action('tutor_assignment/evaluate/after', array($this, 'tutor_after_assignment_evaluate'), 10, 2);
+		add_action('tutor_enrollment/delete/after', array($this, 'tutor_student_remove_from_course'), 10, 2);
+		add_action('tutor_enrollment/cancel/after', array($this, 'tutor_student_remove_from_course'), 10, 2);
 	}
 
 	public function register_menu() {
@@ -697,7 +700,7 @@ class EmailNotification {
 	}
 
 	/**
-	 * After course updated/edited
+	 * After assignment submitted
 	 *
 	 * @since 1.6.9
 	 */
@@ -745,5 +748,95 @@ class EmailNotification {
 		$header = apply_filters('student_submitted_assignment_email_header', $header, $assignment_submit_id);
 
 		$this->send($admin_email, $subject, $message, $header);
+	}
+
+	/**
+	 * After assignment evaluate
+	 *
+	 * @since 1.6.9
+	 */
+	public function tutor_after_assignment_evaluate($assignment_submit_id) {
+		$assignment_graded = tutor_utils()->get_option('email_to_students.assignment_graded');
+
+		if (!$assignment_graded) {
+			return;
+		}
+
+		$site_title = get_bloginfo( 'name' );
+		$submitted_assignment = tutils()->get_assignment_submit_info($assignment_submit_id);
+		$student_email = get_the_author_meta('user_email', $submitted_assignment->user_id);
+		$course_name = get_the_title($submitted_assignment->comment_parent);
+		$course_url = get_the_permalink($submitted_assignment->comment_parent);
+		$assignment_name = get_the_title($submitted_assignment->comment_post_ID);
+		$assignemnt_score = get_comment_meta( $assignment_submit_id, 'assignment_mark', true );
+		$assignment_comment = get_comment_meta( $assignment_submit_id, 'instructor_note', true );
+
+		$file_tpl_variable = array(
+			'{course_name}',
+			'{course_url}',
+			'{assignment_name}',
+			'{assignemnt_score}',
+			'{assignment_comment}'
+		);
+
+		$replace_data = array(
+			$course_name,
+			$course_url,
+			$assignment_name,
+			$assignemnt_score,
+			$assignment_comment
+		);
+
+		$subject = __('Grade submitted for Assignment - '.$assignment_name.' - '.$course_name, 'tutor-pro');
+
+		ob_start();
+		tutor_load_template('email.to_student_assignment_evaluate');
+		$email_tpl = apply_filters('tutor_email_tpl/assignment_evaluate', ob_get_clean());
+		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data);
+
+		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
+		$header = apply_filters('assignment_evaluate_email_header', $header, $assignment_submit_id);
+
+		$this->send($student_email, $subject, $message, $header);
+	}
+
+	/**
+	 * After assignment evaluate
+	 *
+	 * @since 1.6.9
+	 */
+	public function tutor_student_remove_from_course($enrol_id) {
+		$assignment_graded = tutor_utils()->get_option('email_to_students.assignment_graded');
+
+		if (!$assignment_graded) {
+			return;
+		}
+
+		$enrolment = tutils()->get_enrolment_by_id($enrol_id);
+		if (!$enrolment) {
+			return;
+		}
+		$course_name = $enrolment->course_title;
+		$student_email = $enrolment->user_email;;
+
+		$file_tpl_variable = array(
+			'{course_name}',
+		);
+
+		$replace_data = array(
+			$course_name
+		);
+
+		$subject = __('You has been removed form course - '.$course_name, 'tutor-pro');
+
+		ob_start();
+		tutor_load_template('email.to_student_remove_from_course');
+		$email_tpl = apply_filters('tutor_email_tpl/remove_from_course', ob_get_clean());
+		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data);
+
+		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
+		$header = apply_filters('remove_from_course_email_header', $header, $enrol_id);
+
+		$this->send($student_email, $subject, $message, $header);
 	}
 }
