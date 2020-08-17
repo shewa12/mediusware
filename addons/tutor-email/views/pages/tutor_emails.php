@@ -137,6 +137,210 @@
                 </code>
             </td>
         </tr>
+        <tr>
+            <td><?php _e('New Instructor Sign Up (to admin)','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_admin.new_instructor_signup');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {site_url}, {instructor_name}, {instructor_email}, {signup_time}
+                </code>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('New Student Sign Up (to admin)','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_admin.new_student_signup');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {site_url}, {student_name}, {student_email}, {signup_time}
+                </code>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('New Course Submitted for Review (to admin)','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_admin.new_course_submitted');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {site_url}, {instructor_name}, {course_name}, {course_url}, {submitted_time}
+                </code>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('New Course Published (to admin)','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_admin.new_course_published');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {site_url}, {instructor_name}, {course_name}, {course_url}, {published_time}
+                </code>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Course Edited/Updated (to admin)','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_admin.course_updated');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {site_url}, {instructor_name}, {course_name}, {course_url}, {updated_time}
+                </code>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('New Assignment Submitted (to instructor)','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_teachers.student_submitted_assignment');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {site_url}, {student_name}, {course_name}, {course_url}, {assignment_name}, {review_link}
+                </code>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Assignment has been Evaluate (to student)','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_students.assignment_graded');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {site_url}, {course_name}, {course_url}, {assignment_name}, {assignemnt_score}, {assignment_comment}
+                </code>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Student removed from course (to student)','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_students.remove_from_course');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {site_name}, {course_name}, {course_url}
+                </code>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Notify student when enrolled manually','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_students.manual_enrollment');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {site_url}, {course_name}, {course_url}, {course_start_url}
+                </code>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('New announcement posted to course (to students)','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_students.new_announcement_posted');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {site_url}, {course_name}, {course_url}, {announcement}
+                </code>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Q&A message answered (to student)','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_students.after_question_answered');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {answer}, {answer_by}, {question}, {question_title}, {course_name}, {course_url}
+                </code>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Rate course and instructor (to student)','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_students.rate_course_and_instructor');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {site_url}, {course_name}, {course_url}, {instructor_url}
+                </code>
+            </td>
+        </tr>
 
         </tbody>
     </table>

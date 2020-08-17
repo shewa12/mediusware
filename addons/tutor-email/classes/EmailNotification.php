@@ -41,8 +41,11 @@ class EmailNotification {
 		add_action('tutor_assignment/evaluate/after', array($this, 'tutor_after_assignment_evaluate'), 10, 3);
 		add_action('tutor_enrollment/after/delete', array($this, 'tutor_student_remove_from_course'), 10, 3);
 		add_action('tutor_enrollment/after/cancel', array($this, 'tutor_student_remove_from_course'), 10, 3);
+		add_action('tutor_enrollment/after/complete', array($this, 'tutor_after_manual_enrollment'), 10, 3);
 		add_action('tutor_announcements/after/save', array($this, 'tutor_announcements_after_save'), 10, 3);
-		add_action('tutor_after_answer_to_question', array($this, 'tutor_after_answer_to_question'), 10, 2);
+		add_action('tutor_after_answer_to_question', array($this, 'tutor_after_answer_to_question'), 10, 3);
+		//add_action('tutor_quiz_review_answer_after', array($this, 'tutor_quiz_review_answer_after'), 10, 3);
+		add_action('tutor_course_complete_after', array($this, 'tutor_course_complete_after'), 10, 3);
 	}
 
 	public function register_menu() {
@@ -508,22 +511,27 @@ class EmailNotification {
 
 		$instructor_id = tutils()->get_user_id($user_id);
 		$instructor = get_userdata($instructor_id);
-
+		
+		$site_url = get_bloginfo( 'url' );
 		$signup_time =  tutor_time();
 		$signup_time_format = date_i18n(get_option('date_format'), $signup_time) . ' ' . date_i18n(get_option('time_format'), $signup_time);
 
 		$file_tpl_variable = array(
-			'{instructor_username}',
+			'{site_url}',
+			'{instructor_name}',
+			'{instructor_email}',
 			'{signup_time}'
 		);
 
 		$replace_data = array(
+			$site_url,
 			$instructor->display_name,
+			$instructor->user_email,
 			$signup_time_format,
 		);
 
 		$admin_email = get_option('admin_email');
-		$subject = __($instructor->display_name . ' just signup as instructor', 'tutor-pro');
+		$subject = __('New instructor signed up - '.$site_url, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template('email.to_admin_new_instructor_signup');
@@ -551,21 +559,26 @@ class EmailNotification {
 		$student_id = tutils()->get_user_id($user_id);
 		$student = get_userdata($student_id);
 
+		$site_url = get_bloginfo( 'url' );
 		$signup_time =  tutor_time();
 		$signup_time_format = date_i18n(get_option('date_format'), $signup_time) . ' ' . date_i18n(get_option('time_format'), $signup_time);
 
 		$file_tpl_variable = array(
-			'{student_username}',
+			'{site_url}',
+			'{student_name}',
+			'{student_email}',
 			'{signup_time}'
 		);
 
 		$replace_data = array(
+			$site_url,
 			$student->display_name,
+			$student->user_email,
 			$signup_time_format,
 		);
 
 		$admin_email = get_option('admin_email');
-		$subject = __($student->display_name . ' just signup as student', 'tutor-pro');
+		$subject = __('New student signed up - '.$site_url, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template('email.to_admin_new_student_signup');
@@ -590,23 +603,29 @@ class EmailNotification {
 			return;
 		}
 
+		$site_url = get_bloginfo( 'url' );
 		$submitted_time =  tutor_time();
 		$submitted_time_format = date_i18n(get_option('date_format'), $submitted_time) . ' ' . date_i18n(get_option('time_format'), $submitted_time);
+		$instructor_name = get_the_author_meta('display_name', $course->post_author);
 
 		$file_tpl_variable = array(
+			'{site_url}',
 			'{course_name}',
 			'{course_url}',
+			'{instructor_name}',
 			'{submitted_time}'
 		);
 
 		$replace_data = array(
+			$site_url,
 			$course->post_title,
 			get_the_permalink($course_id),
+			$instructor_name,
 			$submitted_time_format,
 		);
 
 		$admin_email = get_option('admin_email');
-		$subject = __('New Course Submitted for Review', 'tutor-pro');
+		$subject = __('New Course Submitted for Review - '.$course->post_title, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template('email.to_admin_new_course_submitted_for_review');
@@ -631,23 +650,29 @@ class EmailNotification {
 			return;
 		}
 
+		$site_url = get_bloginfo( 'url' );
 		$published_time =  tutor_time();
 		$published_time_format = date_i18n(get_option('date_format'), $published_time) . ' ' . date_i18n(get_option('time_format'), $published_time);
+		$instructor_name = get_the_author_meta('display_name', $course->post_author);
 
 		$file_tpl_variable = array(
+			'{site_url}',
 			'{course_name}',
 			'{course_url}',
+			'{instructor_name}',
 			'{published_time}'
 		);
 
 		$replace_data = array(
+			$site_url,
 			$course->post_title,
 			get_the_permalink($course_id),
+			$instructor_name,
 			$published_time_format,
 		);
 
 		$admin_email = get_option('admin_email');
-		$subject = __('New Course Published', 'tutor-pro');
+		$subject = __('New Course Published - '.$course->post_title, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template('email.to_admin_new_course_published');
@@ -672,23 +697,29 @@ class EmailNotification {
 			return;
 		}
 
+		$site_url = get_bloginfo( 'url' );
 		$updated_time =  tutor_time();
 		$updated_time_format = date_i18n(get_option('date_format'), $updated_time) . ' ' . date_i18n(get_option('time_format'), $updated_time);
+		$instructor_name = get_the_author_meta('display_name', $course->post_author);
 
 		$file_tpl_variable = array(
+			'{site_url}',
 			'{course_name}',
 			'{course_url}',
+			'{instructor_name}',
 			'{updated_time}'
 		);
 
 		$replace_data = array(
+			$site_url,
 			$course->post_title,
 			get_the_permalink($course_id),
+			$instructor_name,
 			$updated_time_format,
 		);
 
 		$admin_email = get_option('admin_email');
-		$subject = __('Course Updated', 'tutor-pro');
+		$subject = __('A Course has been edited on '.$course->post_title, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template('email.to_admin_course_updated');
@@ -713,7 +744,7 @@ class EmailNotification {
 			return;
 		}
 
-		$site_title = get_bloginfo( 'name' );
+		$site_url = get_bloginfo( 'url' );
 		$submitted_assignment = tutils()->get_assignment_submit_info($assignment_submit_id);
 		$student_name = get_the_author_meta('display_name', $submitted_assignment->user_id);
 		$course_name = get_the_title($submitted_assignment->comment_parent);
@@ -723,6 +754,7 @@ class EmailNotification {
 		$review_link = esc_url($submitted_url.'?assignment='.$submitted_assignment->comment_post_ID);
 
 		$file_tpl_variable = array(
+			'{site_url}',
 			'{student_name}',
 			'{course_name}',
 			'{course_url}',
@@ -731,6 +763,7 @@ class EmailNotification {
 		);
 
 		$replace_data = array(
+			$site_url,
 			$student_name,
 			$course_name,
 			$course_url,
@@ -739,7 +772,7 @@ class EmailNotification {
 		);
 
 		$admin_email = get_option('admin_email');
-		$subject = __('New Assignment Submission on course - '.$course_name.' at '.$site_title, 'tutor-pro');
+		$subject = __('New Assignment Submission on course - '.$course_name.' at '.$site_url, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template('email.to_instructor_student_submitted_assignment');
@@ -764,7 +797,7 @@ class EmailNotification {
 			return;
 		}
 
-		$site_title = get_bloginfo( 'name' );
+		$site_url = get_bloginfo( 'url' );
 		$submitted_assignment = tutils()->get_assignment_submit_info($assignment_submit_id);
 		$student_email = get_the_author_meta('user_email', $submitted_assignment->user_id);
 		$course_name = get_the_title($submitted_assignment->comment_parent);
@@ -774,6 +807,7 @@ class EmailNotification {
 		$assignment_comment = get_comment_meta( $assignment_submit_id, 'instructor_note', true );
 
 		$file_tpl_variable = array(
+			'{site_url}',
 			'{course_name}',
 			'{course_url}',
 			'{assignment_name}',
@@ -782,6 +816,7 @@ class EmailNotification {
 		);
 
 		$replace_data = array(
+			$site_url,
 			$course_name,
 			$course_url,
 			$assignment_name,
@@ -803,14 +838,14 @@ class EmailNotification {
 	}
 
 	/**
-	 * After assignment evaluate
+	 * After remove student from course
 	 *
 	 * @since 1.6.9
 	 */
 	public function tutor_student_remove_from_course($enrol_id) {
-		$assignment_graded = tutor_utils()->get_option('email_to_students.assignment_graded');
+		$remove_from_course = tutor_utils()->get_option('email_to_students.remove_from_course');
 
-		if (!$assignment_graded) {
+		if (!$remove_from_course) {
 			return;
 		}
 
@@ -818,18 +853,24 @@ class EmailNotification {
 		if (!$enrolment) {
 			return;
 		}
+		$site_name = get_bloginfo( 'name' );
 		$course_name = $enrolment->course_title;
+		$course_url = get_the_permalink($enrolment->course_id);
 		$student_email = $enrolment->user_email;;
 
 		$file_tpl_variable = array(
+			'{site_name}',
 			'{course_name}',
+			'{course_url}'
 		);
 
 		$replace_data = array(
-			$course_name
+			$site_name,
+			$course_name,
+			$course_url
 		);
 
-		$subject = __('You has been removed form course - '.$course_name, 'tutor-pro');
+		$subject = __('You have been removed from the course - '.$course_name, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template('email.to_student_remove_from_course');
@@ -838,6 +879,56 @@ class EmailNotification {
 
 		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
 		$header = apply_filters('remove_from_course_email_header', $header, $enrol_id);
+
+		$this->send($student_email, $subject, $message, $header);
+	}
+
+
+	/**
+	 * After manual enrollment
+	 *
+	 * @since 1.6.9
+	 */
+	public function tutor_after_manual_enrollment($enrol_id) {
+		$manual_enrollment = tutor_utils()->get_option('email_to_students.manual_enrollment');
+
+		if (!$manual_enrollment) {
+			return;
+		}
+
+		$enrolment = tutils()->get_enrolment_by_enrol_id($enrol_id);
+		if (!$enrolment) {
+			return;
+		}
+		$site_url = get_bloginfo( 'url' );
+		$course_name = $enrolment->course_title;
+		$course_url = get_the_permalink($enrolment->course_id);
+		$course_start_url = tutils()->get_course_first_lesson($enrolment->course_id);
+		$student_email = $enrolment->user_email;
+
+		$file_tpl_variable = array(
+			'{site_url}',
+			'{course_name}',
+			'{course_url}',
+			'{course_start_url}'
+		);
+
+		$replace_data = array(
+			$site_url,
+			$course_name,
+			$course_url,
+			$course_start_url
+		);
+
+		$subject = __('You are enrolled in '.$course_name.' at '.$site_url, 'tutor-pro');
+
+		ob_start();
+		tutor_load_template('email.to_student_manual_enrollment');
+		$email_tpl = apply_filters('tutor_email_tpl/manual_enrollment', ob_get_clean());
+		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data);
+
+		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
+		$header = apply_filters('manual_enrollment_email_header', $header, $enrol_id);
 
 		$this->send($student_email, $subject, $message, $header);
 	}
@@ -854,21 +945,27 @@ class EmailNotification {
 			return;
 		}
 
+		$site_url = get_bloginfo( 'url' );
 		$course_name = get_the_title($announcement->post_parent);
 		$course_url = get_the_permalink($announcement->post_parent);
+		$announcement_content = $announcement->post_content;
 		$student_emails = tutils()->get_student_emails_by_course_id($announcement->post_parent);
 
 		$file_tpl_variable = array(
+			'{site_url}',
 			'{course_name}',
 			'{course_url}',
+			'{announcement}',
 		);
 
 		$replace_data = array(
+			$site_url,
 			$course_name,
 			$course_url,
+			$announcement_content,
 		);
 
-		$subject = __('New announcement course - '.$course_name, 'tutor-pro');
+		$subject = __('New Announcement on course - '.$course_name, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template('email.to_student_new_announcement_posted');
@@ -917,7 +1014,7 @@ class EmailNotification {
 			$course_url,
 		);
 
-		$subject = __('New answer on quesion - '.$answer->question_title.' course - '.$course_name, 'tutor-pro');
+		$subject = __('Instructor has answered to your question on - '.$course_name, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template('email.to_student_question_answered');
@@ -928,5 +1025,72 @@ class EmailNotification {
 		$header = apply_filters('question_answered_email_header', $header, $answer_id);
 
 		$this->send($question_by, $subject, $message, $header);
+	}
+
+	/**
+	 * After review quiz answer
+	 *
+	 * @since 1.6.9
+	 */
+	public function tutor_quiz_review_answer_after($attempt_answer_id, $attempt_id, $mark_as) {
+		$after_question_answered = tutor_utils()->get_option('email_to_students.after_question_answered');
+
+		if (!$after_question_answered) {
+			return;
+		}
+
+		/* global $wpdb;
+		$attempt_answer = $wpdb->get_row("SELECT * FROM {$wpdb->prefix}tutor_quiz_attempt_answers WHERE attempt_answer_id = {$attempt_answer_id} ");
+		$attempt = tutor_utils()->get_attempt($attempt_id);
+		$question = tutils()->get_quiz_question_by_id($attempt_answer->question_id);
+
+		*/
+	}
+
+	/**
+	 * After course completed
+	 *
+	 * @since 1.6.9
+	 */
+	public function tutor_course_complete_after($course_id) {
+		$rate_course_and_instructor = tutor_utils()->get_option('email_to_students.rate_course_and_instructor');
+
+		if (!$rate_course_and_instructor) {
+			return;
+		}
+
+		$site_url = get_bloginfo( 'url' );
+		$course = get_post($course_id);
+		$course_url = get_the_permalink($course_id);
+		$instructor_url = tutils()->profile_url($course->post_author);
+
+		$user_id = get_current_user_id();
+		$user_email = get_the_author_meta('user_email', $user_id);
+
+		$file_tpl_variable = array(
+			'{site_url}',
+			'{course_name}',
+			'{course_url}',
+			'{instructor_url}',
+		);
+
+		$replace_data = array(
+			$site_url,
+			$course->post_title,
+			$course_url,
+			$instructor_url,
+		);
+
+		$subject = __('Congratulations on Finishing the Course '.$course->post_title, 'tutor-pro');
+
+		ob_start();
+		tutor_load_template('email.to_student_rate_course_and_instructor');
+		$email_tpl = apply_filters('tutor_email_tpl/rate_course_and_instructor', ob_get_clean());
+		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data);
+
+		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
+		$header = apply_filters('rate_course_and_instructor_email_header', $header, $course_id);
+
+		$this->send($user_email, $subject, $message, $header);
 	}
 }
