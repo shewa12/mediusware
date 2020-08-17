@@ -32,15 +32,17 @@ class EmailNotification {
 		/**
 		 * @since 1.6.9
 		 */
-		add_action('tutor_add_new_instructor_after', array($this, 'tutor_new_instructor_signup'), 10, 1);
-		add_action('tutor_after_student_signup', array($this, 'tutor_new_student_signup'), 10, 1);
-		add_action('pending_' . tutor()->course_post_type, array($this, 'tutor_course_pending'), 10, 2);
-		add_action('publish_' . tutor()->course_post_type, array($this, 'tutor_course_published'), 10, 2);
-		add_action('save_post_' . tutor()->course_post_type, array($this, 'tutor_course_updated'), 10, 2);
-		add_action('tutor_assignment/after/submit', array($this, 'tutor_after_assignment_submit'), 10, 2);
-		add_action('tutor_assignment/evaluate/after', array($this, 'tutor_after_assignment_evaluate'), 10, 2);
-		add_action('tutor_enrollment/delete/after', array($this, 'tutor_student_remove_from_course'), 10, 2);
-		add_action('tutor_enrollment/cancel/after', array($this, 'tutor_student_remove_from_course'), 10, 2);
+		add_action('tutor_add_new_instructor_after', array($this, 'tutor_new_instructor_signup'), 10, 2);
+		add_action('tutor_after_student_signup', array($this, 'tutor_new_student_signup'), 10, 2);
+		add_action('pending_' . tutor()->course_post_type, array($this, 'tutor_course_pending'), 10, 3);
+		add_action('publish_' . tutor()->course_post_type, array($this, 'tutor_course_published'), 10, 3);
+		add_action('save_post_' . tutor()->course_post_type, array($this, 'tutor_course_updated'), 10, 3);
+		add_action('tutor_assignment/after/submitted', array($this, 'tutor_assignment_after_submitted'), 10, 3);
+		add_action('tutor_assignment/evaluate/after', array($this, 'tutor_after_assignment_evaluate'), 10, 3);
+		add_action('tutor_enrollment/after/delete', array($this, 'tutor_student_remove_from_course'), 10, 3);
+		add_action('tutor_enrollment/after/cancel', array($this, 'tutor_student_remove_from_course'), 10, 3);
+		add_action('tutor_announcements/after/save', array($this, 'tutor_announcements_after_save'), 10, 3);
+		add_action('tutor_after_answer_to_question', array($this, 'tutor_after_answer_to_question'), 10, 2);
 	}
 
 	public function register_menu() {
@@ -663,7 +665,7 @@ class EmailNotification {
 	 *
 	 * @since 1.6.9
 	 */
-	public function tutor_course_updated($course_id, $course, $update) {
+	public function tutor_course_updated($course_id, $course, $update=false) {
 		$course_updated = tutor_utils()->get_option('email_to_admin.course_updated');
 
 		if (!$course_updated || !$update) {
@@ -704,7 +706,7 @@ class EmailNotification {
 	 *
 	 * @since 1.6.9
 	 */
-	public function tutor_after_assignment_submit($assignment_submit_id) {
+	public function tutor_assignment_after_submitted($assignment_submit_id) {
 		$student_submitted_assignment = tutor_utils()->get_option('email_to_teachers.student_submitted_assignment');
 
 		if (!$student_submitted_assignment) {
@@ -812,7 +814,7 @@ class EmailNotification {
 			return;
 		}
 
-		$enrolment = tutils()->get_enrolment_by_id($enrol_id);
+		$enrolment = tutils()->get_enrolment_by_enrol_id($enrol_id);
 		if (!$enrolment) {
 			return;
 		}
@@ -838,5 +840,93 @@ class EmailNotification {
 		$header = apply_filters('remove_from_course_email_header', $header, $enrol_id);
 
 		$this->send($student_email, $subject, $message, $header);
+	}
+
+	/**
+	 * After save new announcement
+	 *
+	 * @since 1.6.9
+	 */
+	public function tutor_announcements_after_save($announcement_id, $announcement) {
+		$new_announcement_posted = tutor_utils()->get_option('email_to_students.new_announcement_posted');
+
+		if (!$new_announcement_posted) {
+			return;
+		}
+
+		$course_name = get_the_title($announcement->post_parent);
+		$course_url = get_the_permalink($announcement->post_parent);
+		$student_emails = tutils()->get_student_emails_by_course_id($announcement->post_parent);
+
+		$file_tpl_variable = array(
+			'{course_name}',
+			'{course_url}',
+		);
+
+		$replace_data = array(
+			$course_name,
+			$course_url,
+		);
+
+		$subject = __('New announcement course - '.$course_name, 'tutor-pro');
+
+		ob_start();
+		tutor_load_template('email.to_student_new_announcement_posted');
+		$email_tpl = apply_filters('tutor_email_tpl/new_announcement_posted', ob_get_clean());
+		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data);
+
+		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
+		$header = apply_filters('new_announcement_posted_email_header', $header, $announcement_id);
+
+		$this->send($student_emails, $subject, $message, $header);
+	}
+
+	/**
+	 * After question has been answered
+	 *
+	 * @since 1.6.9
+	 */
+	public function tutor_after_answer_to_question($answer_id) {
+		$after_question_answered = tutor_utils()->get_option('email_to_students.after_question_answered');
+
+		if (!$after_question_answered) {
+			return;
+		}
+
+		$answer = tutils()->get_qa_answer_by_answer_id($answer_id);
+
+		$course_name = get_the_title($answer->comment_post_ID);
+		$course_url = get_the_permalink($answer->comment_post_ID);
+		$question_by = get_the_author_meta('user_email', $answer->question_by);
+
+		$file_tpl_variable = array(
+			'{answer}',
+			'{answer_by}',
+			'{question}',
+			'{question_title}',
+			'{course_name}',
+			'{course_url}',
+		);
+
+		$replace_data = array(
+			$answer->comment_content,
+			$answer->display_name,
+			$answer->question,
+			$answer->question_title,
+			$course_name,
+			$course_url,
+		);
+
+		$subject = __('New answer on quesion - '.$answer->question_title.' course - '.$course_name, 'tutor-pro');
+
+		ob_start();
+		tutor_load_template('email.to_student_question_answered');
+		$email_tpl = apply_filters('tutor_email_tpl/question_answered', ob_get_clean());
+		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data);
+
+		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
+		$header = apply_filters('question_answered_email_header', $header, $answer_id);
+
+		$this->send($question_by, $subject, $message, $header);
 	}
 }
