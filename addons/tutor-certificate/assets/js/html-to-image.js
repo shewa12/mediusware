@@ -172,8 +172,7 @@ jQuery(document).ready(function ($) {
     });
 
     // Regenerate certificate image (in individual page)
-    if(image_downloader.length>0)
-    {
+    if(image_downloader.length>0) {
         image_processor.init_render_certificate('', function(success, already_stored)
         {
             !already_stored ? window.location.reload() : 0;

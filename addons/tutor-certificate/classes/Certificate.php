@@ -43,8 +43,7 @@ class Certificate {
 		}
 	}
 
-	private function cross_platform_path($path)
-	{
+	private function cross_platform_path($path) {
 		$path = str_replace('/', DIRECTORY_SEPARATOR, $path);
 		$path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
 
@@ -90,8 +89,7 @@ class Certificate {
 		}
 	}
 
-	private function delete_old_certificate_image($certificates_dir, $course_id, $certificate_id, $hash)
-	{
+	private function delete_old_certificate_image($certificates_dir, $course_id, $certificate_id, $hash) {
 		// Delete old one
 		$old_checksum = get_comment_meta($certificate_id, $this->certificate_stored_key, true);
 

@@ -240,7 +240,7 @@ class Assignments{
 
 	    $wpdb->update($wpdb->comments, $data, array('comment_ID' => $assignment_submit_id));
 
-	    do_action('tutor_assignment/after/submit', $assignment_submit_id);
+	    do_action('tutor_assignment/after/submitted', $assignment_submit_id);
 
 	    if (function_exists('wc_get_raw_referer')){
 		    wp_redirect(wc_get_raw_referer());

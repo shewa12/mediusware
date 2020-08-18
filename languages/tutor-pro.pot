@@ -201,7 +201,7 @@ msgstr ""
 msgid "Course Enrolled"
 msgstr ""
 
-#: addons/enrollments/classes/Enrollments.php:113
+#: addons/enrollments/classes/Enrollments.php:115
 msgid "Enrolment has been done"
 msgstr ""
 
@@ -641,11 +641,11 @@ msgstr ""
 msgid "Evaluate this submission"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:261
+#: addons/tutor-certificate/classes/Certificate.php:305
 msgid "Course Completion Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:262
+#: addons/tutor-certificate/classes/Certificate.php:306
 msgid "My course completion certificate for"
 msgstr ""
 
@@ -805,7 +805,7 @@ msgstr ""
 msgid "If checked, any users/guest can view this lesson without enroll course"
 msgstr ""
 
-#: addons/tutor-email/classes/EmailNotification.php:33, addons/tutor-email/classes/EmailNotification.php:33, addons/tutor-email/views/pages/tutor_emails.php:2
+#: addons/tutor-email/classes/EmailNotification.php:52, addons/tutor-email/classes/EmailNotification.php:52, addons/tutor-email/views/pages/tutor_emails.php:2
 msgid "E-Mails"
 msgstr ""
 
@@ -833,36 +833,88 @@ msgstr ""
 msgid "Completed a course"
 msgstr ""
 
+#: addons/tutor-email/classes/init.php:97
+msgid "Remove from course"
+msgstr ""
+
 #: addons/tutor-email/classes/init.php:98
-msgid "Select when to send notification to the students"
+msgid "After Manual Enrollment"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:99
+msgid "Assignment Graded"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:100
+msgid "New Announcement Posted"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:101
+msgid "Q&A message answered"
 msgstr ""
 
 #: addons/tutor-email/classes/init.php:102
-msgid "E-Mail to Teachers"
+msgid "Rate course and instructor after course completed"
 msgstr ""
 
 #: addons/tutor-email/classes/init.php:104
-msgid "A Student enrolled in course "
-msgstr ""
-
-#: addons/tutor-email/classes/init.php:105
-msgid "A Student Completed Course"
-msgstr ""
-
-#: addons/tutor-email/classes/init.php:106
-msgid "A Student Completed Lesson"
-msgstr ""
-
-#: addons/tutor-email/classes/init.php:107
-msgid "A Student asked a question in Q&amp;A"
+msgid "Select when to send notification to the students"
 msgstr ""
 
 #: addons/tutor-email/classes/init.php:108
-msgid "Student submitted quiz"
+msgid "E-Mail to Teachers"
 msgstr ""
 
 #: addons/tutor-email/classes/init.php:110
+msgid "A Student enrolled in course"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:111
+msgid "A Student Completed Course"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:112
+msgid "A Student Completed Lesson"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:113
+msgid "A Student asked a question in Q&amp;A"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:114
+msgid "Student submitted quiz"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:115
+msgid "Student submitted Assignment"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:117, addons/tutor-email/classes/init.php:129
 msgid "Select when to send notification to the teachers"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:121
+msgid "E-Mail to Admin"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:123
+msgid "New instructor signup"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:124
+msgid "New student signup"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:125
+msgid "New Course Submitted for Review"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:126
+msgid "New Course Published"
+msgstr ""
+
+#: addons/tutor-email/classes/init.php:127
+msgid "Course Edited/Updated"
 msgstr ""
 
 #: addons/tutor-email/tutor-email.php:29, addons/tutor-report/views/pages/overview.php:473, addons/tutor-report/views/pages/overview.php:519
@@ -907,6 +959,54 @@ msgstr ""
 
 #: addons/tutor-email/views/pages/tutor_emails.php:124
 msgid "Student completed Submitted quiz"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:141
+msgid "New Instructor Sign Up (to admin)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:158
+msgid "New Student Sign Up (to admin)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:175
+msgid "New Course Submitted for Review (to admin)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:192
+msgid "New Course Published (to admin)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:209
+msgid "Course Edited/Updated (to admin)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:226
+msgid "New Assignment Submitted (to instructor)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:243
+msgid "Assignment has been Evaluate (to student)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:260
+msgid "Student removed from course (to student)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:277
+msgid "Notify student when enrolled manually"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:294
+msgid "New announcement posted to course (to students)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:311
+msgid "Q&A message answered (to student)"
+msgstr ""
+
+#: addons/tutor-email/views/pages/tutor_emails.php:328
+msgid "Rate course and instructor (to student)"
 msgstr ""
 
 #: addons/tutor-multi-instructors/tutor-multi-instructors.php:29

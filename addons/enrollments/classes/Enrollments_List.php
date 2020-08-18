@@ -106,6 +106,8 @@ class Enrollments_List extends \Tutor_List_Table {
 
 			delete_post_meta($enrol_id, '_tutor_enrolled_by_order_id');
 			delete_post_meta($enrol_id, '_tutor_enrolled_by_product_id');
+
+			do_action('tutor_enrollment/after/delete', $enrol_id);
 		}
 
 		if( 'complete' === $this->current_action() ) {
@@ -113,6 +115,8 @@ class Enrollments_List extends \Tutor_List_Table {
 		}
 		if( 'cancel' === $this->current_action() ) {
 			$wpdb->update($wpdb->posts, array('post_status' => 'cancel'), array('ID' => $enrol_id));
+
+			do_action('tutor_enrollment/after/cancel', $enrol_id);
 		}
 
 	}
