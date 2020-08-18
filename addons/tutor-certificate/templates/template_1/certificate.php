@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>PDF Certificate Title</title>
     <style type="text/css"><?php $this->pdf_style(); ?></style>
+    <link href="https://fonts.googleapis.com/css2?family=Niconne&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -22,12 +23,25 @@
 		}
 		$duration_text = $hour_text.' '.$min_text;
 		?>
+        <br/>
+        <br/>
+        <br/>
         <p><?php _e('This is to certify that', 'tutor-pro'); ?></p>
         <h1><?php echo $user->display_name; ?></h1>
+        <br/>
+        <br/>
         <p><?php echo __('has successfully completed', 'tutor-pro').' '.$duration_text.' '.__('online course of', 'tutor-pro'); ?></p>
         <h2><?php echo $course->post_title; ?></h2>
         <p><?php echo __('on', 'tutor-pro').' '.$completed_date; ?></p>
 
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <div class="certificate-footer">
             <table>
                 <tr>

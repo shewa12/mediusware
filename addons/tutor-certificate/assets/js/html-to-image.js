@@ -73,7 +73,7 @@ jQuery(document).ready(function ($) {
 
             // Now capture the iframe using library
             var container = iframe_document.getElementsByTagName('body')[0];
-            html2canvas(container).then(canvas => {
+            html2canvas(container, {scale:2}).then(canvas => {
                 // var re_canvas = this.re_scale_canvas(canvas, 852, ((height/width)*852));
                 var re_canvas = this.re_scale_canvas(canvas, width, height);
 

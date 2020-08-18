@@ -8,6 +8,8 @@
 <body>
 
 <div class="certificate-wrap">
+    <br/>
+    <br/>
     <div class="certificate-topheading">
         <h1><?php _e('VERIFIED', 'tutor-pro'); ?></h1>
         <h4><?php _e('Certificate of Achievement', 'tutor-pro'); ?></h4>
@@ -27,13 +29,26 @@
 		}
 		$duration_text = $hour_text.' '.$min_text;
 		?>
+        <br/>
+        <br/>
+        <br/>
         <p><?php _e('This is to certify that', 'tutor-pro'); ?></p>
         <h1><?php echo $user->display_name; ?></h1>
+        <br/>
+        <br/>
+        <br/>
         <p><?php echo __('has successfully completed', 'tutor-pro').' '.$duration_text.' '.__('online course of', 'tutor-pro'); ?></p>
+        <br/>
         <h2><?php echo $course->post_title; ?></h2>
+        <br/>
         <p><?php echo __('on', 'tutor-pro').' '.$completed_date; ?></p>
     </div>
 
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
     <div class="certificate-footer">
         <table>
             <tr>

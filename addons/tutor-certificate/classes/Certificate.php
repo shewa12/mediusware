@@ -184,10 +184,11 @@ class Certificate {
 		$completed_date		= '';
 		if ($completed) {
 			$wp_date_format		= get_option('date_format');
-			$completed_date 	= date($wp_date_format, strtotime($completed->completion_date));
+			// $completed_date 	= date($wp_date_format, strtotime($completed->completion_date));
+			$completed_date 	= date_i18n($wp_date_format, strtotime($completed->completion_date));
 
 			// Translate month name
-			$converter = function ($matches) {
+			/* $converter = function ($matches) {
 				$month = __($matches[0]);
 
 				// Make first letter uppercase if it's not unicode character.
@@ -200,7 +201,7 @@ class Certificate {
 			// Translate day and year digits
 			$completed_date		= preg_replace_callback('/[0-9]/', function ($m) {
 				return __($m[0]);
-			}, $completed_date);
+			}, $completed_date); */
 		}
 
 		ob_start();
@@ -221,6 +222,7 @@ class Certificate {
 		$css = apply_filters('tutor_cer_css', $css, $this);
 
 		echo $css;
+		echo 'body{font-family: arial}';
 	}
 
 	public function certificate_download_btn() {
