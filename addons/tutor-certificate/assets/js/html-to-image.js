@@ -1,4 +1,50 @@
 jQuery(document).ready(function ($) {
+
+    $('body').append('<svg id="tutor_svg_font_id" width="0" height="0" style="background-color:white;"></svg>');
+
+    const loadFont=(callback)=> {
+        
+        const request = new XMLHttpRequest();
+        request.open("get", "?tutor_action=get_fonts");
+        request.responseType = "text";
+        request.send();
+        request.onloadend = () => {
+              
+            //(2)find all font urls.
+            let css = request.response;
+            const fontURLs = css.match(/https?:\/\/[^ \)]+/g);
+            let loaded = 0;
+            console.log(fontURLs)
+            fontURLs.forEach(url => {
+                  
+                //(3)get each font binary.
+                const request = new XMLHttpRequest();
+                request.open("get", url);
+                request.responseType = "blob";
+                request.onloadend = () => {
+                    
+                    //(4)conver font blob to binary string.
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        //console.log(css)
+                        //(5)replace font url by binary string.
+                        css = css.replace(new RegExp(url), reader.result);
+                        loaded++;
+                        //check all fonts are replaced.
+                        if(loaded == fontURLs.length){
+                        console.log("L")
+                            $('#tutor_svg_font_id').prepend(`<style>${css}</style>`);
+                            callback();
+                        }
+                    };
+                    reader.readAsDataURL(request.response);
+                };
+                request.send();
+            });
+        };
+    }	
+      
+    // HTML to Images related functionalities
     const image = function (course_id, cert_hash, view_url) {
         // Open the data url in new window
         this.view = url => {
@@ -43,7 +89,7 @@ jQuery(document).ready(function ($) {
                 var form_data = new FormData();
                 form_data.append('tutor_action', 'store_certificate_image');
                 form_data.append('cert_hash', cert_hash);
-                form_data.append('certificate_image', blob, 'certificate.jpg');
+                form_data.append('certificate_image', blob);
 
                 $.ajax({
                     url: window.location.origin+window.location.pathname,
@@ -76,21 +122,21 @@ jQuery(document).ready(function ($) {
             html2canvas(container, {scale:2}).then(canvas => {
                 // var re_canvas = this.re_scale_canvas(canvas, 852, ((height/width)*852));
                 var re_canvas = this.re_scale_canvas(canvas, width, height);
+                var data_url = re_canvas.toDataURL('image/jpeg');
 
                 // Store the blob on server
-                re_canvas.toBlob(blob => {
-                    this.store_certificate(blob, (success, already_stored) => {
-                        var data_url = re_canvas.toDataURL('image/jpeg');
+                this.store_certificate(data_url, (success, already_stored) => {
 
-                        // Show error if fails
-                        !success ? alert('Something Went Wrong.') : 0;
+                    // document.write('<img src="'+data_url+'"/>');
 
-                        // Execute other actions
-                        (success && typeof this[action]=='function') ? this[action](data_url, width, height) : 0;
+                    // Show error if fails
+                    !success ? alert('Something Went Wrong.') : 0;
 
-                        // Execute callback if callable
-                        typeof callback=='function' ? callback(success, already_stored) : 0;
-                    });
+                    // Execute other actions
+                    (success && typeof this[action]=='function') ? this[action](data_url, width, height) : 0;
+
+                    // Execute callback if callable
+                    typeof callback=='function' ? callback(success, already_stored) : 0;
                 });
             });
         }
@@ -112,12 +158,16 @@ jQuery(document).ready(function ($) {
                 var iframe_document = iframe.contentWindow || iframe.contentDocument.document || iframe.contentDocument;
                 iframe_document = iframe_document.document;
 
-                // Render the html in iframe
-                iframe_document.open();
-                iframe_document.write(html);
-                iframe_document.close();
+                loadFont(()=>
+                {
+                    // Render the html in iframe
+                    iframe_document.open();
+                    iframe_document.write(html);
+                    iframe_document.write($('<div></div>').append($('#tutor_svg_font_id').clone()).html());
+                    iframe_document.close();
 
-                iframe.onload = () => this.dispatch_conversion_methods(action, iframe_document, callback);
+                    iframe.onload = () => this.dispatch_conversion_methods(action, iframe_document, callback);
+                });                
             });
         }
     }
@@ -138,6 +188,7 @@ jQuery(document).ready(function ($) {
     var view_url = viewer_button.data('href');
 
     var image_processor = new image(course_id, cert_hash, view_url);
+
 
     // register event listener for course page
     downloader_btn.add(viewer_button).add(downloader_btn_from_preview).click(function (event) {

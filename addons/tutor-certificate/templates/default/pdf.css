@@ -75,12 +75,13 @@ Certificate Content
     font-weight: normal;
     margin-top: 20px;
     margin-bottom: 10px;
+    font-family: 'LobStar';
 }
 .certificate-content h2 {
     font-size: 20px;
     font-weight: normal;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 9px;
+    margin-bottom: 9px;
 }
 .certificate-content p{
     line-height: 14px;

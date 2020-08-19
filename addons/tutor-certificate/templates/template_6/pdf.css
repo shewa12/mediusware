@@ -64,21 +64,22 @@ Certificate Content
     font-size: 14px;
 }
 .certificate-wrap {
-    width: 475px;
+    width: 614px;
     margin-top: 500px;
     margin-left: 80px;
 }
 .certificate-content h1{
     font-size: 36px;
     font-weight: normal;
-    margin-top: 40px;
     margin-bottom: 30px;
+    line-height: normal;
+    font-family: 'LobStar';
 }
 .certificate-content h2 {
     font-size: 20px;
     font-weight: normal;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     line-height: 25px;
 }
 .certificate-content p{
@@ -86,6 +87,7 @@ Certificate Content
 }
 .certificate-footer{
     margin-top: 100px;
+    margin-left: 250px;
 }
 .certificate-footer p{
     font-size: 14px;

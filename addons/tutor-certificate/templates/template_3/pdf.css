@@ -64,7 +64,7 @@ Certificate Content
     margin-top: 360px;
 }
 .certificate-content{
-    margin-left: 100px;
+    margin-left: 90px;
     font-size: 14px;
 }
 .certificate-content h1{
@@ -72,12 +72,13 @@ Certificate Content
     font-weight: normal;
     margin-top: 30px;
     margin-bottom: 25px;
+    font-family: 'LobStar';
 }
 .certificate-content h2 {
     font-size: 20px;
     font-weight: normal;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 9px;
+    margin-bottom: 9px;
 }
 .certificate-content p{
     line-height: 14px;
@@ -86,7 +87,7 @@ table{
     border-collapse: collapse;
 }
 table td.first-col{
-    width: 700px;
+    width: 838px;
 }
 .certificate-author-name{
     border-top: 1px solid #333333;

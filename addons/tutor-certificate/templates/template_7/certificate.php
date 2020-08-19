@@ -24,11 +24,20 @@
 		?>
         <p><strong><?php _e('This is to certify that', 'tutor-pro'); ?></strong></p>
         <h1><?php echo $user->display_name; ?></h1>
+        <br/>
         <p><?php echo __('has successfully completed', 'tutor-pro').' '.$duration_text.' '.__('online course of', 'tutor-pro'); ?></p>
         <h2><?php echo $course->post_title; ?></h2>
         <p><?php echo __('on', 'tutor-pro').' '.$completed_date; ?></p>
     </div>
 
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
     <div class="certificate-footer">
         <table>
             <tr>
@@ -39,8 +48,7 @@
 						$signature_id = tutor_utils()->get_option('tutor_cert_signature_image_id');
 						$certURL = TUTOR_CERT()->path.'/assets/images/signature.png';
 						if ($signature_id){
-							$method = $this->signature_getter_method;
-							$certURL = $method($signature_id);
+							$certURL = wp_get_attachment_url($signature_id);
 						}
 						?>
                         <img src="<?php echo $certURL; ?>" />
@@ -64,7 +72,7 @@
 </div>
 
 <div id="watermark">
-    <img src="<?php echo $this->template[$this->image_source].'background.png'; ?>" height="100%" width="100%" />
+    <img src="<?php echo $this->template['url'].'background.png'; ?>" height="100%" width="100%" />
 </div>
 
 </body>

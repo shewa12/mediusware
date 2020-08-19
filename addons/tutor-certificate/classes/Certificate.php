@@ -8,8 +8,6 @@ namespace TUTOR_CERT;
 
 class Certificate {
 	private $template;
-	private $image_source = 'path';
-	private $signature_getter_method = 'get_attached_file';
 	private $certificates_dir_name = 'tutor-certificates';
 	private $certificate_stored_key = 'tutor_certificate_has_image';
 
@@ -21,10 +19,36 @@ class Certificate {
 		add_action('tutor_options_before_tutor_certificate', array($this, 'generate_options'));
 		add_action('tutor_enrolled_box_after', array($this, 'certificate_download_btn'));
 
+		add_action('wp_loaded', array($this, 'get_fonts'));
 		add_action('wp_loaded', array($this, 'view_certificate'));
 		add_action('wp_loaded', array($this, 'send_certificate_html'));
 		add_action('wp_loaded', array($this, 'check_if_certificate_generated'));
 		add_action('wp_loaded', array($this, 'store_certificate_image'));
+	}
+
+	public function get_fonts()
+	{
+		if(($_GET['tutor_action'] ?? '')!=='get_fonts'){return;}
+
+		$url_base = tutor_pro()->url .'addons/tutor-certificate/assets/fonts/';
+		$path_base = $this->cross_platform_path(dirname(__DIR__).'/assets/css/');
+
+		$default_files = $path_base . 'font-loader.css';
+		$default_fonts = file_get_contents($default_files);
+
+		$font_faces = str_replace('./fonts/', $url_base, $default_fonts);
+
+		// Now load template fonts
+		$this->prepare_template_data();
+		$font_css = $this->template['path'].'font.css';
+		if(file_exists($font_css))
+		{
+			$faces = file_get_contents($font_css);
+			$faces = str_replace('./fonts/', $this->template['url'].'fonts/', $faces);
+			$font_faces .= $faces;
+		}
+		
+		exit($font_faces);
 	}
 
 	public function send_certificate_html() {
@@ -32,8 +56,6 @@ class Certificate {
 		$action = $_GET['tutor_action'] ?? '';
 
 		if (is_numeric($id) && $action == 'generate_course_certificate') {
-			$this->image_source = 'url';
-			$this->signature_getter_method = 'wp_get_attachment_url';
 
 			$this->prepare_template_data();
 
@@ -103,10 +125,10 @@ class Certificate {
 		// Collect post data
 		$hash = $_POST['cert_hash'] ?? '';
 		$action = $_POST['tutor_action'] ?? '';
-		$image = $_FILES['certificate_image'] ?? null;
+		$image = $_POST['certificate_image'] ?? null;
 		$completed = $this->completed_course($hash);
 
-		if ($completed && is_string($hash) && $action == 'store_certificate_image' && is_array($image) && $image['error'] == 0) {
+		if ($completed && is_string($hash) && $action == 'store_certificate_image') {
 
 			// et the dir from outside of the filter hook. Otherwise infinity loop will coccur.
 			$certificates_dir = wp_upload_dir()['basedir'] . DIRECTORY_SEPARATOR . $this->certificates_dir_name;
@@ -126,8 +148,10 @@ class Certificate {
 			$checksum = $this->get_template_check_sum();
 
 			// Store new file
-			$upload = wp_upload_bits($checksum.'-'.$hash . '.jpg', null, file_get_contents($image["tmp_name"]));
-
+			$decode = base64_decode(str_replace('data:image/jpeg;base64,', '', $image));
+			$file_dest = $certificates_dir.DIRECTORY_SEPARATOR.$checksum.'-'.$hash . '.jpg';
+			file_put_contents($file_dest, $decode);
+			
 			// Delete old one
 			$this->delete_old_certificate_image($certificates_dir, $completed->course_id, $completed->certificate_id, $hash);
 
@@ -162,7 +186,7 @@ class Certificate {
 		$certificate_dir = $upload_dir['baseurl'] . '/' . $this->certificates_dir_name;
 		$check_sum = get_comment_meta($completed->certificate_id, $this->certificate_stored_key, true);
 
-		$cert_img =  $certificate_dir . '/' . $course_id . '/' . $check_sum . '-' . $cert_hash . '.jpg';
+		$cert_img =  $certificate_dir . '/' . $check_sum . '-' . $cert_hash . '.jpg';
 		$this->certificate_header_content($course->post_title, $cert_img);
 
 		ob_start();
@@ -182,11 +206,10 @@ class Certificate {
 		$completed_date		= '';
 		if ($completed) {
 			$wp_date_format		= get_option('date_format');
-			// $completed_date 	= date($wp_date_format, strtotime($completed->completion_date));
-			$completed_date 	= date_i18n($wp_date_format, strtotime($completed->completion_date));
+			$completed_date 	= date($wp_date_format, strtotime($completed->completion_date));
 
 			// Translate month name
-			/* $converter = function ($matches) {
+			$converter = function ($matches) {
 				$month = __($matches[0]);
 
 				// Make first letter uppercase if it's not unicode character.
@@ -199,7 +222,7 @@ class Certificate {
 			// Translate day and year digits
 			$completed_date		= preg_replace_callback('/[0-9]/', function ($m) {
 				return __($m[0]);
-			}, $completed_date); */
+			}, $completed_date);
 		}
 
 		ob_start();
@@ -220,7 +243,6 @@ class Certificate {
 		$css = apply_filters('tutor_cer_css', $css, $this);
 
 		echo $css;
-		echo 'body{font-family: arial}';
 	}
 
 	public function certificate_download_btn() {
