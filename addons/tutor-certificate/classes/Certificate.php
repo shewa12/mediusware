@@ -132,22 +132,10 @@ class Certificate {
 
 			// et the dir from outside of the filter hook. Otherwise infinity loop will coccur.
 			$certificates_dir = wp_upload_dir()['basedir'] . DIRECTORY_SEPARATOR . $this->certificates_dir_name;
-
-			// Change upload directory
-			add_filter('upload_dir', function ($array) use ($completed, $hash, $certificates_dir) {
-
-				$folder = $certificates_dir . DIRECTORY_SEPARATOR . $completed->course_id;
-
-				$array['path'] = $folder;
-				$array['url'] = $folder;
-				$array['subdir'] = $folder;
-
-				return $array;
-			});
-
 			$checksum = $this->get_template_check_sum();
 
 			// Store new file
+			wp_mkdir_p($certificates_dir);
 			$decode = base64_decode(str_replace('data:image/jpeg;base64,', '', $image));
 			$file_dest = $certificates_dir.DIRECTORY_SEPARATOR.$checksum.'-'.$hash . '.jpg';
 			file_put_contents($file_dest, $decode);
