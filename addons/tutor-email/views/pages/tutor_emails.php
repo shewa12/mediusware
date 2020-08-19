@@ -150,7 +150,7 @@
             </td>
             <td>
                 <code>
-                    {site_url}, {instructor_name}, {instructor_email}, {signup_time}
+                    {site_url}, {site_name}, {instructor_name}, {instructor_email}, {signup_time}
                 </code>
             </td>
         </tr>
@@ -167,7 +167,7 @@
             </td>
             <td>
                 <code>
-                    {site_url}, {student_name}, {student_email}, {signup_time}
+                    {site_url}, {site_name}, {student_name}, {student_email}, {signup_time}
                 </code>
             </td>
         </tr>
@@ -184,7 +184,7 @@
             </td>
             <td>
                 <code>
-                    {site_url}, {instructor_name}, {course_name}, {course_url}, {submitted_time}
+                    {site_url}, {site_name}, {instructor_name}, {course_name}, {course_url}, {submitted_time}
                 </code>
             </td>
         </tr>
@@ -218,7 +218,7 @@
             </td>
             <td>
                 <code>
-                    {site_url}, {instructor_name}, {course_name}, {course_url}, {updated_time}
+                    {site_url}, {site_name}, {instructor_name}, {course_name}, {course_url}, {updated_time}
                 </code>
             </td>
         </tr>
@@ -235,7 +235,7 @@
             </td>
             <td>
                 <code>
-                    {site_url}, {student_name}, {course_name}, {course_url}, {assignment_name}, {review_link}
+                    {site_url}, {site_name}, {student_name}, {course_name}, {course_url}, {assignment_name}, {review_link}
                 </code>
             </td>
         </tr>
@@ -252,7 +252,7 @@
             </td>
             <td>
                 <code>
-                    {site_url}, {course_name}, {course_url}, {assignment_name}, {assignemnt_score}, {assignment_comment}
+                    {site_url}, {site_name}, {course_name}, {course_url}, {assignment_name}, {assignemnt_score}, {assignment_comment}
                 </code>
             </td>
         </tr>
@@ -269,7 +269,7 @@
             </td>
             <td>
                 <code>
-                    {site_name}, {course_name}, {course_url}
+                    {site_url}, {site_name}, {course_name}, {course_url}
                 </code>
             </td>
         </tr>
@@ -286,7 +286,7 @@
             </td>
             <td>
                 <code>
-                    {site_url}, {course_name}, {course_url}, {course_start_url}
+                    {site_url}, {site_name}, {course_name}, {course_url}, {course_start_url}
                 </code>
             </td>
         </tr>
@@ -303,7 +303,7 @@
             </td>
             <td>
                 <code>
-                    {site_url}, {course_name}, {course_url}, {announcement}
+                    {site_url}, {site_name}, {course_name}, {course_url}, {announcement}
                 </code>
             </td>
         </tr>
@@ -321,6 +321,23 @@
             <td>
                 <code>
                     {answer}, {answer_by}, {question}, {question_title}, {course_name}, {course_url}
+                </code>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Feedback submitted for quizname (to student)','tutor-pro'); ?></td>
+            <td>text/html</td>
+            <td>
+                <?php
+                $is_on = tutor_utils()->get_option('email_to_students.feedback_submitted_for_quiz');
+                if($is_on){
+                    echo '<span class="result-pass">On</span>';
+                }
+                ?>
+            </td>
+            <td>
+                <code>
+                    {quiz_name}, {total_marks}, {earned_marks}, {course_name}, {instructor_name}, {instructor_feedback}
                 </code>
             </td>
         </tr>
