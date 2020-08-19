@@ -256,8 +256,9 @@ New: Added helper method `tutils()->get_enrolment_by_enrol_id($enrol_id)` to get
 New: Added helper method `tutils()->get_student_emails_by_course_id($course_id)` to get array list of enrolled user emails
 Update: User can disable Tutor LMS native login system
 Update: ImageMagick dependency removed from certificate generator
-Fix: Certificate image generation issues
+Update: Option added to control course content access for instructors and administrators
 Fix: Certificate Unicode fonts issue
+Fix: Certificate image generation issues
 Fix: Issue with deleting reviews from Reports addon
 Fix: Lesson page access issue for administrator 
 Fix: SQL syntax error on course page
