@@ -27,7 +27,7 @@ class Certificate {
 	}
 
 	public function get_fonts() {
-		if(($_GET['tutor_action'] ?? '')!=='get_fonts'){return;}
+		if(($_GET['tutor_action'] ?? '') !== 'get_fonts') { return; }
 
 		$url_base = tutor_pro()->url .'addons/tutor-certificate/assets/fonts/';
 		$path_base = $this->cross_platform_path(dirname(__DIR__).'/assets/css/');

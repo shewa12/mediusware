@@ -158,8 +158,7 @@ jQuery(document).ready(function ($) {
                 var iframe_document = iframe.contentWindow || iframe.contentDocument.document || iframe.contentDocument;
                 iframe_document = iframe_document.document;
 
-                loadFont(()=>
-                {
+                loadFont(()=> {
                     // Render the html in iframe
                     iframe_document.open();
                     iframe_document.write(html);
