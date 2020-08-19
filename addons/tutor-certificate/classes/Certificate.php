@@ -26,8 +26,7 @@ class Certificate {
 		add_action('wp_loaded', array($this, 'store_certificate_image'));
 	}
 
-	public function get_fonts()
-	{
+	public function get_fonts() {
 		if(($_GET['tutor_action'] ?? '')!=='get_fonts'){return;}
 
 		$url_base = tutor_pro()->url .'addons/tutor-certificate/assets/fonts/';
@@ -41,8 +40,7 @@ class Certificate {
 		// Now load template fonts
 		$this->prepare_template_data();
 		$font_css = $this->template['path'].'font.css';
-		if(file_exists($font_css))
-		{
+		if (file_exists($font_css)) {
 			$faces = file_get_contents($font_css);
 			$faces = str_replace('./fonts/', $this->template['url'].'fonts/', $faces);
 			$font_faces .= $faces;
@@ -72,8 +70,8 @@ class Certificate {
 		return $path;
 	}
 
-	private function prepare_template_data(){	
-		if(!$this->template){
+	private function prepare_template_data() {	
+		if (!$this->template) {
 			//Get the selected template
 			$templates = $this->templates();
 
@@ -84,7 +82,7 @@ class Certificate {
 		}
 	}
 
-	private function get_template_check_sum(){
+	private function get_template_check_sum() {
 		$this->prepare_template_data();
 		
 		$path = $this->template['path'].'certificate.php';
