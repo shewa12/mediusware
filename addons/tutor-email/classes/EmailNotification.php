@@ -34,8 +34,11 @@ class EmailNotification {
 		 */
 		add_action('tutor_add_new_instructor_after', array($this, 'tutor_new_instructor_signup'), 10, 2);
 		add_action('tutor_after_student_signup', array($this, 'tutor_new_student_signup'), 10, 2);
-		add_action('pending_' . tutor()->course_post_type, array($this, 'tutor_course_pending'), 10, 3);
-		add_action('publish_' . tutor()->course_post_type, array($this, 'tutor_course_published'), 10, 3);
+		add_action('draft_to_pending', array($this, 'tutor_course_pending'), 10, 3);
+		add_action('auto-draft_to_pending', array($this, 'tutor_course_pending'), 10, 3);
+		add_action('draft_to_publish', array($this, 'tutor_course_published'), 10, 3);
+		add_action('auto-draft_to_publish', array($this, 'tutor_course_published'), 10, 3);
+		add_action('pending_to_publish', array($this, 'tutor_course_published'), 10, 3);
 		add_action('save_post_' . tutor()->course_post_type, array($this, 'tutor_course_updated'), 10, 3);
 		add_action('tutor_assignment/after/submitted', array($this, 'tutor_assignment_after_submitted'), 10, 3);
 		add_action('tutor_assignment/evaluate/after', array($this, 'tutor_after_assignment_evaluate'), 10, 3);
@@ -602,7 +605,12 @@ class EmailNotification {
 	 *
 	 * @since 1.6.9
 	 */
-	public function tutor_course_pending($course_id, $course) {
+	public function tutor_course_pending($post) {
+
+		if ($post->post_type !== tutor()->course_post_type) {
+            return true;
+		}
+		
 		$new_course_submitted = tutor_utils()->get_option('email_to_admin.new_course_submitted');
 
 		if (!$new_course_submitted) {
@@ -613,7 +621,7 @@ class EmailNotification {
 		$site_name = get_bloginfo( 'name' );
 		$submitted_time =  tutor_time();
 		$submitted_time_format = date_i18n(get_option('date_format'), $submitted_time) . ' ' . date_i18n(get_option('time_format'), $submitted_time);
-		$instructor_name = get_the_author_meta('display_name', $course->post_author);
+		$instructor_name = get_the_author_meta('display_name', $post->post_author);
 
 		$file_tpl_variable = array(
 			'{site_url}',
@@ -627,14 +635,14 @@ class EmailNotification {
 		$replace_data = array(
 			$site_url,
 			$site_name,
-			$course->post_title,
-			get_the_permalink($course_id),
+			$post->post_title,
+			get_the_permalink($post->ID),
 			$instructor_name,
 			$submitted_time_format,
 		);
 
 		$admin_email = get_option('admin_email');
-		$subject = __('New Course Submitted for Review - '.$course->post_title, 'tutor-pro');
+		$subject = __('New Course Submitted for Review - '.$post->post_title, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template('email.to_admin_new_course_submitted_for_review');
@@ -642,7 +650,7 @@ class EmailNotification {
 		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data);
 
 		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
-		$header = apply_filters('new_course_submitted_email_header', $header, $course_id);
+		$header = apply_filters('new_course_submitted_email_header', $header, $post->ID);
 
 		$this->send($admin_email, $subject, $message, $header);
 	}
@@ -652,7 +660,12 @@ class EmailNotification {
 	 *
 	 * @since 1.6.9
 	 */
-	public function tutor_course_published($course_id, $course) {
+	public function tutor_course_published($post) {
+
+		if ($post->post_type !== tutor()->course_post_type) {
+            return true;
+		}
+
 		$new_course_published = tutor_utils()->get_option('email_to_admin.new_course_published');
 
 		if (!$new_course_published) {
@@ -663,7 +676,7 @@ class EmailNotification {
 		$site_name = get_bloginfo( 'name' );
 		$published_time =  tutor_time();
 		$published_time_format = date_i18n(get_option('date_format'), $published_time) . ' ' . date_i18n(get_option('time_format'), $published_time);
-		$instructor_name = get_the_author_meta('display_name', $course->post_author);
+		$instructor_name = get_the_author_meta('display_name', $post->post_author);
 
 		$file_tpl_variable = array(
 			'{site_url}',
@@ -677,14 +690,17 @@ class EmailNotification {
 		$replace_data = array(
 			$site_url,
 			$site_name,
-			$course->post_title,
-			get_the_permalink($course_id),
+			$post->post_title,
+			get_the_permalink($post->ID),
 			$instructor_name,
 			$published_time_format,
 		);
 
 		$admin_email = get_option('admin_email');
-		$subject = __('New Course Published - '.$course->post_title, 'tutor-pro');
+		$author_email = get_the_author_meta('user_email', $post->post_author);
+		$to_emails = array($admin_email, $author_email);
+
+		$subject = __('New Course Published - '.$post->post_title, 'tutor-pro');
 
 		ob_start();
 		tutor_load_template('email.to_admin_new_course_published');
@@ -692,9 +708,9 @@ class EmailNotification {
 		$message = $this->get_message($email_tpl, $file_tpl_variable, $replace_data);
 
 		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
-		$header = apply_filters('new_course_published_email_header', $header, $course_id);
+		$header = apply_filters('new_course_published_email_header', $header, $post->ID);
 
-		$this->send($admin_email, $subject, $message, $header);
+		$this->send(array_unique($to_emails), $subject, $message, $header);
 	}
 
 	/**
@@ -705,7 +721,7 @@ class EmailNotification {
 	public function tutor_course_updated($course_id, $course, $update=false) {
 		$course_updated = tutor_utils()->get_option('email_to_admin.course_updated');
 
-		if (!$course_updated || !$update) {
+		if (!$course_updated || !$update || ($course->post_status != 'publish')) {
 			return;
 		}
 
@@ -734,6 +750,8 @@ class EmailNotification {
 		);
 
 		$admin_email = get_option('admin_email');
+		$author_email = get_the_author_meta('user_email', $course->post_author);
+		$to_emails = array($admin_email, $author_email);
 		$subject = __('A Course has been edited on '.$course->post_title, 'tutor-pro');
 
 		ob_start();
@@ -744,7 +762,7 @@ class EmailNotification {
 		$header = 'Content-Type: ' . $this->get_content_type() . "\r\n";
 		$header = apply_filters('course_updated_email_header', $header, $course_id);
 
-		$this->send($admin_email, $subject, $message, $header);
+		$this->send(array_unique($to_emails), $subject, $message, $header);
 	}
 
 	/**
