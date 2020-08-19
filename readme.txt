@@ -240,7 +240,7 @@ Tutor enables you to use any third party plugins without facing any compatibilit
 
 == Changelog ==
 
-= 1.6.9 - August 19, 2020 =
+= 1.6.9 - August 20, 2020 =
 
 New: 13 new email notification
 New: Added 6 new action hooks
