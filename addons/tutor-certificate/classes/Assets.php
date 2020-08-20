@@ -7,6 +7,12 @@ namespace TUTOR_CERT;
 
 class Assets {
     public function register_script() {
+
+        add_action('wp_head', function()
+        {
+            echo '<script>var tutor_loading_icon_url="'.get_admin_url().'images/loading.gif";</script>';
+        });
+
         add_action('wp_enqueue_scripts', array($this, 'load_script'));
     }
 

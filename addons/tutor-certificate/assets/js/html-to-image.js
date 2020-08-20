@@ -59,7 +59,7 @@ jQuery(document).ready(function ($) {
                 orientation: (width > height ? 'l' : 'p')
             });
             doc.addImage(url, 'jpeg', 0, 0);
-            doc.save('certificate.pdf');
+            doc.save('certificate-'+(new Date().getTime())+'.pdf');
         }
 
         this.reload=function(){
@@ -73,7 +73,7 @@ jQuery(document).ready(function ($) {
             new_canvas.height = height;
 
             var context = new_canvas.getContext('2d');
-            context.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, new_canvas.width, new_canvas.height);
+            context.drawImage(canvas, 0, 0, canvas.width-1, canvas.height-11, 0, 0, new_canvas.width, new_canvas.height);
 
             return new_canvas;
         }
@@ -178,8 +178,7 @@ jQuery(document).ready(function ($) {
     var downloader = downloader_btn.length > 0 ? downloader_btn : downloader_btn_from_preview;
 
     // Configure working state
-    var loading_ = $('<div style="text-align:center;margin:15px 0;">Processing . . .</div>').hide();
-    downloader.parent().append(loading_);
+    var loading_ = $('<img class="tutor_progress_spinner" style="display:inline;margin-left:5px" src="'+window.tutor_loading_icon_url+'"/>');
 
     var viewer_button = $('#tutor-view-certificate-image');
 
@@ -189,24 +188,19 @@ jQuery(document).ready(function ($) {
 
     var image_processor = new image(course_id, cert_hash, view_url);
 
-
     // register event listener for course page
     downloader_btn.add(viewer_button).add(downloader_btn_from_preview).click(function (event) {
         // Prevent default action
         event.preventDefault();
 
-        // Avoid repetitive click
-        if (!loading_.is('visible')) {
-            // Set state as work in progress
-            loading_.show();
+        $(this).find('.tutor_progress_spinner').length==0 ? $(this).append(loading_) : 0;
 
-            // Invoke the render method according to action type 
-            var action = $(this).attr('id') == 'tutor-view-certificate-image' ? 'view' : 'download';
+        // Invoke the render method according to action type 
+        var action = $(this).attr('id') == 'tutor-view-certificate-image' ? 'view' : 'download';
 
-            image_processor.init_render_certificate(action, function(){
-                loading_.hide();
-            });
-        }
+        image_processor.init_render_certificate(action, ()=>{
+            $(this).find('.tutor_progress_spinner').remove();
+        });
     });
 
     // Download image directly without further processing (in individual certificate page)
@@ -216,7 +210,7 @@ jQuery(document).ready(function ($) {
 
         var a = document.createElement('A');
         a.href = downloader.attr('src');
-        a.download = 'certificate.jpg';
+        a.download = 'certificate-'+(new Date().getTime())+'.jpg';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
