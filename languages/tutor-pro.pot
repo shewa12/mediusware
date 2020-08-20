@@ -641,11 +641,11 @@ msgstr ""
 msgid "Evaluate this submission"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:328
+#: addons/tutor-certificate/classes/Certificate.php:315
 msgid "Course Completion Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Certificate.php:329
+#: addons/tutor-certificate/classes/Certificate.php:316
 msgid "My course completion certificate for"
 msgstr ""
 
