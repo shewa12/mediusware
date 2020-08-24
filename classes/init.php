@@ -55,6 +55,9 @@ class init{
 		$this->general = new General();
 		$this->quiz = new Quiz();
 
+		$this->course_duplicator = new Course_Duplicator();
+		$this->instructor_percentage = new Instructor_Percentage();
+
 		$this->updater = new Updater();
 		$this->load_addons();
 
