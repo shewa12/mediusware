@@ -17,33 +17,39 @@ class Instructor_Percentage
 
     function __construct(){
         add_filter('tutor_pro_earning_calculator', [$this, 'payment_percent_modifier']);
+
         add_action('edit_user_profile', [$this, 'input_field_in_profile_setting']);
         add_action('edit_user_profile_update', [$this, 'save_input_data']);
+
+        add_filter('manage_users_columns', [$this, 'register_percentage_column']);
+        add_filter('manage_users_custom_column', [$this, 'percentage_column_content'], 10, 3);
+
+        add_action('admin_enqueue_scripts', [$this, 'register_script']);
+    }
+
+    public function register_script(){
+        if(strpos(($_SERVER['REQUEST_URI'] ?? ''), 'user-edit.php')){
+            // Load only if it user edit page
+            wp_enqueue_script('instructor-percentage-manager-js', tutor_pro()->url.'assets/js/instructor-rate.js');
+        }
     }
 
     public function input_field_in_profile_setting($user){
 
+        if(!current_user_can('manage_options')){
+            // Make sure only privileged user can cange payment percentage
+            return;
+        }
+
         ?>
-            <h3>Instructor Reveneu</h3>
+            <h2>Instructor Setting</h2>
             <table class="form-table">
                 <tr>
                     <th>
-                        <label>Amount</label>
+                        <label>Revenue Type</label>
                     </th>
                     <td>
-                        <input 
-                            name="<?php echo $this->amount; ?>" 
-                            type="number" 
-                            class="regular-text" 
-                            value="<?php echo esc_attr(get_the_author_meta($this->amount, $user->ID)); ?>"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <label>Amount Type</label>
-                    </th>
-                    <td>
-                        <select class="regular-text" name="<?php echo $this->amount_type; ?>">
+                        <select id="tutor_pro_instructor_amount_type_field" class="regular-text" name="<?php echo $this->amount_type; ?>">
                             <?php
                                 $amount_type = get_the_author_meta($this->amount_type, $user->ID);
                                 empty($amount_type) ? $amount_type='default' : 0;
@@ -60,11 +66,29 @@ class Instructor_Percentage
                         </select>
                     </td>
                 </tr>
+                <tr id="tutor_pro_instructor_amount_field">
+                    <th>
+                        <label>Revenue Amount</label>
+                    </th>
+                    <td>
+                        <input 
+                            name="<?php echo $this->amount; ?>" 
+                            type="number" 
+                            class="regular-text" 
+                            value="<?php echo esc_attr(get_the_author_meta($this->amount, $user->ID)); ?>"/>
+                    </td>
+                </tr>
             </table>
         <?php
     }
 
     public function save_input_data($user_id){
+        
+        if(!current_user_can('manage_options')){
+            // Make sure only privileged user can cange payment percentage
+            return;
+        }
+
         $amount = $_POST[$this->amount];
         $type = $_POST[$this->amount_type];
 
@@ -77,17 +101,38 @@ class Instructor_Percentage
         update_user_meta($user_id, $this->amount_type, $type);
     }
 
+    public function register_percentage_column($columns){
+        $columns[$this->amount]='Instructor Amount';
+        return $columns;
+    }
+
+    public function percentage_column_content($value, $column, $user_id){
+
+        if($column==$this->amount)
+        {
+            $type = get_the_author_meta($this->amount_type, $user_id);
+            $amount = get_the_author_meta($this->amount, $user_id);
+
+            if(is_numeric($amount))
+            {
+                $value = (($type=='percent' || $type=='fixed') ? $amount.' ' : '').ucfirst($type);
+            }
+        }
+
+        return $value;
+    }
+
     public function payment_percent_modifier(array $data){
 
         /* 
             '$data' must provide following array keys
-            $user_id
-            $instructor_rate,
-            $admin_rate,
-            $instructor_amount
-            $admin_amount
-            $course_price_grand_total
-            $commission_type 
+            user_id
+            instructor_rate
+            admin_rate
+            instructor_amount
+            admin_amount
+            course_price_grand_total
+            commission_type 
         */
 
         extract($data);
@@ -110,7 +155,7 @@ class Instructor_Percentage
                 $admin_amount<0 ? $admin_amount=0 : 0;
 
                 // Set calculated rate
-                $admin_rate = ($admin_amount/$instructor_amount)*100;
+                $admin_rate = ($admin_amount/$course_price_grand_total)*100;
                 $instructor_rate = 100-$admin_rate;
             }
             else if($custom_type=='percent'){

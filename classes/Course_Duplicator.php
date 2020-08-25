@@ -41,13 +41,27 @@ class Course_Duplicator{
     function __construct(){
         add_action('wp_loaded', [$this, 'init_duplicator']);
         add_filter('post_row_actions', [$this, 'register_duplicate_button'], 10, 2);
+        add_action('tutor_course_dashboard_actions_after', [$this, 'duplicate_button_in_dashboard']);
+    }
+
+    private function get_duplicator_html($course_id, bool $is_wp_admin, $class=''){
+        return '<a class="'.$class.'" href="?tutor_action=duplicate_course&is_wp_admin='.($is_wp_admin ? 'yes' : 'no').'&course_id='.$course_id.'" aria-label="Duplicate">
+                Duplicate
+            </a>';
+    }
+
+    private function get_course_edit_link($course_id, bool $is_admin){
+        return $is_admin ? get_edit_post_link($course_id, null) : tutor_utils()->get_tutor_dashboard_page_permalink('create-course/?course_ID='.$course_id);
+    }
+
+    public function duplicate_button_in_dashboard($course_id){
+
+        echo $this->get_duplicator_html($course_id, false, 'tutor-mycourse-edit');
     }
 
     public function register_duplicate_button($actions, $post){
         if($post->post_type==tutor()->course_post_type){
-            $actions[]='<a href="?tutor_action=duplicate_course&course_id='.$post->ID.'" aria-label="Duplicate">
-                Duplicate
-            </a>';
+            $actions[] = $this->get_duplicator_html($post->ID, true);
         }
         
         return $actions;
@@ -68,7 +82,8 @@ class Course_Duplicator{
             $new_post_id = $this->duplicate_post($id);
             
             if($new_post_id){
-                $edit_link = get_edit_post_link($new_post_id, null);
+                $is_admin = ($_GET['is_wp_admin'] ?? 'yes')=='yes';
+                $edit_link = $this->get_course_edit_link($new_post_id, $is_admin);
                 header('Location: '.$edit_link);
                 exit;
             }

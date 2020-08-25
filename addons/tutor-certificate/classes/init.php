@@ -29,8 +29,7 @@ class init{
 
 		$this->load_TUTOR_CERT();
 
-		/* Register assets files for html to image conversion */
-		(new Assets())->register_script();
+		new Instructor_Signature;
 	}
 
 	public function load_TUTOR_CERT(){
