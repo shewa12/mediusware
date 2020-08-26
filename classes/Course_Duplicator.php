@@ -117,6 +117,7 @@ class Course_Duplicator{
         // Create new post using the old values
         $post = $this->strip_unnecessary_columns($post);
         $post['post_parent']=$new_parent_id;
+        $post['post_status']='draft';
         $new_id = wp_insert_post($post);
 
         // Duplicate post meta
