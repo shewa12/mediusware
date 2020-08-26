@@ -126,6 +126,9 @@ class Course_Duplicator{
         $this->assign_post_taxonomy($post_id, $new_id, 'course-category');
         $this->assign_post_taxonomy($post_id, $new_id, 'course-tag');
 
+        // Duplicate quiz question if it is quiz post type
+        $post['post_type']=='tutor_quiz' ? $this->duplicate_quiz_dependency($post_id, $new_id, false) : 0;
+
         // Set it as done
         $this->duplicated_post_ids[]=(int)$post_id;
         
@@ -179,6 +182,40 @@ class Course_Duplicator{
         // Assign the terms
         count($term_ids)>0 ? wp_set_post_terms($new_id, $term_ids, $taxonomy) : 0;
     }
+
+    private function duplicate_quiz_dependency($old_context_id, $new_context_id, bool $is_answer){
+
+        $table_name = $is_answer ? 'tutor_quiz_question_answers' : 'tutor_quiz_questions';
+        $rel_id_column = $is_answer ? 'belongs_question_id' : 'quiz_id';
+        $base_id_column = $is_answer ? 'answer_id' : 'question_id';
+
+        global $wpdb, $table_prefix;
+        $context_table = $table_prefix.$table_name;
+        
+        // Get quiz quesions by quiz post ID
+        $query = 'SELECT * FROM '.$context_table.' WHERE '.$rel_id_column.'='.$old_context_id;
+        $result = $wpdb->get_results($query);
+
+        if(is_array($result) && !empty($result)){
+
+            // Loop through every question and duplicate
+            foreach($result as $context){
+                $context=(array)$context;
+
+                $old_stuff_id = $context[$base_id_column];
+
+                unset($context[$base_id_column]);
+                $context[$rel_id_column]=$new_context_id;
+
+                // Insert new row
+                $wpdb->insert($context_table, $context);
+
+                // Now copy quiz question answers
+                !$is_answer ? $this->duplicate_quiz_dependency($old_stuff_id, $wpdb->insert_id, true) : 0;
+            }
+        }
+    }
+
 
     private function get_child_post_ids($parent_id){
         $children = get_children(['post_parent'=>$parent_id, 'post_type'=>$this->necessary_child_types]);
