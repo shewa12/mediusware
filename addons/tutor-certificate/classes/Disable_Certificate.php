@@ -16,27 +16,38 @@ class Disable_Certificate{
 
     public function register_meta_box(){
         
-        add_meta_box($this->meta_box_id, __('Enable/Disable Certificate', 'tutor-pro'), [$this, 'meta_box_content'], 'courses');
+        add_meta_box($this->meta_box_id, __('Certificate for this Course', 'tutor-pro'), [$this, 'meta_box_content'], 'courses');
     }
 
     public function meta_box_content($post){
         
+        $is_enabled = $this->is_enabled($post->ID);
+
         ?>
             <label>
                 <input 
-                    type="checkbox" 
+                    type="radio" 
                     name="<?php echo $this->meta_box_id; ?>" 
-                    <?php echo $this->is_enabled($post->ID)==1 ? ' checked="checked" ' : '';?>
-                    value="1"/> <?php _e('Enable Certificate', 'tutor-pro'); ?>
+                    <?php echo $is_enabled ? ' checked="checked" ' : '';?>
+                    value="1"/> <?php _e('Enable', 'tutor-pro'); ?>
+            </label>
+            &nbsp;
+            &nbsp;
+            <label>
+                <input 
+                    type="radio" 
+                    name="<?php echo $this->meta_box_id; ?>" 
+                    <?php echo !$is_enabled ? ' checked="checked" ' : '';?>
+                    value="0"/> <?php _e('Disable', 'tutor-pro'); ?>
             </label>
         <?php
     }
 
     public function save_meta($post_id){
 
-        $is_on = ($_POST[$this->meta_box_id] ?? '')==1;
-        
-        update_post_meta($post_id, $this->meta_box_id, ($is_on ? 1 : 0));
+        if(isset($_POST[$this->meta_box_id])){
+            update_post_meta($post_id, $this->meta_box_id, $_POST[$this->meta_box_id]);
+        }
     }
 
     public function is_enabled($post_id){
