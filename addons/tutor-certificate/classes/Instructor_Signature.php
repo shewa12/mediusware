@@ -11,9 +11,9 @@ class Instructor_Signature
     private $image_meta = 'tutor_pro_custom_signature_image_id';
     private $image_post_identifier = 'tutor_pro_custom_signature_image';
 
-    function __construct($register_handers=true)
+    function __construct($register_handlers=true)
     {
-        if($register_handers){
+        if($register_handlers){
             
             add_action('wp_enqueue_scripts', [$this, 'register_script']);
 
@@ -42,7 +42,7 @@ class Instructor_Signature
             <div class="tutor-form-row">
                 <div class="tutor-form-col-12">
                     <div class="tutor-form-group">
-                        <label>Certificate Signature</label>
+                        <label><?php _e('Certificate Signature', 'tutor-pro'); ?></label>
                         <img style="width:auto;height:auto;max-width:100px" src="<?php echo $signature['url'] ?? ''; ?>"/>
                         <input 
                             type="hidden"
@@ -56,10 +56,10 @@ class Instructor_Signature
                             accept="image/*"
                             style="display:none">
                         <button id="tutor_pro_custom_signature_file_uploader" class="tutor-button tutor-button-primary tutor-option-media-upload-btn">
-                            <i class="dashicons dashicons-upload"></i> Upload Signature
+                            <i class="dashicons dashicons-upload"></i> <?php _e('Upload Signature', 'tutor-pro'); ?>
                         </button>
                         <button id="tutor_pro_custom_signature_file_deleter" class="tutor-button button-danger tutor-media-option-trash-btn">
-                            <i class="tutor-icon-garbage"></i> Delete
+                            <i class="tutor-icon-garbage"></i> <?php _e('Delete', 'tutor-pro'); ?>
                         </button>
                     </div>
                 </div>
