@@ -10,6 +10,7 @@ class Disable_Certificate{
     function __construct($register=true){
         if($register){
             add_action('add_meta_boxes', [$this, 'register_meta_box']);
+            add_action('tutor/dashboard_course_builder_form_field_after', [$this, 'register_meta_box_frontend']);
             add_action('save_post', [$this, 'save_meta']);
         }
     }
@@ -19,12 +20,32 @@ class Disable_Certificate{
         add_meta_box($this->meta_box_id, __('Certificate for this Course', 'tutor-pro'), [$this, 'meta_box_content'], 'courses');
     }
 
+    public function register_meta_box_frontend($post){
+        ?>
+            <div class="tutor-course-builder-section">
+                <div class="tutor-course-builder-section-title">
+                    <h3><i class="tutor-icon-down"></i> <span><?php _e('Course Certificate', 'tutor-prop'); ?></span></h3>
+                </div>
+                <div class="tutor-course-builder-section-content">
+                    <div class="tutor-option-field-row">
+                        <div class="tutor-option-field-label">
+                            <label for=""><?php _e('Certificate status for this course', 'tutor-prop'); ?></label>
+                        </div>
+                        <div class="tutor-option-field">
+                            <?php $this->meta_box_content($post); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php
+    }
+
     public function meta_box_content($post){
         
         $is_enabled = $this->is_enabled($post->ID);
 
         ?>
-            <label>
+            <label style="display:inline-block">
                 <input 
                     type="radio" 
                     name="<?php echo $this->meta_box_id; ?>" 
@@ -33,7 +54,7 @@ class Disable_Certificate{
             </label>
             &nbsp;
             &nbsp;
-            <label>
+            <label style="display:inline-block">
                 <input 
                     type="radio" 
                     name="<?php echo $this->meta_box_id; ?>" 

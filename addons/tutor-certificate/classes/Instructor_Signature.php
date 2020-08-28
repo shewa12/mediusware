@@ -10,6 +10,7 @@ class Instructor_Signature
     private $file_id_string = 'tutor_pro_custom_signature_id';
     private $image_meta = 'tutor_pro_custom_signature_image_id';
     private $image_post_identifier = 'tutor_pro_custom_signature_image';
+    private $signature_state = 'tutor_cert_instructure_signature_enabled';
 
     function __construct($register_handlers=true)
     {
@@ -31,8 +32,8 @@ class Instructor_Signature
 
         $is_instructor = is_object($user) && in_array('tutor_instructor', ($user->roles ?? []));
         
-        if(!$is_instructor){
-            // It is non instructor user
+        if(!$is_instructor || !$this->is_signature_enable()){
+            // It is non instructor user or signature is disabled
             return;
         }
 
@@ -129,8 +130,12 @@ class Instructor_Signature
         delete_user_meta($user_id, $this->image_meta);
     }
 
+    public function is_signature_enable(){
+        return (bool) tutils()->get_option($this->signature_state);
+    }
+
     public function get_instructor_signature($user_id){
-        $id = get_user_meta($user_id, $this->image_meta, true);
+        $id = $this->is_signature_enable() ? get_user_meta($user_id, $this->image_meta, true) : false;
         $valid = is_numeric($id);
 
         return [
