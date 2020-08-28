@@ -20,7 +20,11 @@ class Disable_Certificate{
         add_meta_box($this->meta_box_id, __('Certificate for this Course', 'tutor-pro'), [$this, 'meta_box_content'], 'courses');
     }
 
-    public function register_meta_box_frontend($post){
+    public function register_meta_box_frontend($post=null){
+        if(!$post){
+            // Backward compatibillity of free tutor plugin version
+            return;
+        }
         ?>
             <div class="tutor-course-builder-section">
                 <div class="tutor-course-builder-section-title">
