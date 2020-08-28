@@ -39,9 +39,9 @@ class Course_Duplicator{
     private $duplicated_post_ids=[];
 
     function __construct(){
-        add_action('wp_loaded', [$this, 'init_duplicator']);
-        add_filter('post_row_actions', [$this, 'register_duplicate_button'], 10, 2);
-        add_action('tutor_course_dashboard_actions_after', [$this, 'duplicate_button_in_dashboard']);
+        add_action('wp_loaded', array($this, 'init_duplicator'));
+        add_filter('post_row_actions', array($this, 'register_duplicate_button'), 10, 2);
+        add_action('tutor_course_dashboard_actions_after', array($this, 'duplicate_button_in_dashboard'));
     }
 
     private function get_duplicator_html($course_id, bool $is_wp_admin, $class=''){

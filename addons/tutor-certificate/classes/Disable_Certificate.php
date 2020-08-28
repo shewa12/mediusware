@@ -9,15 +9,15 @@ class Disable_Certificate{
 
     function __construct($register=true){
         if($register){
-            add_action('add_meta_boxes', [$this, 'register_meta_box']);
-            add_action('tutor/dashboard_course_builder_form_field_after', [$this, 'register_meta_box_frontend']);
-            add_action('save_post', [$this, 'save_meta']);
+            add_action('add_meta_boxes', array($this, 'register_meta_box'));
+            add_action('tutor/dashboard_course_builder_form_field_after', array($this, 'register_meta_box_frontend'));
+            add_action('save_post', array($this, 'save_meta'));
         }
     }
 
     public function register_meta_box(){
         
-        add_meta_box($this->meta_box_id, __('Certificate for this Course', 'tutor-pro'), [$this, 'meta_box_content'], 'courses');
+        add_meta_box($this->meta_box_id, __('Certificate for this Course', 'tutor-pro'), array($this, 'meta_box_content'), 'courses');
     }
 
     public function register_meta_box_frontend($post=null){

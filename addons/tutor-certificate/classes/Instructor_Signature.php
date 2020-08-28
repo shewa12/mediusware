@@ -16,11 +16,11 @@ class Instructor_Signature
     {
         if($register_handlers){
             
-            add_action('wp_enqueue_scripts', [$this, 'register_script']);
+            add_action('wp_enqueue_scripts', array($this, 'register_script'));
 
-            add_action('tutor_profile_edit_before_social_media', [$this, 'custom_signature_field']);
+            add_action('tutor_profile_edit_before_social_media', array($this, 'custom_signature_field'));
             
-            add_action('tutor_profile_update_before', [$this, 'save_custom_signature']);
+            add_action('tutor_profile_update_before', array($this, 'save_custom_signature'));
         }
     }
 

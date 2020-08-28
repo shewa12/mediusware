@@ -9,6 +9,8 @@ use TUTOR\Tutor_Base;
 
 class CourseAttachments extends Tutor_Base {
 
+	private $open_mode = 'tutor_pro_attachment_open_type';
+
 	public function __construct() {
 		parent::__construct();
 		add_action( 'add_meta_boxes', array($this, 'register_meta_box') );
@@ -20,6 +22,29 @@ class CourseAttachments extends Tutor_Base {
 		add_action('save_post_'.$this->course_post_type, array($this, 'save_course_meta'));
 		add_action('save_post', array($this, 'save_course_meta'));
 		add_action('save_tutor_course', array($this, 'save_course_meta'));
+
+		add_filter('tutor/options/attr', array($this, 'add_download_options_field'));
+		add_filter('tutor_pro_attachment_open_mode', array($this, 'set_open_open_mode'));
+	}
+
+	public function set_open_open_mode(){
+		return tutor_utils()->get_option($this->open_mode);
+	}
+
+	public function add_download_options_field($attr){
+		$attr['course']['sections']['general']['fields'][$this->open_mode] = array(
+			'type'          => 'radio',
+			'label'         => __('Attachment Open Mode', 'tutor'),
+			'default'       => 'downlaod',
+			'select_options'   => false,
+			'options'   => array(
+				'downlaod'  =>  __('Download', 'tutor-pro'),
+				'view'    =>  __('View in new tab', 'tutor-pro'),
+			),
+			'desc'          => __('How you want users to view attached files.', 'tutor'),
+		);
+
+		return $attr;
 	}
 
 	public function add_course_nav_item($items){

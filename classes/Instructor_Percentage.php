@@ -16,15 +16,15 @@ class Instructor_Percentage
     ];
 
     function __construct(){
-        add_filter('tutor_pro_earning_calculator', [$this, 'payment_percent_modifier']);
+        add_filter('tutor_pro_earning_calculator', array($this, 'payment_percent_modifier'));
 
-        add_action('edit_user_profile', [$this, 'input_field_in_profile_setting']);
-        add_action('edit_user_profile_update', [$this, 'save_input_data']);
+        add_action('edit_user_profile', array($this, 'input_field_in_profile_setting'));
+        add_action('edit_user_profile_update', array($this, 'save_input_data'));
 
-        add_filter('manage_users_columns', [$this, 'register_percentage_column']);
-        add_filter('manage_users_custom_column', [$this, 'percentage_column_content'], 10, 3);
+        add_filter('manage_users_columns', array($this, 'register_percentage_column'));
+        add_filter('manage_users_custom_column', array($this, 'percentage_column_content'), 10, 3);
 
-        add_action('admin_enqueue_scripts', [$this, 'register_script']);
+        add_action('admin_enqueue_scripts', array($this, 'register_script'));
     }
 
     public function register_script(){
