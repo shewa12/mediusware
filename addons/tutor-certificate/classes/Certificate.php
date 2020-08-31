@@ -24,8 +24,26 @@ class Certificate {
 		add_action('wp_loaded', array($this, 'send_certificate_html'));
 		add_action('wp_loaded', array($this, 'check_if_certificate_generated'));
 		add_action('wp_loaded', array($this, 'store_certificate_image'));
+
+		
+		// Register necessary scripts for certificate rendering
+        add_action('wp_head', function() {
+            echo '<script>var tutor_loading_icon_url="'.get_admin_url().'images/loading.gif";</script>';
+        });
+
+        add_action('wp_enqueue_scripts', array($this, 'load_script'));
 	}
 
+    public function load_script() {
+        if (is_single_course() || !empty($_GET['cert_hash'])) {
+            $base = tutor_pro()->url . 'addons/tutor-certificate/assets/js/';
+
+            wp_enqueue_script('html-to-image-converter', $base . 'html2canvas.min.js');
+            wp_enqueue_script('html-to-image-js-pdf', $base . 'js-pdf.js');
+            wp_enqueue_script('html-to-image', $base . 'html-to-image.js');
+        }
+	}
+	
 	public function get_fonts() {
 		if(($_GET['tutor_action'] ?? '') !== 'get_fonts') { return; }
 
@@ -182,6 +200,22 @@ class Certificate {
 		die();
 	}
 
+	private function get_signature_url($instructor_id){
+
+		$custom_signature = (new Instructor_Signature(false))->get_instructor_signature($instructor_id);
+		$signature_image_url = $custom_signature['url'];
+
+		if(!$signature_image_url){
+			// Get default ID
+			$default_sinature_id = tutor_utils()->get_option('tutor_cert_signature_image_id');
+
+			// Assign default 
+			$signature_image_url = $default_sinature_id ? wp_get_attachment_url($default_sinature_id) : TUTOR_CERT()->url.'/assets/images/signature.png';
+		}
+
+		return $signature_image_url;
+	}
+
 	public function generate_certificate($course_id, $completed = false) {
 		$duration           = get_post_meta($course_id, '_course_duration', true);
 		$durationHours      = (int) tutor_utils()->avalue_dot('hours', $duration);
@@ -210,6 +244,9 @@ class Certificate {
 				return __($m[0]);
 			}, $completed_date);
 		}
+
+		// Prepare signature image
+		$signature_image_url = $this->get_signature_url($course->post_author);
 
 		ob_start();
 		include $this->template['path'] . 'certificate.php';

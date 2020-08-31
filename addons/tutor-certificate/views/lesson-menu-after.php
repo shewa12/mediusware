@@ -3,9 +3,14 @@ if ( ! defined( 'ABSPATH' ) )
 	exit;
 
 $course_id_num = get_the_ID();
-// $cert_download_url = add_query_arg(array('tutor_action' => 'download_course_certificate', 'course_id' => get_the_ID()));
 $show_certificate = (bool) tutils()->get_option('tutor_course_certificate_view');
 $cert_show_url = add_query_arg(array('cert_hash' => $is_completed->completed_hash));
+
+if(!(new \TUTOR_CERT\Disable_Certificate(false))->is_enabled($course_id_num)){
+	// No need to load html if certificate disabled for this course
+	return;
+}
+
 ?>
 
 <a 

@@ -45,14 +45,7 @@
                     <p><?php echo $completed->completed_hash; ?></p>
                 </div>
                 <div class="signature-wrap">
-		            <?php
-		            $signature_id = tutor_utils()->get_option('tutor_cert_signature_image_id');
-		            $certURL = TUTOR_CERT()->path.'/assets/images/signature.png';
-		            if ($signature_id){
-						$certURL = wp_get_attachment_url($signature_id);
-		            }
-		            ?>
-                    <img src="<?php echo $certURL; ?>" />
+                    <img src="<?php echo $signature_image_url; ?>" />
                     <p class="certificate-author-name"> <strong><?php echo tutor_utils()->get_option('tutor_cert_authorised_name'); ?></strong> </p>
 	                <?php echo tutor_utils()->get_option('tutor_cert_authorised_company_name'); ?>
                 </div>
