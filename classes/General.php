@@ -48,11 +48,14 @@ class General{
 		);
 
 		//Publish or Pending...
-		if (tutor_utils()->array_get('course_submit_btn', $_POST) === 'save_course_as_draft'){
+		$submit_action = tutils()->array_get('course_submit_btn', $_POST);
+		if ($submit_action === 'save_course_as_draft') {
 			$postData['post_status'] = 'draft';
-		}else{
+		} elseif($submit_action === 'submit_for_review') {
+			$postData['post_status'] = 'pending';
+		} elseif ($submit_action === 'publish_course') {
 			$can_publish_course = (bool) tutor_utils()->get_option('instructor_can_publish_course');
-			if ($can_publish_course){
+			if ($can_publish_course) {
 				$postData['post_status'] = 'publish';
 			}else{
 				$postData['post_status'] = 'pending';

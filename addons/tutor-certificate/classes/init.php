@@ -30,7 +30,6 @@ class init{
 		$this->load_TUTOR_CERT();
 
 		new Instructor_Signature;
-		new Disable_Certificate;
 	}
 
 	public function load_TUTOR_CERT(){
