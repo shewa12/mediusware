@@ -10,6 +10,7 @@ class Certificate {
 	private $template;
 	private $certificates_dir_name = 'tutor-certificates';
 	private $certificate_stored_key = 'tutor_certificate_has_image';
+	private $disable_certificate_key = '_tutor_disable_certificate';
 
 	public function __construct() {
 		if (!function_exists('tutor_utils')) {
@@ -31,7 +32,15 @@ class Certificate {
             echo '<script>var tutor_loading_icon_url="'.get_admin_url().'images/loading.gif";</script>';
         });
 
-        add_action('wp_enqueue_scripts', array($this, 'load_script'));
+		add_action('wp_enqueue_scripts', array($this, 'load_script'));
+		
+		/**
+		 * Disable certificate feature
+		 * @since v.1.7.0
+		 */
+		add_action('tutor_after_course_sidebar_settings_metabox', array($this, 'disable_certificate_metabox'));
+		add_action('save_post_'. tutor()->course_post_type, array($this, 'save_course_meta'));
+		add_action('save_tutor_course', array($this, 'save_course_meta'));
 	}
 
     public function load_script() {
@@ -360,5 +369,36 @@ class Certificate {
 				<meta name="twitter:image" content="' . $cert_img . '"/>
 			';
 		});
+	}
+
+	/**
+	 * Disable Certificate Metabox
+	 * @since v.1.7.0
+	 */
+	public function disable_certificate_metabox($post) {
+		$disable_certificate = $this->disable_certificate_key;
+		$disable_certificate_value = get_post_meta($post->ID, $disable_certificate, true);
+		$disable_certificate_checked = ($disable_certificate_value == "yes") ? 'checked="checked"' : '';
+		?>
+		<div class="tutor-course-sidebar-settings-item">
+			<label for="<?php echo $disable_certificate; ?>">
+				<input id="<?php echo $disable_certificate; ?>" type="checkbox" name="<?php echo $disable_certificate; ?>" value="yes" <?php echo $disable_certificate_checked; ?> />
+				<?php _e('Disable Certificate', 'tutor-pro'); ?>
+			</label>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Save course meta for certificate
+	 * @since v.1.7.0
+	 */
+	public function save_course_meta($post_ID) {
+		$additional_data_edit = tutils()->avalue_dot('_tutor_course_additional_data_edit', $_POST);
+		$disable_certificate = $this->disable_certificate_key;
+		if ($additional_data_edit) {
+			$disable_certificate_value = ( isset($_POST[$disable_certificate]) ) ? 'yes' : 'no';
+			update_post_meta($post_ID, $disable_certificate, $disable_certificate_value);
+		}
 	}
 }
