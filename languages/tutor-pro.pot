@@ -25,7 +25,7 @@ msgstr ""
 msgid "Assign this course to a BuddyPress Group"
 msgstr ""
 
-#: addons/buddypress/classes/BuddyPressGroups.php:55, addons/content-drip/classes/ContentDrip.php:50, addons/gradebook/classes/init.php:98, addons/tutor-certificate/classes/init.php:120, addons/tutor-certificate/classes/init.php:126, classes/Quiz.php:73
+#: addons/buddypress/classes/BuddyPressGroups.php:55, addons/content-drip/classes/ContentDrip.php:50, addons/gradebook/classes/init.php:98, addons/tutor-certificate/classes/init.php:120, classes/Quiz.php:73
 msgid "Enable"
 msgstr ""
 
@@ -677,7 +677,7 @@ msgstr ""
 msgid "Authorised company name will be printed under authorised name."
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:113, addons/tutor-certificate/classes/Instructor_Signature.php:50
+#: addons/tutor-certificate/classes/init.php:113, addons/tutor-certificate/classes/Instructor_Signature.php:55
 msgid "Upload Signature"
 msgstr ""
 
@@ -685,19 +685,11 @@ msgstr ""
 msgid "Upload a signature that will be printed at certificate."
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:119
-msgid "Instructor Signature"
-msgstr ""
-
-#: addons/tutor-certificate/classes/init.php:121
-msgid "Enabling will allow instructors to set custom signature for their own courses."
-msgstr ""
-
-#: addons/tutor-certificate/classes/init.php:125, addons/tutor-certificate/views/lesson-menu-after.php:32
+#: addons/tutor-certificate/classes/init.php:119, addons/tutor-certificate/views/lesson-menu-after.php:32
 msgid "View Certificate"
 msgstr ""
 
-#: addons/tutor-certificate/classes/init.php:127
+#: addons/tutor-certificate/classes/init.php:121
 msgid "By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible"
 msgstr ""
 
@@ -705,8 +697,12 @@ msgstr ""
 msgid "Certificate Signature"
 msgstr ""
 
-#: addons/tutor-certificate/classes/Instructor_Signature.php:53, addons/tutor-report/views/pages/reviews/reviews.php:95
-msgid "Delete"
+#: addons/tutor-certificate/classes/Instructor_Signature.php:60
+msgid "Guidelines"
+msgstr ""
+
+#: addons/tutor-certificate/classes/Instructor_Signature.php:61
+msgid "File Support"
 msgstr ""
 
 #: addons/tutor-certificate/templates/default/certificate.php:14
@@ -1341,6 +1337,10 @@ msgstr ""
 msgid "Total reviews %d"
 msgstr ""
 
+#: addons/tutor-report/views/pages/reviews/reviews.php:95
+msgid "Delete"
+msgstr ""
+
 #: addons/tutor-report/views/pages/sales/sales.php:35
 msgid "Total Order  %d"
 msgstr ""
@@ -1475,6 +1475,14 @@ msgstr ""
 
 #: classes/General.php:179
 msgid "Upload a logo to show in frontend course builder page."
+msgstr ""
+
+#: classes/Instructor_Percentage.php:43
+msgid "Instructor Settings"
+msgstr ""
+
+#: classes/Instructor_Percentage.php:47
+msgid "Commission"
 msgstr ""
 
 #: classes/Quiz.php:28
