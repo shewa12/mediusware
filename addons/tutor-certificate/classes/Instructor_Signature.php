@@ -10,7 +10,6 @@ class Instructor_Signature {
     private $file_id_string = 'tutor_pro_custom_signature_id';
     private $image_meta = 'tutor_pro_custom_signature_image_id';
     private $image_post_identifier = 'tutor_pro_custom_signature_image';
-    private $signature_state = 'tutor_cert_instructure_signature_enabled';
 
     function __construct($register_handlers = true) {
         if ($register_handlers) {
@@ -25,14 +24,15 @@ class Instructor_Signature {
 
     public function register_script() {
         wp_enqueue_script('tutor-instructor-signature-js', tutor_pro()->url . 'addons/tutor-certificate/assets/js/instructor-signature.js');
+        wp_enqueue_style('tutor-instructor-signature-css', tutor_pro()->url . 'addons/tutor-certificate/assets/css/instructor-signature.css');
     }
 
     public function custom_signature_field($user) {
 
         $is_instructor = is_object($user) && in_array('tutor_instructor', ($user->roles ?? []));
 
-        if (!$is_instructor || !$this->is_signature_enable()) {
-            // It is non instructor user or signature is disabled
+        if (!$is_instructor) {
+            // It is non instructor user
             return;
         }
 
@@ -43,15 +43,25 @@ class Instructor_Signature {
             <div class="tutor-form-col-12">
                 <div class="tutor-form-group">
                     <label><?php _e('Certificate Signature', 'tutor-pro'); ?></label>
-                    <img style="width:auto;height:auto;max-width:100px" src="<?php echo $signature['url'] ?? ''; ?>" />
-                    <input type="hidden" id="<?php echo $this->file_id_string; ?>" name="<?php echo $this->file_id_string; ?>" value="<?php echo $signature['id'] ?? ''; ?>" />
-                    <input type="file" id="<?php echo $this->file_name_string; ?>" name="<?php echo $this->file_name_string; ?>" accept="image/*" style="display:none">
-                    <button id="tutor_pro_custom_signature_file_uploader" class="tutor-button tutor-button-primary tutor-option-media-upload-btn">
-                        <i class="dashicons dashicons-upload"></i> <?php _e('Upload Signature', 'tutor-pro'); ?>
-                    </button>
-                    <button id="tutor_pro_custom_signature_file_deleter" class="tutor-button button-danger tutor-media-option-trash-btn">
-                        <i class="tutor-icon-garbage"></i> <?php _e('Delete', 'tutor-pro'); ?>
-                    </button>
+                    <div id="tutor-instructor-signature-upload">
+                        <div>
+                            <img src="<?php echo $signature['url'] ?? ''; ?>" />
+                            <input type="hidden" id="<?php echo $this->file_id_string; ?>" name="<?php echo $this->file_id_string; ?>" value="<?php echo $signature['id'] ?? ''; ?>" />
+                            <input type="file" id="<?php echo $this->file_name_string; ?>" name="<?php echo $this->file_name_string; ?>" accept="image/*" style="display:none"/>
+                            <span class="tutor-icon-garbage" id="tutor_pro_custom_signature_file_deleter"></span>
+                        </div>
+                        <div>
+                            <button id="tutor_pro_custom_signature_file_uploader" class="tutor-button tutor-button-primary tutor-option-media-upload-btn">
+                                <?php _e('Upload Signature', 'tutor-pro'); ?>
+                            </button>
+                            <br/>
+                            <br/>
+                            <p>
+                                <?php _e('Guidelines', 'tutor-pro'); ?>: <b>700x430 pixels;</b><br/>
+                                <?php _e('File Support', 'tutor-pro'); ?>: <b>jpg, jpeg, gif, or png.</b> no text on the image.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -120,12 +130,8 @@ class Instructor_Signature {
         delete_user_meta($user_id, $this->image_meta);
     }
 
-    public function is_signature_enable() {
-        return (bool) tutils()->get_option($this->signature_state);
-    }
-
     public function get_instructor_signature($user_id) {
-        $id = $this->is_signature_enable() ? get_user_meta($user_id, $this->image_meta, true) : false;
+        $id = get_user_meta($user_id, $this->image_meta, true);
         $valid = is_numeric($id);
 
         return [

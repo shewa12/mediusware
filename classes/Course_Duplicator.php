@@ -27,7 +27,9 @@ class Course_Duplicator {
     private $necessary_child_types = [
         'topics',
         'lesson',
-        'tutor_quiz'
+        'tutor_quiz',
+        'tutor_announcements',
+        'tutor_assignments'
     ];
 
     private $allowed_user_role = [

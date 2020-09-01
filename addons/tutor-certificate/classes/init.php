@@ -114,12 +114,6 @@ class init{
 							'attr'          => array('media_type' => 'image'), //image,file
 							'desc'          => __('Upload a signature that will be printed at certificate.',	'tutor-pro'),
 						),
-						'tutor_cert_instructure_signature_enabled' => array(
-							'type'          => 'checkbox',
-							'label'         => __('Instructor Signature', 'tutor-pro'),
-							'label_title' 	=> __('Enable', 'tutor-pro'),
-							'desc'          => __('Enabling will allow instructors to set custom signature for their own courses.',	'tutor-pro'),
-						),
 						'tutor_course_certificate_view' => array(
 							'type'      	=> 'checkbox',
 							'label'     	=> __('View Certificate', 'tutor-pro'),
