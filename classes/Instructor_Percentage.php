@@ -17,12 +17,10 @@ class Instructor_Percentage {
 
     function __construct() {
         add_filter('tutor_pro_earning_calculator', array($this, 'payment_percent_modifier'));
+        add_filter('tutor_pro_instructor_commission_string', array($this, 'instructor_commission_string'));
 
         add_action('edit_user_profile', array($this, 'input_field_in_profile_setting'));
         add_action('edit_user_profile_update', array($this, 'save_input_data'));
-
-        add_filter('manage_users_columns', array($this, 'register_percentage_column'));
-        add_filter('manage_users_custom_column', array($this, 'percentage_column_content'), 10, 3);
 
         add_action('admin_enqueue_scripts', array($this, 'register_script'));
     }
@@ -42,14 +40,14 @@ class Instructor_Percentage {
         }
 
 ?>
-        <h2>Instructor Setting</h2>
+        <h2><?php _e('Instructor Settings', 'tutor-pro'); ?></h2>
         <table class="form-table">
             <tr>
                 <th>
-                    <label>Revenue Type</label>
+                    <label><?php _e('Commission', 'tutor-pro'); ?></label>
                 </th>
                 <td>
-                    <select id="tutor_pro_instructor_amount_type_field" class="regular-text" name="<?php echo $this->amount_type; ?>">
+                    <select id="tutor_pro_instructor_amount_type_field" name="<?php echo $this->amount_type; ?>">
                         <?php
                         $amount_type = get_the_author_meta($this->amount_type, $user->ID);
                         empty($amount_type) ? $amount_type = 'default' : 0;
@@ -63,14 +61,7 @@ class Instructor_Percentage {
                         }
                         ?>
                     </select>
-                </td>
-            </tr>
-            <tr id="tutor_pro_instructor_amount_field">
-                <th>
-                    <label>Revenue Amount</label>
-                </th>
-                <td>
-                    <input name="<?php echo $this->amount; ?>" type="number" class="regular-text" value="<?php echo esc_attr(get_the_author_meta($this->amount, $user->ID)); ?>" />
+                    <input id="tutor_pro_instructor_amount_field" name="<?php echo $this->amount; ?>" type="number" value="<?php echo esc_attr(get_the_author_meta($this->amount, $user->ID)); ?>" style="position:relative;top:3px;"/>
                 </td>
             </tr>
         </table>
@@ -96,23 +87,12 @@ class Instructor_Percentage {
         update_user_meta($user_id, $this->amount_type, $type);
     }
 
-    public function register_percentage_column($columns) {
-        $columns[$this->amount] = 'Instructor Amount';
-        return $columns;
-    }
+    public function instructor_commission_string($user_id) {
 
-    public function percentage_column_content($value, $column, $user_id) {
+        $type = get_the_author_meta($this->amount_type, $user_id);
+        $amount = get_the_author_meta($this->amount, $user_id);
 
-        if ($column == $this->amount) {
-            $type = get_the_author_meta($this->amount_type, $user_id);
-            $amount = get_the_author_meta($this->amount, $user_id);
-
-            if (is_numeric($amount)) {
-                $value = (($type == 'percent' || $type == 'fixed') ? $amount . ' ' : '') . ucfirst($type);
-            }
-        }
-
-        return $value;
+        return (($type == 'percent' || $type == 'fixed') ? $amount .' '. ucfirst($type) : 'Default');
     }
 
     public function payment_percent_modifier(array $data) {
