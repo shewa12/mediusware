@@ -37,6 +37,7 @@ class Instructor_Signature {
         }
 
         $signature = $this->get_instructor_signature($user->ID);
+        $placeholder_signature = tutor_pro()->url . 'addons/tutor-certificate/assets/images/instructor-signature.png';
 
 ?>
         <div class="tutor-form-row">
@@ -45,10 +46,10 @@ class Instructor_Signature {
                     <label><?php _e('Certificate Signature', 'tutor-pro'); ?></label>
                     <div id="tutor-instructor-signature-upload">
                         <div>
-                            <img src="<?php echo $signature['url'] ?? ''; ?>" />
+                            <img src="<?php echo $signature['url'] ?? $placeholder_signature; ?>" />
                             <input type="hidden" id="<?php echo $this->file_id_string; ?>" name="<?php echo $this->file_id_string; ?>" value="<?php echo $signature['id'] ?? ''; ?>" />
                             <input type="file" id="<?php echo $this->file_name_string; ?>" name="<?php echo $this->file_name_string; ?>" accept="image/*" style="display:none"/>
-                            <span class="tutor-icon-garbage" id="tutor_pro_custom_signature_file_deleter"></span>
+                            <span class="tutor-icon-garbage" id="tutor_pro_custom_signature_file_deleter" <?php echo !$signature['url'] ? 'style="display:none"' : '';?>></span>
                         </div>
                         <div>
                             <button id="tutor_pro_custom_signature_file_uploader" class="tutor-button tutor-button-primary tutor-option-media-upload-btn">
