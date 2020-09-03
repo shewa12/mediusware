@@ -34,7 +34,7 @@ class Instructor_Percentage {
 
     public function input_field_in_profile_setting($user) {
 
-        if (!current_user_can('manage_options')) {
+        if (!current_user_can('manage_options') || !tutor_utils()->is_instructor($user->ID)) {
             // Make sure only privileged user can cange payment percentage
             return;
         }

@@ -29,9 +29,7 @@ class Instructor_Signature {
 
     public function custom_signature_field($user) {
 
-        $is_instructor = is_object($user) && in_array('tutor_instructor', ($user->roles ?? []));
-
-        if (!$is_instructor) {
+        if (!tutor_utils()->is_instructor($user->ID)) {
             // It is non instructor user
             return;
         }
