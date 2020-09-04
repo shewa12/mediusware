@@ -162,11 +162,14 @@ class Course_Duplicator {
             // Convert to singular value from second level array
             $value = is_array($value) ? ($value[0] ?? '') : '';
             $value = is_serialized($value) ? unserialize($value) : $value;
-
-            if ($absolute_course_id) {
-                // Replace old course ID meta with new one
-                $name == '_tutor_course_id_for_lesson' ? $value = $absolute_course_id : 0;
-            }
+            
+            // Replace old course ID meta with new one
+            $name == '_tutor_course_id_for_lesson' ? $value = $absolute_course_id : 0;
+            $name == '_tutor_course_price_type' ? $value = 'free' : 0;
+            
+            if($name == '_tutor_course_product_id'){
+                continue;
+            } 
 
             update_post_meta($new_id, $name, $value);
         }
