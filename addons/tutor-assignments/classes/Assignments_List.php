@@ -122,6 +122,8 @@ class Assignments_List extends \Tutor_List_Table {
 		$search_term = '';
 		if (isset($_REQUEST['s'])){
 			$search_term = sanitize_text_field($_REQUEST['s']);
+
+			!empty($search_term) ? $search_term=" AND {$wpdb->posts}.post_title LIKE '{$search_term}%' " : 0;
 		}
 
 		$columns = $this->get_columns();
@@ -132,33 +134,25 @@ class Assignments_List extends \Tutor_List_Table {
 		//$this->process_bulk_action();
 
 		$current_page = $this->get_pagenum();
-
+		$start = ($current_page-1)*$per_page;
 		$total_items = 0;
 
-		$in_courses_ids = '';
-		if ( ! current_user_can('administrator') && current_user_can(tutor()->instructor_role)) {
-			$courses_ids = tutor_utils()->get_assigned_courses_ids_by_instructors();
-			if (tutor_utils()->count($courses_ids)){
-				$in_courses_ids = "'".implode("','", $courses_ids)."'";
+		// Is current user instructor
+		$is_instructor = !current_user_can('administrator') && current_user_can(tutor()->instructor_role);
 
-				$total_items = $wpdb->get_var("SELECT COUNT(comment_ID) FROM {$wpdb->comments} WHERE comment_type = 'tutor_assignment' AND comment_approved = 'submitted' AND comment_parent IN({$in_courses_ids})   ");
-			}
-		}else{
-			$total_items = $wpdb->get_var("SELECT COUNT(comment_ID) FROM {$wpdb->comments} WHERE comment_type = 'tutor_assignment' AND comment_approved = 'submitted'    ");
-		}
+		// Prepare course ID to show only own assignments to insrtuctor
+		$courses_ids = $is_instructor ? tutor_utils()->get_assigned_courses_ids_by_instructors() : [];
+		$in_courses_ids = tutor_utils()->count($courses_ids) ? "'".implode("','", $courses_ids)."'" : '';
+		
+		// Create base query including specific course ID if necessary
+		$where_instructor = $is_instructor ? " AND {$wpdb->comments}.comment_parent IN({$in_courses_ids}) " : '';		
+		$from_base_query = " FROM {$wpdb->comments} LEFT JOIN {$wpdb->posts} ON {$wpdb->comments}.comment_post_ID={$wpdb->posts}.ID WHERE {$wpdb->comments}.comment_type = 'tutor_assignment' AND {$wpdb->comments}.comment_approved = 'submitted' {$where_instructor} {$search_term} ORDER BY {$wpdb->comments}.comment_ID DESC ";
 
-		$assignment_items = array();
-		$start = ($current_page-1)*$per_page;
+		// Get total count
+		$total_items = $wpdb->get_var("SELECT COUNT({$wpdb->comments}.comment_ID) {$from_base_query}");
 
-		if ( ! current_user_can('administrator') && current_user_can(tutor()->instructor_role)) {
-			$assignment_items = $wpdb->get_results("SELECT * FROM {$wpdb->comments} WHERE comment_type = 'tutor_assignment' AND comment_approved = 'submitted'  ORDER BY comment_ID DESC  AND comment_parent IN({$in_courses_ids}) LIMIT {$start}, {$per_page} ");
-		}else{
-			$assignment_items = $wpdb->get_results("SELECT * FROM {$wpdb->comments} WHERE comment_type = 'tutor_assignment' AND comment_approved = 'submitted' ORDER BY comment_ID DESC LIMIT 
-{$start}, 
-{$per_page} ");
-		}
-
-		$this->items = $assignment_items;
+		// Get submitted assignment
+		$this->items = $wpdb->get_results("SELECT {$wpdb->comments}.* {$from_base_query} LIMIT {$start}, {$per_page} ");
 
 		$this->set_pagination_args( array(
 			'total_items' => $total_items,                  //WE have to calculate the total number of items
