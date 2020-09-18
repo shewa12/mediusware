@@ -1,7 +1,8 @@
 <?php
+
 namespace TUTOR_ZOOM;
 
-if ( ! defined( 'ABSPATH' ) )
+if (!defined('ABSPATH'))
 	exit;
 
 class Init {
@@ -11,12 +12,12 @@ class Init {
 	public $basename;
 
 	function __construct() {
-		if ( ! function_exists('tutor')){
+		if (!function_exists('tutor')) {
 			return;
 		}
 		$addonConfig = tutor_utils()->get_addon_config(TUTOR_ZOOM()->basename);
 		$isEnable = (bool) tutor_utils()->avalue_dot('is_enable', $addonConfig);
-		if ( ! $isEnable){
+		if (!$isEnable) {
 			return;
 		}
 
@@ -27,14 +28,14 @@ class Init {
 		$this->load_tutor_zoom();
 	}
 
-	public function load_tutor_zoom(){
+	public function load_tutor_zoom() {
 		/**
 		 * Loading Autoloader
 		 */
 
 		spl_autoload_register(array($this, 'loader'));
 
-		add_filter('tutor/options/extend/attr', array($this, 'add_options'));
+		add_filter('tutor/options/attr', array($this, 'add_options'));
 	}
 
 	/**
@@ -43,17 +44,17 @@ class Init {
 	 * Auto Load class and the files
 	 */
 	private function loader($className) {
-		if ( ! class_exists($className)){
+		if (!class_exists($className)) {
 			$className = preg_replace(
 				array('/([a-z])([A-Z])/', '/\\\/'),
 				array('$1$2', DIRECTORY_SEPARATOR),
 				$className
 			);
 
-			$className = str_replace('TUTOR_ZOOM'.DIRECTORY_SEPARATOR, 'classes'.DIRECTORY_SEPARATOR, $className);
-			$file_name = $this->path.$className.'.php';
+			$className = str_replace('TUTOR_ZOOM' . DIRECTORY_SEPARATOR, 'classes' . DIRECTORY_SEPARATOR, $className);
+			$file_name = $this->path . $className . '.php';
 
-			if (file_exists($file_name) && is_readable( $file_name ) ) {
+			if (file_exists($file_name) && is_readable($file_name)) {
 				require_once $file_name;
 			}
 		}
@@ -61,76 +62,82 @@ class Init {
 
 
 	//Run the TUTOR right now
-	public function run(){
-		register_activation_hook( TUTOR_ZOOM_FILE, array( $this, 'tutor_activate' ) );
+	public function run() {
+		register_activation_hook(TUTOR_ZOOM_FILE, array($this, 'tutor_activate'));
 	}
 
 	/**
 	 * Do some task during plugin activation
 	 */
-	public function tutor_activate(){
+	public function tutor_activate() {
 		$version = get_option('tutor_zoom_version');
 		//Save Option
-		if ( ! $version){
+		if (!$version) {
 			update_option('tutor_zoom_version', TUTOR_ZOOM_VERSION);
 		}
 	}
 
-	public function add_options($attr){
-		$attr['zoom_settings'] = array(
-			'label'     => __('Zoom Settings', 'tutor-pro'),
+	public function add_options($attr) {
+		$attr['zoom'] = array(
+			'label' => __( 'Zoom', 'tutor-pro' ),
 			'sections'    => array(
-				'general' => array(
-					'label' => __('Enable/Disable', 'tutor-pro'),
-					'desc' => __('Enable Disable Option to on/off notification on various event', 'tutor-pro'),
+				'api' => array(
+					'label' => __('Main settings', 'tutor-pro'),
+					'desc' => __('Tutor Zoom Settings', 'tutor-pro'),
 					'fields' => array(
-						'email_to_students' => array(
-							'type'      => 'checkbox',
-							'label'     => __('E-Mail to Students', 'tutor-pro'),
-							'options'   => array(
-								'quiz_completed' 				=> __('Quiz Completed', 'tutor-pro'),
-								'completed_course' 				=> __('Completed a Course', 'tutor-pro'),
-								'remove_from_course' 			=> __('Remove from Course', 'tutor-pro'),
-								'manual_enrollment' 			=> __('After Manual Enrollment', 'tutor-pro'),
-								'assignment_graded' 			=> __('Assignment Graded', 'tutor-pro'),
-								'new_announcement_posted' 		=> __('New Announcement Posted', 'tutor-pro'),
-								'after_question_answered' 		=> __('Q&A Message Answered', 'tutor-pro'),
-								'feedback_submitted_for_quiz' 	=> __('Feedback submitted for Quiz Attempt', 'tutor-pro'),
-								'rate_course_and_instructor' 	=> __('Rate Course and Instructor After Course Completed', 'tutor-pro'),
-							),
-							'desc'      => __('Select when to send notification to the students',	'tutor-pro'),
+						'api_key' => array(
+							'type'      => 'text',
+							'label'     => __('API Key', 'tutor'),
+							'default'   => '',
+							'desc'      => __('The name under which all the emails will be sent',	'tutor'),
 						),
-						'email_to_teachers' => array(
-							'type'      => 'checkbox',
-							'label'     => __('E-Mail to Teachers', 'tutor-pro'),
-							'options'   => array(
-								'a_student_enrolled_in_course' 	=> __('A Student Enrolled in Course', 'tutor-pro'),
-								'a_student_completed_course'    => __('A Student Completed Course', 'tutor-pro'),
-								'a_student_completed_lesson'    => __('A Student Completed Lesson', 'tutor-pro'),
-								'a_student_placed_question'     => __('A Student asked a Question in Q&amp;A', 'tutor-pro'),
-								'student_submitted_quiz'        => __('Student Submitted Quiz', 'tutor-pro'),
-								'student_submitted_assignment'  => __('Student Submitted Assignment', 'tutor-pro'),
-							),
-							'desc'      => __('Select when to send notification to the teachers',	'tutor-pro'),
+						'api_secret' => array(
+							'type'      => 'text',
+							'label'     => __('API Secret Key', 'tutor'),
+							'default'   => '',
+							'desc'      => __('The name under which all the emails will be sent',	'tutor'),
 						),
-						'email_to_admin' => array(
-							'type'      => 'checkbox',
-							'label'     => __('E-Mail to Admin', 'tutor-pro'),
-							'options'   => array(
-								'new_instructor_signup' 	=> __('New Instructor Signup', 'tutor-pro'),
-								'new_student_signup' 		=> __('New Student Signup', 'tutor-pro'),
-								'new_course_submitted' 		=> __('New Course Submitted for Review', 'tutor-pro'),
-								'new_course_published' 		=> __('New Course Published', 'tutor-pro'),
-								'course_updated' 			=> __('Course Edited/Updated', 'tutor-pro'),
-							),
-							'desc'      => __('Select when to send notification to the teachers',	'tutor-pro'),
+					),
+				),
+				'meeting' => array(
+					'label' => __('Meeting settings', 'tutor-pro'),
+					'desc' => __('Tutor Zoom Settings', 'tutor-pro'),
+					'fields' => array(
+						'join_before_host' => array(
+							'type'      	=> 'checkbox',
+							'label'     	=> __('Join Before Host', 'tutor-pro'),
+							'label_title' 	=> __('Enable', 'tutor-pro'),
+							'desc'      	=> __('Join meeting before host start the meeting. Only for scheduled or recurring mettings', 'tutor-pro'),
+						),
+						'host_video' => array(
+							'type'      	=> 'checkbox',
+							'label'     	=> __('Host video', 'tutor-pro'),
+							'label_title' 	=> __('Enable', 'tutor-pro'),
+							'desc'      	=> __('By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible', 'tutor-pro'),
+						),
+						'participants_video' => array(
+							'type'      	=> 'checkbox',
+							'label'     	=> __('Participants video', 'tutor-pro'),
+							'label_title' 	=> __('Enable', 'tutor-pro'),
+							'desc'      	=> __('By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible', 'tutor-pro'),
+						),
+						'mute_participants' => array(
+							'type'      	=> 'checkbox',
+							'label'     	=> __('Mute Participants', 'tutor-pro'),
+							'label_title' 	=> __('Enable', 'tutor-pro'),
+							'desc'      	=> __('By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible', 'tutor-pro'),
+						),
+						'enforce_login' => array(
+							'type'      	=> 'checkbox',
+							'label'     	=> __('Enforce Login', 'tutor-pro'),
+							'label_title' 	=> __('Enable', 'tutor-pro'),
+							'desc'      	=> __('By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible', 'tutor-pro'),
 						),
 					),
 				),
 			),
 		);
-
+		
 		return $attr;
 	}
-
 }
