@@ -34,6 +34,7 @@ class Init {
 		 */
 
 		spl_autoload_register(array($this, 'loader'));
+		$this->zoom = new Zoom();
 
 		add_filter('tutor/options/attr', array($this, 'add_options'));
 	}
