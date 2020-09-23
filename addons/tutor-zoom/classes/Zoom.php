@@ -5,7 +5,6 @@ namespace TUTOR_ZOOM;
 if (!defined('ABSPATH'))
     exit;
 
-
 class Zoom {
 
     function __construct() {
@@ -22,16 +21,17 @@ class Zoom {
      * Enqueue admin scripts
      */
     public function admin_scripts() {
-        
+        wp_enqueue_script('tutor_zoom_admin_js', TUTOR_ZOOM()->url . 'assets/js/admin.js', array('jquery'), TUTOR_ZOOM_VERSION, true);
+        wp_enqueue_style('tutor_zoom_admin_css', TUTOR_ZOOM()->url . 'assets/css/admin.css', false, TUTOR_ZOOM_VERSION);
     }
 
     /**
      * Enqueue frontend scripts
      */
     public function frontend_scripts() {
-        wp_enqueue_script('tutor_jquery.countdown', TUTOR_ZOOM()->url . '/assets/js/jquery.countdown.js', array('jquery'), TUTOR_ZOOM_VERSION, true);
-        wp_enqueue_script('tutor_zoom_frontend_js', TUTOR_ZOOM()->url . '/assets/js/frontend.js', array('jquery'), TUTOR_ZOOM_VERSION, true);
-        wp_enqueue_style('tutor_zoom_frontend_css', TUTOR_ZOOM()->url . '/assets/css/frontend.css', false, TUTOR_ZOOM_VERSION);
+        wp_enqueue_script('tutor_jquery.countdown', TUTOR_ZOOM()->url . 'assets/js/jquery.countdown.js', array('jquery'), TUTOR_ZOOM_VERSION, true);
+        wp_enqueue_script('tutor_zoom_frontend_js', TUTOR_ZOOM()->url . 'assets/js/frontend.js', array('jquery'), TUTOR_ZOOM_VERSION, true);
+        wp_enqueue_style('tutor_zoom_frontend_css', TUTOR_ZOOM()->url . 'assets/css/frontend.css', false, TUTOR_ZOOM_VERSION);
     }
 
     public function register_menu() {

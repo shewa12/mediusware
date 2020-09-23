@@ -1,0 +1,49 @@
+.tutor-zoom-form-container {
+    display: flex;
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+.tutor-zoom-form-container button {
+    padding: 5px 20px;
+}
+.tutor-zoom-form-container div {
+    flex-basis: 50%;
+}
+.tutor-zoom-form-container .input-area {
+    padding: 25px 0 25px 50px;
+}
+.tutor-zoom-form-container .input-area h3 {
+    font-size: 30px;
+    font-weight: 400;
+}
+.tutor-zoom-form-container .input-area p {
+    font-size: 13px;
+    max-width: 466px;
+    margin-bottom: 45px;
+}
+.tutor-zoom-form-container .graphics-area img {
+    width: 100%;
+}
+.tutor-form-group {
+    margin: 0 auto 20px auto;
+}
+.tutor-form-group label {
+    font-size: 16px;
+}
+.tutor-form-group input {
+    display: block;
+    width: 80%;
+    height: 45px;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.tutor-form-group input:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}

@@ -2,8 +2,7 @@
 $currentSubPage = 'meetings';
 $currentName = 'Meetings';
 $subPages = array(
-    'meetings' => __('Meetings', 'tutor-pro'),
-    'webinars' => __('Webinars', 'tutor-pro'),
+    'meetings' => __('All Meetings', 'tutor-pro'),
     'set_api' => __('Set API', 'tutor-pro'),
     'settings' => __('Settings', 'tutor-pro'),
     'help' => __('Help', 'tutor-pro'),
@@ -34,7 +33,7 @@ if (!empty($_GET['sub_page'])) {
             </div>
         </div>
 
-        <div class="tutor-report-content">
+        <div class="tutor-zoom-content">
             <?php
             $page = 'meetings';
             if (!empty($_GET['sub_page'])) {
