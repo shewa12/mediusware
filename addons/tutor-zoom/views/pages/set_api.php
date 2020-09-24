@@ -21,7 +21,7 @@ if (!defined('ABSPATH'))
                 <img src="<?php echo TUTOR_ZOOM()->url.'assets/images/mask-group.png'; ?>" alt="" />
             </div>
         </div>
-        <div>
+        <div class="tutor-zoom-button-container">
             <button type="submit" class="button button-primary"><?php _e('Save Changes'); ?></button>
             <button type="button" class="button"><?php _e('Check API Connection'); ?></button>
         </div>
