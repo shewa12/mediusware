@@ -1,4 +1,9 @@
 <?php
+
+function get_tutor_zoom_settings($key = null) {
+    
+}
+
 /**
  * @return array of timezones
  */

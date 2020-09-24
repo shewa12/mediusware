@@ -7,10 +7,24 @@ if (!defined('ABSPATH'))
 
 class Zoom {
 
+    public $api_key;
+    public $api_data;
+    public $settings_key;
+    public $settings_data;
+
     function __construct() {
+        $this->api_key = 'tutor_zoom_api';
+        $this->settings_key = 'tutor_zoom_settings';
+        $this->api_data = json_decode(get_option($this->api_key), true);
+        $this->settings_data = json_decode(get_option($this->settings_key), true);
+
         add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
         add_action('wp_enqueue_scripts', array($this, 'frontend_scripts'));
         add_action('tutor_admin_register', array($this, 'register_menu'));
+        
+        //Saving zoom settings
+		add_action('wp_ajax_tutor_save_zoom_api', array($this, 'tutor_save_zoom_api'));
+		add_action('wp_ajax_tutor_save_zoom_settings', array($this, 'tutor_save_zoom_settings'));
         
         add_action('wp_head', array($this, 'head'));
         /* add_shortcode('tutor_zoom_conference', array($this, 'add_meeting_shortcode'));
@@ -36,10 +50,54 @@ class Zoom {
 
     public function register_menu() {
 		add_submenu_page('tutor', __('Zoom', 'tutor-pro'), __('Zoom', 'tutor-pro'), 'manage_tutor', 'tutor_zoom', array($this, 'tutor_zoom'));
-	}
+    }
+    
+    private function get_option_data($key, $data) {
+        if (empty($data) || !is_array($data)) {
+			return false;
+		}
+		if (!$key) {
+			return $data;
+		}
+		if (array_key_exists($key, $data)) {
+			return apply_filters($key, $data[$key]);
+		}
+    }
+
+    private function get_api($key = null) {
+		return $this->get_option_data($key, $this->api_data);
+    }
+    
+    private function get_settings($key = null) {
+		return $this->get_option_data($key, $this->settings_data);
+    }
 
 	public function tutor_zoom() {
 		include TUTOR_ZOOM()->path.'views/pages/main.php';
+    }
+
+    public function tutor_save_zoom_api() {
+		if ( ! isset($_POST['_wpnonce']) || ! wp_verify_nonce( $_POST['_wpnonce'], 'tutor_zoom_settings' ) ){
+			exit();
+		}
+		do_action('tutor_save_zoom_api_before');
+		$api_data = (array) isset($_POST[$this->api_key]) ? $_POST[$this->api_key] : array();
+		$api_data = apply_filters('tutor_zoom_api_input', $api_data);
+		update_option($this->api_key, json_encode($api_data));
+		do_action('tutor_save_zoom_api_after');
+		wp_send_json_success( array('msg' => __('Settings Updated', 'tutor') ) );
+	}
+    
+    public function tutor_save_zoom_settings() {
+		if ( ! isset($_POST['_wpnonce']) || ! wp_verify_nonce( $_POST['_wpnonce'], 'tutor_zoom_settings' ) ){
+			exit();
+		}
+		do_action('tutor_save_zoom_settings_before');
+		$settings = (array) isset($_POST[$this->settings_key]) ? $_POST[$this->settings_key] : array();
+		$settings = apply_filters('tutor_zoom_settings_input', $settings);
+		update_option($this->settings_key, json_encode($settings));
+		do_action('tutor_save_zoom_settings_after');
+		wp_send_json_success( array('msg' => __('Settings Updated', 'tutor') ) );
 	}
 
     /**
