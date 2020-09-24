@@ -25,6 +25,7 @@ class Zoom {
         //Saving zoom settings
 		add_action('wp_ajax_tutor_save_zoom_api', array($this, 'tutor_save_zoom_api'));
 		add_action('wp_ajax_tutor_save_zoom_settings', array($this, 'tutor_save_zoom_settings'));
+        add_action('wp_ajax_tutor_check_api_connection', array($this, 'tutor_check_api_connection'));
         
         add_action('wp_head', array($this, 'head'));
         /* add_shortcode('tutor_zoom_conference', array($this, 'add_meeting_shortcode'));
@@ -98,6 +99,17 @@ class Zoom {
 		update_option($this->settings_key, json_encode($settings));
 		do_action('tutor_save_zoom_settings_after');
 		wp_send_json_success( array('msg' => __('Settings Updated', 'tutor') ) );
+    }
+    
+    public function tutor_check_api_connection() {
+        delete_transient('tutor_zoom_users');
+        $users = self::tutor_zoom_get_users();
+        if ( !empty($users) ) {
+            wp_send_json( __('API Connection is good', 'tutor') );
+        } else {
+            wp_send_json( __('Please Enter Valid Credentials', 'tutor') );
+        }
+		wp_die();
 	}
 
     /**
@@ -321,8 +333,8 @@ class Zoom {
      * @return array
      */
     public static function tutor_zoom_get_users() {
-        $users      = get_transient('tutor_zoom_users');
-        $settings   = get_option('tutor_zoom_settings', array());
+        $users = get_transient('tutor_zoom_users');
+        $settings = json_decode(get_option('tutor_zoom_api'), true);
 
         if (empty($users)) {
             $api_key    = (!empty($settings['api_key'])) ? $settings['api_key'] : '';

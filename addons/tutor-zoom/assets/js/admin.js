@@ -28,5 +28,24 @@
                 }
             });
         });
+
+        $('#check-zoom-api-connection').click(function (e) {
+            e.preventDefault();
+            var $that = $(this);
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {action: 'tutor_check_api_connection'},
+                beforeSend: function () {
+                    $that.addClass('tutor-updating-message');
+                },
+                success: function (result) {
+                    alert(result);
+                },
+                complete: function () {
+                    $that.removeClass('tutor-updating-message');
+                }
+            });
+        });
     });
 })(jQuery);

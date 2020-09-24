@@ -15,8 +15,8 @@ if (!defined('ABSPATH'))
                     <input type="text" id="tutor_zoom_api_key" name="<?php echo $this->api_key; ?>[api_key]" value="<?php echo $this->get_api('api_key'); ?>" placeholder="<?php _e('Enter Your Zoom Api Key'); ?>"/>
                 </div>
                 <div class="tutor-form-group">
-                    <label for="tutor_zoom_secret_key"><?php _e('Secret Key'); ?></label>
-                    <input type="text" id="tutor_zoom_secret_key" name="<?php echo $this->api_key; ?>[secret_key]" value="<?php echo $this->get_api('secret_key'); ?>" placeholder="<?php _e('Enter Your Zoom Secret Key'); ?>"/>
+                    <label for="tutor_zoom_api_secret"><?php _e('Secret Key'); ?></label>
+                    <input type="text" id="tutor_zoom_api_secret" name="<?php echo $this->api_key; ?>[api_secret]" value="<?php echo $this->get_api('api_secret'); ?>" placeholder="<?php _e('Enter Your Zoom Secret Key'); ?>"/>
                 </div>
             </div>
             <div class="graphics-area">
