@@ -1,7 +1,10 @@
 <?php
 
-function get_tutor_zoom_settings($key = null) {
-    
+use TUTOR_ZOOM\Zoom;
+
+function tutor_zoom_check_api_connection() {
+    $users = Zoom::tutor_zoom_get_users();
+    return ( !empty($users) ) ? true : false;
 }
 
 /**
@@ -153,7 +156,7 @@ function tutor_zoom_get_timezone_options() {
  * Get All Meetings
  * @return array
  */
-function get_meetings() {
+function tutor_zoom_get_meetings() {
     $args = array(
         'numberposts' => -1,
         'post_type' => 'tutor-zoom'
@@ -171,7 +174,7 @@ function get_meetings() {
  * Get All Webinars
  * @return array
  */
-function get_webinars() {
+function tutor_zoom_get_webinars() {
     $args = array(
         'numberposts' => -1,
         'post_type' => 'tutor-zoom-webinar'
@@ -189,7 +192,7 @@ function get_webinars() {
  * Get All Meetings and Webinars
  * @return array
  */
-function get_meetings_webinars() {
+function tutor_zoom_get_meetings_webinars() {
     $args = array(
         'numberposts' => -1,
         'post_type' => array('tutor-zoom', 'tutor-zoom-webinar')
@@ -207,7 +210,7 @@ function get_meetings_webinars() {
  * Get Current Timezone
  * @return string
  */
-function get_current_timezone() {
+function tutor_zoom_get_current_timezone() {
     $timezone_string = get_option( 'timezone_string' );
     if ( ! empty( $timezone_string ) ) {
         return $timezone_string;

@@ -19,6 +19,11 @@
     max-width: 466px;
     margin-bottom: 45px;
 }
+.tutor-zoom-form-container .graphics-area {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
 .tutor-zoom-form-container .graphics-area img {
     width: 100%;
 }
@@ -84,4 +89,40 @@
 }
 .settings-option-item .select-label, .settings-option-item .select-control {
     font-size: 15px;
+}
+
+.tutor-zoom-create-meeting {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid #1973AA;
+    border-radius: 5px;
+    padding: 13px;
+    align-items: center;
+}
+.tutor-zoom-create-meeting .zoom-icon {
+    display: flex;
+    align-items: center;
+}
+.tutor-zoom-create-meeting .zoom-icon img {
+    width: 40px;
+    height: 40px;
+    padding-right: 15px;
+}
+.tutor-zoom-create-meeting .zoom-icon div {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1973AA;
+}
+.tutor-zoom-create-meeting .zoom-icon-button a {
+    padding: 5px 15px;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+}
+.tutor-zoom-create-meeting .zoom-icon-button img {
+    width: 20px;
+    height: 20px;
+    padding-right: 5px;
 }

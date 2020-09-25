@@ -51,6 +51,7 @@ if (!function_exists('TUTOR_ZOOM')) {
 	}
 }
 
+include 'includes/helper.php';
 include 'classes/Init.php';
 $tutor = new TUTOR_ZOOM\Init();
 $tutor->run(); //Boom

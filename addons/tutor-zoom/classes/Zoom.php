@@ -18,18 +18,63 @@ class Zoom {
         $this->api_data = json_decode(get_option($this->api_key), true);
         $this->settings_data = json_decode(get_option($this->settings_key), true);
 
+        add_action('init', array($this, 'register_zoom_post_types'));
+
         add_action('admin_enqueue_scripts', array($this, 'admin_scripts'));
         add_action('wp_enqueue_scripts', array($this, 'frontend_scripts'));
         add_action('tutor_admin_register', array($this, 'register_menu'));
         
+        //metabox
+        add_action('edit_form_after_editor', array($this, 'add_meeting_option'), 10, 0 );
+
         //Saving zoom settings
 		add_action('wp_ajax_tutor_save_zoom_api', array($this, 'tutor_save_zoom_api'));
 		add_action('wp_ajax_tutor_save_zoom_settings', array($this, 'tutor_save_zoom_settings'));
         add_action('wp_ajax_tutor_check_api_connection', array($this, 'tutor_check_api_connection'));
+
         
         add_action('wp_head', array($this, 'head'));
-        /* add_shortcode('tutor_zoom_conference', array($this, 'add_meeting_shortcode'));
-        add_shortcode('tutor_zoom_webinar', array($this, 'add_webinar_shortcode')); */
+    }
+
+    public function register_zoom_post_types() {
+        $zoom_meeting_post_type = 'zoom_meeting';
+		$lesson_base_slug = 'zoom-meeting';
+
+		$labels = array(
+			'name'               => _x( 'Meetings', 'post type general name', 'tutor-pro' ),
+			'singular_name'      => _x( 'Meeting', 'post type singular name', 'tutor-pro' ),
+			'menu_name'          => _x( 'Meetings', 'admin menu', 'tutor-pro' ),
+			'name_admin_bar'     => _x( 'Meeting', 'add new on admin bar', 'tutor-pro' ),
+			'add_new'            => _x( 'Add New', $zoom_meeting_post_type, 'tutor-pro' ),
+			'add_new_item'       => __( 'Add New Meeting', 'tutor-pro' ),
+			'new_item'           => __( 'New Meeting', 'tutor-pro' ),
+			'edit_item'          => __( 'Edit Meeting', 'tutor-pro' ),
+			'view_item'          => __( 'View Meeting', 'tutor-pro' ),
+			'all_items'          => __( 'Meetings', 'tutor-pro' ),
+			'search_items'       => __( 'Search Meetings', 'tutor-pro' ),
+			'parent_item_colon'  => __( 'Parent Meetings:', 'tutor-pro' ),
+			'not_found'          => __( 'No Meeting found.', 'tutor-pro' ),
+			'not_found_in_trash' => __( 'No Meetings found in Trash.', 'tutor-pro' )
+		);
+
+		$args = array(
+			'labels'             => $labels,
+			'description'        => __( 'Description.', 'tutor-pro' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+			'show_ui'            => true,
+			'show_in_menu'       => false,
+			'query_var'          => true,
+			'rewrite'            => array( 'slug' => $lesson_base_slug ),
+			'menu_icon'         => 'dashicons-list-view',
+			'capability_type'    => 'post',
+			'has_archive'        => true,
+			'hierarchical'       => false,
+			'menu_position'      => null,
+			'supports'           => array( 'title', 'editor'),
+		);
+
+		register_post_type($zoom_meeting_post_type, $args );
     }
 
     /**
@@ -51,6 +96,20 @@ class Zoom {
 
     public function register_menu() {
 		add_submenu_page('tutor', __('Zoom', 'tutor-pro'), __('Zoom', 'tutor-pro'), 'manage_tutor', 'tutor_zoom', array($this, 'tutor_zoom'));
+    }
+
+    public function add_meeting_option() {
+    ?>
+        <div class="tutor-zoom-create-meeting">
+            <div class="zoom-icon">
+                <img src="<?php echo TUTOR_ZOOM()->url.'assets/images/zoom-icon.svg'; ?>" alt="Zoom"/>
+                <div><?php _e('Connect with your students using Zoom', 'tutor-pro'); ?></div>
+            </div>
+            <div class="zoom-icon-button">
+                <a class="button button-primary"><img src="<?php echo TUTOR_ZOOM()->url.'assets/images/meeting.svg'; ?>" alt="Zoom"/> <?php _e('Create a Zoom Meeting', 'tutor-pro'); ?></a>
+            </div>
+        </div>
+    <?php
     }
     
     private function get_option_data($key, $data) {
@@ -124,48 +183,6 @@ class Zoom {
             var secondsStr = "<?php esc_html_e('Seconds', 'eroom-zoom-meetings-webinar'); ?>";
         </script>
         <?php
-    }
-
-    /**
-     * Add Meeting Shortcode
-     * @param $atts
-     * @return string
-     */
-    public function add_meeting_shortcode($atts) {
-        $atts = shortcode_atts(array(
-            'post_id' => '',
-            'hide_content_before_start' => ''
-        ), $atts);
-        $content = '';
-        $hide_content_before_start = '';
-        if (!empty($atts['hide_content_before_start'])) {
-            $hide_content_before_start = '1';
-        }
-        if (!empty($atts['post_id'])) {
-            $content = self::add_zoom_content($atts['post_id'], $hide_content_before_start);
-        }
-        return $content;
-    }
-
-    /**
-     * Add Webinar Shortcode
-     * @param $atts
-     * @return string
-     */
-    public function add_webinar_shortcode($atts) {
-        $atts = shortcode_atts(array(
-            'post_id' => '',
-            'hide_content_before_start' => ''
-        ), $atts);
-        $content = '';
-        $hide_content_before_start = '';
-        if (!empty($atts['hide_content_before_start'])) {
-            $hide_content_before_start = '1';
-        }
-        if (!empty($atts['post_id'])) {
-            $content = self::add_zoom_content($atts['post_id'], $hide_content_before_start, true);
-        }
-        return $content;
     }
 
     /**

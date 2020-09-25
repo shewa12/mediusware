@@ -35,8 +35,6 @@ class Init {
 
 		spl_autoload_register(array($this, 'loader'));
 		$this->zoom = new Zoom();
-
-		//add_filter('tutor/options/attr', array($this, 'add_options'));
 	}
 
 	/**
@@ -61,7 +59,6 @@ class Init {
 		}
 	}
 
-
 	//Run the TUTOR right now
 	public function run() {
 		register_activation_hook(TUTOR_ZOOM_FILE, array($this, 'tutor_activate'));
@@ -76,69 +73,5 @@ class Init {
 		if (!$version) {
 			update_option('tutor_zoom_version', TUTOR_ZOOM_VERSION);
 		}
-	}
-
-	public function add_options($attr) {
-		$attr['zoom'] = array(
-			'label' => __( 'Zoom', 'tutor-pro' ),
-			'sections'    => array(
-				'api' => array(
-					'label' => __('Main settings', 'tutor-pro'),
-					'desc' => __('Tutor Zoom Settings', 'tutor-pro'),
-					'fields' => array(
-						'api_key' => array(
-							'type'      => 'text',
-							'label'     => __('API Key', 'tutor'),
-							'default'   => '',
-							'desc'      => __('The name under which all the emails will be sent',	'tutor'),
-						),
-						'api_secret' => array(
-							'type'      => 'text',
-							'label'     => __('API Secret Key', 'tutor'),
-							'default'   => '',
-							'desc'      => __('The name under which all the emails will be sent',	'tutor'),
-						),
-					),
-				),
-				'meeting' => array(
-					'label' => __('Meeting settings', 'tutor-pro'),
-					'desc' => __('Tutor Zoom Settings', 'tutor-pro'),
-					'fields' => array(
-						'join_before_host' => array(
-							'type'      	=> 'checkbox',
-							'label'     	=> __('Join Before Host', 'tutor-pro'),
-							'label_title' 	=> __('Enable', 'tutor-pro'),
-							'desc'      	=> __('Join meeting before host start the meeting. Only for scheduled or recurring mettings', 'tutor-pro'),
-						),
-						'host_video' => array(
-							'type'      	=> 'checkbox',
-							'label'     	=> __('Host video', 'tutor-pro'),
-							'label_title' 	=> __('Enable', 'tutor-pro'),
-							'desc'      	=> __('By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible', 'tutor-pro'),
-						),
-						'participants_video' => array(
-							'type'      	=> 'checkbox',
-							'label'     	=> __('Participants video', 'tutor-pro'),
-							'label_title' 	=> __('Enable', 'tutor-pro'),
-							'desc'      	=> __('By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible', 'tutor-pro'),
-						),
-						'mute_participants' => array(
-							'type'      	=> 'checkbox',
-							'label'     	=> __('Mute Participants', 'tutor-pro'),
-							'label_title' 	=> __('Enable', 'tutor-pro'),
-							'desc'      	=> __('By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible', 'tutor-pro'),
-						),
-						'enforce_login' => array(
-							'type'      	=> 'checkbox',
-							'label'     	=> __('Enforce Login', 'tutor-pro'),
-							'label_title' 	=> __('Enable', 'tutor-pro'),
-							'desc'      	=> __('By enabling this option, the student will be able to verify and share their certificates URL which is publicly accessible', 'tutor-pro'),
-						),
-					),
-				),
-			),
-		);
-		
-		return $attr;
 	}
 }

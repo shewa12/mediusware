@@ -1,6 +1,7 @@
 <?php
-$currentSubPage = 'meetings';
-$currentName = 'Meetings';
+$check_api = tutor_zoom_check_api_connection();
+$currentSubPage = ($check_api) ? 'meetings' : 'set_api';
+$currentName = ($check_api) ? 'All Meetings' : 'Set Api';;
 $subPages = array(
     'meetings' => __('All Meetings', 'tutor-pro'),
     'set_api' => __('Set API', 'tutor-pro'),
@@ -10,6 +11,9 @@ $subPages = array(
 
 if (!empty($_GET['sub_page'])) {
     $currentSubPage = sanitize_text_field($_GET['sub_page']);
+    if(!$check_api) {
+        $currentSubPage = 'set_api';
+    }
     $currentName = isset($subPages[$currentSubPage]) ? $subPages[$currentSubPage] : '';
 }
 ?>
@@ -35,10 +39,7 @@ if (!empty($_GET['sub_page'])) {
 
         <div class="tutor-zoom-content">
             <?php
-            $page = 'meetings';
-            if (!empty($_GET['sub_page'])) {
-                $page = sanitize_text_field($_GET['sub_page']);
-            }
+            $page = sanitize_text_field($currentSubPage);
             $view_page = TUTOR_ZOOM()->path . 'views/pages/';
 
             if (file_exists($view_page . "/{$page}.php")) {
