@@ -127,7 +127,7 @@ if(is_array($all_data) && !empty($all_data)){
     <div>
         <div class="menu-label"><?php _e('Date', 'tutor-pro'); ?></div>
         <div class="date-range-input">
-            <input type="text" class="tutor_report_datepicker tutor-report-date" value="<?php echo $_date; ?>" autocomplete="off" placeholder="<?php echo date("Y-m-d", strtotime("last sunday midnight")); ?>" />
+            <input type="text" class="tutor_zoom_datepicker" value="<?php echo $_date; ?>" autocomplete="off" placeholder="<?php echo date("Y-m-d", strtotime("last sunday midnight")); ?>" />
             <i class="tutor-icon-calendar"></i>
         </div>
     </div>

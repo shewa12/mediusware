@@ -1,3 +1,4 @@
+/* Zoom setting css */
 .tutor-zoom-form-container {
     display: flex;
     background: #fff;
@@ -91,6 +92,7 @@
     font-size: 15px;
 }
 
+/* Meeting create box css */
 .tutor-zoom-create-meeting {
     display: flex;
     flex-wrap: wrap;
@@ -126,4 +128,48 @@
     width: 20px;
     height: 20px;
     padding-right: 5px;
+}
+
+/* Tutor Zoom Modal css */
+.tutor-zoom-meeting-modal-wrap .tutor-modal-content {
+    max-width: 640px;
+    border-radius: 6px;
+}
+.tutor-zoom-meeting-modal-wrap .modal-footer {
+    background: #fff;
+}
+.meeting-modal-form-wrap {
+    padding: 20px 20px 0 20px;
+}
+.tutor-zoom-meeting-modal-wrap input {
+    border-radius: 6px;
+}
+.tutor-zoom-meeting-modal-wrap select {
+    width: 100%;
+    border-radius: 6px;
+}
+.tutor-quiz-builder-row .meeting-time {
+    flex: 0 0 50%;
+    margin-right: 25px;
+}
+.tutor-quiz-builder-row .meeting-time-col {
+    flex: 1 1 60%;
+}
+.tutor-quiz-builder-row .meeting-time-separator {
+    font-weight: bold;
+}
+.date-range-input i.tutor-icon-lock {
+    opacity: 0.6;
+}
+.date-range-input i.tutor-icon-clock, .date-range-input i.tutor-icon-lock {
+    font-size: 14px;
+    position: absolute;
+    right: 10px;
+    top: 13px;
+}
+.meeting-duration-row :first-child {
+    flex: 1 1 45%;
+}
+.meeting-duration-row :last-child {
+    flex: 1 1 55%;
 }
