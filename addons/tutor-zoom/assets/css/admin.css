@@ -99,6 +99,7 @@
     border: 1px solid #1973AA;
     border-radius: 5px;
     padding: 13px;
+    margin: 20px 0;
     align-items: center;
 }
 .tutor-zoom-create-meeting .zoom-icon {

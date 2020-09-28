@@ -28,7 +28,7 @@ if (!defined('ABSPATH'))
             'label'     	=> __('Enforce Login', 'tutor-pro'),
             'desc'      	=> __('Only logged in users in Zoom App can join this Meeting', 'tutor-pro'),
         ),
-        'recordings' => array(
+        'auto_recording' => array(
             'type'      	=> 'select',
             'label'     	=> __('Auto Recording', 'tutor-pro'),
             'options'     	=> array(
