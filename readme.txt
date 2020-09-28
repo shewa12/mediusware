@@ -248,6 +248,10 @@ New: Duplicate any course from the Tutor LMS course list
 New: Settings to disable certificate in a single course
 New: Settings to disable Q&A on a specific course
 New: Force download for course attachment
+<<<<<<< HEAD
+=======
+New: Compatibility with the GeneratePress theme
+>>>>>>> 93e1fa32d48e81a28ed1443b3e920628c78f6a78
 Fix: Review issue for answers regarding Open Ended/Essay questions
 Fix: Wrong percentage was showing on quiz results
 Fix: Course got published automatically

@@ -1,0 +1,129 @@
+.tutor-zoom-form-container {
+    display: flex;
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+.tutor-zoom-form-container div {
+    flex-basis: 50%;
+}
+.tutor-zoom-form-container .input-area {
+    padding: 25px 0 25px 50px;
+}
+.tutor-zoom-form-container .input-area h3 {
+    font-size: 30px;
+    font-weight: 400;
+}
+.tutor-zoom-form-container .input-area p {
+    font-size: 13px;
+    max-width: 466px;
+    margin-bottom: 45px;
+}
+.tutor-zoom-form-container .graphics-area {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.tutor-zoom-form-container .graphics-area img {
+    width: 100%;
+}
+.tutor-form-group {
+    margin: 0 auto 20px auto;
+}
+.tutor-form-group label {
+    font-size: 16px;
+}
+.tutor-form-group input[type=text] {
+    display: block;
+    width: 80%;
+    height: 45px;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.tutor-form-group input[type=text]:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.tutor-zoom-button-container {
+    margin-bottom: 15px;
+}
+.tutor-zoom-button-container button {
+    padding: 5px 20px !important;
+}
+.tutor-zoom-settings-container h3 {
+    font-size: 30px;
+    font-weight: 400;
+}
+.tutor-zoom-settings-option-container .settings-option-item {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 25px 0;
+    border-bottom: 1px solid #C5C5C5;
+}
+.tutor-zoom-settings-option-container .settings-option-item:last-child {
+    border: none;
+}
+.settings-option-item .option-label {
+    flex: 1 1 30%;
+    font-size: 15px;
+    font-weight: 500;
+}
+.settings-option-item .option-label.label-select {
+    margin-right: 55px;
+}
+.settings-option-item .option-desc {
+    flex: 1 1 60%;
+    font-size: 13px;
+}
+.settings-option-item .btn-switch {
+    margin-right: 15px;
+}
+.settings-option-item .select-label {
+    margin-right: 50px;
+}
+.settings-option-item .select-label, .settings-option-item .select-control {
+    font-size: 15px;
+}
+
+.tutor-zoom-create-meeting {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #fff;
+    border: 1px solid #1973AA;
+    border-radius: 5px;
+    padding: 13px;
+    margin: 20px 0;
+    align-items: center;
+}
+.tutor-zoom-create-meeting .zoom-icon {
+    display: flex;
+    align-items: center;
+}
+.tutor-zoom-create-meeting .zoom-icon img {
+    width: 40px;
+    height: 40px;
+    padding-right: 15px;
+}
+.tutor-zoom-create-meeting .zoom-icon div {
+    font-size: 18px;
+    font-weight: 500;
+    color: #1973AA;
+}
+.tutor-zoom-create-meeting .zoom-icon-button a {
+    padding: 5px 15px;
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+}
+.tutor-zoom-create-meeting .zoom-icon-button img {
+    width: 20px;
+    height: 20px;
+    padding-right: 5px;
+}
