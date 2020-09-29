@@ -40,38 +40,99 @@ if (!defined('ABSPATH'))
         ),
     ));
 ?>
-<div class="tutor-zoom-settings-container">
-    <h3><?php _e('Settings'); ?></h3>
-    <div class="tutor-zoom-settings-option-container">
-        <form id="tutor-zoom-settings" action="">
-            <?php wp_nonce_field('tutor_zoom_settings') ?>
-            <input type="hidden" name="action" value="tutor_save_zoom_settings">
-            <?php 
-            foreach($zoom_settings_options as $key => $option) { ?>
-                <div class="settings-option-item">
-                    <?php if ($option['type'] == 'checkbox') { ?>
-                        <label class="btn-switch">
-                            <input type="checkbox" class="hello" value="1" name="<?php echo $this->settings_key.'['.$key.']'; ?>" <?php checked($this->get_settings($key), '1'); ?>>
-                            <div class="btn-slider btn-round"></div>
-                        </label>
-                        <div class="option-label"><?php echo $option['label']; ?></div>
-                        <div class="option-desc"><?php echo $option['desc']; ?></div>
-                    <?php 
-                    } elseif ($option['type'] == 'select') { ?>
-                        <div class="option-label label-select">
-                            <label class="select-label"><?php echo $option['label']; ?></label>
-                            <select class="select-control" name="<?php echo $this->settings_key.'['.$key.']'; ?>">
-                                <?php foreach($option['options'] as $optKey => $opt) {
-                                    $checked = selected($this->get_settings($key),  $optKey);
-                                    echo "<option value='{$optKey}' {$checked}>{$opt}</option>";
-                                } ?>
-                            </select>
-                        </div>
-                        <div class="option-desc"><?php echo $option['desc']; ?></div>
-                    <?php } ?>
+
+<style type="text/css">
+.tutor-zoom-card-title >h3 {
+    font-weight: bold;
+} 
+.tutor-zoom-card-content {
+    display: flex;
+}    
+.tutor-zoom-card {
+    max-width: 620px;
+    margin:auto;
+}  
+.tutor-zoom-card-body {
+    background-color:  #fff;
+    margin-bottom: 10px;
+}  
+.tutor-zoom-card-content {
+    padding: 10px;
+}
+.card-icon {
+    margin-right: 50px;
+}
+.card-content li {
+    list-style: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+.card-content p {
+    font-size: 16px;
+}
+.card-radio {
+    display: flex;
+
+}
+.card-radio > .single-radio{
+    margin-right: 20px;
+}
+.card-radio > .single-radio:last-child{
+    margin-right: 0px;
+}
+</style>
+    <div class="tutor-zoom-card">
+        <div class="tutor-zoom-card-title">
+            <h3><?php _e('Settings')?></h3>
+        </div>
+    <?php  foreach($zoom_settings_options as $key => $option):?>
+        <div class="tutor-zoom-card-body">
+            <div class="tutor-zoom-card-content">
+            <?php if ($option['type'] == 'checkbox'):?>    
+                <div class="card-icon">
+                    <label class="btn-switch">
+                        <input type="checkbox" class="hello" value="1" name="<?php echo $this->settings_key.'['.$key.']'; ?>" <?php checked($this->get_settings($key), '1'); ?>>
+                        <div class="btn-slider btn-round"></div>
+                    </label>
                 </div>
-            <?php
-            } ?>
-        </form>
+                <div class="card-content">
+                    <li>
+                        <?php echo $option['label']; ?>
+                    </li>
+                    <p>
+                        <?php echo $option['desc']; ?>
+                    </p>
+                </div>
+            <?php elseif($option['type'] == 'select'):?> 
+
+                <div class="card-content">
+                    <li><?php echo $option['label']; ?></li>
+                    <p>
+                        <?php echo $option['desc']; ?>
+                    </p>
+                    <div class="card-radio">
+                        <?php 
+                       
+                        $name= $this->settings_key.'['.$key.']'; 
+                        ?>
+                            <?php 
+                                foreach($option['options'] as $optKey => $opt) {
+                            // $checked = selected(
+                            //     $this->get_settings($key),  $optKey
+                            // );
+                                    $checked ="checked";
+                                    echo 
+                                    "<div class='single-radio'>
+                                    <input type='radio' name='{$name}' value='{$optKey}'
+                                     {$checked}>{$opt}
+                                    </div>";
+                                } 
+                            ?>                        
+                    </div>  
+                </div>                
+            <?php endif;?>  
+            </div>
+        </div>        
+    <?php endforeach;?>
+
     </div>
-</div>

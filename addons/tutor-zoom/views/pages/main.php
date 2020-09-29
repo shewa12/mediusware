@@ -11,9 +11,9 @@ $subPages = array(
 
 if (!empty($_GET['sub_page'])) {
     $currentSubPage = sanitize_text_field($_GET['sub_page']);
-    if(!$check_api) {
-        $currentSubPage = 'set_api';
-    }
+    // if(!$check_api) {
+    //     $currentSubPage = 'set_api';
+    // }
     $currentName = isset($subPages[$currentSubPage]) ? $subPages[$currentSubPage] : '';
 }
 ?>

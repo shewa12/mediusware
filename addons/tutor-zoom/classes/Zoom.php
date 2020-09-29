@@ -504,12 +504,13 @@ class Zoom {
             $api_key    = (!empty($settings['api_key'])) ? $settings['api_key'] : '';
             $api_secret = (!empty($settings['api_secret'])) ? $settings['api_secret'] : '';
             if (!empty($api_key) && !empty($api_secret)) {
-                $users_data = new \Zoom\Endpoint\Users($api_key, $api_secret);
-                $users_list = $users_data->userlist();
-                if (!empty($users_list) && !empty($users_list['users'])) {
-                    $users = $users_list['users'];
-                    set_transient('tutor_zoom_users', $users, 36000);
-                }
+                $users = array();
+                // $users_data = new \Zoom\Endpoint\Users($api_key, $api_secret);
+                // $users_list = $users_data->userlist();
+                // if (!empty($users_list) && !empty($users_list['users'])) {
+                //     $users = $users_list['users'];
+                //     set_transient('tutor_zoom_users', $users, 36000);
+                // }
             } else {
                 $users = array();
             }

@@ -19,6 +19,7 @@ if (!defined('ABSPATH'))
  */
 define('TUTOR_ZOOM_VERSION', '1.0.0');
 define('TUTOR_ZOOM_FILE', __FILE__);
+define('TUTOR_ZOOM_PLUGIN_DIR', plugin_dir_url(__FILE__));
 
 /**
  * Showing config for addons central lists
@@ -51,6 +52,7 @@ if (!function_exists('TUTOR_ZOOM')) {
 	}
 }
 
+//include_once('zoom-app/vendor/autoload.php');
 include 'includes/helper.php';
 include 'classes/Init.php';
 $tutor = new TUTOR_ZOOM\Init();

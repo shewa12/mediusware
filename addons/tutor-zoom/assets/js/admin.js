@@ -1,5 +1,7 @@
 (function ($) {
     'use strict';
+
+
     $(document).ready(function () {
 
         $('#tutor-zoom-settings').on('change', '.btn-switch, .select-control', function (e) {
