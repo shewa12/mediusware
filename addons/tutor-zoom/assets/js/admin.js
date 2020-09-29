@@ -4,6 +4,8 @@
 
     $(document).ready(function () {
 
+        $(".tutor_zoom_datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+
         $('#tutor-zoom-settings').on('change', '.btn-switch, .select-control', function (e) {
             $(this).closest('form').submit();
         });
@@ -50,34 +52,29 @@
             });
         });
 
-
-        $(document).on('click', '.tutor-create-zoom-meeting-btn', function (e) {
+        $(document).on('click', '.tutor-zoom-meeting-modal-open-btn', function (e) {
             e.preventDefault();
     
             var $that = $(this);
-            var topic_id = $(this).attr('data-topic-id');
+            var meeting_id = $that.attr('data-meeting-id');
+            var topic_id = $that.attr('data-topic-id');
             var course_id = $('#post_ID').val();
     
             $.ajax({
                 url: ajaxurl,
                 type: 'POST',
-                data: { topic_id, course_id, action: 'tutor_zoom_meeting_modal_content' },
+                data: { meeting_id, topic_id, course_id, action: 'tutor_zoom_meeting_modal_content' },
                 beforeSend: function () {
                     $that.addClass('tutor-updating-message');
                 },
                 success: function (data) {
-                    $('.tutor-lesson-modal-wrap .modal-container').html(data.data.output);
-                    $('.tutor-lesson-modal-wrap').attr('data-topic-id', topic_id).addClass('show');
-    
-                    $(document).trigger('assignment_modal_loaded', { topic_id: topic_id, course_id: course_id });
-    
-                    tinymce.init(tinyMCEPreInit.mceInit.course_description);
-                    tinymce.execCommand('mceRemoveEditor', false, 'tutor_assignments_modal_editor');
-                    tinyMCE.execCommand('mceAddEditor', false, "tutor_assignments_modal_editor");
+                    $('.tutor-zoom-meeting-modal-wrap .modal-container').html(data.data.output);
+                    $('.tutor-zoom-meeting-modal-wrap').attr('data-topic-id', topic_id).addClass('show');
                 },
                 complete: function () {
-                    quicktags({ id: "tutor_assignments_modal_editor" });
                     $that.removeClass('tutor-updating-message');
+                    $('.tutor_zoom_timepicker').timepicker({timeFormat: 'hh:mm TT'});
+                    $(".tutor_zoom_datepicker").datepicker({dateFormat: 'yy-mm-dd', minDate: 0});
                 }
             });
         });
@@ -98,17 +95,10 @@
                     $that.addClass('tutor-updating-message');
                 },
                 success: function (data) {
-                    $('.tutor-lesson-modal-wrap .modal-container').html(data.data.output);
-                    $('.tutor-lesson-modal-wrap').attr({ 'data-assignment-id': assignment_id, 'data-topic-id': topic_id }).addClass('show');
-    
-                    $(document).trigger('assignment_modal_loaded', { assignment_id: assignment_id, topic_id: topic_id, course_id: course_id });
-    
-                    tinymce.init(tinyMCEPreInit.mceInit.course_description);
-                    tinymce.execCommand('mceRemoveEditor', false, 'tutor_assignments_modal_editor');
-                    tinyMCE.execCommand('mceAddEditor', false, "tutor_assignments_modal_editor");
+                    $('.tutor-zoom-meeting-modal-wrap .modal-container').html(data.data.output);
+                    $('.tutor-zoom-meeting-modal-wrap').attr({ 'data-assignment-id': assignment_id, 'data-topic-id': topic_id }).addClass('show');
                 },
                 complete: function () {
-                    quicktags({ id: "tutor_assignments_modal_editor" });
                     $that.removeClass('tutor-updating-message');
                 }
             });

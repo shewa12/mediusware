@@ -88,7 +88,9 @@ class Zoom {
      * Enqueue admin scripts
      */
     public function admin_scripts() {
-        wp_enqueue_script('tutor_zoom_admin_js', TUTOR_ZOOM()->url . 'assets/js/admin.js', array('jquery'), TUTOR_ZOOM_VERSION, true);
+        wp_enqueue_script('tutor_zoom_timepicker_js', TUTOR_ZOOM()->url . 'assets/js/jquery-ui-timepicker.js', array('jquery', 'jquery-ui-datepicker', 'jquery-ui-slider'), TUTOR_ZOOM_VERSION, true);
+        wp_enqueue_script('tutor_zoom_admin_js', TUTOR_ZOOM()->url . 'assets/js/admin.js', array('jquery', 'jquery-ui-datepicker'), TUTOR_ZOOM_VERSION, true);
+        wp_enqueue_style('tutor_zoom_timepicker_css', TUTOR_ZOOM()->url . 'assets/css/jquery-ui-timepicker.css', false, TUTOR_ZOOM_VERSION);
         wp_enqueue_style('tutor_zoom_admin_css', TUTOR_ZOOM()->url . 'assets/css/admin.css', false, TUTOR_ZOOM_VERSION);
     }
 
@@ -118,7 +120,7 @@ class Zoom {
                     <div><?php _e('Connect with your students using Zoom', 'tutor-pro'); ?></div>
                 </div>
                 <div class="zoom-icon-button">
-                    <a class="button button-primary tutor-create-zoom-meeting-btn" data-topic-id="0"><img src="<?php echo TUTOR_ZOOM()->url.'assets/images/meeting.svg'; ?>" alt="Zoom"/> <?php _e('Create a Zoom Meeting', 'tutor-pro'); ?></a>
+                    <a class="button button-primary tutor-zoom-meeting-modal-open-btn" data-topic-id="0"><img src="<?php echo TUTOR_ZOOM()->url.'assets/images/meeting.svg'; ?>" alt="Zoom"/> <?php _e('Create a Zoom Meeting', 'tutor-pro'); ?></a>
                 </div>
             </div>
         <?php
@@ -131,7 +133,7 @@ class Zoom {
         $api_secret = (!empty($settings['api_secret'])) ? $settings['api_secret'] : '';
         if (!empty($api_key) && !empty($api_secret)) {
         ?>
-            <a href="javascript:;" class="tutor-create-zoom-meeting-btn" data-topic-id="<?php echo $topic_id; ?>">
+            <a href="javascript:;" class="tutor-zoom-meeting-modal-open-btn" data-topic-id="<?php echo $topic_id; ?>">
                 <i class="tutor-icon-plus-square-button"></i>
                 <?php _e('Zoom Meeting',	'tutor-pro'); ?>
             </a>
@@ -147,11 +149,28 @@ class Zoom {
 		$topic_id = (int) sanitize_text_field( $_POST['topic_id'] );
 
 		if ($meeting_id) {
-		    $post = get_post($meeting_id);
-		}
+            $post = get_post($meeting_id);
+            $meeting_data = get_post_meta( $meeting_id, 'tutor_zoom_data', true );
+        }
+
+        /* $host_id                    = ;
+        $title                      = ! empty( $_POST[ 'meeting_title' ] ) ? sanitize_text_field( $_POST[ 'meeting_title' ] ) : '';
+        $summery                    = ! empty( $_POST[ 'meeting_summery' ] ) ? sanitize_text_field( $_POST[ 'meeting_summery' ] ) : '';
+        $timezone                   = ! empty( $_POST[ 'meeting_timezone' ] ) ? sanitize_text_field( $_POST[ 'meeting_timezone' ] ) : '';
+        $start_date                 = ! empty( $_POST[ 'meeting_date' ] ) ? apply_filters('tutor_sanitize_meeting_date', $_POST['meeting_date']) : '';
+        $start_time                 = ! empty( $_POST[ 'meeting_time' ] ) ? sanitize_text_field( $_POST[ 'meeting_time' ] ) : '';
+        $duration                   = ! empty( $_POST[ 'meeting_duration' ] ) ? intval( $_POST[ 'meeting_duration' ] ) : 60;
+        $password                   = ! empty( $_POST[ 'meeting_password' ] ) ? sanitize_text_field( $_POST[ 'meeting_password' ] ) : '';
+        
+        $join_before_host           = ($this->get_settings('join_before_host')) ? true : false;
+        $host_video                 = ($this->get_settings('host_video')) ? true : false;
+        $participants_video         = ($this->get_settings('participants_video')) ? true : false;
+        $mute_participants          = ($this->get_settings('mute_participants')) ? true : false;
+        $enforce_login              = ($this->get_settings('enforce_login')) ? true : false;
+        $auto_recording             = !empty( $_POST['auto_recording'] ) ? true : false; */
 
 		ob_start();
-		include  TUTOR_ASSIGNMENTS()->path.'views/modal/meeting.php';
+		include  TUTOR_ZOOM()->path.'views/modal/meeting.php';
 		$output = ob_get_clean();
 
 		wp_send_json_success(array('output' => $output));
@@ -182,7 +201,7 @@ class Zoom {
             $participants_video         = ($this->get_settings('participants_video')) ? true : false;
             $mute_participants          = ($this->get_settings('mute_participants')) ? true : false;
             $enforce_login              = ($this->get_settings('enforce_login')) ? true : false;
-            $auto_recording             = !empty( $_POST[ 'auto_recording' ] ) ? true : false;
+            $auto_recording             = !empty( $_POST['auto_recording'] ) ? true : false;
     
             $start_date = $this->current_date($start_date, $timezone);
 
@@ -207,7 +226,7 @@ class Zoom {
                     'participant_video' => $participants_video,
                     'mute_upon_entry'   => $mute_participants,
                     'auto_recording'    => $auto_recording,
-                    'enforce_login'    => $enforce_login,
+                    'enforce_login'     => $enforce_login,
                 )
             );
 
